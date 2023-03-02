@@ -6,7 +6,7 @@
 
 dae::FPSCounter::FPSCounter()
 {
-	const std::shared_ptr<Font> font{ new Font("C:/Users/mende/OneDrive/Bureaublad/Game dev stuff/Programming4/Week1/minigin-1.1.1/Data/lingua.otf",
+	const std::shared_ptr<Font> font{ new Font("C:/Users/mende/OneDrive/Bureaublad/Game dev stuff/Programming4/GameEngineProg4/Data/lingua.otf",
 												20)};
 	m_pText = new TextObject(std::string(), font);
 
