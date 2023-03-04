@@ -94,31 +94,34 @@ void dae::Minigin::Run(const std::function<void()>& load)
 	// todo FINISHED I THINK: this update loop could use some work.
 
 	bool doContinue = true;
-	constexpr long long msPerFrame{ 10LL };
+	constexpr float fixedTimeStep{ 0.005f }; // 200 times per second
+	constexpr float maxFrameTime{ 0.01f }; // cap fps at 100
 	float lag{};
 
 	while (doContinue)
 	{
+		const auto frameStart{ std::chrono::high_resolution_clock::now() };
+
 		time.Update();
+		lag += time.GetDelta();
+
 		doContinue = input.ProcessInput();
 		sceneManager.Update();
-		
 
-		// CATCH UP FOR LAG
-		lag += time.GetDelta();
-		while (lag * 1000 >= msPerFrame)
+		while (lag >= fixedTimeStep)
 		{
-			//sceneManager.FixedUpdate(float(msPerFrame) / 1000.f);
-			lag -= float(msPerFrame)/1000.f;
+			//sceneManager.FixedUpdate(fixedTimeStep);
+			lag -= fixedTimeStep;
 		}
 
 		renderer.Render();
 
+		const float frameTime{ std::chrono::duration<float>(std::chrono::high_resolution_clock::now() - frameStart).count() };
+		const float sleepTime{ maxFrameTime - frameTime };
 		// CAP FPS IF NEEDED
-		const auto sleepTime = std::chrono::milliseconds(msPerFrame - LONGLONG(time.GetDelta() * 1000));
-		if (sleepTime > std::chrono::milliseconds(0LL))
+		if (sleepTime > 0.f)
 		{
-			std::this_thread::sleep_for(sleepTime);
+			std::this_thread::sleep_for(std::chrono::milliseconds(static_cast<LONGLONG>(sleepTime * 1000)));
 		}
 	}
 }
