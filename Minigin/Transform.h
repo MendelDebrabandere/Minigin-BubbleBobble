@@ -1,14 +1,34 @@
 #pragma once
 #include <glm/glm.hpp>
+#include "Component.h"
 
 namespace dae
 {
-	class Transform final
+	class Transform final : public Component
 	{
 	public:
-		const glm::vec3& GetPosition() const { return m_position; }
-		void SetPosition(float x, float y, float z);
+		Transform() = default;
+		virtual ~Transform() = default;
+
+		Transform(const Transform& other) = delete;
+		Transform(Transform&& other) = delete;
+		Transform& operator=(const Transform& other) = delete;
+		Transform& operator=(Transform&& other) = delete;
+
+		const glm::vec2& GetLocalPosition() const { return m_LocalPosition; }
+		const glm::vec2& GetWorldPosition();
+		void SetLocalPosition(float x, float y);
+		void SetLocalPosition(const glm::vec2& position);
+		void SetWorldPosition(float x, float y);
+		void SetWorldPosition(const glm::vec2& position);
+		void Translate(float x, float y);
 	private:
-		glm::vec3 m_position;
+		void EnableChangedFlag();
+		void UpdateWorldPosition();
+
+		glm::vec2 m_LocalPosition{};
+		glm::vec2 m_WorldPosition{};
+
+		bool m_HasChanged{};
 	};
 }

@@ -1,5 +1,8 @@
 #pragma once
 #include <memory>
+#include <vector>
+
+#include "TextureComponent.h"
 #include "Transform.h"
 
 namespace dae
@@ -7,38 +10,124 @@ namespace dae
 	class Texture2D;
 	class Component;
 
-	// todo: this should become final.
-	class GameObject 
+	class GameObject final : public std::enable_shared_from_this<GameObject>
 	{
 	public:
-		virtual void Update();
-		virtual void Render() const;
-
-		void SetTexture(const std::string& filename);
-		void SetPosition(float x, float y);
+		void Init();
+		void Update();
+		void Render() const;
 
 		GameObject() = default;
-		virtual ~GameObject();
+		virtual ~GameObject() = default;
 		GameObject(const GameObject& other) = delete;
 		GameObject(GameObject&& other) = delete;
 		GameObject& operator=(const GameObject& other) = delete;
 		GameObject& operator=(GameObject&& other) = delete;
 
-		template <class T>
-		void AddComponent() { m_Component = new T(); }
+		std::shared_ptr<Transform> GetTransform() const { return m_pTransform; }
+		void SetParent(std::shared_ptr<GameObject> pParent);
+		std::shared_ptr<GameObject> GetParent() const;
+		std::shared_ptr<GameObject> GetChild(int index) const;
+		const std::vector<std::weak_ptr<GameObject>>& GetChildren() const { return m_pChildren; }
 
+
+
+
+		template <class T>
+		std::shared_ptr<T> AddComponent();
+
+		template <class T>
 		bool RemoveComponent();
 
 		template <class T>
-		T GetComponent() { return m_Component; }
+		std::shared_ptr<T> GetComponent();
 
+		template <class T>
 		bool HasComponent() const;
 
 	private:
-		Transform m_transform{};
-		// todo: mmm, every gameobject has a texture? Is that correct?
+		std::weak_ptr<GameObject> m_pParent{};
+		std::vector<std::weak_ptr<GameObject>> m_pChildren{};
+
+		std::shared_ptr<Transform> m_pTransform{};
 		std::shared_ptr<Texture2D> m_texture{};
 
-		Component* m_Component{ nullptr };
+		std::vector<std::shared_ptr<Component>> m_Components{};
+		std::vector<std::shared_ptr<TextureComponent>> m_pTextures{};
 	};
+
+
+
+
+
+
+
+	template<class T>
+	inline std::shared_ptr<T> dae::GameObject::AddComponent()
+	{
+		static_assert(std::is_base_of<Component, T>(), "T needs to be derived from the Component class");
+
+		if (HasComponent<T>())
+		{
+			assert("This component has already been added");
+		}
+
+		const auto pComponent{ std::make_shared<T>() };
+
+		pComponent->SetOwner(weak_from_this());
+
+		// Try casting the new component to a RenderComponent, if this succeeds, add this component to the container of render components
+		std::shared_ptr<TextureComponent> pAsRenderComponent{ std::dynamic_pointer_cast<TextureComponent>(pComponent) };
+		if (pAsRenderComponent)
+		{
+			m_pTextures.push_back(pAsRenderComponent);
+		}
+
+		m_Components.push_back(pComponent);
+
+		return pComponent;
+	}
+
+	template <class T>
+	inline bool GameObject::RemoveComponent()
+	{
+		static_assert(std::is_base_of<Component, T>(), "T needs to be derived from the Component class");
+
+		for (const auto component : m_Components)
+		{
+			if (std::dynamic_pointer_cast<T>(component))
+			{
+				//component->Destroy();
+				return true;
+			}
+		}
+		return false;
+	}
+
+	template<class T>
+	inline std::shared_ptr<T> dae::GameObject::GetComponent()
+	{
+		static_assert(std::is_base_of<Component, T>(), "T needs to be derived from the Component class");
+
+		for (const auto component : m_Components)
+		{
+			if (std::dynamic_pointer_cast<T>(component))
+				return std::dynamic_pointer_cast<T>(component);
+		}
+
+		return nullptr;
+	}
+
+	template <class T>
+	inline bool dae::GameObject::HasComponent() const
+	{
+		static_assert(std::is_base_of<Component, T>(), "T needs to be derived from the Component class");
+
+		for (const auto component : m_Components)
+		{
+			if (std::dynamic_pointer_cast<T>(component))
+				return true;
+		}
+		return false;
+	}
 }
