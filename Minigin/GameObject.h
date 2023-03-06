@@ -97,7 +97,7 @@ namespace dae
 		{
 			if (std::dynamic_pointer_cast<T>(component))
 			{
-				//component->Destroy();
+				delete component;
 				return true;
 			}
 		}

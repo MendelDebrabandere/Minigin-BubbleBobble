@@ -32,10 +32,8 @@ void dae::GameObject::SetParent(std::shared_ptr<GameObject> pParent)
 	std::shared_ptr<GameObject> pOldParent{};
 	if (m_pParent.expired()) pOldParent = m_pParent.lock();
 
-	// If this GO has a parent
 	if (pOldParent)
 	{
-		// If the newly assigned parent is the same as the current parent, do nothing
 		if (pOldParent == pParent) return;
 
 		// Remove itself from the children list of the previous parent
@@ -51,30 +49,29 @@ void dae::GameObject::SetParent(std::shared_ptr<GameObject> pParent)
 			}
 		}
 	}
-	else
+	else if(!pParent)
 	{
-		// If there is no previous parent, and the new parent is also null, do nothing
-		if (!pParent) return;
+		return;
 	}
 
-	// Set the parent of this GO
+	
 	m_pParent = pParent;
 
-	// Add itself to the children list of the new parent
-	if (pParent) pParent->m_pChildren.push_back(weak_from_this());
+	if (pParent)
+		pParent->m_pChildren.push_back(weak_from_this());
 
-	// Get the transform
 	auto pTransform{ GetTransform() };
-	if (!pTransform) return;
+	if (!pTransform)
+		return;
 
-	// If a new parent is assigned
 	if (pParent)
 	{
 		// Set the local position to the position relative to the new parent
 		auto pParentTransform{ pParent->GetTransform() };
-		if (pParentTransform) pTransform->SetLocalPosition(pTransform->GetWorldPosition() - pParentTransform->GetWorldPosition());
+		if (pParentTransform)
+			pTransform->SetLocalPosition(pTransform->GetWorldPosition() - pParentTransform->GetWorldPosition());
 	}
-	else // We removed the parent
+	else
 	{
 		// Set the local position to the world position
 		pTransform->SetLocalPosition(pTransform->GetWorldPosition());
