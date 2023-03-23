@@ -1,5 +1,5 @@
 #include "TextureComponent.h"
-#include <glm/vec2.hpp>
+
 #include "Renderer.h"
 #include "Transform.h"
 

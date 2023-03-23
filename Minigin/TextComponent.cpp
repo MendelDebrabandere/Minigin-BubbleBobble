@@ -1,6 +1,6 @@
 #include "TextComponent.h"
-#include <SDL_ttf.h>
 #include <stdexcept>
+#include <SDL_ttf.h>
 #include "Font.h"
 #include "GameObject.h"
 #include "Renderer.h"

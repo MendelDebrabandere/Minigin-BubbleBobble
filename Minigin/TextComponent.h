@@ -1,7 +1,5 @@
 #pragma once
-#include <SDL_pixels.h>
 #include <string>
-
 #include "Component.h"
 
 namespace dae
