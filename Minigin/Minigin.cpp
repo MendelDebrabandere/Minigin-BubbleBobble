@@ -91,12 +91,11 @@ void dae::Minigin::Run(const std::function<void()>& load)
 	auto& input = InputManager::GetInstance();
 	auto& time = Time::GetInstance();
 
-	// todo FINISHED I THINK: this update loop could use some work.
-
 	bool doContinue = true;
 	constexpr float fixedTimeStep{ 0.005f }; // 200 times per second
 	constexpr float maxFrameTime{ 0.01f }; // cap fps at 100
 	float lag{};
+	time.SetFixedTimeStep(fixedTimeStep);
 
 	while (doContinue)
 	{
@@ -110,7 +109,7 @@ void dae::Minigin::Run(const std::function<void()>& load)
 
 		while (lag >= fixedTimeStep)
 		{
-			//sceneManager.FixedUpdate(fixedTimeStep);
+			sceneManager.FixedUpdate();
 			lag -= fixedTimeStep;
 		}
 

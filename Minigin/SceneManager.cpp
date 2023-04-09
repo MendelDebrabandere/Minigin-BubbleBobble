@@ -17,6 +17,14 @@ void dae::SceneManager::Render()
 	}
 }
 
+void dae::SceneManager::FixedUpdate()
+{
+	for (auto& scene : m_scenes)
+	{
+		scene->FixedUpdate();
+	}
+}
+
 dae::Scene& dae::SceneManager::CreateScene(const std::string& name)
 {
 	const auto& scene = std::shared_ptr<Scene>(new Scene(name));

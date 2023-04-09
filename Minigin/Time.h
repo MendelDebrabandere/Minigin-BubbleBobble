@@ -8,12 +8,15 @@ namespace dae
 	{
 	public:
 		void Init();
+		void SetFixedTimeStep(float fixedTimeStep);
+
 		void Update();
 
 		float GetDelta() const { return m_DeltaTime; }
 	private:
 		std::chrono::steady_clock::time_point m_LastTime{};
 		float m_DeltaTime{};
+		float m_FixedTimeStep{};
 	};
 }
 

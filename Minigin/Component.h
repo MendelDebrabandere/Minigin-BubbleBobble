@@ -20,11 +20,8 @@ namespace dae
 		virtual void Render() {}
 
 		virtual void Update() {}
-		virtual void LateUpdate() {}
 		virtual void FixedUpdate() {}
 
-		//template<class T>
-		//std::shared_ptr<T> GetComponent() const;
 		std::shared_ptr<Transform> GetTransform() const;
 		std::shared_ptr<GameObject> GetOwner() const;
 		void SetOwner(std::weak_ptr<GameObject> pParent);
@@ -33,15 +30,4 @@ namespace dae
 
 		std::weak_ptr<GameObject> m_pOwner{};
 	};
-
-	//template<class T>
-	//inline std::shared_ptr<T> Component::GetComponent() const
-	//{
-	//	static_assert(std::is_base_of<Component, T>(), "T needs to be derived from the Component class");
-
-	//	if (m_pOwner.expired())
-	//		return nullptr;
-
-	//	return m_pOwner.lock()->GetComponent<T>();
-	//}
 }

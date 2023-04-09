@@ -6,7 +6,7 @@ namespace dae
 	class Command
 	{
 	public:
-		explicit Command(GameObject* go){ m_pGameObject = go; }
+		explicit Command() = default;
 		virtual ~Command() = default;
 		Command(const Command& other) = delete;
 		Command& operator=(const Command& rhs) = delete;
@@ -14,18 +14,66 @@ namespace dae
 		Command& operator=(Command&& rhs) = delete;
 
 
-		virtual void Execute(unsigned int controllerIdx) = 0;
-	protected:
-		GameObject* m_pGameObject{};
+		virtual void Execute() = 0;
 	};
 
-	class MoveCommand final: public Command
+#pragma region MoveCommands
+	class MoveUpCommand final: public Command
 	{
 	public:
-		explicit MoveCommand(GameObject* go):Command(go) {}
+		explicit MoveUpCommand(GameObject* go, float speed)
+			:m_pGo{go}
+			,m_Speed{speed}
+			{}
 
-		void Execute(unsigned int controllerIdx) override;
+		void Execute() override;
+	private:
+		GameObject* m_pGo{};
+		float m_Speed{};
 	};
+
+	class MoveDownCommand final : public Command
+	{
+	public:
+		explicit MoveDownCommand(GameObject* go, float speed)
+			:m_pGo{ go }
+			, m_Speed{ speed }
+		{}
+
+		void Execute() override;
+	private:
+		GameObject* m_pGo{};
+		float m_Speed{};
+	};
+
+	class MoveLeftCommand final : public Command
+	{
+	public:
+		explicit MoveLeftCommand(GameObject* go, float speed)
+			:m_pGo{ go }
+			, m_Speed{ speed }
+		{}
+
+		void Execute() override;
+	private:
+		GameObject* m_pGo{};
+		float m_Speed{};
+	};
+
+	class MoveRightCommand final : public Command
+	{
+	public:
+		explicit MoveRightCommand(GameObject* go, float speed)
+			:m_pGo{ go }
+			, m_Speed{ speed }
+		{}
+
+		void Execute() override;
+	private:
+		GameObject* m_pGo{};
+		float m_Speed{};
+	};
+#pragma endregion
 }
 
 

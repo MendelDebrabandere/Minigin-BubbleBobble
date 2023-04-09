@@ -1,25 +1,39 @@
-#include <string>
 #include "GameObject.h"
 #include "ResourceManager.h"
-#include "Renderer.h"
 #include "Component.h"
 
 using namespace dae;
 
-void dae::GameObject::Init()
+void GameObject::Init()
 {
 	m_pTransform = AddComponent<Transform>();
 }
 
-void dae::GameObject::Update()
+void GameObject::Update()
 {
 	for (const auto component : m_Components)
 	{
 		component->Update();
 	}
-}  
+	for (auto child : m_pChildren)
+	{
+		child.lock()->Update();
+	}
+}
 
-void dae::GameObject::Render() const
+void GameObject::FixedUpdate()
+{
+	for (const auto component : m_Components)
+	{
+		component->FixedUpdate();
+	}
+	for (auto child : m_pChildren)
+	{
+		child.lock()->FixedUpdate();
+	}
+}
+
+void GameObject::Render() const
 {
 	for (const auto& pRenderComponent : m_pTextures)
 	{
@@ -27,7 +41,7 @@ void dae::GameObject::Render() const
 	}
 }
 
-void dae::GameObject::SetParent(std::shared_ptr<GameObject> pParent)
+void GameObject::SetParent(std::shared_ptr<GameObject> pParent)
 {
 	std::shared_ptr<GameObject> pOldParent{};
 	if (m_pParent.expired()) pOldParent = m_pParent.lock();
@@ -79,9 +93,20 @@ void dae::GameObject::SetParent(std::shared_ptr<GameObject> pParent)
 
 }
 
-std::shared_ptr<GameObject> dae::GameObject::GetParent() const
+std::shared_ptr<GameObject> GameObject::GetParent() const
 {
 	if (m_pParent.expired()) return nullptr;
 
 	return m_pParent.lock();
+}
+
+void GameObject::Destroy()
+{
+	m_IsMarkedDead = true;
+
+	// Destroy all children
+	for (auto child : m_pChildren)
+	{
+		child.lock()->Destroy();
+	}
 }

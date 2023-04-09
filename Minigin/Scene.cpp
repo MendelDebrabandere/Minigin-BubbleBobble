@@ -32,6 +32,14 @@ void Scene::Update()
 	}
 }
 
+void Scene::FixedUpdate()
+{
+	for (auto& object : m_objects)
+	{
+		object->FixedUpdate();
+	}
+}
+
 void Scene::Render() const
 {
 	for (const auto& object : m_objects)
@@ -40,3 +48,12 @@ void Scene::Render() const
 	}
 }
 
+void Scene::UpdateCleanup()
+{
+	// Remove gameobjects from their container if they are marked as dead
+	m_objects.erase(std::remove_if(begin(m_objects), end(m_objects), [](const auto& pGameObject)
+		{
+			return pGameObject->IsMarkedAsDead();
+		}), end(m_objects));
+
+}

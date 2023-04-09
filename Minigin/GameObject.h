@@ -15,10 +15,11 @@ namespace dae
 	public:
 		void Init();
 		void Update();
+		void FixedUpdate();
 		void Render() const;
 
 		GameObject() = default;
-		virtual ~GameObject() = default;
+		~GameObject() = default;
 		GameObject(const GameObject& other) = delete;
 		GameObject(GameObject&& other) = delete;
 		GameObject& operator=(const GameObject& other) = delete;
@@ -27,11 +28,10 @@ namespace dae
 		std::shared_ptr<Transform> GetTransform() const { return m_pTransform; }
 		void SetParent(std::shared_ptr<GameObject> pParent);
 		std::shared_ptr<GameObject> GetParent() const;
-		std::shared_ptr<GameObject> GetChild(int index) const;
 		const std::vector<std::weak_ptr<GameObject>>& GetChildren() const { return m_pChildren; }
 
-
-
+		void Destroy();
+		bool IsMarkedAsDead() const { return m_IsMarkedDead; };
 
 		template <class T>
 		std::shared_ptr<T> AddComponent();
@@ -54,6 +54,8 @@ namespace dae
 
 		std::vector<std::shared_ptr<Component>> m_Components{};
 		std::vector<std::shared_ptr<TextureComponent>> m_pTextures{};
+
+		bool m_IsMarkedDead{};
 	};
 
 

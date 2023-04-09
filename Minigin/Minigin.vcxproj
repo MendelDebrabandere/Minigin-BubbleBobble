@@ -178,14 +178,6 @@
     <PostBuildEvent />
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="..\3rdParty\imgui\backends\imgui_impl_opengl2.h" />
-    <ClInclude Include="..\3rdParty\imgui\backends\imgui_impl_sdl2.h" />
-    <ClInclude Include="..\3rdParty\imgui\imconfig.h" />
-    <ClInclude Include="..\3rdParty\imgui\imgui.h" />
-    <ClInclude Include="..\3rdParty\imgui\imgui_internal.h" />
-    <ClInclude Include="..\3rdParty\imgui\imstb_rectpack.h" />
-    <ClInclude Include="..\3rdParty\imgui\imstb_textedit.h" />
-    <ClInclude Include="..\3rdParty\imgui\imstb_truetype.h" />
     <ClInclude Include="Command.h" />
     <ClInclude Include="Font.h" />
     <ClInclude Include="FPSCounter.h" />
@@ -207,13 +199,6 @@
     <ClInclude Include="XBox360Controller.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\3rdParty\imgui\backends\imgui_impl_opengl2.cpp" />
-    <ClCompile Include="..\3rdParty\imgui\backends\imgui_impl_sdl2.cpp" />
-    <ClCompile Include="..\3rdParty\imgui\imgui.cpp" />
-    <ClCompile Include="..\3rdParty\imgui\imgui_demo.cpp" />
-    <ClCompile Include="..\3rdParty\imgui\imgui_draw.cpp" />
-    <ClCompile Include="..\3rdParty\imgui\imgui_tables.cpp" />
-    <ClCompile Include="..\3rdParty\imgui\imgui_widgets.cpp" />
     <ClCompile Include="Command.cpp" />
     <ClCompile Include="Font.cpp" />
     <ClCompile Include="FPSCounter.cpp" />

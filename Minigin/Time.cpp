@@ -6,6 +6,11 @@ void dae::Time::Init()
 	m_LastTime = std::chrono::high_resolution_clock::now();
 }
 
+void dae::Time::SetFixedTimeStep(float fixedTimeStep)
+{
+	m_FixedTimeStep = fixedTimeStep;
+}
+
 void dae::Time::Update()
 {
 	// Get the current time
