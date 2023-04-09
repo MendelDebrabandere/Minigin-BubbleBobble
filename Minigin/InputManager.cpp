@@ -5,32 +5,56 @@ using namespace dae;
 
 bool InputManager::ProcessInput()
 {
+	//Keyboard part
 	SDL_Event e;
 	while (SDL_PollEvent(&e)) {
 		if (e.type == SDL_QUIT) {
 			return false;
 		}
+		//Keyboard OnDown and OnRelease
 		for (auto& mapPair : m_KeyboardActionMap)
 		{
-			if (mapPair.first == unsigned(e.key.keysym.sym))
+			if (unsigned int(e.key.keysym.sym) == mapPair.first.key)
 			{
-				mapPair.second->Execute();
+				if (mapPair.first.type == InputType::OnDown && e.type == SDL_KEYDOWN)
+					mapPair.second->Execute();
+
+				else if (mapPair.first.type == InputType::OnRelease && e.type == SDL_KEYUP)
+					mapPair.second->Execute();
 			}
 		}
 	}
 
+	//Keyboard Pressed continuously
+	const Uint8* state = SDL_GetKeyboardState(nullptr);
+	for (auto& mapPair : m_KeyboardActionMap)
+	{
+		if (mapPair.first.type == InputType::Pressed)
+		{
+			if (state[SDL_GetScancodeFromKey(mapPair.first.key)])
+				mapPair.second->Execute();
+		}
+	}
+
+
+
+	//Controller part
 	for (auto& controller: m_ControllerPtrs)
 	{
 		controller->Update();
 
 		for (auto& mapPair: m_ControllerActionMap)
 		{
-			if (mapPair.first.first == controller->GetIdx())
+			if (mapPair.first.controllerID == controller->GetIdx())
 			{
-				if (controller->IsPressed(mapPair.first.second))
-				{
+				if (mapPair.first.type == InputType::OnDown && controller->IsDown(mapPair.first.button))
 					mapPair.second->Execute();
-				}
+
+				else if (mapPair.first.type == InputType::Pressed && controller->IsPressed(mapPair.first.button))
+					mapPair.second->Execute();
+
+				else if (mapPair.first.type == InputType::OnRelease && controller->IsUp(mapPair.first.button))
+					mapPair.second->Execute();
 			}
 		}
 	}
@@ -51,7 +75,7 @@ XBox360Controller* InputManager::GetController(unsigned int controllerIdx)
 }
 
 
-void InputManager::AddControllerCommand(XBox360Controller::ControllerButton button, unsigned int controllerID, std::unique_ptr<Command> pCommand)
+void InputManager::AddControllerCommand(XBox360Controller::ControllerButton button, unsigned int controllerID, InputType type, std::unique_ptr<Command> pCommand)
 {
 	//does controller exist yet?
 	bool doesControllerExist{ false };
@@ -71,11 +95,13 @@ void InputManager::AddControllerCommand(XBox360Controller::ControllerButton butt
 	}
 
 	//make the action and add it to the map
-	m_ControllerActionMap[std::pair(controllerID, button)] = std::move(pCommand);
+	InputDataController inputData{ controllerID, button, type };
+	m_ControllerActionMap[inputData] = std::move(pCommand);
 }
 
-void InputManager::AddKeyboardCommand(unsigned int keyboardKey, std::unique_ptr<Command> pCommand)
+void InputManager::AddKeyboardCommand(unsigned int keyboardKey, InputType type, std::unique_ptr<Command> pCommand)
 {
 	//make the action and add it to the map
-	m_KeyboardActionMap[keyboardKey] = std::move(pCommand);
+	InputDataKeyboard inputData{ keyboardKey, type };
+	m_KeyboardActionMap[inputData] = std::move(pCommand);
 }

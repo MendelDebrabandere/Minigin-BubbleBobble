@@ -1,6 +1,7 @@
 #pragma once
-#include <memory>
 #include <map>
+#include <memory>
+
 #include "Singleton.h"
 #include "XBox360Controller.h"
 #include "Command.h"
@@ -15,20 +16,54 @@ namespace dae
 
 		XBox360Controller* GetController(unsigned int controllerIdx);
 
-		void AddControllerCommand(XBox360Controller::ControllerButton button, unsigned int controllerID, std::unique_ptr<Command> pCommand);
-		void AddKeyboardCommand(unsigned int keyboardKey, std::unique_ptr<Command> pCommand);
-
 		enum class InputType
 		{
-			OnKeyDown,
+			OnDown,
 			Pressed,
 			OnRelease
 		};
 
+		void AddControllerCommand(XBox360Controller::ControllerButton button, unsigned int controllerID, InputType type, std::unique_ptr<Command> pCommand);
+		void AddKeyboardCommand(unsigned int keyboardKey, InputType type, std::unique_ptr<Command> pCommand);
+
 	private:
-		std::map<std::pair<unsigned int, XBox360Controller::ControllerButton>, std::unique_ptr<Command>> m_ControllerActionMap{};
+		struct InputDataController
+		{
+			unsigned int controllerID{};
+			XBox360Controller::ControllerButton button{};
+			InputType type{};
+
+			// Custom less-than operator for std::map
+			bool operator<(const InputDataController& other) const
+			{
+				if (controllerID < other.controllerID) return true;
+				if (controllerID > other.controllerID) return false;
+
+				if (button < other.button) return true;
+				if (button > other.button) return false;
+
+				return type < other.type;
+			}
+		};
+
+		struct InputDataKeyboard
+		{
+			unsigned int key{};
+			InputType type{};
+
+			// Custom less-than operator for std::map
+			bool operator<(const InputDataKeyboard& other) const
+			{
+				if (key < other.key) return true;
+				if (key > other.key) return false;
+
+				return type < other.type;
+			}
+		};
+
+		std::map<InputDataController, std::unique_ptr<Command>> m_ControllerActionMap{};
 		std::vector<std::unique_ptr<XBox360Controller>> m_ControllerPtrs{};
 
-		std::map<unsigned int, std::unique_ptr<Command>> m_KeyboardActionMap{};
+		std::map<InputDataKeyboard, std::unique_ptr<Command>> m_KeyboardActionMap{};
 	};
 }
