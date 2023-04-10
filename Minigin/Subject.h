@@ -13,7 +13,9 @@ namespace dae
 	{
 	public:
 		template <class T>
-		void AddObserver();
+		T* AddObserver();
+
+		void RemoveObeserver(Observer* observer);
 
 		void Notify(const GameObject* actor, Observer::Event event);
 
@@ -24,9 +26,13 @@ namespace dae
 
 
 	template<class T>
-	inline void Subject::AddObserver()
+	inline T* Subject::AddObserver()
 	{
-		m_Observers.push_back(std::make_unique<T>());
+		auto uniquePtr = std::make_unique<T>();
+		const auto rawPtr = uniquePtr.get();
+
+		m_Observers.push_back(std::move(uniquePtr));
+		return rawPtr;
 	}
 }
 

@@ -23,7 +23,7 @@ void HealthComponent::Update()
 void HealthComponent::SetMaxHealth(int newMaxHealth)
 {
 	m_MaxHealth = newMaxHealth;
-	Subject::GetInstance().Notify(m_pOwner, Observer::Event::HealthUpdated);
+	SetHealth(m_MaxHealth);
 }
 
 void HealthComponent::SetHealth(int newHealth)
