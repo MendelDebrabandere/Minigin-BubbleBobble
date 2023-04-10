@@ -1,6 +1,7 @@
 #pragma once
 #include <memory>
 #include <vector>
+#include <iostream>
 
 #include "TextureComponent.h"
 #include "Transform.h"
@@ -10,7 +11,7 @@ namespace dae
 	class Texture2D;
 	class Component;
 
-	class GameObject final : public std::enable_shared_from_this<GameObject>
+	class GameObject final
 	{
 	public:
 		void Init();
@@ -25,35 +26,35 @@ namespace dae
 		GameObject& operator=(const GameObject& other) = delete;
 		GameObject& operator=(GameObject&& other) = delete;
 
-		std::shared_ptr<Transform> GetTransform() const { return m_pTransform; }
-		void SetParent(std::shared_ptr<GameObject> pParent);
-		std::shared_ptr<GameObject> GetParent() const;
-		const std::vector<std::shared_ptr<GameObject>>& GetChildren() const { return m_pChildren; }
+		Transform* GetTransform() const { return m_pTransform; }
+		void SetParent(GameObject* pParent);
+		GameObject* GetParent() const;
+		const std::vector<std::unique_ptr<GameObject>>& GetChildren() const { return m_pChildren; }
 
 		void Destroy();
 		bool IsMarkedAsDead() const { return m_IsMarkedDead; };
 
+		GameObject* CreateGameObject();
+
 		template <class T>
-		std::shared_ptr<T> AddComponent();
+		T* AddComponent();
 
 		template <class T>
 		bool RemoveComponent();
 
 		template <class T>
-		std::shared_ptr<T> GetComponent() const;
+		T* GetComponent() const;
 
 		template <class T>
 		bool HasComponent() const;
 
 	private:
-		std::weak_ptr<GameObject> m_pParent{};
-		std::vector<std::shared_ptr<GameObject>> m_pChildren{};
+		GameObject* m_pParent{};
+		std::vector<std::unique_ptr<GameObject>> m_pChildren{};
 
-		std::shared_ptr<Transform> m_pTransform{};
-		std::shared_ptr<Texture2D> m_texture{};
+		Transform* m_pTransform{};
 
-		std::vector<std::shared_ptr<Component>> m_Components{};
-		std::vector<std::shared_ptr<TextureComponent>> m_pTextures{};
+		std::vector<std::unique_ptr<Component>> m_Components{};
 
 		bool m_IsMarkedDead{};
 	};
@@ -61,33 +62,24 @@ namespace dae
 
 
 
-
-
-
 	template<class T>
-	inline std::shared_ptr<T> dae::GameObject::AddComponent()
+	inline T* dae::GameObject::AddComponent()
 	{
 		static_assert(std::is_base_of<Component, T>(), "T needs to be derived from the Component class");
 
 		if (HasComponent<T>())
 		{
-			assert("This component has already been added");
+			std::cout << "Trying to add an already existing component\n";
+			return nullptr;
 		}
 
-		const auto pComponent{ std::make_shared<T>() };
+		std::unique_ptr<T> pComponent = std::make_unique<T>();
+		pComponent->SetOwner(this);
 
-		pComponent->SetOwner(weak_from_this());
+		T* rawPtr = pComponent.get();
+		m_Components.emplace_back(std::move(pComponent));
 
-		// Try casting the new component to a RenderComponent, if this succeeds, add this component to the container of render components
-		std::shared_ptr<TextureComponent> pAsRenderComponent{ std::dynamic_pointer_cast<TextureComponent>(pComponent) };
-		if (pAsRenderComponent)
-		{
-			m_pTextures.push_back(pAsRenderComponent);
-		}
-
-		m_Components.push_back(pComponent);
-
-		return pComponent;
+		return rawPtr;
 	}
 
 	template <class T>
@@ -95,7 +87,7 @@ namespace dae
 	{
 		static_assert(std::is_base_of<Component, T>(), "T needs to be derived from the Component class");
 
-		for (const auto component : m_Components)
+		for (const auto& component : m_Components)
 		{
 			if (std::dynamic_pointer_cast<T>(component))
 			{
@@ -107,14 +99,14 @@ namespace dae
 	}
 
 	template<class T>
-	inline std::shared_ptr<T> dae::GameObject::GetComponent() const
+	inline T* dae::GameObject::GetComponent() const
 	{
 		static_assert(std::is_base_of<Component, T>(), "T needs to be derived from the Component class");
 
-		for (const auto component : m_Components)
+		for (const auto& component : m_Components)
 		{
-			if (std::dynamic_pointer_cast<T>(component))
-				return std::dynamic_pointer_cast<T>(component);
+			if (dynamic_cast<T*>(component.get()))
+				return dynamic_cast<T*>(component.get());
 		}
 
 		return nullptr;
@@ -125,9 +117,9 @@ namespace dae
 	{
 		static_assert(std::is_base_of<Component, T>(), "T needs to be derived from the Component class");
 
-		for (const auto component : m_Components)
+		for (const auto& component : m_Components)
 		{
-			if (std::dynamic_pointer_cast<T>(component))
+			if (dynamic_cast<T*>(component.get()))
 				return true;
 		}
 		return false;

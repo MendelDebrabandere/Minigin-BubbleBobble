@@ -34,7 +34,7 @@ namespace dae
 
 		bool m_HasChanged{};
 
-		std::weak_ptr<TextureComponent> m_pTextureRenderer{};
+		TextureComponent* m_pTextureRenderer{};
 	};
 
 }

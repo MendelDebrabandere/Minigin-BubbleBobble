@@ -11,11 +11,11 @@ void GameObject::Init()
 
 void GameObject::Update()
 {
-	for (const auto component : m_Components)
+	for (const auto& component : m_Components)
 	{
 		component->Update();
 	}
-	for (auto child : m_pChildren)
+	for (const auto& child : m_pChildren)
 	{
 		child->Update();
 	}
@@ -23,11 +23,11 @@ void GameObject::Update()
 
 void GameObject::FixedUpdate()
 {
-	for (const auto component : m_Components)
+	for (const auto& component : m_Components)
 	{
 		component->FixedUpdate();
 	}
-	for (auto child : m_pChildren)
+	for (const auto& child : m_pChildren)
 	{
 		child->FixedUpdate();
 	}
@@ -35,20 +35,19 @@ void GameObject::FixedUpdate()
 
 void GameObject::Render() const
 {
-	for (const auto& pRenderComponent : m_pTextures)
+	for (const auto& pComponent : m_Components)
 	{
-		pRenderComponent->Render();
+		pComponent->Render();
 	}
-	for (auto child : m_pChildren)
+	for (const auto& child : m_pChildren)
 	{
 		child->Render();
 	}
 }
 
-void GameObject::SetParent(std::shared_ptr<GameObject> pParent)
+void GameObject::SetParent(GameObject* pParent)
 {
-	std::shared_ptr<GameObject> pOldParent{};
-	if (m_pParent.expired()) pOldParent = m_pParent.lock();
+	GameObject* pOldParent{};
 
 	if (pOldParent)
 	{
@@ -57,11 +56,11 @@ void GameObject::SetParent(std::shared_ptr<GameObject> pParent)
 		// Remove itself from the children list of the previous parent
 		for (int i{ static_cast<int>(pOldParent->m_pChildren.size() - 1) }; i >= 0; --i)
 		{
-			const auto pChild{ pOldParent->m_pChildren[i] };
+			const auto& pChild{ pOldParent->m_pChildren[i] };
 
 			if (pChild.get() == this)
 			{
-				pOldParent->m_pChildren[i] = pOldParent->m_pChildren[pOldParent->m_pChildren.size() - 1];
+				pOldParent->m_pChildren[i] = std::move(pOldParent->m_pChildren[pOldParent->m_pChildren.size() - 1]);
 				pOldParent->m_pChildren.pop_back();
 				break;
 			}
@@ -76,7 +75,7 @@ void GameObject::SetParent(std::shared_ptr<GameObject> pParent)
 	m_pParent = pParent;
 
 	if (pParent)
-		pParent->m_pChildren.push_back(shared_from_this());
+		pParent->m_pChildren.push_back(std::unique_ptr<GameObject>(this));
 
 	auto pTransform{ GetTransform() };
 	if (!pTransform)
@@ -97,11 +96,11 @@ void GameObject::SetParent(std::shared_ptr<GameObject> pParent)
 
 }
 
-std::shared_ptr<GameObject> GameObject::GetParent() const
+GameObject* GameObject::GetParent() const
 {
-	if (m_pParent.expired()) return nullptr;
+	if (m_pParent) return nullptr;
 
-	return m_pParent.lock();
+	return m_pParent;
 }
 
 void GameObject::Destroy()
@@ -109,8 +108,21 @@ void GameObject::Destroy()
 	m_IsMarkedDead = true;
 
 	// Destroy all children
-	for (auto child : m_pChildren)
+	for (const auto& child : m_pChildren)
 	{
 		child->Destroy();
 	}
+}
+
+GameObject* GameObject::CreateGameObject()
+{
+	auto pGameObject{ std::make_unique<GameObject>() };
+	pGameObject->Init();
+
+	const auto pGameObjectPtr{ pGameObject.get() };
+
+	pGameObject->m_pParent = this;
+	m_pChildren.push_back(std::move(pGameObject));
+
+	return pGameObjectPtr;
 }

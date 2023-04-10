@@ -32,12 +32,12 @@ void dae::TextComponent::ReloadTexture()
 {
 	if (!m_pFont) return;
 
-	if (m_pTextureRenderer.expired())
+	if (m_pTextureRenderer == nullptr)
 	{
 		m_pTextureRenderer = GetOwner()->GetComponent<TextureComponent>();
 
-		if (m_pTextureRenderer.expired()) return;
-	};
+		if (m_pTextureRenderer == nullptr) return;
+	}
 
 	// Create a texture using the current font, text and color
 	const auto surf = TTF_RenderText_Blended(m_pFont->GetFont(), m_Text.c_str(), SDL_Color{ 255,255,255 });
@@ -53,5 +53,5 @@ void dae::TextComponent::ReloadTexture()
 	SDL_FreeSurface(surf);
 
 	// Set the new texture to the texture renderer
-	m_pTextureRenderer.lock()->SetTexture(std::make_shared<Texture2D>(texture));
+	m_pTextureRenderer->SetTexture(std::make_shared<Texture2D>(texture));
 }

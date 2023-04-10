@@ -23,13 +23,13 @@ void HealthComponent::Update()
 void HealthComponent::SetMaxHealth(int newMaxHealth)
 {
 	m_MaxHealth = newMaxHealth;
-	Subject::GetInstance().Notify(m_pOwner.lock().get(), Observer::Event::HealthUpdated);
+	Subject::GetInstance().Notify(m_pOwner, Observer::Event::HealthUpdated);
 }
 
 void HealthComponent::SetHealth(int newHealth)
 {
 	m_CurrHealth = newHealth;
-	Subject::GetInstance().Notify(m_pOwner.lock().get(), Observer::Event::HealthUpdated);
+	Subject::GetInstance().Notify(m_pOwner, Observer::Event::HealthUpdated);
 }
 
 int HealthComponent::GetHealth() const
@@ -41,13 +41,13 @@ void HealthComponent::DoDamage(int amount)
 {
 	//update HP
 	m_CurrHealth -= amount;
-	Subject::GetInstance().Notify(m_pOwner.lock().get(), Observer::Event::HealthUpdated);
+	Subject::GetInstance().Notify(m_pOwner, Observer::Event::HealthUpdated);
 
 	//if dies
 	if (m_CurrHealth <= 0)
 	{
 		//Destroy
-		m_pOwner.lock()->Destroy();
-		Subject::GetInstance().Notify(m_pOwner.lock().get(), Observer::Event::ActorDied);
+		m_pOwner->Destroy();
+		Subject::GetInstance().Notify(m_pOwner, Observer::Event::ActorDied);
 	}
 }

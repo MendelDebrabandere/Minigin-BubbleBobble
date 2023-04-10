@@ -23,11 +23,11 @@ void dae::FPSCounter::Update()
 		// TEXT PART
 
 		// Get text component if its not there
-		if (m_pText.expired())
+		if (m_pText == nullptr)
 		{
-			m_pText = GetOwner()->GetComponent<dae::TextComponent>();//GetComponent<TextComponent>();
+			m_pText = GetOwner()->GetComponent<TextComponent>();
 
-			if (m_pText.expired()) return;
+			if (m_pText	== nullptr) return;
 		}
 
 		// Update text component
@@ -36,6 +36,6 @@ void dae::FPSCounter::Update()
 		fpsText << m_FPS;
 		fpsText << " FPS";
 
-		m_pText.lock()->SetText(fpsText.str());
+		m_pText->SetText(fpsText.str());
 	}
 }

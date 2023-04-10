@@ -17,16 +17,15 @@ namespace dae
 		Component& operator=(const Component& other) = delete;
 		Component& operator=(Component&& other) = delete;
 
-		virtual void Render() {}
+		virtual void Render() const {}
 
 		virtual void Update() {}
 		virtual void FixedUpdate() {}
 
-		std::shared_ptr<Transform> GetTransform() const;
-		std::shared_ptr<GameObject> GetOwner() const;
-		void SetOwner(std::weak_ptr<GameObject> pParent);
+		GameObject* GetOwner() const;
+		void SetOwner(GameObject* pParent);
 
 	protected:
-		std::weak_ptr<GameObject> m_pOwner{};
+		GameObject* m_pOwner{};
 	};
 }

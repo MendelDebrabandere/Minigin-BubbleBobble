@@ -23,7 +23,7 @@ namespace dae
 		const float m_UpdateInterval{ 1.f };
 		int m_FPS{};
 
-		std::weak_ptr<TextComponent> m_pText{};
+		TextComponent* m_pText{};
 	};
 }
 

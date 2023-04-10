@@ -1,5 +1,7 @@
 #include "TextureComponent.h"
 
+#include "GameObject.h"
+#include "Texture2D.h"
 #include "Renderer.h"
 #include "Transform.h"
 
@@ -14,6 +16,6 @@ void dae::TextureComponent::Render() const
 	if (!m_pTexture) return;
 
 	// Render the current texture at the position defined by the transform
-	const glm::vec2& pos = GetTransform()->GetWorldPosition();
+	const glm::vec2 pos = m_pOwner->GetTransform()->GetWorldPosition();
 	Renderer::GetInstance().RenderTexture(*m_pTexture, pos.x, pos.y);
 }

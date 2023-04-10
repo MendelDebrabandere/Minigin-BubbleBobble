@@ -2,10 +2,11 @@
 #include <SDL_stdinc.h>
 #include "Time.h"
 #include "Transform.h"
+#include "GameObject.h"
 
 void dae::RotatorComponent::Update()
 {
-	const auto pTransform{ GetTransform() };
+	const auto pTransform{ m_pOwner->GetTransform() };
 
 	if (!pTransform) return;
 
