@@ -17,7 +17,7 @@ void GameObject::Update()
 	}
 	for (auto child : m_pChildren)
 	{
-		child.lock()->Update();
+		child->Update();
 	}
 }
 
@@ -29,7 +29,7 @@ void GameObject::FixedUpdate()
 	}
 	for (auto child : m_pChildren)
 	{
-		child.lock()->FixedUpdate();
+		child->FixedUpdate();
 	}
 }
 
@@ -38,6 +38,10 @@ void GameObject::Render() const
 	for (const auto& pRenderComponent : m_pTextures)
 	{
 		pRenderComponent->Render();
+	}
+	for (auto child : m_pChildren)
+	{
+		child->Render();
 	}
 }
 
@@ -53,7 +57,7 @@ void GameObject::SetParent(std::shared_ptr<GameObject> pParent)
 		// Remove itself from the children list of the previous parent
 		for (int i{ static_cast<int>(pOldParent->m_pChildren.size() - 1) }; i >= 0; --i)
 		{
-			const auto pChild{ pOldParent->m_pChildren[i].lock() };
+			const auto pChild{ pOldParent->m_pChildren[i] };
 
 			if (pChild.get() == this)
 			{
@@ -72,7 +76,7 @@ void GameObject::SetParent(std::shared_ptr<GameObject> pParent)
 	m_pParent = pParent;
 
 	if (pParent)
-		pParent->m_pChildren.push_back(weak_from_this());
+		pParent->m_pChildren.push_back(shared_from_this());
 
 	auto pTransform{ GetTransform() };
 	if (!pTransform)
@@ -107,6 +111,6 @@ void GameObject::Destroy()
 	// Destroy all children
 	for (auto child : m_pChildren)
 	{
-		child.lock()->Destroy();
+		child->Destroy();
 	}
 }

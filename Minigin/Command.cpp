@@ -14,7 +14,9 @@ void MoveUpCommand::Execute()
 	vertMovement *= -1;
 
 	//Transform GO
-	m_pGo->GetComponent<Transform>()->Translate(0, vertMovement);
+	auto transform = m_pGo->GetComponent<Transform>();
+	if (transform)
+		transform->Translate(0, vertMovement);
 }
 
 void MoveDownCommand::Execute()
@@ -23,7 +25,9 @@ void MoveDownCommand::Execute()
 	float vertMovement = Time::GetInstance().GetDelta() * m_Speed;
 	
 	//Transform GO
-	m_pGo->GetComponent<Transform>()->Translate(0, vertMovement);
+	auto transform = m_pGo->GetComponent<Transform>();
+	if (transform)
+		transform->Translate(0, vertMovement);
 }
 
 void MoveLeftCommand::Execute()
@@ -35,7 +39,9 @@ void MoveLeftCommand::Execute()
 	horMovement *= -1;
 
 	//Transform GO
-	m_pGo->GetComponent<Transform>()->Translate(horMovement, 0);
+	auto transform = m_pGo->GetComponent<Transform>();
+	if (transform)
+		transform->Translate(horMovement, 0);
 }
 
 void MoveRightCommand::Execute()
@@ -44,6 +50,8 @@ void MoveRightCommand::Execute()
 	float horMovement = Time::GetInstance().GetDelta() * m_Speed;
 
 	//Transform GO
-	m_pGo->GetComponent<Transform>()->Translate(horMovement, 0);
+	auto transform = m_pGo->GetComponent<Transform>();
+	if (transform)
+		transform->Translate(horMovement, 0);
 }
 #pragma endregion

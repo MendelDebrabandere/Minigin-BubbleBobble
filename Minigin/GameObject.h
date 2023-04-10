@@ -28,7 +28,7 @@ namespace dae
 		std::shared_ptr<Transform> GetTransform() const { return m_pTransform; }
 		void SetParent(std::shared_ptr<GameObject> pParent);
 		std::shared_ptr<GameObject> GetParent() const;
-		const std::vector<std::weak_ptr<GameObject>>& GetChildren() const { return m_pChildren; }
+		const std::vector<std::shared_ptr<GameObject>>& GetChildren() const { return m_pChildren; }
 
 		void Destroy();
 		bool IsMarkedAsDead() const { return m_IsMarkedDead; };
@@ -40,14 +40,14 @@ namespace dae
 		bool RemoveComponent();
 
 		template <class T>
-		std::shared_ptr<T> GetComponent();
+		std::shared_ptr<T> GetComponent() const;
 
 		template <class T>
 		bool HasComponent() const;
 
 	private:
 		std::weak_ptr<GameObject> m_pParent{};
-		std::vector<std::weak_ptr<GameObject>> m_pChildren{};
+		std::vector<std::shared_ptr<GameObject>> m_pChildren{};
 
 		std::shared_ptr<Transform> m_pTransform{};
 		std::shared_ptr<Texture2D> m_texture{};
@@ -107,7 +107,7 @@ namespace dae
 	}
 
 	template<class T>
-	inline std::shared_ptr<T> dae::GameObject::GetComponent()
+	inline std::shared_ptr<T> dae::GameObject::GetComponent() const
 	{
 		static_assert(std::is_base_of<Component, T>(), "T needs to be derived from the Component class");
 

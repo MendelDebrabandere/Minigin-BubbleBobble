@@ -26,8 +26,7 @@ namespace dae
 		std::shared_ptr<GameObject> GetOwner() const;
 		void SetOwner(std::weak_ptr<GameObject> pParent);
 
-	private:
-
+	protected:
 		std::weak_ptr<GameObject> m_pOwner{};
 	};
 }

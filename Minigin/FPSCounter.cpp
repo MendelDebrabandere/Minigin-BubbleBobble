@@ -1,5 +1,4 @@
 #include "FPSCounter.h"
-#include <iosfwd>
 
 #include "GameObject.h"
 #include "Time.h"

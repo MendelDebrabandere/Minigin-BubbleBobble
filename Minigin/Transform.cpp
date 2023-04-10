@@ -85,12 +85,8 @@ void dae::Transform::EnableChangedFlag()
 
 	// Change the HasChanged flag of every child
 	const auto& pChildren{ pParent->GetChildren() };
-	for (const auto& pWeakChild : pChildren)
+	for (const auto& pChild : pChildren)
 	{
-		if (pWeakChild.expired()) continue;
-
-		const auto pChild{ pWeakChild.lock() };
-
 		const auto pTransform{ pChild->GetTransform() };
 		if (!pTransform) continue;
 
