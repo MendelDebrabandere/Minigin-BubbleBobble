@@ -15,7 +15,7 @@ namespace dae
 		template <class T>
 		T* AddObserver();
 
-		void RemoveObeserver(Observer* observer);
+		void UpdateCleanup();
 
 		void Notify(const GameObject* actor, Observer::Event event);
 

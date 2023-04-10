@@ -1,5 +1,7 @@
 #include "Scene.h"
 
+#include "Subject.h"
+
 using namespace dae;
 
 unsigned int Scene::m_idCounter = 0;
@@ -67,4 +69,5 @@ void Scene::UpdateCleanup()
 			return pGameObject->IsMarkedAsDead();
 		}), end(m_objects));
 
+	Subject::GetInstance().UpdateCleanup();
 }

@@ -22,5 +22,11 @@ namespace dae
 		Observer& operator=(Observer&& other) = delete;
 
 		virtual void Notify(const GameObject* actor, Event event) = 0;
+
+		void Destroy() { m_MarkedDead = true; }
+		bool IsMarkedDead() const { return m_MarkedDead; }
+
+	protected:
+		bool m_MarkedDead{};
 	};
 }

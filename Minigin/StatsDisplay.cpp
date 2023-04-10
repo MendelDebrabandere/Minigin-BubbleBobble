@@ -58,7 +58,7 @@ void StatsDisplay::Notify(const GameObject* actor, Event event)
 		{
 			//Destroy the gameobject that uses text component for this observer
 			m_pTextObject->Destroy();
-			Subject::GetInstance().RemoveObeserver(this);
+			this->Destroy();
 		break;
 		}
 		}

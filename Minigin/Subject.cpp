@@ -2,11 +2,11 @@
 
 using namespace dae;
 
-void Subject::RemoveObeserver(Observer* observer)
+void Subject::UpdateCleanup()
 {
-	m_Observers.erase(std::remove_if(begin(m_Observers), end(m_Observers), [observer](const auto& uniqueObserver)
+	m_Observers.erase(std::remove_if(begin(m_Observers), end(m_Observers), [](const auto& pObserver)
 		{
-			return uniqueObserver.get() == observer;
+			return pObserver->IsMarkedDead();
 		}), end(m_Observers));
 }
 
