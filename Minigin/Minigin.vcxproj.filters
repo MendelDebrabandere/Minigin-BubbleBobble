@@ -108,6 +108,9 @@
     <ClInclude Include="CSteamAchievements.h">
       <Filter>Engine Files\Steam</Filter>
     </ClInclude>
+    <ClInclude Include="ScoreComponent.h">
+      <Filter>Engine Files\Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="FPSCounter.cpp">
@@ -181,6 +184,9 @@
     </ClCompile>
     <ClCompile Include="CSteamAchievements.cpp">
       <Filter>Engine Files\Steam</Filter>
+    </ClCompile>
+    <ClCompile Include="ScoreComponent.cpp">
+      <Filter>Engine Files\Components</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

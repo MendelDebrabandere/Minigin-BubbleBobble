@@ -222,6 +222,7 @@ xcopy "$(SolutionDir)3rdParty\steamworks\redistributable_bin\*.dll" "$(OutputPat
     <ClInclude Include="RotatorComponent.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneManager.h" />
+    <ClInclude Include="ScoreComponent.h" />
     <ClInclude Include="Singleton.h" />
     <ClInclude Include="StatsDisplay.h" />
     <ClInclude Include="Subject.h" />
@@ -249,6 +250,7 @@ xcopy "$(SolutionDir)3rdParty\steamworks\redistributable_bin\*.dll" "$(OutputPat
     <ClCompile Include="RotatorComponent.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneManager.cpp" />
+    <ClCompile Include="ScoreComponent.cpp" />
     <ClCompile Include="StatsDisplay.cpp" />
     <ClCompile Include="Subject.cpp" />
     <ClCompile Include="TextComponent.cpp" />

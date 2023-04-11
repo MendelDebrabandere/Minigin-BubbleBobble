@@ -1,5 +1,8 @@
 #include "Achievements.h"
 
+#include "GameObject.h"
+#include "ScoreComponent.h"
+
 using namespace dae;
 
 AchievementObserver::AchievementObserver()
@@ -9,21 +12,23 @@ AchievementObserver::AchievementObserver()
 
 AchievementObserver::~AchievementObserver()
 {
-	if (m_SteamAchievements)
-		delete m_SteamAchievements;
+	delete m_SteamAchievements;
 }
 
-void AchievementObserver::Notify(const GameObject* /*actor*/, Event event)
+void AchievementObserver::Notify(const GameObject* actor, Event event)
 {
 	switch (event)
 	{
-	case Event::ActorDied:
-		Unlock("ACH_WIN_ONE_GAME");
+	case Event::ScoreUpdated:
+		{
+			if (actor->GetComponent<ScoreComponent>()->GetScore() >= 500)
+				Unlock("ACH_WIN_ONE_GAME");
 		break;
+		}
 	}
 }
 
-void AchievementObserver::Unlock(const char* ID)
+void AchievementObserver::Unlock(const char* ID) const
 {
 	m_SteamAchievements->SetAchievement(ID);
 }

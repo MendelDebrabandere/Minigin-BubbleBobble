@@ -16,7 +16,12 @@ namespace dae
 	{
 	public:
 		AchievementObserver();
-		~AchievementObserver();
+		virtual ~AchievementObserver();
+		AchievementObserver(const AchievementObserver& other) = delete;
+		AchievementObserver(AchievementObserver&& other) = delete;
+		AchievementObserver& operator=(const AchievementObserver& other) = delete;
+		AchievementObserver& operator=(AchievementObserver&& other) = delete;
+
 		void Notify(const GameObject* actor, Event event) override;
 
 	private:
@@ -40,7 +45,7 @@ namespace dae
 
 		CSteamAchievements* m_SteamAchievements = NULL;
 
-		void Unlock(const char* ID);
+		void Unlock(const char* ID) const;
 	};
 }
 

@@ -11,14 +11,6 @@
 
 using namespace dae;
 
-void HealthComponent::Update()
-{
-	std::cout << Time::GetInstance().GetTotal() << '\n';
-	if (Time::GetInstance().GetTotal() >= 5.f)
-	{
-		DoDamage(1);
-	}
-}
 
 void HealthComponent::SetMaxHealth(int newMaxHealth)
 {

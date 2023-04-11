@@ -3,6 +3,7 @@
 #include <string>
 #include "GameObject.h"
 #include "HealthComponent.h"
+#include "ScoreComponent.h"
 #include "Subject.h"
 #include "TextComponent.h"
 
@@ -17,47 +18,38 @@ void StatsDisplay::Notify(const GameObject* actor, Event event)
 		{
 		case Event::HealthUpdated:
 		{
-			if (m_pPlayerObj && m_pTextObject)
+			if (m_pHealthTextObject)
 			{
-				const int health = m_pPlayerObj->GetComponent<HealthComponent>()->GetHealth();
+				const auto healthComp = m_pPlayerObj->GetComponent<HealthComponent>();
 
-				const auto pTextComponent = m_pTextObject->GetComponent<TextComponent>();
+				const auto pTextComponent = m_pHealthTextObject->GetComponent<TextComponent>();
 
-				if (pTextComponent && health)
-					pTextComponent->SetText("Health: " + std::to_string(health));
-
+				if (pTextComponent && healthComp)
+					pTextComponent->SetText("Health: " + std::to_string(healthComp->GetHealth()));
 			}
-			break;
+		break;
 		}
 		case Event::ScoreUpdated:
 		{
-			////This is for testing purposes
-			////TODO: finished version calls AttackComponent or something, this is still tbd.
-			//m_AmountOfPoints += 50;
+			if (m_pScoreTextObject)
+			{
+				const auto scoreComp = m_pPlayerObj->GetComponent<ScoreComponent>();
 
-			////const auto& achievements = Achievements::GetInstance();
+				const auto pTextComponent = m_pScoreTextObject->GetComponent<TextComponent>();
 
-			////if (m_AmountOfPoints >= 500 && achievements.steamAchievements)
-			////	achievements.steamAchievements->SetAchievement("ACH_WIN_ONE_GAME");
-
-			//const auto pTextComponent = actor->GetComponent<TextComponent>();
-
-			//if (pTextComponent == nullptr)
-			//	return;
-
-			//const std::string keyword = "Points";
-
-			//if (pTextComponent->GetText().find(keyword) == std::string::npos)
-			//	return;
-
-
-			//pTextComponent->SetText("Points: " + std::to_string(m_AmountOfPoints));
-			break;
+				if (pTextComponent && scoreComp)
+				{
+					pTextComponent->SetText("Points: " + std::to_string(scoreComp->GetScore()));
+				}
+			}
+		break;
 		}
 		case Event::ActorDied:
 		{
 			//Destroy the gameobject that uses text component for this observer
-			m_pTextObject->Destroy();
+			m_pHealthTextObject->Destroy();
+			m_pScoreTextObject->Destroy();
+			//Destroy this observer since the player it is tracking no longer exists
 			this->Destroy();
 		break;
 		}
@@ -68,11 +60,21 @@ void StatsDisplay::Notify(const GameObject* actor, Event event)
 void StatsDisplay::SetPlayerObject(GameObject* actor)
 {
 	m_pPlayerObj = actor;
+	//Update text objects by notifying
+	Notify(m_pPlayerObj, Event::HealthUpdated);
+	Notify(m_pPlayerObj, Event::ScoreUpdated);
+}
+
+void StatsDisplay::SetHealthTextObject(GameObject* actor)
+{
+	m_pHealthTextObject = actor;
+	//Update text object by notifying
 	Notify(m_pPlayerObj, Event::HealthUpdated);
 }
 
-void dae::StatsDisplay::SetTextObject(GameObject* actor)
+void StatsDisplay::SetScoreTextObject(GameObject* actor)
 {
-	m_pTextObject = actor;
-	Notify(m_pPlayerObj, Event::HealthUpdated);
+	m_pScoreTextObject = actor;
+	//Update text object by notifying
+	Notify(m_pPlayerObj, Event::ScoreUpdated);
 }

@@ -1,6 +1,4 @@
 #pragma once
-#include <glm/vec2.hpp>
-
 #include "Component.h"
 
 namespace dae
@@ -18,8 +16,6 @@ namespace dae
 		HealthComponent& operator=(const HealthComponent& other) = delete;
 		HealthComponent& operator=(HealthComponent&& other) = delete;
 
-		void Update() override;
-
 		//Setters
 		void SetMaxHealth(int newMaxHealth);
 		void SetHealth(int newHealth);
@@ -32,8 +28,6 @@ namespace dae
 	private:
 		int m_MaxHealth{100};
 		int m_CurrHealth{100};
-
-		std::weak_ptr<TextComponent> m_pText{};
 	};
 }
 

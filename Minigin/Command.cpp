@@ -1,5 +1,6 @@
 #include "Command.h"
-#include "InputManager.h"
+#include "HealthComponent.h"
+#include "ScoreComponent.h"
 #include "Time.h"
 
 using namespace dae;
@@ -55,3 +56,23 @@ void MoveRightCommand::Execute()
 		transform->Translate(horMovement, 0);
 }
 #pragma endregion
+
+void dae::DamageCommand::Execute()
+{
+	if (m_pGo)
+	{
+		const auto healthComp = m_pGo->GetComponent<HealthComponent>();
+		if (healthComp)
+			healthComp->DoDamage(m_Amount);
+	}
+}
+
+void dae::AddScoreCommand::Execute()
+{
+	if (m_pGo)
+	{
+		const auto scoreComp = m_pGo->GetComponent<ScoreComponent>();
+		if (scoreComp)
+			scoreComp->AddScore(m_Amount);
+	}
+}
