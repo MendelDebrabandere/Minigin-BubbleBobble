@@ -7,6 +7,9 @@ namespace dae
 	class Observer
 	{
 	public:
+		//TODO: Event shouldnt be part of Observer
+		//TODO: Observer shouldnt be able to get distroyed, it doesnt get owned
+		//TODO: Protected is bad
 		enum class Event
 		{
 			ActorDied,

@@ -8,7 +8,8 @@ namespace dae
 {
 	class GameObject;
 	class Observer;
-
+	//TODO: Shouldnt own Observers
+	//TODO: Not a singleton
 	class Subject final : public Singleton<Subject>
 	{
 	public:

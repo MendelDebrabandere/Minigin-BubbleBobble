@@ -21,6 +21,7 @@ void AchievementObserver::Notify(const GameObject* actor, Event event)
 	{
 	case Event::ScoreUpdated:
 		{
+			//TODO: Every time that you have more than 500 points the achievemnt gets called
 			if (actor->GetComponent<ScoreComponent>()->GetScore() >= 500)
 				Unlock("ACH_WIN_ONE_GAME");
 		break;
