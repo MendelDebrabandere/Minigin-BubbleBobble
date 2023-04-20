@@ -7,16 +7,6 @@ namespace dae
 	class Observer
 	{
 	public:
-		//TODO: Event shouldnt be part of Observer
-		//TODO: Observer shouldnt be able to get distroyed, it doesnt get owned
-		//TODO: Protected is bad
-		enum class Event
-		{
-			ActorDied,
-			HealthUpdated,
-			ScoreUpdated
-		};
-
 		Observer() = default;
 		virtual ~Observer() = default;
 		Observer(const Observer& other) = delete;
@@ -24,12 +14,6 @@ namespace dae
 		Observer(Observer&& other) = delete;
 		Observer& operator=(Observer&& other) = delete;
 
-		virtual void Notify(const GameObject* actor, Event event) = 0;
-
-		void Destroy() { m_MarkedDead = true; }
-		bool IsMarkedDead() const { return m_MarkedDead; }
-
-	protected:
-		bool m_MarkedDead{};
+		virtual void Notify(const GameObject* actor, int eventID) = 0;
 	};
 }

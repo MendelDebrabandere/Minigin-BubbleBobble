@@ -209,6 +209,7 @@ xcopy "$(SolutionDir)3rdParty\steamworks\redistributable_bin\win64\*.dll" "$(Out
     <ClInclude Include="Achievements.h" />
     <ClInclude Include="Command.h" />
     <ClInclude Include="CSteamAchievements.h" />
+    <ClInclude Include="Events.h" />
     <ClInclude Include="Font.h" />
     <ClInclude Include="FPSCounter.h" />
     <ClInclude Include="GameObject.h" />

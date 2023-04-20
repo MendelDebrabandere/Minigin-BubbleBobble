@@ -1,5 +1,6 @@
 #pragma once
 #include <cstddef>
+#include <string>
 #include <vector>
 
 #include "CSteamAchievements.h"
@@ -22,7 +23,7 @@ namespace dae
 		AchievementObserver& operator=(const AchievementObserver& other) = delete;
 		AchievementObserver& operator=(AchievementObserver&& other) = delete;
 
-		void Notify(const GameObject* actor, Event event) override;
+		void Notify(const GameObject* actor, int eventID) override;
 
 	private:
 		// Defining our achievements
@@ -45,7 +46,9 @@ namespace dae
 
 		CSteamAchievements* m_SteamAchievements = NULL;
 
-		void Unlock(const char* ID) const;
+		std::vector<std::string> m_CollectedAchievements{};
+
+		void Unlock(const char* ID);
 	};
 }
 

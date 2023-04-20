@@ -111,6 +111,9 @@
     <ClInclude Include="ScoreComponent.h">
       <Filter>Engine Files\Components</Filter>
     </ClInclude>
+    <ClInclude Include="Events.h">
+      <Filter>Engine Files\Observers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="FPSCounter.cpp">

@@ -1,19 +1,20 @@
 #include "Subject.h"
 
-using namespace dae;
-
-void Subject::UpdateCleanup()
+void dae::Subject::AddObserver(Observer* observer)
 {
-	m_Observers.erase(std::remove_if(begin(m_Observers), end(m_Observers), [](const auto& pObserver)
-		{
-			return pObserver->IsMarkedDead();
-		}), end(m_Observers));
+		m_observers.push_back(observer);
 }
 
-void Subject::Notify(const GameObject* actor, Observer::Event event)
+void dae::Subject::RemoveObserver(Observer* observer)
 {
-	for (const auto& pObserver : m_Observers)
-	{
-		pObserver->Notify(actor, event);
-	}
+	m_observers.erase(std::remove(
+		m_observers.begin(),
+		m_observers.end(), observer),
+		m_observers.end());
+}
+
+void dae::Subject::Notify(const GameObject* actor, int eventID)
+{
+	for (auto& observer : m_observers)
+		observer->Notify(actor, eventID);
 }

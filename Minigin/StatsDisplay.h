@@ -6,7 +6,7 @@ namespace dae
 	class StatsDisplay final : public Observer
 	{
 	public:
-		void Notify(const GameObject* actor, Event event) override;
+		void Notify(const GameObject* actor, int eventID) override;
 
 		void SetPlayerObject(GameObject* actor);
 		void SetHealthTextObject(GameObject* actor);

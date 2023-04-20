@@ -68,6 +68,4 @@ void Scene::UpdateCleanup()
 		{
 			return pGameObject->IsMarkedAsDead();
 		}), end(m_objects));
-
-	Subject::GetInstance().UpdateCleanup();
 }

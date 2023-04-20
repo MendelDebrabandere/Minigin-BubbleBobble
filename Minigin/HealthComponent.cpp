@@ -21,7 +21,6 @@ void HealthComponent::SetMaxHealth(int newMaxHealth)
 void HealthComponent::SetHealth(int newHealth)
 {
 	m_CurrHealth = newHealth;
-	Subject::GetInstance().Notify(m_pOwner, Observer::Event::HealthUpdated);
 }
 
 int HealthComponent::GetHealth() const
@@ -33,13 +32,11 @@ void HealthComponent::DoDamage(int amount)
 {
 	//update HP
 	m_CurrHealth -= amount;
-	Subject::GetInstance().Notify(m_pOwner, Observer::Event::HealthUpdated);
 
 	//if dies
 	if (m_CurrHealth <= 0)
 	{
 		//Destroy
 		m_pOwner->Destroy();
-		Subject::GetInstance().Notify(m_pOwner, Observer::Event::ActorDied);
 	}
 }
