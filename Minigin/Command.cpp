@@ -1,6 +1,5 @@
 #include "Command.h"
 #include "HealthComponent.h"
-#include "ScoreComponent.h"
 #include "Time.h"
 
 using namespace dae;
@@ -67,12 +66,3 @@ void dae::DamageCommand::Execute()
 	}
 }
 
-void dae::AddScoreCommand::Execute()
-{
-	if (m_pGo)
-	{
-		const auto scoreComp = m_pGo->GetComponent<ScoreComponent>();
-		if (scoreComp)
-			scoreComp->AddScore(m_Amount);
-	}
-}

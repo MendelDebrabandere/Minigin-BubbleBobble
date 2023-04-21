@@ -4,6 +4,7 @@ namespace dae
 {
 	class GameObject;
 
+	template<typename... Args>
 	class Observer
 	{
 	public:
@@ -14,6 +15,7 @@ namespace dae
 		Observer(Observer&& other) = delete;
 		Observer& operator=(Observer&& other) = delete;
 
-		virtual void Notify(const GameObject* actor, int eventID) = 0;
+		virtual void HandleEvent(Args... args) = 0;
+		virtual void OnSubjectDestroy() = 0;
 	};
 }

@@ -28,9 +28,6 @@
     <Filter Include="Engine Files\Scenes">
       <UniqueIdentifier>{5de317ad-30f5-4182-a28c-994f4056d746}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine Files\Steam">
-      <UniqueIdentifier>{5d1fffa2-c275-4a65-b8f8-d8c79b919715}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FPSCounter.h">
@@ -53,9 +50,6 @@
     </ClInclude>
     <ClInclude Include="HealthComponent.h">
       <Filter>Engine Files\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="Achievements.h">
-      <Filter>Engine Files\Observers</Filter>
     </ClInclude>
     <ClInclude Include="XBox360Controller.h">
       <Filter>Engine Files\Input</Filter>
@@ -102,17 +96,11 @@
     <ClInclude Include="Subject.h">
       <Filter>Engine Files\Observers</Filter>
     </ClInclude>
-    <ClInclude Include="StatsDisplay.h">
-      <Filter>Engine Files\Observers</Filter>
-    </ClInclude>
-    <ClInclude Include="CSteamAchievements.h">
-      <Filter>Engine Files\Steam</Filter>
-    </ClInclude>
-    <ClInclude Include="ScoreComponent.h">
+    <ClInclude Include="ScoreDisplay.h">
       <Filter>Engine Files\Components</Filter>
     </ClInclude>
-    <ClInclude Include="Events.h">
-      <Filter>Engine Files\Observers</Filter>
+    <ClInclude Include="Hero.h">
+      <Filter>Engine Files\Components</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -139,9 +127,6 @@
     </ClCompile>
     <ClCompile Include="HealthComponent.cpp">
       <Filter>Engine Files\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="Achievements.cpp">
-      <Filter>Engine Files\Observers</Filter>
     </ClCompile>
     <ClCompile Include="XBox360Controller.cpp">
       <Filter>Engine Files\Input</Filter>
@@ -179,22 +164,11 @@
     <ClCompile Include="Renderer.cpp">
       <Filter>Engine Files\Core</Filter>
     </ClCompile>
-    <ClCompile Include="Subject.cpp">
-      <Filter>Engine Files\Observers</Filter>
-    </ClCompile>
-    <ClCompile Include="StatsDisplay.cpp">
-      <Filter>Engine Files\Observers</Filter>
-    </ClCompile>
-    <ClCompile Include="CSteamAchievements.cpp">
-      <Filter>Engine Files\Steam</Filter>
-    </ClCompile>
-    <ClCompile Include="ScoreComponent.cpp">
+    <ClCompile Include="ScoreDisplay.cpp">
       <Filter>Engine Files\Components</Filter>
     </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <CustomBuild Include="steam_appid.txt">
-      <Filter>Engine Files\Steam</Filter>
-    </CustomBuild>
+    <ClCompile Include="Hero.cpp">
+      <Filter>Engine Files\Components</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

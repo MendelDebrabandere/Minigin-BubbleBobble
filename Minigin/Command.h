@@ -89,19 +89,6 @@ namespace dae
 		int m_Amount{};
 	};
 
-	class AddScoreCommand final : public Command
-	{
-	public:
-		explicit AddScoreCommand(GameObject* go, int amount)
-			:m_pGo{ go }
-			,m_Amount{ amount }
-		{}
-
-		void Execute() override;
-	private:
-		GameObject* m_pGo{};
-		int m_Amount{};
-	};
 }
 
 

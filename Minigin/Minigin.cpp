@@ -7,15 +7,12 @@
 #include "Minigin.h"
 
 #include <chrono>
-#include <steam_api.h>
 
 #include "InputManager.h"
 #include "SceneManager.h"
 #include "Renderer.h"
 #include "ResourceManager.h"
 #include "Time.h"
-#include "Subject.h"
-#include "Achievements.h"
 
 SDL_Window* g_window{};
 
@@ -116,8 +113,6 @@ void dae::Minigin::Run(const std::function<void()>& load)
 		}
 
 		sceneManager.UpdateCleanup();
-
-		SteamAPI_RunCallbacks();
 
 		renderer.Render();
 
