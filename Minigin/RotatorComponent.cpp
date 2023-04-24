@@ -1,6 +1,6 @@
 #include "RotatorComponent.h"
 #include <SDL_stdinc.h>
-#include "Time.h"
+#include "Timer.h"
 #include "Transform.h"
 #include "GameObject.h"
 

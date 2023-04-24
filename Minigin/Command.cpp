@@ -1,6 +1,6 @@
 #include "Command.h"
 #include "HealthComponent.h"
-#include "Time.h"
+#include "Timer.h"
 
 using namespace dae;
 

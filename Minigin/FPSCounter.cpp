@@ -1,7 +1,7 @@
 #include "FPSCounter.h"
 
 #include "GameObject.h"
-#include "Time.h"
+#include "Timer.h"
 #include "TextComponent.h"
 
 void dae::FPSCounter::Update()

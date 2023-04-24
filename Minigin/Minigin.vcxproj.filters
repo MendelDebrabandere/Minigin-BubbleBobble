@@ -66,7 +66,7 @@
     <ClInclude Include="Texture2D.h">
       <Filter>Engine Files\Core</Filter>
     </ClInclude>
-    <ClInclude Include="Time.h">
+    <ClInclude Include="Timer.h">
       <Filter>Engine Files\Core</Filter>
     </ClInclude>
     <ClInclude Include="Minigin.h">
@@ -140,7 +140,7 @@
     <ClCompile Include="Texture2D.cpp">
       <Filter>Engine Files\Core</Filter>
     </ClCompile>
-    <ClCompile Include="Time.cpp">
+    <ClCompile Include="Timer.cpp">
       <Filter>Engine Files\Core</Filter>
     </ClCompile>
     <ClCompile Include="Minigin.cpp">
