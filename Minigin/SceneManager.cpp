@@ -1,41 +1,62 @@
 #include "SceneManager.h"
 #include "Scene.h"
 
-void dae::SceneManager::Update()
+using namespace dae;
+
+Scene* SceneManager::CreateScene(const std::string& name)
 {
-	for(auto& scene : m_scenes)
+	const auto scene = std::make_shared<Scene>(name);
+	m_Scenes.push_back(scene);
+	return scene.get();
+}
+
+void SceneManager::SetActiveScene(const std::string& name)
+{
+	for (int i = 0; i < m_Scenes.size(); ++i)
+	{
+		if (m_Scenes[i]->GetName() == name)
+			m_ActiveSceneIdx = i;
+	}
+}
+
+void SceneManager::SetActiveScene(const Scene* pScene)
+{
+	for (int i = 0; i < m_Scenes.size(); ++i)
+	{
+		if (m_Scenes[i].get() == pScene)
+			m_ActiveSceneIdx = i;
+	}
+}
+
+void SceneManager::Update()
+{
+	for(auto& scene : m_Scenes)
 	{
 		scene->Update();
 	}
 }
 
-void dae::SceneManager::Render()
+void SceneManager::Render()
 {
-	for (const auto& scene : m_scenes)
+	for (const auto& scene : m_Scenes)
 	{
 		scene->Render();
 	}
 }
 
-void dae::SceneManager::FixedUpdate()
+void SceneManager::FixedUpdate()
 {
-	for (auto& scene : m_scenes)
+	for (auto& scene : m_Scenes)
 	{
 		scene->FixedUpdate();
 	}
 }
 
-void dae::SceneManager::UpdateCleanup()
+void SceneManager::UpdateCleanup()
 {
-	for (auto& scene : m_scenes)
+	for (auto& scene : m_Scenes)
 	{
 		scene->UpdateCleanup();
 	}
 }
 
-dae::Scene& dae::SceneManager::CreateScene(const std::string& name)
-{
-	const auto& scene = std::shared_ptr<Scene>(new Scene(name));
-	m_scenes.push_back(scene);
-	return *scene;
-}

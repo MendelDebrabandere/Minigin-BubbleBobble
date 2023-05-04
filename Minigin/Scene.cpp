@@ -69,3 +69,8 @@ void Scene::UpdateCleanup()
 			return pGameObject->IsMarkedAsDead();
 		}), end(m_objects));
 }
+
+const std::string& dae::Scene::GetName() const
+{
+	return m_name;
+}

@@ -11,6 +11,9 @@
     <Filter Include="Command">
       <UniqueIdentifier>{fc6e84bd-dadb-44f4-a788-f72cdedbc928}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Prefabs">
+      <UniqueIdentifier>{332b561e-bac2-45f0-9eaf-d15a5b875f32}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -31,6 +34,12 @@
     <ClCompile Include="MoveRightCommand.cpp">
       <Filter>Command</Filter>
     </ClCompile>
+    <ClCompile Include="BubbleBobble.cpp">
+      <Filter>Prefabs</Filter>
+    </ClCompile>
+    <ClCompile Include="GameSceneCreator.cpp">
+      <Filter>Prefabs</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FPSCounter.h">
@@ -47,6 +56,12 @@
     </ClInclude>
     <ClInclude Include="MoveRightCommand.h">
       <Filter>Command</Filter>
+    </ClInclude>
+    <ClInclude Include="BubbleBobble.h">
+      <Filter>Prefabs</Filter>
+    </ClInclude>
+    <ClInclude Include="GameSceneCreator.h">
+      <Filter>Prefabs</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
