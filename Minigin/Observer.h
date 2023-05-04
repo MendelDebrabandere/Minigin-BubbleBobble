@@ -2,20 +2,16 @@
 
 namespace dae
 {
-	class GameObject;
-
-	template<typename... Args>
 	class Observer
 	{
 	public:
-		Observer() = default;
+		explicit Observer() = default;
 		virtual ~Observer() = default;
-		Observer(const Observer& other) = delete;
-		Observer& operator=(const Observer& other) = delete;
-		Observer(Observer&& other) = delete;
-		Observer& operator=(Observer&& other) = delete;
+		Observer(const Observer&) = delete;
+		Observer(Observer&&) = delete;
+		Observer& operator=(const Observer&) = delete;
+		Observer& operator=(Observer&&) = delete;
 
-		virtual void HandleEvent(Args... args) = 0;
-		virtual void OnSubjectDestroy() = 0;
+		virtual void OnNotify(size_t subject, int event, int value) = 0;
 	};
 }

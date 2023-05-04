@@ -24,6 +24,7 @@
     <ProjectGuid>{cba611fb-028b-4336-8993-f6b3052dc664}</ProjectGuid>
     <RootNamespace>BubbleBobble</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>BubbleBobble</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -151,7 +152,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="FPSCounter.cpp" />
+    <ClCompile Include="HealthComponent.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MoveLeftCommand.cpp" />
+    <ClCompile Include="MoveRightCommand.cpp" />
+    <ClCompile Include="RotatorComponent.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="FPSCounter.h" />
+    <ClInclude Include="HealthComponent.h" />
+    <ClInclude Include="MoveLeftCommand.h" />
+    <ClInclude Include="MoveRightCommand.h" />
+    <ClInclude Include="RotatorComponent.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -1,46 +1,25 @@
 #pragma once
 #include <vector>
-#include "Observer.h"
 
 namespace dae
 {
-	class GameObject;
+	class Observer;
 
-	template<typename... Args>
-	class Subject final
+	class Subject
 	{
 	public:
-		~Subject()
-		{
-			for (auto& observer : m_observers)
-				observer->OnSubjectDestroy();
-		}
-		Subject(const Subject& other) = delete;
-		Subject(Subject&& other) = delete;
-		Subject& operator=(const Subject& other) = delete;
-		Subject& operator=(Subject&& other) = delete;
+		explicit Subject() = default;
+		virtual ~Subject() = default;
+		Subject(const Subject&) = delete;
+		Subject(Subject&&) = delete;
+		Subject& operator=(const Subject&) = delete;
+		Subject& operator=(Subject&&) = delete;
 
-		void AddObserver(Observer<Args...>* observer)
-		{
-			m_observers.push_back(observer);
-		}
-
-		void RemoveObserver(Observer<Args...>* observer)
-		{
-			m_observers.erase(std::remove(
-				m_observers.begin(),
-				m_observers.end(), observer),
-				m_observers.end());
-		}
-
-		void Notify(Args... args)
-		{
-			for (auto& observer : m_observers)
-				observer->HandleEvent(args...);
-		}
-
+		void Notify(size_t subject, int event, int value);
+		void AddObserver(Observer* pObserver);
+		void RemoveObserver(Observer* pObserver);
 	private:
-		std::vector<Observer<Args...>*> m_observers;
+		std::vector<Observer*> mpObservers;
 	};
 
 }

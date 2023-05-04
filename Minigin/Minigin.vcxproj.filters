@@ -1,174 +1,144 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    <Filter Include="Input">
+      <UniqueIdentifier>{b6d3995e-c6e7-43aa-ae99-c86a0088fa95}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    <Filter Include="Component">
+      <UniqueIdentifier>{d58416a0-d627-4c41-9a6e-5f4ca81ed59b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    <Filter Include="Minigin">
+      <UniqueIdentifier>{2aa92355-fef6-4379-a153-a0a7a8bbce9c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine Files\Observers">
-      <UniqueIdentifier>{e89758e3-14cb-4065-846d-6c5aece52d65}</UniqueIdentifier>
+    <Filter Include="Object">
+      <UniqueIdentifier>{ec6ae77c-43fd-44de-ae35-49d5f8081940}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine Files\Components">
-      <UniqueIdentifier>{9f16af71-1425-40a2-8e4b-b67b4fda64ef}</UniqueIdentifier>
+    <Filter Include="Resource">
+      <UniqueIdentifier>{57d3f8da-bdc0-42fb-8a5e-abe2b515b1e6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine Files\Input">
-      <UniqueIdentifier>{c6b30b48-c9b4-4ddf-9ffe-753d1ac1258f}</UniqueIdentifier>
+    <Filter Include="Render">
+      <UniqueIdentifier>{0c33aa60-6ce5-4e44-8f0c-9f2547ab8ae2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine Files\Core">
-      <UniqueIdentifier>{534b742c-6c21-45ce-9a63-4aae179a3ebd}</UniqueIdentifier>
+    <Filter Include="Observer">
+      <UniqueIdentifier>{e94cf5d0-434b-4ec1-8d25-8f7ada8c1cf4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine Files\Scenes">
-      <UniqueIdentifier>{5de317ad-30f5-4182-a28c-994f4056d746}</UniqueIdentifier>
+    <Filter Include="Timer">
+      <UniqueIdentifier>{63cf220c-793c-420d-93c0-1f80ebc04651}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene">
+      <UniqueIdentifier>{a642296c-ef0c-4542-8b7c-dbde0c7b8c1b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Singleton">
+      <UniqueIdentifier>{8bf86e96-6742-4bf8-8554-b8fcba24b0ab}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="FPSCounter.h">
-      <Filter>Engine Files\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="Component.h">
-      <Filter>Engine Files\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="TextComponent.h">
-      <Filter>Engine Files\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="TextureComponent.h">
-      <Filter>Engine Files\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="Transform.h">
-      <Filter>Engine Files\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="RotatorComponent.h">
-      <Filter>Engine Files\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="HealthComponent.h">
-      <Filter>Engine Files\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="XBox360Controller.h">
-      <Filter>Engine Files\Input</Filter>
+    <ClInclude Include="Command.h">
+      <Filter>Input</Filter>
     </ClInclude>
     <ClInclude Include="InputManager.h">
-      <Filter>Engine Files\Input</Filter>
+      <Filter>Input</Filter>
     </ClInclude>
-    <ClInclude Include="Command.h">
-      <Filter>Engine Files\Input</Filter>
+    <ClInclude Include="XBox360Controller.h">
+      <Filter>Input</Filter>
     </ClInclude>
-    <ClInclude Include="Observer.h">
-      <Filter>Engine Files\Observers</Filter>
+    <ClInclude Include="Component.h">
+      <Filter>Component</Filter>
     </ClInclude>
-    <ClInclude Include="Texture2D.h">
-      <Filter>Engine Files\Core</Filter>
+    <ClInclude Include="Transform.h">
+      <Filter>Component</Filter>
     </ClInclude>
-    <ClInclude Include="Timer.h">
-      <Filter>Engine Files\Core</Filter>
+    <ClInclude Include="TextureComponent.h">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="TextComponent.h">
+      <Filter>Component</Filter>
     </ClInclude>
     <ClInclude Include="Minigin.h">
-      <Filter>Engine Files\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Singleton.h">
-      <Filter>Engine Files\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene.h">
-      <Filter>Engine Files\Scenes</Filter>
-    </ClInclude>
-    <ClInclude Include="SceneManager.h">
-      <Filter>Engine Files\Scenes</Filter>
-    </ClInclude>
-    <ClInclude Include="ResourceManager.h">
-      <Filter>Engine Files\Core</Filter>
+      <Filter>Minigin</Filter>
     </ClInclude>
     <ClInclude Include="GameObject.h">
-      <Filter>Engine Files\Core</Filter>
+      <Filter>Object</Filter>
     </ClInclude>
     <ClInclude Include="Font.h">
-      <Filter>Engine Files\Core</Filter>
+      <Filter>Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="ResourceManager.h">
+      <Filter>Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture2D.h">
+      <Filter>Resource</Filter>
     </ClInclude>
     <ClInclude Include="Renderer.h">
-      <Filter>Engine Files\Core</Filter>
+      <Filter>Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Observer.h">
+      <Filter>Observer</Filter>
     </ClInclude>
     <ClInclude Include="Subject.h">
-      <Filter>Engine Files\Observers</Filter>
+      <Filter>Observer</Filter>
     </ClInclude>
-    <ClInclude Include="ScoreDisplay.h">
-      <Filter>Engine Files\Components</Filter>
+    <ClInclude Include="Timer.h">
+      <Filter>Timer</Filter>
     </ClInclude>
-    <ClInclude Include="Hero.h">
-      <Filter>Engine Files\Components</Filter>
+    <ClInclude Include="Scene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneManager.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Singleton.h">
+      <Filter>Singleton</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="FPSCounter.cpp">
-      <Filter>Engine Files\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="Main.cpp">
-      <Filter>Game Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Component.cpp">
-      <Filter>Engine Files\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="TextComponent.cpp">
-      <Filter>Engine Files\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="TextureComponent.cpp">
-      <Filter>Engine Files\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="Transform.cpp">
-      <Filter>Engine Files\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="RotatorComponent.cpp">
-      <Filter>Engine Files\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="HealthComponent.cpp">
-      <Filter>Engine Files\Components</Filter>
+    <ClCompile Include="InputManager.cpp">
+      <Filter>Input</Filter>
     </ClCompile>
     <ClCompile Include="XBox360Controller.cpp">
-      <Filter>Engine Files\Input</Filter>
+      <Filter>Input</Filter>
     </ClCompile>
-    <ClCompile Include="InputManager.cpp">
-      <Filter>Engine Files\Input</Filter>
+    <ClCompile Include="Component.cpp">
+      <Filter>Component</Filter>
     </ClCompile>
-    <ClCompile Include="Command.cpp">
-      <Filter>Engine Files\Input</Filter>
+    <ClCompile Include="Transform.cpp">
+      <Filter>Component</Filter>
     </ClCompile>
-    <ClCompile Include="Texture2D.cpp">
-      <Filter>Engine Files\Core</Filter>
+    <ClCompile Include="TextureComponent.cpp">
+      <Filter>Component</Filter>
     </ClCompile>
-    <ClCompile Include="Timer.cpp">
-      <Filter>Engine Files\Core</Filter>
+    <ClCompile Include="TextComponent.cpp">
+      <Filter>Component</Filter>
     </ClCompile>
     <ClCompile Include="Minigin.cpp">
-      <Filter>Engine Files\Core</Filter>
-    </ClCompile>
-    <ClCompile Include="Scene.cpp">
-      <Filter>Engine Files\Scenes</Filter>
-    </ClCompile>
-    <ClCompile Include="SceneManager.cpp">
-      <Filter>Engine Files\Scenes</Filter>
-    </ClCompile>
-    <ClCompile Include="ResourceManager.cpp">
-      <Filter>Engine Files\Core</Filter>
+      <Filter>Minigin</Filter>
     </ClCompile>
     <ClCompile Include="GameObject.cpp">
-      <Filter>Engine Files\Core</Filter>
+      <Filter>Object</Filter>
     </ClCompile>
     <ClCompile Include="Font.cpp">
-      <Filter>Engine Files\Core</Filter>
+      <Filter>Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="ResourceManager.cpp">
+      <Filter>Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="Texture2D.cpp">
+      <Filter>Resource</Filter>
     </ClCompile>
     <ClCompile Include="Renderer.cpp">
-      <Filter>Engine Files\Core</Filter>
+      <Filter>Render</Filter>
     </ClCompile>
-    <ClCompile Include="ScoreDisplay.cpp">
-      <Filter>Engine Files\Components</Filter>
+    <ClCompile Include="Timer.cpp">
+      <Filter>Timer</Filter>
     </ClCompile>
-    <ClCompile Include="Hero.cpp">
-      <Filter>Engine Files\Components</Filter>
+    <ClCompile Include="Scene.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneManager.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Subject.cpp">
+      <Filter>Observer</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
