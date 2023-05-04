@@ -152,20 +152,24 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Avatar.cpp" />
     <ClCompile Include="BubbleBobble.cpp" />
     <ClCompile Include="FPSCounter.cpp" />
     <ClCompile Include="GameSceneCreator.cpp" />
     <ClCompile Include="HealthComponent.cpp" />
+    <ClCompile Include="LevelLoader.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MoveLeftCommand.cpp" />
     <ClCompile Include="MoveRightCommand.cpp" />
     <ClCompile Include="RotatorComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Avatar.h" />
     <ClInclude Include="BubbleBobble.h" />
     <ClInclude Include="FPSCounter.h" />
     <ClInclude Include="GameSceneCreator.h" />
     <ClInclude Include="HealthComponent.h" />
+    <ClInclude Include="LevelLoader.h" />
     <ClInclude Include="MoveLeftCommand.h" />
     <ClInclude Include="MoveRightCommand.h" />
     <ClInclude Include="RotatorComponent.h" />

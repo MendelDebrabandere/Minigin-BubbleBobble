@@ -40,6 +40,12 @@
     <ClCompile Include="GameSceneCreator.cpp">
       <Filter>Prefabs</Filter>
     </ClCompile>
+    <ClCompile Include="Avatar.cpp">
+      <Filter>Prefabs</Filter>
+    </ClCompile>
+    <ClCompile Include="LevelLoader.cpp">
+      <Filter>Prefabs</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FPSCounter.h">
@@ -61,6 +67,12 @@
       <Filter>Prefabs</Filter>
     </ClInclude>
     <ClInclude Include="GameSceneCreator.h">
+      <Filter>Prefabs</Filter>
+    </ClInclude>
+    <ClInclude Include="Avatar.h">
+      <Filter>Prefabs</Filter>
+    </ClInclude>
+    <ClInclude Include="LevelLoader.h">
       <Filter>Prefabs</Filter>
     </ClInclude>
   </ItemGroup>
