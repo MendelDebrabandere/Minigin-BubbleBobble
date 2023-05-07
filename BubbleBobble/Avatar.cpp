@@ -7,7 +7,7 @@
 
 using namespace dae;
 
-GameObject* Avatar::CreateAvatar(Scene* pScene, glm::vec2 spawnPos)
+GameObject* Avatar::CreateAvatar(Scene* pScene, const glm::vec2& spawnPos)
 {
 	GameObject* pAvatar{ pScene->CreateGameObject() };
 	pAvatar->GetComponent<Transform>()->SetWorldPosition(spawnPos.x, spawnPos.y);

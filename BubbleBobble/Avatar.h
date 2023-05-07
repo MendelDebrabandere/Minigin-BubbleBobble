@@ -4,6 +4,6 @@
 class Avatar final
 {
 public:
-	static dae::GameObject* CreateAvatar(dae::Scene* pScene, glm::vec2 spawnPos);
+	static dae::GameObject* CreateAvatar(dae::Scene* pScene, const glm::vec2& spawnPos);
 };
 

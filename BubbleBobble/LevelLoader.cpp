@@ -4,6 +4,7 @@
 #include <fstream>
 
 #include "Avatar.h"
+#include "Block.h"
 
 using namespace dae;
 
@@ -19,6 +20,8 @@ void LevelLoader::LoadLevel(Scene* pScene, int number)
 	int posX{};
 	int posY{};
 
+	constexpr int blockSize{ 32 };
+
 	if (myfile.is_open())
 	{
 		while (std::getline(myfile, line))
@@ -29,7 +32,7 @@ void LevelLoader::LoadLevel(Scene* pScene, int number)
 				{
 				case '1':
 				{
-					//TODO: Spawn a block
+					Block::CreateBlock(pScene, glm::vec2{ blockSize * posX, blockSize * posY });
 					break;
 				}
 				case '2':
@@ -44,7 +47,7 @@ void LevelLoader::LoadLevel(Scene* pScene, int number)
 				}
 				case '4':
 				{
-					Avatar::CreateAvatar(pScene, glm::vec2{ 32 * posX, 32 * posY });
+					Avatar::CreateAvatar(pScene, glm::vec2{ blockSize * posX, blockSize * posY });
 					break;
 				}
 				}

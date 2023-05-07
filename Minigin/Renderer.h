@@ -14,14 +14,13 @@ namespace dae
 		SDL_Window* m_window{};
 		SDL_Color m_clearColor{};
 
-		bool m_ShowDemo{ true };
 	public:
 		void Init(SDL_Window* window);
 		void Render();
 		void Destroy();
 
 		void RenderTexture(const Texture2D& texture, float x, float y) const;
-		void RenderTexture(const Texture2D& texture, float x, float y, float width, float height) const;
+		void RenderTexture(const Texture2D& texture, float x, float y, float width, float height, const SDL_Rect* clip = nullptr) const;
 
 		SDL_Renderer* GetSDLRenderer() const;
 

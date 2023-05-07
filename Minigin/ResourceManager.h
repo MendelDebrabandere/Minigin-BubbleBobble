@@ -1,6 +1,8 @@
 #pragma once
 #include <string>
 #include <memory>
+#include <unordered_map>
+
 #include "Singleton.h"
 
 namespace dae
@@ -17,5 +19,7 @@ namespace dae
 		friend class Singleton<ResourceManager>;
 		ResourceManager() = default;
 		std::string m_dataPath;
+
+		//TODO: std::unordered_map<std::string, std::shared
 	};
 }

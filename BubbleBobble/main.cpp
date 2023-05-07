@@ -15,18 +15,7 @@
 //}
 
 #include "BubbleBobble.h"
-#include "FPSCounter.h"
 #include "Minigin.h"
-#include "SceneManager.h"
-#include "ResourceManager.h"
-#include "Scene.h"
-#include "GameObject.h"
-#include "TextComponent.h"
-#include "TextureComponent.h"
-#include "InputManager.h"
-#include "HealthComponent.h"
-#include "MoveLeftCommand.h"
-#include "MoveRightCommand.h"
 
 using namespace dae;
 

@@ -61,6 +61,9 @@ namespace dae
 			}
 		};
 
+		friend class Singleton<InputManager>;
+		InputManager() = default;
+
 		std::map<InputDataController, std::unique_ptr<Command>> m_ControllerActionMap{};
 		std::vector<std::unique_ptr<XBox360Controller>> m_ControllerPtrs{};
 

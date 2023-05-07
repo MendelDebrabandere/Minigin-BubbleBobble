@@ -153,6 +153,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Avatar.cpp" />
+    <ClCompile Include="Block.cpp" />
     <ClCompile Include="BubbleBobble.cpp" />
     <ClCompile Include="FPSCounter.cpp" />
     <ClCompile Include="GameSceneCreator.cpp" />
@@ -165,6 +166,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Avatar.h" />
+    <ClInclude Include="Block.h" />
     <ClInclude Include="BubbleBobble.h" />
     <ClInclude Include="FPSCounter.h" />
     <ClInclude Include="GameSceneCreator.h" />

@@ -46,6 +46,9 @@
     <ClCompile Include="LevelLoader.cpp">
       <Filter>Prefabs</Filter>
     </ClCompile>
+    <ClCompile Include="Block.cpp">
+      <Filter>Prefabs</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FPSCounter.h">
@@ -73,6 +76,9 @@
       <Filter>Prefabs</Filter>
     </ClInclude>
     <ClInclude Include="LevelLoader.h">
+      <Filter>Prefabs</Filter>
+    </ClInclude>
+    <ClInclude Include="Block.h">
       <Filter>Prefabs</Filter>
     </ClInclude>
   </ItemGroup>
