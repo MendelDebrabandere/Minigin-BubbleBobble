@@ -13,13 +13,17 @@ namespace dae
 	{
 	public:
 		void Init(const std::string& data);
-		std::shared_ptr<Texture2D> LoadTexture(const std::string& file) const;
-		std::shared_ptr<Font> LoadFont(const std::string& file, unsigned int size) const;
+
+		void CheckForDeletedTextures();
+
+		std::shared_ptr<Texture2D> LoadTexture(const std::string& file);
+		std::shared_ptr<Font> LoadFont(const std::string& file, unsigned int size);
 	private:
 		friend class Singleton<ResourceManager>;
 		ResourceManager() = default;
 		std::string m_dataPath;
 
-		//TODO: std::unordered_map<std::string, std::shared
+		std::unordered_map<std::string, std::shared_ptr<Texture2D>> m_Textures{};
+		std::unordered_map<std::string, std::shared_ptr<Font>> m_Fonts{};
 	};
 }

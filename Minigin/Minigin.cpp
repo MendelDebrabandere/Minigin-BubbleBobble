@@ -123,6 +123,8 @@ void Minigin::Run()
 
 		renderer.Render();
 
+		ResourceManager::GetInstance().CheckForDeletedTextures();
+
 		const float frameTime{ std::chrono::duration<float>(std::chrono::high_resolution_clock::now() - frameStart).count() };
 		const float sleepTime{ maxFrameTime - frameTime };
 		// CAP FPS IF NEEDED
