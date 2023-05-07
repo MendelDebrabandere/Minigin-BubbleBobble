@@ -4,6 +4,7 @@
 #include "MoveLeftCommand.h"
 #include "MoveRightCommand.h"
 #include "ResourceManager.h"
+#include "SpriteComponent.h"
 
 using namespace dae;
 
@@ -12,7 +13,10 @@ GameObject* Avatar::CreateAvatar(Scene* pScene, const glm::vec2& spawnPos)
 	GameObject* pAvatar{ pScene->CreateGameObject() };
 	pAvatar->GetComponent<Transform>()->SetWorldPosition(spawnPos.x, spawnPos.y);
 
-	pAvatar->AddComponent<TextureComponent>()->SetTexture(ResourceManager::GetInstance().LoadTexture("MainCharacter.png"));
+	auto spriteComp = pAvatar->AddComponent<SpriteComponent>();
+	spriteComp->SetTexture("Bubble.png");
+	spriteComp->SetAnimVariables(3, 7, 0.3f, 0, 7);
+	spriteComp->Scale(4);
 
 	//TODO: pAvatar->AddComponent<ColliderComponent>();
 

@@ -25,7 +25,7 @@ namespace dae
 		void SetTexture(const std::string& filename);
 		void SetAnimVariables(int rows, int columns, float animTimer, int startIdx=0, int endIdx=0);
 		void Scale(float value);
-		void Pause();
+		void Pause(bool value);
 	private:
 		std::shared_ptr<Texture2D> m_Texture{};
 		float m_RenderWidth{};

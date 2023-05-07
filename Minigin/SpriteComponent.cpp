@@ -73,7 +73,7 @@ void SpriteComponent::Scale(float value)
 	m_RenderHeight *= value;
 }
 
-void SpriteComponent::Pause()
+void SpriteComponent::Pause(bool value)
 {
-	m_Pause = true;
+	m_Pause = value;
 }

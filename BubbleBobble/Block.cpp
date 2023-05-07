@@ -14,7 +14,7 @@ GameObject* Block::CreateBlock(Scene* pScene, const glm::vec2& spawnPos)
 	spriteComp->SetTexture("Blocks.png");
 	spriteComp->SetAnimVariables(1,3,1.f);
 	spriteComp->Scale(4);
-	spriteComp->Pause();
+	spriteComp->Pause(true);
 
 	return pBlock;
 }
