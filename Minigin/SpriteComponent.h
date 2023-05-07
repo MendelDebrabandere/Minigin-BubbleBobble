@@ -26,6 +26,8 @@ namespace dae
 		void SetAnimVariables(int rows, int columns, float animTimer, int startIdx=0, int endIdx=0);
 		void Scale(float value);
 		void Pause(bool value);
+
+		glm::vec2 GetSize() { return glm::vec2(m_RenderWidth, m_RenderHeight); }
 	private:
 		std::shared_ptr<Texture2D> m_Texture{};
 		float m_RenderWidth{};

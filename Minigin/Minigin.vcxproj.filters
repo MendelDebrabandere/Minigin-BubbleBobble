@@ -93,6 +93,9 @@
     <ClInclude Include="SpriteComponent.h">
       <Filter>Component</Filter>
     </ClInclude>
+    <ClInclude Include="ColliderComponent.h">
+      <Filter>Component</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="InputManager.cpp">
@@ -144,6 +147,9 @@
       <Filter>Observer</Filter>
     </ClCompile>
     <ClCompile Include="SpriteComponent.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
+    <ClCompile Include="ColliderComponent.cpp">
       <Filter>Component</Filter>
     </ClCompile>
   </ItemGroup>
