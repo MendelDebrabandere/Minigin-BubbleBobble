@@ -16,7 +16,6 @@ namespace dae
 	public:
 		void Init();
 		void Update();
-		void FixedUpdate();
 		void Render() const;
 
 		GameObject() = default;

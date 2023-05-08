@@ -21,18 +21,6 @@ void GameObject::Update()
 	}
 }
 
-void GameObject::FixedUpdate()
-{
-	for (const auto& component : m_Components)
-	{
-		component->FixedUpdate();
-	}
-	for (const auto& child : m_pChildren)
-	{
-		child->FixedUpdate();
-	}
-}
-
 void GameObject::Render() const
 {
 	for (const auto& pComponent : m_Components)

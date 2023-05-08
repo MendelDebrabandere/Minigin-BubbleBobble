@@ -44,14 +44,6 @@ void SceneManager::Render()
 	}
 }
 
-void SceneManager::FixedUpdate()
-{
-	for (auto& scene : m_Scenes)
-	{
-		scene->FixedUpdate();
-	}
-}
-
 void SceneManager::UpdateCleanup()
 {
 	for (auto& scene : m_Scenes)

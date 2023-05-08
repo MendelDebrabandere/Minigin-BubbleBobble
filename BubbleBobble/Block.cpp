@@ -1,6 +1,7 @@
 #include "Block.h"
 
 #include "ColliderComponent.h"
+#include "PhysicsComponent.h"
 #include "ResourceManager.h"
 #include "SpriteComponent.h"
 
@@ -20,6 +21,9 @@ GameObject* Block::CreateBlock(Scene* pScene, const glm::vec2& spawnPos)
 	auto colliderComp = pBlock->AddComponent<ColliderComponent>();
 	colliderComp->SetSize(spriteComp->GetSize());
 	colliderComp->SetRendering(true);
+
+	auto physicsComp = pBlock->AddComponent<PhysicsComponent>();
+	physicsComp->SetPhysicsSettings(false, true, true);
 
 	return pBlock;
 }

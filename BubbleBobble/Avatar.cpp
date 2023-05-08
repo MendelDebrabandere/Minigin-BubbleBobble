@@ -2,8 +2,10 @@
 
 #include "ColliderComponent.h"
 #include "InputManager.h"
+#include "JumpCommand.h"
 #include "MoveLeftCommand.h"
 #include "MoveRightCommand.h"
+#include "PhysicsComponent.h"
 #include "ResourceManager.h"
 #include "SpriteComponent.h"
 
@@ -23,8 +25,12 @@ GameObject* Avatar::CreateAvatar(Scene* pScene, const glm::vec2& spawnPos)
 	colliderComp->SetSize(spriteComp->GetSize());
 	colliderComp->SetRendering(true);
 
+	auto physicsComp = pAvatar->AddComponent<PhysicsComponent>();
+	physicsComp->SetPhysicsSettings(true, true, false);
+
 	InputManager::GetInstance().AddKeyboardCommand('a', InputManager::InputType::Pressed, std::make_unique<MoveLeftCommand>(pAvatar, 200.f));
 	InputManager::GetInstance().AddKeyboardCommand('d', InputManager::InputType::Pressed, std::make_unique<MoveRightCommand>(pAvatar, 200.f));
+	InputManager::GetInstance().AddKeyboardCommand('w', InputManager::InputType::Pressed, std::make_unique<JumpCommand>(pAvatar, 200.f));
 
 	return pAvatar;
 }

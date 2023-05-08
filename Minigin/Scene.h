@@ -15,12 +15,13 @@ namespace dae
 		GameObject* CreateGameObject();
 
 		void Update();
-		void FixedUpdate();
 		void Render() const;
 
 		void UpdateCleanup();
 
 		const std::string& GetName() const;
+
+		std::vector<std::unique_ptr<GameObject>>& GetAllObjects() { return m_objects; }
 
 		~Scene();
 		Scene(const Scene& other) = delete;

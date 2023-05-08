@@ -6,11 +6,6 @@
 
 using namespace dae;
 
-ColliderComponent::ColliderComponent()
-	: Component()
-{
-}
-
 void ColliderComponent::Update()
 {
 	m_Pos = GetOwner()->GetTransform()->GetWorldPosition();
@@ -33,27 +28,37 @@ void ColliderComponent::Render() const
 	SDL_RenderDrawRect(renderer, &rect);
 }
 
-bool ColliderComponent::IsOverlappingWith(const GameObject& other) const
+std::pair<ColliderComponent::OverlapData, float> ColliderComponent::IsOverlappingWith(const ColliderComponent* other) const
 {
-	auto otherCollider = other.GetComponent<ColliderComponent>();
-	if (otherCollider == nullptr)
-		return false;
+    const auto otherSize = other->GetSize();
+    const auto otherPos = other->GetPos();
 
+    // Check if not overlapping
+    if (m_Pos.x > otherPos.x + otherSize.x ||
+        m_Pos.x + m_Size.x < otherPos.x ||
+        m_Pos.y > otherPos.y + otherSize.y ||
+        m_Pos.y + m_Size.y < otherPos.y)
+    {
+        return std::make_pair(OverlapData::Not, 0.f);
+    }
 
-	const auto otherSize = otherCollider->GetSize();
-	const auto otherPos = otherCollider->GetPos();
+    // Calculate overlap on each side
+    float overlapLeft = m_Pos.x + m_Size.x - otherPos.x;
+    float overlapRight = otherPos.x + otherSize.x - m_Pos.x;
+    float overlapTop = m_Pos.y + m_Size.y - otherPos.y;
+    float overlapBottom = otherPos.y + otherSize.y - m_Pos.y;
 
-	if (m_Pos.x > otherPos.x + otherSize.x)
-		return false;
+    // Find the minimum overlap
+    float minOverlapX = std::min(overlapLeft, overlapRight);
+    float minOverlapY = std::min(overlapTop, overlapBottom);
 
-	if (m_Pos.x + m_Size.x < otherPos.x)
-		return false;
-
-	if (m_Pos.y > otherPos.y + otherSize.y)
-		return false;
-
-	if (m_Pos.y + m_Size.y < otherPos.y)
-		return false;
-
-	return true;
+    // Return the side with minimum overlap
+    if (minOverlapX < minOverlapY)
+    {
+        return (overlapLeft < overlapRight) ? std::make_pair(OverlapData::Left, overlapLeft)  : std::make_pair(OverlapData::Right, overlapRight);
+    }
+    else
+    {
+        return (overlapTop < overlapBottom) ? std::make_pair(OverlapData::Top, overlapTop)  : std::make_pair(OverlapData::Bottom, overlapBottom);
+    }
 }

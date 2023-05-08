@@ -16,9 +16,10 @@ namespace dae
 		void SetActiveScene(const std::string& name);
 		void SetActiveScene(const Scene* pScene);
 
+		Scene* GetActiveScene() { return m_Scenes[m_ActiveSceneIdx].get(); }
+
 		void Update();
 		void Render();
-		void FixedUpdate();
 		void UpdateCleanup();
 	private:
 		std::vector<std::shared_ptr<Scene>> m_Scenes;

@@ -9,18 +9,27 @@ namespace dae
 	class ColliderComponent final : public Component
 	{
 	public:
-		explicit ColliderComponent();
+		enum class OverlapData
+		{
+			Bottom,
+			Top,
+			Left,
+			Right,
+			Not
+		};
+
+		ColliderComponent() = default;
 		virtual ~ColliderComponent() override = default;
-		ColliderComponent(const Component& other) = delete;
-		ColliderComponent operator=(const Component& rhs) = delete;
-		ColliderComponent(Component&& other) = delete;
-		ColliderComponent operator=(Component&& rhs) = delete;
+		ColliderComponent(const ColliderComponent& other) = delete;
+		ColliderComponent operator=(const ColliderComponent& rhs) = delete;
+		ColliderComponent(ColliderComponent&& other) = delete;
+		ColliderComponent operator=(ColliderComponent&& rhs) = delete;
 
 		void Update() override;
 		void Render() const override;
 
 		void SetRendering(bool value) { m_DrawDebug = value; }
-		bool IsOverlappingWith(const GameObject& other) const;
+		std::pair<OverlapData, float> IsOverlappingWith(const ColliderComponent* other) const;
 
 		void SetSize(const glm::vec2& val) { m_Size = val; }
 

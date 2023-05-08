@@ -49,6 +49,9 @@
     <ClCompile Include="Block.cpp">
       <Filter>Prefabs</Filter>
     </ClCompile>
+    <ClCompile Include="JumpCommand.cpp">
+      <Filter>Command</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FPSCounter.h">
@@ -80,6 +83,9 @@
     </ClInclude>
     <ClInclude Include="Block.h">
       <Filter>Prefabs</Filter>
+    </ClInclude>
+    <ClInclude Include="JumpCommand.h">
+      <Filter>Command</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

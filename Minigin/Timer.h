@@ -7,7 +7,6 @@ namespace dae
 	{
 	public:
 		void Init();
-		void SetFixedTimeStep(float fixedTimeStep);
 
 		void Update();
 
@@ -18,7 +17,6 @@ namespace dae
 		std::chrono::steady_clock::time_point m_LastTime{};
 
 		float m_DeltaTime{};
-		float m_FixedTimeStep{};
 
 		float m_TotalTime{};
 	};
