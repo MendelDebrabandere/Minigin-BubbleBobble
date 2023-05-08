@@ -28,6 +28,14 @@ void SceneManager::SetActiveScene(const Scene* pScene)
 	}
 }
 
+void SceneManager::FixedUpdate()
+{
+	for (auto& scene : m_Scenes)
+	{
+		scene->FixedUpdate();
+	}
+}
+
 void SceneManager::Update()
 {
 	for(auto& scene : m_Scenes)

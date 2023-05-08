@@ -10,6 +10,9 @@ namespace dae
 
 		void Update();
 
+		void SetFixedTimeStep(float fixedTimeStep);
+
+		float GetFixedTimeStep() const { return m_FixedTimeStep; }
 		float GetDelta() const { return m_DeltaTime; }
 		float GetTotal() const { return m_TotalTime; }
 	private:
@@ -17,7 +20,7 @@ namespace dae
 		std::chrono::steady_clock::time_point m_LastTime{};
 
 		float m_DeltaTime{};
-
+		float m_FixedTimeStep{};
 		float m_TotalTime{};
 	};
 }

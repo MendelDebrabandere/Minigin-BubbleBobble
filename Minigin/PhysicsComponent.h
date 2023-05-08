@@ -13,13 +13,16 @@ namespace dae
 		PhysicsComponent(PhysicsComponent&& other) = delete;
 		PhysicsComponent operator=(PhysicsComponent&& rhs) = delete;
 
-		void Update() override;
+		void FixedUpdate() override;
 
 		void SetPhysicsSettings(bool gravity, bool collision, bool isStatic);
+		void Jump(float length);
+		void SetPlatform(bool val) { m_Platform = val; }
 
-		bool GetCollision() const { return m_Collision; }
+		bool GetGrounded() const { return m_IsGrounded; }
 
 	private:
+
 		void DoCollisionLogic();
 		void DoGravityLogic();
 
@@ -28,6 +31,11 @@ namespace dae
 		bool m_Static{ false };
 
 		bool m_IsGrounded{ false };
+		float m_JumpTimer{};
+
+		float m_GravityAccel{ 180 };
+
+		bool m_Platform{ false };
 	};
 }
 

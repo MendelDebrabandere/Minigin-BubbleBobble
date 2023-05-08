@@ -5,6 +5,7 @@
 
 #include "Avatar.h"
 #include "Block.h"
+#include "Platform.h"
 
 using namespace dae;
 
@@ -37,15 +38,20 @@ void LevelLoader::LoadLevel(Scene* pScene, int number)
 				}
 				case '2':
 				{
-					//TODO: Spawn a Maita
+					Platform::CreatePlatform(pScene, glm::vec2{ blockSize * posX, blockSize * posY });
 					break;
 				}
 				case '3':
 				{
-					//TODO: Spawn a Zen-Chan
+					//TODO: Spawn a Maita
 					break;
 				}
 				case '4':
+				{
+					//TODO: Spawn a Zen-Chan
+					break;
+				}
+				case '5':
 				{
 					Avatar::CreateAvatar(pScene, glm::vec2{ blockSize * posX, blockSize * posY });
 					break;

@@ -3,13 +3,15 @@
 #include "ColliderComponent.h"
 #include "Scene.h"
 #include "SceneManager.h"
+#include "Timer.h"
 
 using namespace dae;
 
-void PhysicsComponent::Update()
+void PhysicsComponent::FixedUpdate()
 {
-	DoCollisionLogic();
+	m_IsGrounded = false;
 	DoGravityLogic();
+	DoCollisionLogic();
 }
 
 void PhysicsComponent::SetPhysicsSettings(bool gravity, bool collision, bool isStatic)
@@ -17,6 +19,11 @@ void PhysicsComponent::SetPhysicsSettings(bool gravity, bool collision, bool isS
 	m_Gravity = gravity;
 	m_Collision = collision;
 	m_Static = isStatic;
+}
+
+void PhysicsComponent::Jump(float length)
+{
+	m_JumpTimer = length;
 }
 
 void PhysicsComponent::DoCollisionLogic()
@@ -29,7 +36,6 @@ void PhysicsComponent::DoCollisionLogic()
 	auto myCollider = m_pOwner->GetComponent<ColliderComponent>();
 	if (myCollider == nullptr)
 		return;
-
 
 	Scene* scene = SceneManager::GetInstance().GetActiveScene();
 
@@ -45,7 +51,10 @@ void PhysicsComponent::DoCollisionLogic()
 		if (otherPhysicsComp && otherColliderComp)
 		{
 			//only go on if they have collision on
-			if (otherPhysicsComp->GetCollision() == false)
+			if (otherPhysicsComp->m_Collision == false)
+				continue;
+
+			if (otherPhysicsComp->m_Platform && m_JumpTimer > 0.f)
 				continue;
 
 			//if you are overlapping
@@ -54,27 +63,33 @@ void PhysicsComponent::DoCollisionLogic()
 			{
 			case ColliderComponent::OverlapData::Top:
 			{
-				m_pOwner->GetTransform()->Translate(0, overlapData.second);
-				myCollider->Update();
+				if (m_JumpTimer <= 0.f)
+				{
+					m_pOwner->GetTransform()->Translate(0, overlapData.second);
+					myCollider->FixedUpdate();
+				}
 				break;
 			}
 			case ColliderComponent::OverlapData::Bottom:
 			{
-				m_pOwner->GetTransform()->Translate(0, -overlapData.second);
-				myCollider->Update();
-				m_IsGrounded = true;
+				if (m_JumpTimer <= 0.f)
+				{
+					m_pOwner->GetTransform()->Translate(0, -overlapData.second);
+					myCollider->FixedUpdate();
+					m_IsGrounded = true;
+				}
 				break;
 			}
 			case ColliderComponent::OverlapData::Left:
 			{
-				m_pOwner->GetTransform()->Translate(-overlapData.second, 0);
-				myCollider->Update();
+				m_pOwner->GetTransform()->Translate(overlapData.second, 0);
+				myCollider->FixedUpdate();
 				break;
 			}
 			case ColliderComponent::OverlapData::Right:
 			{
-				m_pOwner->GetTransform()->Translate(overlapData.second, 0);
-				myCollider->Update();
+				m_pOwner->GetTransform()->Translate(-overlapData.second, 0);
+				myCollider->FixedUpdate();
 				break;
 			}
 			case ColliderComponent::OverlapData::Not:
@@ -89,5 +104,14 @@ void PhysicsComponent::DoGravityLogic()
 	if (m_Gravity == false)
 		return;
 
+	const float fixedTimeStep{ Time::GetInstance().GetFixedTimeStep() };
 
+	if (m_JumpTimer > 0.f)
+	{
+		m_JumpTimer -= fixedTimeStep;
+		m_pOwner->GetTransform()->Translate(0, - fixedTimeStep * m_GravityAccel);
+	}
+
+	else 
+		m_pOwner->GetTransform()->Translate(0, fixedTimeStep * m_GravityAccel);
 }

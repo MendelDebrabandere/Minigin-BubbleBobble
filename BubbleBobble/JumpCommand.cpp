@@ -1,13 +1,16 @@
 #include "JumpCommand.h"
-#include "Timer.h"
+
+#include "PhysicsComponent.h"
 
 void JumpCommand::Execute()
 {
-	//Add movespeed and make frame independent movement
-	float vertMovement = dae::Time::GetInstance().GetDelta() * m_Speed;
+	auto physicsComp = m_pGo->GetComponent<dae::PhysicsComponent>();
 
-	//Transform GO
-	auto transform = m_pGo->GetComponent<dae::Transform>();
-	if (transform)
-		transform->Translate(0, -vertMovement);
+	if (physicsComp == nullptr)
+		return;
+
+	if (physicsComp->GetGrounded())
+	{
+		physicsComp->Jump(1.f);
+	}
 }

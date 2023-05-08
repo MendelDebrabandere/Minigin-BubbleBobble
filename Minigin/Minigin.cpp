@@ -98,8 +98,10 @@ void Minigin::Run()
 	auto& time = Time::GetInstance();
 
 	bool doContinue = true;
+	constexpr float fixedTimeStep{ 0.005f }; // 200 times per second
 	constexpr float maxFrameTime{ 0.01f }; // cap fps at 100
 	float lag{};
+	time.SetFixedTimeStep(fixedTimeStep);
 
 	while (doContinue)
 	{
@@ -109,6 +111,13 @@ void Minigin::Run()
 		lag += time.GetDelta();
 
 		doContinue = input.ProcessInput();
+
+		while (lag >= fixedTimeStep)
+		{
+			sceneManager.FixedUpdate();
+			lag -= fixedTimeStep;
+		}
+
 		sceneManager.Update();
 
 		sceneManager.UpdateCleanup();

@@ -14,6 +14,7 @@ namespace dae
 
 		GameObject* CreateGameObject();
 
+		void FixedUpdate();
 		void Update();
 		void Render() const;
 

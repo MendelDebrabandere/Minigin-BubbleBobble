@@ -14,16 +14,17 @@ namespace dae
 	class GameObject final
 	{
 	public:
-		void Init();
-		void Update();
-		void Render() const;
-
 		GameObject() = default;
 		~GameObject() = default;
 		GameObject(const GameObject& other) = delete;
 		GameObject(GameObject&& other) = delete;
 		GameObject& operator=(const GameObject& other) = delete;
 		GameObject& operator=(GameObject&& other) = delete;
+
+		void Init();
+		void FixedUpdate();
+		void Update();
+		void Render() const;
 
 		Transform* GetTransform() const { return m_pTransform; }
 		void SetParent(GameObject* pParent);

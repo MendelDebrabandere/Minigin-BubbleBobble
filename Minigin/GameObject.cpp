@@ -9,6 +9,18 @@ void GameObject::Init()
 	m_pTransform = AddComponent<Transform>();
 }
 
+void GameObject::FixedUpdate()
+{
+	for (const auto& component : m_Components)
+	{
+		component->FixedUpdate();
+	}
+	for (const auto& child : m_pChildren)
+	{
+		child->FixedUpdate();
+	}
+}
+
 void GameObject::Update()
 {
 	for (const auto& component : m_Components)

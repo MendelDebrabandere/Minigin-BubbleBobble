@@ -18,6 +18,7 @@ namespace dae
 
 		Scene* GetActiveScene() { return m_Scenes[m_ActiveSceneIdx].get(); }
 
+		void FixedUpdate();
 		void Update();
 		void Render();
 		void UpdateCleanup();

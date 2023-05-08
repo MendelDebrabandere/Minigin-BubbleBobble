@@ -25,7 +25,7 @@ namespace dae
 		ColliderComponent(ColliderComponent&& other) = delete;
 		ColliderComponent operator=(ColliderComponent&& rhs) = delete;
 
-		void Update() override;
+		void FixedUpdate() override;
 		void Render() const override;
 
 		void SetRendering(bool value) { m_DrawDebug = value; }
@@ -35,6 +35,7 @@ namespace dae
 
 		glm::vec2 GetSize() const { return m_Size; }
 		glm::vec2 GetPos() const { return m_Pos; }
+
 
 
 	private:

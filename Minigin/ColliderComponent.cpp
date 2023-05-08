@@ -6,9 +6,9 @@
 
 using namespace dae;
 
-void ColliderComponent::Update()
+void ColliderComponent::FixedUpdate()
 {
-	m_Pos = GetOwner()->GetTransform()->GetWorldPosition();
+    m_Pos = m_pOwner->GetTransform()->GetWorldPosition();
 }
 
 void ColliderComponent::Render() const
@@ -31,7 +31,7 @@ void ColliderComponent::Render() const
 std::pair<ColliderComponent::OverlapData, float> ColliderComponent::IsOverlappingWith(const ColliderComponent* other) const
 {
     const auto otherSize = other->GetSize();
-    const auto otherPos = other->GetPos();
+    const auto otherPos = other->GetOwner()->GetTransform()->GetWorldPosition();
 
     // Check if not overlapping
     if (m_Pos.x > otherPos.x + otherSize.x ||
@@ -41,24 +41,36 @@ std::pair<ColliderComponent::OverlapData, float> ColliderComponent::IsOverlappin
     {
         return std::make_pair(OverlapData::Not, 0.f);
     }
+    
+    std::vector<std::pair<OverlapData, float>> overlappingSides{};
 
     // Calculate overlap on each side
-    float overlapLeft = m_Pos.x + m_Size.x - otherPos.x;
-    float overlapRight = otherPos.x + otherSize.x - m_Pos.x;
-    float overlapTop = m_Pos.y + m_Size.y - otherPos.y;
-    float overlapBottom = otherPos.y + otherSize.y - m_Pos.y;
-
-    // Find the minimum overlap
-    float minOverlapX = std::min(overlapLeft, overlapRight);
-    float minOverlapY = std::min(overlapTop, overlapBottom);
-
-    // Return the side with minimum overlap
-    if (minOverlapX < minOverlapY)
+    overlappingSides.emplace_back(OverlapData::Left, -1 * (m_Pos.x - otherPos.x - otherSize.x));
+    overlappingSides.emplace_back(OverlapData::Right, m_Pos.x + m_Size.x - otherPos.x);
+    overlappingSides.emplace_back(OverlapData::Top, -1 * (m_Pos.y - otherPos.y - otherSize.y));
+    overlappingSides.emplace_back(OverlapData::Bottom, m_Pos.y + m_Size.y - otherPos.y);
+    
+    for(auto& pair : overlappingSides)
     {
-        return (overlapLeft < overlapRight) ? std::make_pair(OverlapData::Left, overlapLeft)  : std::make_pair(OverlapData::Right, overlapRight);
+	    if (pair.second < 0.f)
+	    {
+            pair.second = FLT_MAX;
+	    }
     }
-    else
+
+
+    std::pair smallestOverlap{ OverlapData::Not, FLT_MAX};
+
+
+    for (auto& pair : overlappingSides)
     {
-        return (overlapTop < overlapBottom) ? std::make_pair(OverlapData::Top, overlapTop)  : std::make_pair(OverlapData::Bottom, overlapBottom);
+        if (pair.second < smallestOverlap.second)
+        {
+            smallestOverlap = pair;
+        }
     }
+
+    return smallestOverlap;
+
 }
+

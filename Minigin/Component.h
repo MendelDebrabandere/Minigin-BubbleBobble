@@ -18,7 +18,7 @@ namespace dae
 		Component& operator=(Component&& other) = delete;
 
 		virtual void Render() const {}
-
+		virtual void FixedUpdate() {}
 		virtual void Update() {}
 
 		GameObject* GetOwner() const;

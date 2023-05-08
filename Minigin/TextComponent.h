@@ -23,7 +23,7 @@ namespace dae
 		void SetText(const std::string& text);
 
 
-		virtual void Update() override;
+		void Update() override;
 
 
 	private:

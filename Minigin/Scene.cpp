@@ -36,6 +36,13 @@ GameObject* Scene::CreateGameObject()
 	return pGameObjectPtr;
 }
 
+void Scene::FixedUpdate()
+{
+	for (auto& object : m_objects)
+	{
+		object->FixedUpdate();
+	}
+}
 
 void Scene::Update()
 {
