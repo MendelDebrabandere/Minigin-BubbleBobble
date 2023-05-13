@@ -5,22 +5,18 @@
 #endif
 #endif
 
-//#include "Minigin.h"
-//
-//int main(int, char* []) {
-//	dae::Minigin engine;
-//	engine.Run();
-//
-//	return 0;
-//}
-
 #include "BubbleBobble.h"
 #include "Minigin.h"
+#include "SDLSoundSystem.h"
+#include "ServiceLocator.h"
 
 using namespace dae;
 
 int main(int, char* [])
 {
+	// Register the soundSystem
+	ServiceLocator::InitDefault();
+
 	Minigin engine{ "../Data/" };
 	BubbleBobble::Create(&engine);
 	engine.Run();

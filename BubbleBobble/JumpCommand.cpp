@@ -1,6 +1,7 @@
 #include "JumpCommand.h"
-
+#include "ServiceLocator.h"
 #include "PhysicsComponent.h"
+#include "SoundSystem.h"
 
 void JumpCommand::Execute()
 {
@@ -12,5 +13,6 @@ void JumpCommand::Execute()
 	if (physicsComp->GetGrounded())
 	{
 		physicsComp->Jump(1.f);
+		dae::ServiceLocator::GetSoundSystem().PlaySound("..\\Data\\Sound\\TestEffect.wav", 80, false);
 	}
 }

@@ -31,6 +31,12 @@
     <Filter Include="Singleton">
       <UniqueIdentifier>{8bf86e96-6742-4bf8-8554-b8fcba24b0ab}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ServiceLocator">
+      <UniqueIdentifier>{3780abe3-bf0f-4b35-bdb5-4b3a17232881}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SoundSystem">
+      <UniqueIdentifier>{095a6708-bc25-4e5f-bd57-f92175730818}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Command.h">
@@ -99,6 +105,15 @@
     <ClInclude Include="PhysicsComponent.h">
       <Filter>Component</Filter>
     </ClInclude>
+    <ClInclude Include="ServiceLocator.h">
+      <Filter>ServiceLocator</Filter>
+    </ClInclude>
+    <ClInclude Include="SoundSystem.h">
+      <Filter>SoundSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="SDLSoundSystem.h">
+      <Filter>SoundSystem</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="InputManager.cpp">
@@ -157,6 +172,12 @@
     </ClCompile>
     <ClCompile Include="PhysicsComponent.cpp">
       <Filter>Component</Filter>
+    </ClCompile>
+    <ClCompile Include="SDLSoundSystem.cpp">
+      <Filter>SoundSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="ServiceLocator.cpp">
+      <Filter>ServiceLocator</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
