@@ -11,6 +11,8 @@
 #include "SceneManager.h"
 #include "TextureComponent.h"
 #include "Scene.h"
+#include "ServiceLocator.h"
+#include "SoundSystem.h"
 #include "TextComponent.h"
 
 using namespace dae;
@@ -46,6 +48,19 @@ void GameSceneCreator::CreateGameScene(Scene* pGameScene)
 
 	//// Create Avatar
 	// Avatar::CreateAvatar(pGameScene);
+
+	std::cout << "\n";
+	std::cout << "\n";
+	std::cout << "\n";
+	std::cout << "WASD are the current controls";
+	std::cout << "\n";
+	std::cout << "\n";
+	std::cout << "\n";
+	std::cout << "For the SoundSystem assignment:\n";
+	std::cout << "There is looping music playing\n";
+	std::cout << "There is a sound effect when jumping (Press W)\n";
+
+	ServiceLocator::GetSoundSystem().PlayMusic("../Data/Sound/MainTheme.mp3", 15, -1);
 
 	LevelLoader::LoadLevel(pGameScene, 1);
 }

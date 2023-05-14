@@ -12,8 +12,8 @@ namespace dae
 		SoundSystem& operator=(const SoundSystem&) = delete;
 		SoundSystem& operator=(SoundSystem&&) = delete;
 
-		virtual void PlaySound(const std::string& fileName, int volume, bool loop) = 0;
-		virtual void PlayMusic(const std::string& fileName, int volume, bool loop) = 0;
+		virtual void PlaySound(const std::string& fileName, int volume, int loops) = 0;
+		virtual void PlayMusic(const std::string& fileName, int volume, int loops) = 0;
 		virtual void ToggleMusic() = 0;
 	};
 }
