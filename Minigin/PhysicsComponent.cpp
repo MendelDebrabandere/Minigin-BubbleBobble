@@ -10,8 +10,8 @@ using namespace dae;
 void PhysicsComponent::FixedUpdate()
 {
 	m_IsGrounded = false;
-	DoGravityLogic();
 	DoCollisionLogic();
+	DoGravityLogic();
 }
 
 void PhysicsComponent::SetPhysicsSettings(bool gravity, bool collision, bool isStatic)
@@ -21,9 +21,9 @@ void PhysicsComponent::SetPhysicsSettings(bool gravity, bool collision, bool isS
 	m_Static = isStatic;
 }
 
-void PhysicsComponent::Jump(float length)
+void PhysicsComponent::Jump(float speed)
 {
-	m_JumpTimer = length;
+	m_VerticalSpeed = speed;
 }
 
 void PhysicsComponent::DoCollisionLogic()
@@ -54,29 +54,30 @@ void PhysicsComponent::DoCollisionLogic()
 			if (otherPhysicsComp->m_Collision == false)
 				continue;
 
-			if (otherPhysicsComp->m_Platform && m_JumpTimer > 0.f)
-				continue;
-
 			//if you are overlapping
 			const auto overlapData = myCollider->IsOverlappingWith(otherColliderComp);
+
+			//Platforms only collide from top
+			if (otherPhysicsComp->m_Platform && overlapData.first != ColliderComponent::OverlapData::Bottom)
+				continue;
+
 			switch (overlapData.first)
 			{
 			case ColliderComponent::OverlapData::Top:
 			{
-				if (m_JumpTimer <= 0.f)
-				{
-					m_pOwner->GetTransform()->Translate(0, overlapData.second);
-					myCollider->FixedUpdate();
-				}
+				m_pOwner->GetTransform()->Translate(0, overlapData.second);
+				myCollider->FixedUpdate();
+				m_VerticalSpeed = 0.f;
 				break;
 			}
 			case ColliderComponent::OverlapData::Bottom:
 			{
-				if (m_JumpTimer <= 0.f)
+				if (m_VerticalSpeed > -1.f)
 				{
 					m_pOwner->GetTransform()->Translate(0, -overlapData.second);
 					myCollider->FixedUpdate();
 					m_IsGrounded = true;
+					m_VerticalSpeed = 0.f;
 				}
 				break;
 			}
@@ -101,17 +102,12 @@ void PhysicsComponent::DoCollisionLogic()
 
 void PhysicsComponent::DoGravityLogic()
 {
-	if (m_Gravity == false)
+	if (m_Gravity == false || m_Static == true)
 		return;
 
 	const float fixedTimeStep{ Time::GetInstance().GetFixedTimeStep() };
 
-	if (m_JumpTimer > 0.f)
-	{
-		m_JumpTimer -= fixedTimeStep;
-		m_pOwner->GetTransform()->Translate(0, - fixedTimeStep * m_GravityAccel);
-	}
-
-	else 
-		m_pOwner->GetTransform()->Translate(0, fixedTimeStep * m_GravityAccel);
+	m_VerticalSpeed += m_GravityAccel * fixedTimeStep;
+	m_VerticalSpeed = std::min(m_MaxFallSpeed, m_VerticalSpeed);
+	m_pOwner->GetTransform()->Translate(0, fixedTimeStep * m_VerticalSpeed);
 }

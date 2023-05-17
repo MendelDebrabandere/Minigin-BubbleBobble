@@ -12,7 +12,7 @@ void JumpCommand::Execute()
 
 	if (physicsComp->GetGrounded())
 	{
-		physicsComp->Jump(1.f);
+		physicsComp->Jump(m_Speed);
 		dae::ServiceLocator::GetSoundSystem().PlaySound("../Data/Sound/TestEffect.wav", 50, 0);
 	}
 }
