@@ -12,7 +12,7 @@ Scene* SceneManager::CreateScene(const std::string& name)
 
 void SceneManager::SetActiveScene(const std::string& name)
 {
-	for (int i = 0; i < m_Scenes.size(); ++i)
+	for (unsigned int i = 0; i < m_Scenes.size(); ++i)
 	{
 		if (m_Scenes[i]->GetName() == name)
 			m_ActiveSceneIdx = i;
@@ -21,7 +21,7 @@ void SceneManager::SetActiveScene(const std::string& name)
 
 void SceneManager::SetActiveScene(const Scene* pScene)
 {
-	for (int i = 0; i < m_Scenes.size(); ++i)
+	for (unsigned int i = 0; i < m_Scenes.size(); ++i)
 	{
 		if (m_Scenes[i].get() == pScene)
 			m_ActiveSceneIdx = i;
