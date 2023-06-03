@@ -1,18 +1,10 @@
 #include "GameSceneCreator.h"
 
-#include "Avatar.h"
 #include "FPSCounter.h"
-#include "HealthComponent.h"
-#include "InputManager.h"
 #include "LevelLoader.h"
-#include "MoveLeftCommand.h"
-#include "MoveRightCommand.h"
+#include "NullSoundSystem.h"
 #include "ResourceManager.h"
-#include "SceneManager.h"
-#include "TextureComponent.h"
-#include "Scene.h"
 #include "ServiceLocator.h"
-#include "SoundSystem.h"
 #include "TextComponent.h"
 
 using namespace dae;
@@ -54,6 +46,8 @@ void GameSceneCreator::CreateGameScene(Scene* pGameScene)
 	std::cout << "\n";
 	std::cout << "\n";
 	std::cout << "\n";
+
+	ServiceLocator::RegisterSoundSystem(new NullSoundSystem());
 
 	ServiceLocator::GetSoundSystem().PlayMusic("../Data/Sound/MainTheme.mp3", 15, -1);
 

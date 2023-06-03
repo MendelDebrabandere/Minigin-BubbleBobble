@@ -114,6 +114,9 @@
     <ClInclude Include="SDLSoundSystem.h">
       <Filter>SoundSystem</Filter>
     </ClInclude>
+    <ClInclude Include="NullSoundSystem.h">
+      <Filter>SoundSystem</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="InputManager.cpp">
