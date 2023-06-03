@@ -68,5 +68,7 @@ namespace dae
 		std::vector<std::unique_ptr<XBox360Controller>> m_ControllerPtrs{};
 
 		std::map<InputDataKeyboard, std::unique_ptr<Command>> m_KeyboardActionMap{};
+
+		std::vector<unsigned int> m_PressedKeys{};
 	};
 }

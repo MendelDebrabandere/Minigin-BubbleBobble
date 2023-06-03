@@ -5,6 +5,7 @@ using namespace dae;
 
 bool InputManager::ProcessInput()
 {
+
 	//Keyboard part
 	SDL_Event e;
 	while (SDL_PollEvent(&e)) {
@@ -16,23 +17,46 @@ bool InputManager::ProcessInput()
 		{
 			if (unsigned int(e.key.keysym.sym) == mapPair.first.key)
 			{
+				//DOWN
 				if (mapPair.first.type == InputType::OnDown && e.type == SDL_KEYDOWN)
-					mapPair.second->Execute();
+				{
+					//Check if it isnt being held down
+					bool containsKey{ false };
+					for (unsigned int key : m_PressedKeys)
+					{
+						if (key == mapPair.first.key)
+						{
+							containsKey = true;
+							break;
+						}
+					}
+					if (containsKey)
+						continue;
 
+					mapPair.second->Execute();
+				}
+
+				//RELEASE
 				else if (mapPair.first.type == InputType::OnRelease && e.type == SDL_KEYUP)
 					mapPair.second->Execute();
 			}
 		}
 	}
 
+	m_PressedKeys.clear();
+
 	//Keyboard Pressed continuously
 	const Uint8* state = SDL_GetKeyboardState(nullptr);
 	for (auto& mapPair : m_KeyboardActionMap)
 	{
-		if (mapPair.first.type == InputType::Pressed)
+		if (state[SDL_GetScancodeFromKey(mapPair.first.key)])
 		{
-			if (state[SDL_GetScancodeFromKey(mapPair.first.key)])
+			m_PressedKeys.push_back(mapPair.first.key);
+
+			if (mapPair.first.type == InputType::Pressed)
+			{
 				mapPair.second->Execute();
+			}
 		}
 	}
 

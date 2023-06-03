@@ -42,7 +42,7 @@ void GameSceneCreator::CreateGameScene(Scene* pGameScene)
 	std::cout << "\n";
 	std::cout << "\n";
 	std::cout << "\n";
-	std::cout << "WASD are the current controls";
+	std::cout << "WASD are the current controls\n";
 	std::cout << "\n";
 	std::cout << "\n";
 	std::cout << "\n";
