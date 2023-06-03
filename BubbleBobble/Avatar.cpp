@@ -21,7 +21,7 @@ GameObject* Avatar::CreateAvatar(Scene* pScene, const glm::vec2& spawnPos)
 
 	auto spriteComp = pAvatar->AddComponent<SpriteComponent>();
 	spriteComp->SetTexture("Avatar.png");
-	spriteComp->SetAnimVariables(3, 7, 0.2f, 0, 7);
+	spriteComp->SetAnimVariables(3, 7, 0.1f, 0, 7);
 	spriteComp->Scale(4);
 
 	auto colliderComp = pAvatar->AddComponent<ColliderComponent>();

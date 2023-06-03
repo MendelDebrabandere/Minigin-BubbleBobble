@@ -70,6 +70,9 @@
     <ClCompile Include="AvatarComponent.cpp">
       <Filter>Component</Filter>
     </ClCompile>
+    <ClCompile Include="EnemyComponent.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FPSCounter.h">
@@ -120,12 +123,11 @@
     <ClInclude Include="BubbleComponent.h">
       <Filter>Component</Filter>
     </ClInclude>
-    <ClInclude Include="resource.h" />
     <ClInclude Include="AvatarComponent.h">
       <Filter>Component</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="BubbleBobble.rc" />
+    <ClInclude Include="EnemyComponent.h">
+      <Filter>Component</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

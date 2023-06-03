@@ -50,7 +50,7 @@ void PhysicsComponent::DoCollisionLogic()
 		auto otherColliderComp = object->GetComponent<ColliderComponent>();
 		if (otherPhysicsComp && otherColliderComp)
 		{
-			//only go on if they have collision on
+			//only go on if the other has collision on
 			if (otherPhysicsComp->m_Collision == false)
 				continue;
 

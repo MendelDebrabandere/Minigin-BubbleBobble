@@ -1,6 +1,7 @@
 #include "ZenChan.h"
 
 #include "ColliderComponent.h"
+#include "EnemyComponent.h"
 #include "JumpCommand.h"
 #include "PhysicsComponent.h"
 #include "SpriteComponent.h"
@@ -11,6 +12,8 @@ GameObject* ZenChan::CreateZenChan(Scene* pScene, const glm::vec2& spawnPos)
 {
 	GameObject* pZen{ pScene->CreateGameObject() };
 	pZen->GetComponent<Transform>()->SetWorldPosition(spawnPos.x, spawnPos.y);
+
+	pZen->AddComponent<EnemyComponent>();
 
 	auto spriteComp = pZen->AddComponent<SpriteComponent>();
 	spriteComp->SetTexture("ZenChan.png");

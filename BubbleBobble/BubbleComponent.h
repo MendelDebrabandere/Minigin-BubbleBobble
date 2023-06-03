@@ -16,6 +16,19 @@ public:
 	void SetShootDirection(bool right);
 
 private:
+	enum class BubbleState
+	{
+		Shooting,
+		Hovering,
+		EnemyInside
+	};
+	BubbleState m_CurrentState{ BubbleState::Shooting };
+
+	void DoMovementLogic();
+	void DoCollisionLogic();
+	void PickUpEnemy(dae::GameObject* go);
+	void PopByPlayer(dae::GameObject* go);
+
 	float m_Timer{};
 	bool m_DirectionRight{};
 

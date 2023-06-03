@@ -1,60 +1,164 @@
 #include "BubbleComponent.h"
 #include <SDL_stdinc.h>
+
+#include "AvatarComponent.h"
+#include "ColliderComponent.h"
+#include "EnemyComponent.h"
 #include "Timer.h"
 #include "Transform.h"
 #include "GameObject.h"
+#include "SceneManager.h"
+#include "Scene.h"
+#include "SpriteComponent.h"
 
 void BubbleComponent::Update()
 {
-	//increment timer
-	float deltaTime = dae::Time::GetInstance().GetDelta();
-	m_Timer += deltaTime;
-
-	//Destroy if it reached the top
-	if (m_HasReachedTheTop)
-	{
-		if (m_Timer >= 3.f)
-			m_pOwner->Destroy();
-		return;
-	}
-
-	//Get transform and position
-	dae::Transform* pTransform{m_pOwner->GetTransform()};
-	if (!pTransform) return;
-
-	const glm::vec2 currPos = pTransform->GetWorldPosition();
-
-	//Move object
-	glm::vec2 posDelta{};
-	if (m_Timer <= 0.5f)
-	{
-		constexpr float horMoveSpeed{ 450 };
-		posDelta.x = (m_DirectionRight ? horMoveSpeed * deltaTime : -horMoveSpeed * deltaTime);
-	}
-	else
-	{
-		constexpr float vertMoveSpeed{ 100 };
-		posDelta.y = -vertMoveSpeed * deltaTime;
-	}
-
-	//Check if it goes out of bounds
-	if (currPos.x <= 70 || currPos.x >= 890)
-	{
-		posDelta.x = 0;
-		m_Timer = 1.f;
-	}
-	if (currPos.y <= 70)
-	{
-		posDelta.y = 0;
-		m_HasReachedTheTop = true;
-		m_Timer = 0.f;
-	}
-
-	//Set transform
-	pTransform->SetWorldPosition(currPos + posDelta);
+	DoMovementLogic();
+	DoCollisionLogic();
 }
 
 void BubbleComponent::SetShootDirection(bool right)
 {
 	m_DirectionRight = right;
+}
+
+void BubbleComponent::DoMovementLogic()
+{
+	//increment timer
+	float deltaTime = dae::Time::GetInstance().GetDelta();
+	m_Timer += deltaTime;
+
+	//Get transform and position
+	dae::Transform* pTransform{ m_pOwner->GetTransform() };
+	const glm::vec2 currPos = pTransform->GetWorldPosition();
+
+	//Move object
+	glm::vec2 posDelta{};
+	
+	switch(m_CurrentState)
+	{
+	case BubbleState::Shooting:
+	{
+		//Move horizontally
+		constexpr float horMoveSpeed{ 450 };
+		posDelta.x = (m_DirectionRight ? horMoveSpeed * deltaTime : -horMoveSpeed * deltaTime);
+
+		//Check if it goes out of bounds
+		if (currPos.x <= 70 || currPos.x >= 890)
+		{
+			posDelta.x = 0;
+			m_Timer = 1.f;
+		}
+
+		//Check if it was shooting for long enough
+		if (m_Timer >= 0.5f)
+		{
+			m_CurrentState = BubbleState::Hovering;
+		}
+
+		break;
+	}
+	case BubbleState::Hovering:
+	case BubbleState::EnemyInside:
+	{
+		//Move vertically
+		constexpr float vertMoveSpeed{ 100 };
+		posDelta.y = -vertMoveSpeed * deltaTime;
+
+		//Destroy if it reached the top for X time
+		if (m_HasReachedTheTop)
+		{
+			if (m_Timer >= 3.f)
+				m_pOwner->Destroy();
+			return;
+		}
+
+		//Check if it reached the top
+		if (currPos.y <= 70)
+		{
+			posDelta.y = 0;
+			m_HasReachedTheTop = true;
+			m_Timer = 0.f;
+		}
+
+		break;
+	}
+	}
+
+	//Set transform
+	pTransform->SetWorldPosition(currPos + posDelta);
+
+}
+
+void BubbleComponent::DoCollisionLogic()
+{
+	dae::Scene* scene = dae::SceneManager::GetInstance().GetActiveScene();
+
+	switch (m_CurrentState)
+	{
+	case BubbleState::Shooting:
+		{
+		for (auto& object : scene->GetAllObjects())
+		{
+			//if its an enemy
+			EnemyComponent* enemyComp = object->GetComponent<EnemyComponent>();
+			if (enemyComp)
+			{
+				dae::ColliderComponent* myColl = m_pOwner->GetComponent<dae::ColliderComponent>();
+				dae::ColliderComponent* otherColl = object->GetComponent<dae::ColliderComponent>();
+				if (myColl && otherColl)
+				{
+					//if they are overlapping
+					const auto overlapData = myColl->IsOverlappingWith(otherColl);
+					if (overlapData.first != dae::ColliderComponent::OverlapData::Not)
+					{
+						PickUpEnemy(object.get());
+					}
+				}
+			}
+		}
+		break;
+		}
+	case BubbleState::EnemyInside:
+		{
+		for (auto& object : scene->GetAllObjects())
+		{
+			//if its a player
+			AvatarComponent* avatarComp = object->GetComponent<AvatarComponent>();
+			if (avatarComp)
+			{
+				dae::ColliderComponent* myColl = m_pOwner->GetComponent<dae::ColliderComponent>();
+				dae::ColliderComponent* otherColl = object->GetComponent<dae::ColliderComponent>();
+				if (myColl && otherColl)
+				{
+					//if they are overlapping
+					const auto overlapData = myColl->IsOverlappingWith(otherColl);
+					if (overlapData.first != dae::ColliderComponent::OverlapData::Not)
+					{
+						PopByPlayer(object.get());
+					}
+				}
+			}
+		}
+		break;
+		}
+	}
+
+}
+
+void BubbleComponent::PickUpEnemy(dae::GameObject* go)
+{
+	m_CurrentState = BubbleState::EnemyInside;
+	go->Destroy();
+	dae::SpriteComponent* spriteComp = m_pOwner->GetComponent<dae::SpriteComponent>();
+	if (spriteComp)
+	{
+		spriteComp->SetAnimVariables(4, 3, 0.3f, 0, 3);
+		spriteComp->Scale(4);
+	}
+}
+
+void BubbleComponent::PopByPlayer(dae::GameObject* )
+{
+	m_pOwner->Destroy();
 }

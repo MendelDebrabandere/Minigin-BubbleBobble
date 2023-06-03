@@ -166,6 +166,7 @@
     <ClCompile Include="Bubble.cpp" />
     <ClCompile Include="BubbleBobble.cpp" />
     <ClCompile Include="BubbleComponent.cpp" />
+    <ClCompile Include="EnemyComponent.cpp" />
     <ClCompile Include="FPSCounter.cpp" />
     <ClCompile Include="GameSceneCreator.cpp" />
     <ClCompile Include="HealthComponent.cpp" />
@@ -186,6 +187,7 @@
     <ClInclude Include="Bubble.h" />
     <ClInclude Include="BubbleBobble.h" />
     <ClInclude Include="BubbleComponent.h" />
+    <ClInclude Include="EnemyComponent.h" />
     <ClInclude Include="FPSCounter.h" />
     <ClInclude Include="GameSceneCreator.h" />
     <ClInclude Include="HealthComponent.h" />
@@ -194,13 +196,9 @@
     <ClInclude Include="MoveLeftCommand.h" />
     <ClInclude Include="MoveRightCommand.h" />
     <ClInclude Include="Platform.h" />
-    <ClInclude Include="resource.h" />
     <ClInclude Include="RotatorComponent.h" />
     <ClInclude Include="ShootBubbleCommand.h" />
     <ClInclude Include="ZenChan.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="BubbleBobble.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
