@@ -109,5 +109,20 @@ void PhysicsComponent::DoGravityLogic()
 
 	m_VerticalSpeed += m_GravityAccel * fixedTimeStep;
 	m_VerticalSpeed = std::min(m_MaxFallSpeed, m_VerticalSpeed);
+
+	//If the player or anything with a collider reaches outside of the screen in Y direction
+	//TP back to the top
+	auto myCollider = m_pOwner->GetComponent<ColliderComponent>();
+	if (myCollider)
+	{
+		glm::vec2 worldPos = m_pOwner->GetTransform()->GetWorldPosition();
+		if (worldPos.y >= 800)
+		{
+			m_pOwner->GetTransform()->SetWorldPosition(worldPos.x, 0 - myCollider->GetSize().y);
+		}
+	}
+
+
+
 	m_pOwner->GetTransform()->Translate(0, fixedTimeStep * m_VerticalSpeed);
 }

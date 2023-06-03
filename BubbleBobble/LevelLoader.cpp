@@ -6,6 +6,7 @@
 #include "Avatar.h"
 #include "Block.h"
 #include "Platform.h"
+#include "ZenChan.h"
 
 using namespace dae;
 
@@ -48,7 +49,7 @@ void LevelLoader::LoadLevel(Scene* pScene, int number)
 				}
 				case '4':
 				{
-					//TODO: Spawn a Zen-Chan
+					ZenChan::CreateZenChan(pScene, glm::vec2{ blockSize * posX, blockSize * posY });
 					break;
 				}
 				case '5':

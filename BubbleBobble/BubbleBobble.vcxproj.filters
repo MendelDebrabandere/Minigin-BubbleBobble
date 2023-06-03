@@ -55,6 +55,15 @@
     <ClCompile Include="Platform.cpp">
       <Filter>Prefabs</Filter>
     </ClCompile>
+    <ClCompile Include="ZenChan.cpp">
+      <Filter>Prefabs</Filter>
+    </ClCompile>
+    <ClCompile Include="ShootBubbleCommand.cpp">
+      <Filter>Command</Filter>
+    </ClCompile>
+    <ClCompile Include="Bubble.cpp">
+      <Filter>Prefabs</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FPSCounter.h">
@@ -91,6 +100,15 @@
       <Filter>Command</Filter>
     </ClInclude>
     <ClInclude Include="Platform.h">
+      <Filter>Prefabs</Filter>
+    </ClInclude>
+    <ClInclude Include="ZenChan.h">
+      <Filter>Prefabs</Filter>
+    </ClInclude>
+    <ClInclude Include="ShootBubbleCommand.h">
+      <Filter>Command</Filter>
+    </ClInclude>
+    <ClInclude Include="Bubble.h">
       <Filter>Prefabs</Filter>
     </ClInclude>
   </ItemGroup>

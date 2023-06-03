@@ -20,8 +20,8 @@ using namespace dae;
 void GameSceneCreator::CreateGameScene(Scene* pGameScene)
 {
 	const auto pFont{ ResourceManager::GetInstance().LoadFont("Lingua.otf", 36) };
-	const auto pBackgroundTexture{ ResourceManager::GetInstance().LoadTexture("background.tga") };
-	const auto pLogoTexture{ ResourceManager::GetInstance().LoadTexture("logo.tga") };
+	//const auto pBackgroundTexture{ ResourceManager::GetInstance().LoadTexture("background.tga") };
+	//const auto pLogoTexture{ ResourceManager::GetInstance().LoadTexture("logo.tga") };
 
 	//// BACKGROUND
 	//const auto pBG = pGameScene->CreateGameObject();
@@ -40,14 +40,12 @@ void GameSceneCreator::CreateGameScene(Scene* pGameScene)
 	//pTitle->AddComponent<TextComponent>()->SetFont(pFont);
 	//pTitle->GetComponent<TextComponent>()->SetText("Programming 4 Assignment");
 
-	//// FPS COUNTER
-	//const auto pFPSCounter = pGameScene->CreateGameObject();
-	//pFPSCounter->AddComponent<TextureComponent>();
-	//pFPSCounter->AddComponent<FPSCounter>();
-	//pFPSCounter->AddComponent<TextComponent>()->SetFont(pFont);
+	// FPS COUNTER
+	const auto pFPSCounter = pGameScene->CreateGameObject();
+	pFPSCounter->AddComponent<TextureComponent>();
+	pFPSCounter->AddComponent<FPSCounter>();
+	pFPSCounter->AddComponent<TextComponent>()->SetFont(pFont);
 
-	//// Create Avatar
-	// Avatar::CreateAvatar(pGameScene);
 
 	std::cout << "\n";
 	std::cout << "\n";
@@ -56,11 +54,9 @@ void GameSceneCreator::CreateGameScene(Scene* pGameScene)
 	std::cout << "\n";
 	std::cout << "\n";
 	std::cout << "\n";
-	std::cout << "For the SoundSystem assignment:\n";
-	std::cout << "There is looping music playing\n";
-	std::cout << "There is a sound effect when jumping (Press W)\n";
 
 	ServiceLocator::GetSoundSystem().PlayMusic("../Data/Sound/MainTheme.mp3", 15, -1);
+
 
 	LevelLoader::LoadLevel(pGameScene, 1);
 }
