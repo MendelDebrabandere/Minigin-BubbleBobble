@@ -4,6 +4,6 @@
 class Bubble final
 {
 public:
-	static dae::GameObject* CreateBubble(dae::Scene* pScene, const glm::vec2& spawnPos);
+	static dae::GameObject* CreateBubble(dae::Scene* pScene, const dae::GameObject* pShooterObj);
 };
 

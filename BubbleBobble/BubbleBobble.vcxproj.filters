@@ -64,6 +64,9 @@
     <ClCompile Include="Bubble.cpp">
       <Filter>Prefabs</Filter>
     </ClCompile>
+    <ClCompile Include="BubbleFlyingComponent.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FPSCounter.h">
@@ -110,6 +113,9 @@
     </ClInclude>
     <ClInclude Include="Bubble.h">
       <Filter>Prefabs</Filter>
+    </ClInclude>
+    <ClInclude Include="BubbleFlyingComponent.h">
+      <Filter>Component</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

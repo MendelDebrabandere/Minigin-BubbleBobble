@@ -1,15 +1,8 @@
 #include "HealthComponent.h"
 
-#include <iostream>
-
 #include "GameObject.h"
-#include <sstream>
 
-#include "Subject.h"
 #include "TextComponent.h"
-#include "Time.h"
-
-using namespace dae;
 
 
 void HealthComponent::SetMaxHealth(int newMaxHealth)

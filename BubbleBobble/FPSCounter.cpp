@@ -4,13 +4,13 @@
 #include "Timer.h"
 #include "TextComponent.h"
 
-void dae::FPSCounter::Update()
+void FPSCounter::Update()
 {
 	//Update frame counter
 	++m_AmountOfPassedFrames;
 
 	// Every updateInterval, update the text to the average FPS of the interval
-	m_AccuSec += Time::GetInstance().GetDelta();
+	m_AccuSec += dae::Time::GetInstance().GetDelta();
 	if (m_AccuSec >= m_UpdateInterval)
 	{
 		m_AccuSec -= m_UpdateInterval;
@@ -25,7 +25,7 @@ void dae::FPSCounter::Update()
 		// Get text component if its not there
 		if (m_pText == nullptr)
 		{
-			m_pText = GetOwner()->GetComponent<TextComponent>();
+			m_pText = GetOwner()->GetComponent<dae::TextComponent>();
 
 			if (m_pText	== nullptr) return;
 		}

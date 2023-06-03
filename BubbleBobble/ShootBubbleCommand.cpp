@@ -8,6 +8,5 @@ void ShootBubbleCommand::Execute()
 {
 	dae::Scene* scene = dae::SceneManager::GetInstance().GetActiveScene();
 
-	Bubble::CreateBubble(scene, m_pGo->GetTransform()->GetWorldPosition());
-	std::cout << "Shooting bubble\n";
+	Bubble::CreateBubble(scene, m_pGo);
 }

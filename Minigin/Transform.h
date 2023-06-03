@@ -22,12 +22,16 @@ namespace dae
 		void SetWorldPosition(float x, float y);
 		void SetWorldPosition(const glm::vec2& position);
 		void Translate(float x, float y);
+
+		bool GetFacingRight() const;
 	private:
 		void EnableChangedFlag();
 		void UpdateWorldPosition();
 
 		glm::vec2 m_LocalPosition{};
 		glm::vec2 m_WorldPosition{};
+
+		bool m_FacingRight{true};
 
 		bool m_HasChanged{};
 	};

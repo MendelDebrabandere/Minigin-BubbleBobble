@@ -32,7 +32,6 @@ GameObject* Avatar::CreateAvatar(Scene* pScene, const glm::vec2& spawnPos)
 	InputManager::GetInstance().AddKeyboardCommand('d', InputManager::InputType::Pressed, std::make_unique<MoveRightCommand>(pAvatar, 200.f));
 	InputManager::GetInstance().AddKeyboardCommand('w', InputManager::InputType::Pressed, std::make_unique<JumpCommand>(pAvatar, -500.f));
 	InputManager::GetInstance().AddKeyboardCommand(' ', InputManager::InputType::OnDown, std::make_unique<ShootBubbleCommand>(pAvatar));
-	InputManager::GetInstance().AddKeyboardCommand(' ', InputManager::InputType::OnRelease, std::make_unique<ShootBubbleCommand>(pAvatar));
 
 	return pAvatar;
 }

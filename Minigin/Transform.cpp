@@ -1,35 +1,51 @@
 #include "Transform.h"
 #include "GameObject.h"
 
-void dae::Transform::SetWorldPosition(const glm::vec2& position)
+using namespace dae;
+
+void Transform::SetWorldPosition(float x, float y)
 {
-	m_LocalPosition += position - GetWorldPosition();
-	EnableChangedFlag();
+	const glm::vec2& worldPos{ GetWorldPosition() };
+
+	SetLocalPosition(m_LocalPosition.x + (x - worldPos.x),
+					m_LocalPosition.y + (y - worldPos.y));
 }
 
-const glm::vec2& dae::Transform::GetWorldPosition()
+
+void Transform::SetWorldPosition(const glm::vec2& position)
+{
+	SetWorldPosition(position.x, position.y);
+}
+
+const glm::vec2& Transform::GetWorldPosition()
 {
 	if (m_HasChanged) UpdateWorldPosition();
 
 	return m_WorldPosition;
 }
 
-void dae::Transform::SetLocalPosition(float x, float y)
+void Transform::SetLocalPosition(float x, float y)
 {
+	if (m_LocalPosition.x != x)
+	{
+		if (m_LocalPosition.x < x)
+			m_FacingRight = true;
+		else
+			m_FacingRight = false;
+	}
+
 	m_LocalPosition.x = x;
 	m_LocalPosition.y = y;
 
 	EnableChangedFlag();
 }
 
-void dae::Transform::SetLocalPosition(const glm::vec2& position)
+void Transform::SetLocalPosition(const glm::vec2& position)
 {
-	m_LocalPosition = position;
-
-	EnableChangedFlag();
+	SetLocalPosition(position.x, position.y);
 }
 
-void dae::Transform::UpdateWorldPosition()
+void Transform::UpdateWorldPosition()
 {
 	//This line comes first because there are multiple exits in the function
 	m_HasChanged = false;
@@ -56,26 +72,18 @@ void dae::Transform::UpdateWorldPosition()
 	m_WorldPosition = pParentTransform->GetWorldPosition() + m_LocalPosition;
 }
 
-void dae::Transform::SetWorldPosition(float x, float y)
+void Transform::Translate(float x, float y)
 {
-	const glm::vec2& worldPos{ GetWorldPosition() };
-
-	m_LocalPosition.x += x - worldPos.x;
-	m_LocalPosition.y += y - worldPos.y;
-
-	EnableChangedFlag();
+	SetLocalPosition(m_LocalPosition.x + x,
+					m_LocalPosition.y + y);
 }
 
-
-void dae::Transform::Translate(float x, float y)
+bool Transform::GetFacingRight() const
 {
-	m_LocalPosition.x += x;
-	m_LocalPosition.y += y;
-
-	EnableChangedFlag();
+	return m_FacingRight;
 }
 
-void dae::Transform::EnableChangedFlag()
+void Transform::EnableChangedFlag()
 {
 	m_HasChanged = true;
 
