@@ -33,12 +33,14 @@ void SpriteComponent::Update()
 			m_CurrTime = 0.f;
 		}
 	}
-
 }
 
 void SpriteComponent::Render() const
 {
-	Renderer::GetInstance().RenderTexture(*m_Texture, m_RenderPos.x, m_RenderPos.y, m_RenderWidth, m_RenderHeight, &m_Rect);
+	if (m_FlipTexture == false)
+		Renderer::GetInstance().RenderTexture(*m_Texture, m_RenderPos.x, m_RenderPos.y, m_RenderWidth, m_RenderHeight, &m_Rect);
+	else
+		Renderer::GetInstance().RenderTexture(*m_Texture, m_RenderPos.x, m_RenderPos.y, m_RenderWidth, m_RenderHeight, &m_Rect, SDL_FLIP_HORIZONTAL);
 }
 
 void SpriteComponent::SetTexture(const std::string& filename)
@@ -76,4 +78,14 @@ void SpriteComponent::Scale(float value)
 void SpriteComponent::Pause(bool value)
 {
 	m_Pause = value;
+}
+
+void SpriteComponent::FlipTexture(bool value)
+{
+	m_FlipTexture = value;
+}
+
+glm::vec2 SpriteComponent::GetSize() const
+{
+	return glm::vec2(m_RenderWidth, m_RenderHeight);
 }

@@ -161,6 +161,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Avatar.cpp" />
+    <ClCompile Include="AvatarComponent.cpp" />
     <ClCompile Include="Block.cpp" />
     <ClCompile Include="Bubble.cpp" />
     <ClCompile Include="BubbleBobble.cpp" />
@@ -180,6 +181,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Avatar.h" />
+    <ClInclude Include="AvatarComponent.h" />
     <ClInclude Include="Block.h" />
     <ClInclude Include="Bubble.h" />
     <ClInclude Include="BubbleBobble.h" />
@@ -192,9 +194,13 @@
     <ClInclude Include="MoveLeftCommand.h" />
     <ClInclude Include="MoveRightCommand.h" />
     <ClInclude Include="Platform.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="RotatorComponent.h" />
     <ClInclude Include="ShootBubbleCommand.h" />
     <ClInclude Include="ZenChan.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="BubbleBobble.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

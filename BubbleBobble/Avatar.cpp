@@ -1,5 +1,6 @@
 #include "Avatar.h"
 
+#include "AvatarComponent.h"
 #include "ColliderComponent.h"
 #include "InputManager.h"
 #include "JumpCommand.h"
@@ -16,9 +17,11 @@ GameObject* Avatar::CreateAvatar(Scene* pScene, const glm::vec2& spawnPos)
 	GameObject* pAvatar{ pScene->CreateGameObject() };
 	pAvatar->GetComponent<Transform>()->SetWorldPosition(spawnPos.x, spawnPos.y);
 
+	pAvatar->AddComponent<AvatarComponent>();
+
 	auto spriteComp = pAvatar->AddComponent<SpriteComponent>();
 	spriteComp->SetTexture("Avatar.png");
-	spriteComp->SetAnimVariables(3, 7, 0.3f, 0, 7);
+	spriteComp->SetAnimVariables(3, 7, 0.2f, 0, 7);
 	spriteComp->Scale(4);
 
 	auto colliderComp = pAvatar->AddComponent<ColliderComponent>();
@@ -30,7 +33,7 @@ GameObject* Avatar::CreateAvatar(Scene* pScene, const glm::vec2& spawnPos)
 
 	InputManager::GetInstance().AddKeyboardCommand('a', InputManager::InputType::Pressed, std::make_unique<MoveLeftCommand>(pAvatar, 200.f));
 	InputManager::GetInstance().AddKeyboardCommand('d', InputManager::InputType::Pressed, std::make_unique<MoveRightCommand>(pAvatar, 200.f));
-	InputManager::GetInstance().AddKeyboardCommand('w', InputManager::InputType::Pressed, std::make_unique<JumpCommand>(pAvatar, -500.f));
+	InputManager::GetInstance().AddKeyboardCommand('w', InputManager::InputType::Pressed, std::make_unique<JumpCommand>(pAvatar, -450.f));
 	InputManager::GetInstance().AddKeyboardCommand(' ', InputManager::InputType::OnDown, std::make_unique<ShootBubbleCommand>(pAvatar));
 
 	return pAvatar;

@@ -27,7 +27,9 @@ namespace dae
 		void Scale(float value);
 		void Pause(bool value);
 
-		glm::vec2 GetSize() { return glm::vec2(m_RenderWidth, m_RenderHeight); }
+		void FlipTexture(bool value);
+
+		glm::vec2 GetSize() const;
 	private:
 		std::shared_ptr<Texture2D> m_Texture{};
 		float m_RenderWidth{};
@@ -44,7 +46,8 @@ namespace dae
 
 		float m_CurrTime{};
 		float m_AnimTimer{};
-		bool m_Pause{false};
+		bool m_Pause{};
 
+		bool m_FlipTexture{true};
 	};
 }
