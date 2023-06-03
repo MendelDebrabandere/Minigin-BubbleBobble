@@ -5,12 +5,14 @@
 #include "Renderer.h"
 #include "Transform.h"
 
-void dae::TextureComponent::SetTexture(const std::shared_ptr<Texture2D>& pTexture)
+using namespace dae;
+
+void TextureComponent::SetTexture(const std::shared_ptr<Texture2D>& pTexture)
 {
 	m_pTexture = pTexture;
 }
 
-void dae::TextureComponent::Render() const
+void TextureComponent::Render() const
 {
 	// If no texture has been assigned to this TextureComponent, do nothing
 	if (!m_pTexture) return;

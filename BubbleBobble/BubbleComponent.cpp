@@ -1,10 +1,10 @@
-#include "BubbleFlyingComponent.h"
+#include "BubbleComponent.h"
 #include <SDL_stdinc.h>
 #include "Timer.h"
 #include "Transform.h"
 #include "GameObject.h"
 
-void BubbleFlyingComponent::Update()
+void BubbleComponent::Update()
 {
 	//increment timer
 	float deltaTime = dae::Time::GetInstance().GetDelta();
@@ -54,7 +54,7 @@ void BubbleFlyingComponent::Update()
 	pTransform->SetWorldPosition(currPos + posDelta);
 }
 
-void BubbleFlyingComponent::SetShootDirection(bool right)
+void BubbleComponent::SetShootDirection(bool right)
 {
 	m_DirectionRight = right;
 }

@@ -1,8 +1,7 @@
 #include "Bubble.h"
 
-#include "BubbleFlyingComponent.h"
+#include "BubbleComponent.h"
 #include "ColliderComponent.h"
-#include "JumpCommand.h"
 #include "SpriteComponent.h"
 #include "GameObject.h"
 
@@ -25,7 +24,7 @@ GameObject* Bubble::CreateBubble(Scene* pScene, const GameObject* pShooterObj)
 	spriteComp->SetAnimVariables(4, 3, 0.3f, 6, 9);
 	spriteComp->Scale(4);
 
-	BubbleFlyingComponent* flyingComp = pBubble->AddComponent<BubbleFlyingComponent>();
+	BubbleComponent* flyingComp = pBubble->AddComponent<BubbleComponent>();
 	flyingComp->SetShootDirection(facingRight);
 
 	return pBubble;

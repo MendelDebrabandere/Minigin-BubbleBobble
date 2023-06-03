@@ -5,7 +5,7 @@ namespace dae
 {
 	class Texture2D;
 
-	class TextureComponent final : public dae::Component
+	class TextureComponent final : public Component
 	{
 	public:
 		TextureComponent() = default;
