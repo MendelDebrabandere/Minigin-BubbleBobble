@@ -8,13 +8,13 @@
 
 void ShootBubbleCommand::Execute()
 {
-	dae::Scene* scene = dae::SceneManager::GetInstance().GetActiveScene();
-
 	AvatarComponent* avatarComp = m_pGo->GetComponent<AvatarComponent>();
-	dae::SpriteComponent* spriteComp = m_pGo->GetComponent<dae::SpriteComponent>();
-	if (avatarComp && spriteComp)
+	if (avatarComp->GetCurrState() == AvatarComponent::AvatarState::Moving)
 	{
-		if (avatarComp->GetCurrState() == AvatarState::Moving)
+		dae::Scene* scene = dae::SceneManager::GetInstance().GetActiveScene();
+
+		dae::SpriteComponent* spriteComp = m_pGo->GetComponent<dae::SpriteComponent>();
+		if (avatarComp && spriteComp)
 		{
 			spriteComp->DoOnceAnim(0.1f, 7, 12);
 			Bubble::CreateBubble(scene, m_pGo);

@@ -3,15 +3,15 @@
 
 #include "Component.h"
 
-enum class AvatarState
-{
-	Moving,
-	Respawning
-};
-
 class AvatarComponent : public dae::Component
 {
 public:
+	enum class AvatarState
+	{
+		Moving,
+		Hit
+	};
+
 	AvatarComponent() = default;
 	virtual ~AvatarComponent() = default;
 
@@ -25,8 +25,10 @@ public:
 	AvatarState GetCurrState() const;
 
 private:
-	AvatarState m_CurrentState{ AvatarState::Moving };
+	void CheckAnimPauseWithMovement();
+	void DoEnemyHitDetection();
 
+	AvatarState m_CurrentState{ AvatarState::Moving };
 
 	glm::vec2 m_LastPos{};
 };

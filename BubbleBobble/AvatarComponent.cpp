@@ -1,11 +1,34 @@
 #include "AvatarComponent.h"
+
+#include "ColliderComponent.h"
+#include "EnemyComponent.h"
 #include "Transform.h"
 #include "GameObject.h"
+#include "SceneManager.h"
 #include "SpriteComponent.h"
+#include "Scene.h"
 
 void AvatarComponent::Update()
 {
-	//Check if the sprite should be paused or not
+	switch(m_CurrentState)
+	{
+	case AvatarState::Moving:
+	{
+		CheckAnimPauseWithMovement();
+		DoEnemyHitDetection();
+		break;
+	}
+	}
+}
+
+AvatarComponent::AvatarState AvatarComponent::GetCurrState() const
+{
+	return m_CurrentState;
+}
+
+void AvatarComponent::CheckAnimPauseWithMovement()
+{
+	//Check if the sprite should be paused or not depending on if it moved
 	dae::SpriteComponent* spriteComp = m_pOwner->GetComponent<dae::SpriteComponent>();
 	if (spriteComp)
 	{
@@ -32,7 +55,39 @@ void AvatarComponent::Update()
 	}
 }
 
-AvatarState AvatarComponent::GetCurrState() const
+void AvatarComponent::DoEnemyHitDetection()
 {
-	return m_CurrentState;
+	//Do enemy hit detection
+	dae::ColliderComponent* myColl = m_pOwner->GetComponent<dae::ColliderComponent>();
+	if (myColl)
+	{
+		dae::Scene* scene = dae::SceneManager::GetInstance().GetActiveScene();
+
+		//Check for collision with enemies
+		for (auto& object : scene->GetAllObjects())
+		{
+			//if its an enemy
+			EnemyComponent* enemyComp = object->GetComponent<EnemyComponent>();
+			if (enemyComp)
+			{
+				dae::ColliderComponent* otherColl = object->GetComponent<dae::ColliderComponent>();
+				if (otherColl)
+				{
+					//if they are overlapping
+					const auto overlapData = myColl->IsOverlappingWith(otherColl);
+					if (overlapData.first != dae::ColliderComponent::OverlapData::Not)
+					{
+						//Got hit by enemy
+						m_CurrentState = AvatarState::Hit;
+						dae::SpriteComponent* spriteComp = m_pOwner->GetComponent<dae::SpriteComponent>();
+						if (spriteComp)
+						{
+							spriteComp->SetAnimVariables(3, 7, 0.1f, 14, 18);
+							spriteComp->Scale(4);
+						}
+					}
+				}
+			}
+		}
+	}
 }
