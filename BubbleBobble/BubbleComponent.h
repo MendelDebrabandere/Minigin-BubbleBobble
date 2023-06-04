@@ -12,6 +12,7 @@ public:
 	BubbleComponent& operator=(const BubbleComponent& other) = delete;
 	BubbleComponent& operator=(BubbleComponent&& other) = delete;
 
+	void Initialize() override;
 	void Update() override;
 	void SetShootDirection(bool right);
 
@@ -25,7 +26,6 @@ private:
 	BubbleState m_CurrentState{ BubbleState::Shooting };
 
 	void DoMovementLogic();
-	void DoCollisionLogic();
 	void PickUpEnemy(dae::GameObject* go);
 	void PopByPlayer(dae::GameObject* go);
 

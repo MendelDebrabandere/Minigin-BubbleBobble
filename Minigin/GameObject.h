@@ -76,6 +76,8 @@ namespace dae
 		std::unique_ptr<T> pComponent = std::make_unique<T>();
 		pComponent->SetOwner(this);
 
+		pComponent->Initialize();
+
 		T* rawPtr = pComponent.get();
 		m_Components.emplace_back(std::move(pComponent));
 

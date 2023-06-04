@@ -24,12 +24,12 @@ GameObject* Bubble::CreateBubble(Scene* pScene, const GameObject* pShooterObj)
 	spriteComp->SetAnimVariables(4, 3, 0.3f, 6, 9);
 	spriteComp->Scale(4);
 
-	BubbleComponent* flyingComp = pBubble->AddComponent<BubbleComponent>();
-	flyingComp->SetShootDirection(facingRight);
-
 	ColliderComponent* colliderComp = pBubble->AddComponent<ColliderComponent>();
 	colliderComp->SetSize(spriteComp->GetSize());
 	colliderComp->SetRendering(true);
+
+	BubbleComponent* flyingComp = pBubble->AddComponent<BubbleComponent>();
+	flyingComp->SetShootDirection(facingRight);
 
 	return pBubble;
 }

@@ -26,10 +26,12 @@ void PhysicsComponent::Jump(float speed)
 	m_VerticalSpeed = speed;
 }
 
+//Collision is going to happen if one of the objects has m_Collision to true,
+//They will only overlap if both have m_Collision to false
 void PhysicsComponent::DoCollisionLogic()
 {
 	// dont do calculations if it is static or collision is off
-	if (m_Collision == false || m_Static == true)
+	if (m_Static == true)
 		return;
 
 	//only continue of you have a collider
@@ -66,7 +68,7 @@ void PhysicsComponent::DoCollisionLogic()
 			case ColliderComponent::OverlapData::Top:
 			{
 				m_pOwner->GetTransform()->Translate(0, overlapData.second);
-				myCollider->FixedUpdate();
+				myCollider->UpdatePos();
 				m_VerticalSpeed = 0.f;
 				break;
 			}
@@ -75,7 +77,7 @@ void PhysicsComponent::DoCollisionLogic()
 				if (m_VerticalSpeed > -1.f)
 				{
 					m_pOwner->GetTransform()->Translate(0, -overlapData.second);
-					myCollider->FixedUpdate();
+					myCollider->UpdatePos();
 					m_IsGrounded = true;
 					m_VerticalSpeed = 0.f;
 				}
@@ -84,13 +86,13 @@ void PhysicsComponent::DoCollisionLogic()
 			case ColliderComponent::OverlapData::Left:
 			{
 				m_pOwner->GetTransform()->Translate(overlapData.second, 0);
-				myCollider->FixedUpdate();
+				myCollider->UpdatePos();
 				break;
 			}
 			case ColliderComponent::OverlapData::Right:
 			{
 				m_pOwner->GetTransform()->Translate(-overlapData.second, 0);
-				myCollider->FixedUpdate();
+				myCollider->UpdatePos();
 				break;
 			}
 			case ColliderComponent::OverlapData::Not:

@@ -7,14 +7,49 @@
 #include "Timer.h"
 #include "Transform.h"
 #include "GameObject.h"
-#include "SceneManager.h"
-#include "Scene.h"
 #include "SpriteComponent.h"
+
+void BubbleComponent::Initialize()
+{
+	dae::ColliderComponent* myColl = m_pOwner->GetComponent<dae::ColliderComponent>();
+	if (myColl)
+	{
+		myColl->SetOverlapFunction([&](dae::GameObject* overlappingActor)
+			{
+				switch (m_CurrentState)
+				{
+				case BubbleState::Shooting:
+				{
+					//if its an enemy
+					EnemyComponent* enemyComp = overlappingActor->GetComponent<EnemyComponent>();
+					if (enemyComp)
+					{
+						PickUpEnemy(overlappingActor);
+					}
+					break;
+				}
+				case BubbleState::Hovering:
+				case BubbleState::ReachedTop:
+				{
+					if (m_HasEnemyInside)
+					{
+						//if its a player
+						AvatarComponent* avatarComp = overlappingActor->GetComponent<AvatarComponent>();
+						if (avatarComp)
+						{
+							PopByPlayer(overlappingActor);
+						}
+					}
+					break;
+				}
+				}
+			});
+	}
+}
 
 void BubbleComponent::Update()
 {
 	DoMovementLogic();
-	DoCollisionLogic();
 }
 
 void BubbleComponent::SetShootDirection(bool right)
@@ -85,67 +120,6 @@ void BubbleComponent::DoMovementLogic()
 	//Set transform
 	pTransform->SetWorldPosition(currPos + posDelta);
 
-}
-
-void BubbleComponent::DoCollisionLogic()
-{
-	dae::Scene* scene = dae::SceneManager::GetInstance().GetActiveScene();
-
-	switch (m_CurrentState)
-	{
-	case BubbleState::Shooting:
-	{
-		//Check for collision with enemies
-		for (auto& object : scene->GetAllObjects())
-		{
-			//if its an enemy
-			EnemyComponent* enemyComp = object->GetComponent<EnemyComponent>();
-			if (enemyComp)
-			{
-				dae::ColliderComponent* myColl = m_pOwner->GetComponent<dae::ColliderComponent>();
-				dae::ColliderComponent* otherColl = object->GetComponent<dae::ColliderComponent>();
-				if (myColl && otherColl)
-				{
-					//if they are overlapping
-					const auto overlapData = myColl->IsOverlappingWith(otherColl);
-					if (overlapData.first != dae::ColliderComponent::OverlapData::Not)
-					{
-						PickUpEnemy(object.get());
-					}
-				}
-			}
-		}
-		break;
-	}
-	case BubbleState::Hovering:
-	case BubbleState::ReachedTop:
-	{
-		if (m_HasEnemyInside)
-		{
-			//Check for collision with player
-			for (auto& object : scene->GetAllObjects())
-			{
-				//if its a player
-				AvatarComponent* avatarComp = object->GetComponent<AvatarComponent>();
-				if (avatarComp)
-				{
-					dae::ColliderComponent* myColl = m_pOwner->GetComponent<dae::ColliderComponent>();
-					dae::ColliderComponent* otherColl = object->GetComponent<dae::ColliderComponent>();
-					if (myColl && otherColl)
-					{
-						//if they are overlapping
-						const auto overlapData = myColl->IsOverlappingWith(otherColl);
-						if (overlapData.first != dae::ColliderComponent::OverlapData::Not)
-						{
-							PopByPlayer(object.get());
-						}
-					}
-				}
-			}
-		}
-		break;
-	}
-	}
 }
 
 void BubbleComponent::PickUpEnemy(dae::GameObject* go)

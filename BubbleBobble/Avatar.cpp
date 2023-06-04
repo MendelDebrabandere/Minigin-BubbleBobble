@@ -17,8 +17,6 @@ GameObject* Avatar::CreateAvatar(Scene* pScene, const glm::vec2& spawnPos)
 	GameObject* pAvatar{ pScene->CreateGameObject() };
 	pAvatar->GetComponent<Transform>()->SetWorldPosition(spawnPos.x, spawnPos.y);
 
-	pAvatar->AddComponent<AvatarComponent>();
-
 	auto spriteComp = pAvatar->AddComponent<SpriteComponent>();
 	spriteComp->SetTexture("Avatar.png");
 	spriteComp->SetAnimVariables(3, 7, 0.1f, 0, 7);
@@ -29,12 +27,15 @@ GameObject* Avatar::CreateAvatar(Scene* pScene, const glm::vec2& spawnPos)
 	colliderComp->SetRendering(true);
 
 	auto physicsComp = pAvatar->AddComponent<PhysicsComponent>();
-	physicsComp->SetPhysicsSettings(true, true, false);
+	physicsComp->SetPhysicsSettings(true, false, false);
 
 	InputManager::GetInstance().AddKeyboardCommand('a', InputManager::InputType::Pressed, std::make_unique<MoveLeftCommand>(pAvatar, 200.f));
 	InputManager::GetInstance().AddKeyboardCommand('d', InputManager::InputType::Pressed, std::make_unique<MoveRightCommand>(pAvatar, 200.f));
 	InputManager::GetInstance().AddKeyboardCommand('w', InputManager::InputType::Pressed, std::make_unique<JumpCommand>(pAvatar, -450.f));
 	InputManager::GetInstance().AddKeyboardCommand(' ', InputManager::InputType::OnDown, std::make_unique<ShootBubbleCommand>(pAvatar));
+
+
+	pAvatar->AddComponent<AvatarComponent>();
 
 	return pAvatar;
 }

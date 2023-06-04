@@ -20,6 +20,7 @@ public:
 	AvatarComponent& operator=(const AvatarComponent& other) = delete;
 	AvatarComponent& operator=(AvatarComponent&& other) = delete;
 
+	void Initialize() override;
 	void Update() override;
 	void FixedUpdate() override;
 
@@ -27,7 +28,6 @@ public:
 
 private:
 	void UpdateAnimVariablesMoving();
-	void DoEnemyHitDetection();
 	void DoRespawnLogic();
 
 	AvatarState m_CurrentState{ AvatarState::Moving };

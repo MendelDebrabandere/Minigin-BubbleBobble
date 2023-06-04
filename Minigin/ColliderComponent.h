@@ -1,4 +1,5 @@
 #pragma once
+#include <functional>
 #include <glm/vec4.hpp>
 #include <glm/vec2.hpp>
 
@@ -32,18 +33,23 @@ namespace dae
 		std::pair<OverlapData, float> IsOverlappingWith(const ColliderComponent* other);
 
 		void SetSize(const glm::vec2& val) { m_Size = val; }
+		void UpdatePos();
 
 		glm::vec2 GetSize() const { return m_Size; }
 		glm::vec2 GetPos() const { return m_Pos; }
 
-
+		void SetOverlapFunction(std::function<void(GameObject*)> overlapFunction);
 
 	private:
+		void CheckForOverlaps();
+
 		glm::vec2 m_Pos{};
 		glm::vec2 m_Size{};
 
 		bool m_DrawDebug{ false };
 		glm::vec4 m_Color{ 255,0,0,255 };
+
+		std::function<void(GameObject*)> m_OverlapFunction;
 	};
 }
 

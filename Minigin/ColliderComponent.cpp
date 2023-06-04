@@ -2,13 +2,16 @@
 
 #include "GameObject.h"
 #include "Renderer.h"
+#include "Scene.h"
+#include "SceneManager.h"
 
 
 using namespace dae;
 
 void ColliderComponent::FixedUpdate()
 {
-    m_Pos = m_pOwner->GetTransform()->GetWorldPosition();
+    UpdatePos();
+    CheckForOverlaps();
 }
 
 void ColliderComponent::Render() const
@@ -31,7 +34,7 @@ void ColliderComponent::Render() const
 std::pair<ColliderComponent::OverlapData, float> ColliderComponent::IsOverlappingWith(const ColliderComponent* other)
 {
     //make sure m_Pos is up to date
-    FixedUpdate();
+    UpdatePos();
 
     const auto otherSize = other->GetSize();
     const auto otherPos = other->GetOwner()->GetTransform()->GetWorldPosition();
@@ -75,5 +78,40 @@ std::pair<ColliderComponent::OverlapData, float> ColliderComponent::IsOverlappin
 
     return smallestOverlap;
 
+}
+
+void ColliderComponent::UpdatePos()
+{
+    m_Pos = m_pOwner->GetTransform()->GetWorldPosition();
+}
+
+void ColliderComponent::SetOverlapFunction(std::function<void(GameObject*)> overlapFunction)
+{
+    m_OverlapFunction = std::move(overlapFunction);
+}
+
+void ColliderComponent::CheckForOverlaps()
+{
+    // if it has an overlap function
+    if (m_OverlapFunction)
+    {
+        // for all objects in the scene
+        Scene* scene = SceneManager::GetInstance().GetActiveScene();
+        for (auto& object : scene->GetAllObjects())
+        {
+            //if they have a collider
+            ColliderComponent* otherCollComp = object->GetComponent<ColliderComponent>();
+            if (otherCollComp)
+            {
+	            //if they overlap
+                auto overlap = IsOverlappingWith(otherCollComp);
+                if (overlap.first != OverlapData::Not)
+                {
+	                //Call the overlapfunction
+                    m_OverlapFunction(otherCollComp->GetOwner());
+                }
+            }
+        }
+    }
 }
 
