@@ -15,7 +15,7 @@ void AvatarComponent::Update()
 	{
 	case AvatarState::Moving:
 	{
-		CheckAnimPauseWithMovement();
+		UpdateAnimVariablesMoving();
 		break;
 	}
 	case AvatarState::Hit:
@@ -47,12 +47,12 @@ AvatarComponent::AvatarState AvatarComponent::GetCurrState() const
 	return m_CurrentState;
 }
 
-void AvatarComponent::CheckAnimPauseWithMovement()
+void AvatarComponent::UpdateAnimVariablesMoving()
 {
-	//Check if the sprite should be paused or not depending on if it moved
 	dae::SpriteComponent* spriteComp = m_pOwner->GetComponent<dae::SpriteComponent>();
 	if (spriteComp)
 	{
+		//Check if the sprite should be paused or not depending on if it moved
 		dae::Transform* transform = m_pOwner->GetTransform();
 
 		glm::vec2 currPos = transform->GetLocalPosition();
@@ -73,42 +73,65 @@ void AvatarComponent::CheckAnimPauseWithMovement()
 			}
 		}
 		m_LastPos = currPos;
+
+
+		//If its unvulnerable make it flicker
+		if (m_Invulnerable)
+		{
+			//flicker on and off 3 times per second
+			int shouldFlicker = int(m_Timer * 6) % 2;
+			spriteComp->ToggleVisuals(shouldFlicker);
+		}
 	}
 }
 
 void AvatarComponent::DoEnemyHitDetection()
 {
-	//Do enemy hit detection
-	dae::ColliderComponent* myColl = m_pOwner->GetComponent<dae::ColliderComponent>();
-	if (myColl)
+	if (m_Invulnerable == false)
 	{
-		dae::Scene* scene = dae::SceneManager::GetInstance().GetActiveScene();
-
-		//Check for collision with enemies
-		for (auto& object : scene->GetAllObjects())
+		//Do enemy hit detection
+		dae::ColliderComponent* myColl = m_pOwner->GetComponent<dae::ColliderComponent>();
+		if (myColl)
 		{
-			//if its an enemy
-			EnemyComponent* enemyComp = object->GetComponent<EnemyComponent>();
-			if (enemyComp)
+			dae::Scene* scene = dae::SceneManager::GetInstance().GetActiveScene();
+
+			//Check for collision with enemies
+			for (auto& object : scene->GetAllObjects())
 			{
-				dae::ColliderComponent* otherColl = object->GetComponent<dae::ColliderComponent>();
-				if (otherColl)
+				//if its an enemy
+				EnemyComponent* enemyComp = object->GetComponent<EnemyComponent>();
+				if (enemyComp)
 				{
-					//if they are overlapping
-					const auto overlapData = myColl->IsOverlappingWith(otherColl);
-					if (overlapData.first != dae::ColliderComponent::OverlapData::Not)
+					dae::ColliderComponent* otherColl = object->GetComponent<dae::ColliderComponent>();
+					if (otherColl)
 					{
-						//Got hit by enemy
-						m_CurrentState = AvatarState::Hit;
-						dae::SpriteComponent* spriteComp = m_pOwner->GetComponent<dae::SpriteComponent>();
-						if (spriteComp)
+						//if they are overlapping
+						const auto overlapData = myColl->IsOverlappingWith(otherColl);
+						if (overlapData.first != dae::ColliderComponent::OverlapData::Not)
 						{
-							spriteComp->SetAnimVariables(3, 7, 0.1f, 14, 18);
-							spriteComp->Scale(4);
+							//Got hit by enemy
+							m_CurrentState = AvatarState::Hit;
+							dae::SpriteComponent* spriteComp = m_pOwner->GetComponent<dae::SpriteComponent>();
+							if (spriteComp)
+							{
+								spriteComp->SetAnimVariables(3, 7, 0.1f, 14, 18);
+								spriteComp->Scale(4);
+							}
 						}
 					}
 				}
 			}
+		}
+	}
+	else
+	{
+		float elapsedSec = dae::Time::GetInstance().GetDelta();
+		m_Timer += elapsedSec;
+
+		if (m_Timer >= m_MaxInvulnerableTime)
+		{
+			m_Timer = 0.f;
+			m_Invulnerable = false;
 		}
 	}
 }
@@ -116,9 +139,9 @@ void AvatarComponent::DoEnemyHitDetection()
 void AvatarComponent::DoRespawnLogic()
 {
 	float elapsedSec = dae::Time::GetInstance().GetDelta();
-	m_RespawnTimer += elapsedSec;
+	m_Timer += elapsedSec;
 
-	if (m_RespawnTimer >= m_MaxRespawmTimer)
+	if (m_Timer >= m_MaxRespawmTimer)
 	{
 		//Respawn
 		dae::SpriteComponent* spriteComp = m_pOwner->GetComponent<dae::SpriteComponent>();
@@ -130,7 +153,9 @@ void AvatarComponent::DoRespawnLogic()
 
 		m_pOwner->GetTransform()->SetWorldPosition(90, 640);
 
-		m_RespawnTimer = 0.f;
+		m_Timer = 0.f;
 		m_CurrentState = AvatarState::Moving;
+
+		m_Invulnerable = true;
 	}
 }

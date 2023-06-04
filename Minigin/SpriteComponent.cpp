@@ -48,10 +48,13 @@ void SpriteComponent::Update()
 
 void SpriteComponent::Render() const
 {
-	if (m_FlipTexture == false)
-		Renderer::GetInstance().RenderTexture(*m_Texture, m_RenderPos.x, m_RenderPos.y, m_RenderWidth, m_RenderHeight, &m_Rect);
-	else
-		Renderer::GetInstance().RenderTexture(*m_Texture, m_RenderPos.x, m_RenderPos.y, m_RenderWidth, m_RenderHeight, &m_Rect, SDL_FLIP_HORIZONTAL);
+	if (m_Show)
+	{
+		if (m_FlipTexture == false)
+			Renderer::GetInstance().RenderTexture(*m_Texture, m_RenderPos.x, m_RenderPos.y, m_RenderWidth, m_RenderHeight, &m_Rect);
+		else
+			Renderer::GetInstance().RenderTexture(*m_Texture, m_RenderPos.x, m_RenderPos.y, m_RenderWidth, m_RenderHeight, &m_Rect, SDL_FLIP_HORIZONTAL);
+	}
 }
 
 void SpriteComponent::SetTexture(const std::string& filename)
@@ -115,6 +118,11 @@ void SpriteComponent::DoOnceAnim(float animTimer, int startIdx, int endIdx)
 	m_CurrIdx = startIdx;
 	m_EndIdx = endIdx;
 	m_AnimTimer = animTimer;
+}
+
+void SpriteComponent::ToggleVisuals(bool value)
+{
+	m_Show = value;
 }
 
 glm::vec2 SpriteComponent::GetSize() const

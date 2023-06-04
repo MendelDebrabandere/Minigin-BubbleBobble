@@ -26,7 +26,7 @@ public:
 	AvatarState GetCurrState() const;
 
 private:
-	void CheckAnimPauseWithMovement();
+	void UpdateAnimVariablesMoving();
 	void DoEnemyHitDetection();
 	void DoRespawnLogic();
 
@@ -34,6 +34,11 @@ private:
 
 	glm::vec2 m_LastPos{};
 
-	float m_RespawnTimer{};
+	float m_Timer{};
+
 	float m_MaxRespawmTimer{ 3.f };
+
+	//using a bool for this state since it can be active in multiple states
+	bool m_Invulnerable{};
+	float m_MaxInvulnerableTime{6.f};
 };
