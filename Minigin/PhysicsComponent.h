@@ -1,4 +1,5 @@
 #pragma once
+#include "ColliderComponent.h"
 #include "Component.h"
 
 namespace dae
@@ -21,9 +22,11 @@ namespace dae
 
 		bool GetGrounded() const { return m_IsGrounded; }
 
+		bool HasCollision() const;
+
+		void DoCollisionLogic(PhysicsComponent* other, std::pair<ColliderComponent::OverlapData, float> overlapData);
 	private:
 
-		void DoCollisionLogic();
 		void DoGravityLogic();
 
 		bool m_Gravity{ true };

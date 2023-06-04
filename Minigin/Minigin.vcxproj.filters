@@ -37,6 +37,9 @@
     <Filter Include="SoundSystem">
       <UniqueIdentifier>{095a6708-bc25-4e5f-bd57-f92175730818}</UniqueIdentifier>
     </Filter>
+    <Filter Include="SweepAndPruneCollider">
+      <UniqueIdentifier>{27fe09d8-5aa6-4177-abca-9fafd3dbf52c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Command.h">
@@ -117,6 +120,9 @@
     <ClInclude Include="NullSoundSystem.h">
       <Filter>SoundSystem</Filter>
     </ClInclude>
+    <ClInclude Include="CollisionManager.h">
+      <Filter>SweepAndPruneCollider</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="InputManager.cpp">
@@ -181,6 +187,9 @@
     </ClCompile>
     <ClCompile Include="ServiceLocator.cpp">
       <Filter>ServiceLocator</Filter>
+    </ClCompile>
+    <ClCompile Include="CollisionManager.cpp">
+      <Filter>SweepAndPruneCollider</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

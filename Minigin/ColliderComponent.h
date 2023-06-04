@@ -20,16 +20,19 @@ namespace dae
 		};
 
 		ColliderComponent() = default;
-		virtual ~ColliderComponent() override = default;
+		virtual ~ColliderComponent();
 		ColliderComponent(const ColliderComponent& other) = delete;
 		ColliderComponent operator=(const ColliderComponent& rhs) = delete;
 		ColliderComponent(ColliderComponent&& other) = delete;
 		ColliderComponent operator=(ColliderComponent&& rhs) = delete;
 
+		void Initialize() override;
 		void FixedUpdate() override;
 		void Render() const override;
 
 		void SetRendering(bool value) { m_DrawDebug = value; }
+		bool CheckForOverlap(ColliderComponent* other);
+
 		bool IsOverlappingWith(const ColliderComponent* other);
 		std::pair<OverlapData, float> IsOverlappingWithDirectional(const ColliderComponent* other);
 
@@ -42,7 +45,6 @@ namespace dae
 		void SetOverlapFunction(std::function<void(GameObject*)> overlapFunction);
 
 	private:
-		void CheckForOverlaps();
 
 		glm::vec2 m_Pos{};
 		glm::vec2 m_Size{};

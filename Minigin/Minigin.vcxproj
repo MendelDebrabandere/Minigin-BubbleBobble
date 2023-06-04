@@ -236,6 +236,7 @@ xcopy "$(SolutionDir)3rdParty\SDL2_mixer\lib\x64\*.dll" "$(OutputPath)" /R /Y</C
     <ClInclude Include="SoundSystem.h" />
     <ClInclude Include="SpriteComponent.h" />
     <ClInclude Include="Subject.h" />
+    <ClInclude Include="CollisionManager.h" />
     <ClInclude Include="TextComponent.h" />
     <ClInclude Include="Texture2D.h" />
     <ClInclude Include="TextureComponent.h" />
@@ -259,6 +260,7 @@ xcopy "$(SolutionDir)3rdParty\SDL2_mixer\lib\x64\*.dll" "$(OutputPath)" /R /Y</C
     <ClCompile Include="ServiceLocator.cpp" />
     <ClCompile Include="SpriteComponent.cpp" />
     <ClCompile Include="Subject.cpp" />
+    <ClCompile Include="CollisionManager.cpp" />
     <ClCompile Include="TextComponent.cpp" />
     <ClCompile Include="Texture2D.cpp" />
     <ClCompile Include="TextureComponent.cpp" />

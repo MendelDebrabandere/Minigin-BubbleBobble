@@ -11,7 +11,6 @@ void PhysicsComponent::FixedUpdate()
 {
 	m_IsGrounded = false;
 	DoGravityLogic();
-	DoCollisionLogic();
 }
 
 void PhysicsComponent::SetPhysicsSettings(bool gravity, bool collision, bool isStatic)
@@ -26,79 +25,61 @@ void PhysicsComponent::Jump(float speed)
 	m_VerticalSpeed = speed;
 }
 
+bool PhysicsComponent::HasCollision() const
+{
+	return m_Collision;
+}
+
 //Collision is going to happen if one of the objects has m_Collision to true,
 //They will only overlap if both have m_Collision to false
-void PhysicsComponent::DoCollisionLogic()
+//This function also only gets called when they are already overlapping
+void PhysicsComponent::DoCollisionLogic(PhysicsComponent* other, std::pair<ColliderComponent::OverlapData, float> overlapData)
 {
 	// dont do calculations if it is static or collision is off
 	if (m_Static == true)
 		return;
 
-	//only continue of you have a collider
+	
 	auto myCollider = m_pOwner->GetComponent<ColliderComponent>();
-	if (myCollider == nullptr)
+
+	//Platforms only collide from top
+	if (other->m_Platform && overlapData.first != ColliderComponent::OverlapData::Bottom)
 		return;
 
-	Scene* scene = SceneManager::GetInstance().GetActiveScene();
-
-	//For all objects
-	for (auto& object : scene->GetAllObjects())
+	switch (overlapData.first)
 	{
-		if (object.get() == m_pOwner)
-			continue;
-
-		//if they have physics and colliders
-		auto otherPhysicsComp = object->GetComponent<PhysicsComponent>();
-		auto otherColliderComp = object->GetComponent<ColliderComponent>();
-		if (otherPhysicsComp && otherColliderComp)
+	case ColliderComponent::OverlapData::Top:
+	{
+		m_pOwner->GetTransform()->Translate(0, overlapData.second);
+		myCollider->UpdatePos();
+		m_VerticalSpeed = 0.f;
+		break;
+	}
+	case ColliderComponent::OverlapData::Bottom:
+	{
+		if (m_VerticalSpeed > -1.f)
 		{
-			//only go on if the other has collision on
-			if (otherPhysicsComp->m_Collision == false)
-				continue;
-
-			//if you are overlapping
-			const auto overlapData = myCollider->IsOverlappingWithDirectional(otherColliderComp);
-
-			//Platforms only collide from top
-			if (otherPhysicsComp->m_Platform && overlapData.first != ColliderComponent::OverlapData::Bottom)
-				continue;
-
-			switch (overlapData.first)
-			{
-			case ColliderComponent::OverlapData::Top:
-			{
-				m_pOwner->GetTransform()->Translate(0, overlapData.second);
-				myCollider->UpdatePos();
-				m_VerticalSpeed = 0.f;
-				break;
-			}
-			case ColliderComponent::OverlapData::Bottom:
-			{
-				if (m_VerticalSpeed > -1.f)
-				{
-					m_pOwner->GetTransform()->Translate(0, -overlapData.second);
-					myCollider->UpdatePos();
-					m_IsGrounded = true;
-					m_VerticalSpeed = 0.f;
-				}
-				break;
-			}
-			case ColliderComponent::OverlapData::Left:
-			{
-				m_pOwner->GetTransform()->Translate(overlapData.second, 0);
-				myCollider->UpdatePos();
-				break;
-			}
-			case ColliderComponent::OverlapData::Right:
-			{
-				m_pOwner->GetTransform()->Translate(-overlapData.second, 0);
-				myCollider->UpdatePos();
-				break;
-			}
-			case ColliderComponent::OverlapData::Not:
-				break;
-			}
+			m_pOwner->GetTransform()->Translate(0, -overlapData.second);
+			myCollider->UpdatePos();
+			m_IsGrounded = true;
+			m_VerticalSpeed = 0.f;
 		}
+		break;
+	}
+	case ColliderComponent::OverlapData::Left:
+	{
+		m_pOwner->GetTransform()->Translate(overlapData.second, 0);
+		myCollider->UpdatePos();
+		break;
+	}
+	case ColliderComponent::OverlapData::Right:
+	{
+		m_pOwner->GetTransform()->Translate(-overlapData.second, 0);
+		myCollider->UpdatePos();
+		break;
+	}
+	case ColliderComponent::OverlapData::Not:
+		break;
 	}
 }
 

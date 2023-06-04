@@ -1,17 +1,26 @@
 #include "ColliderComponent.h"
 
+#include "CollisionManager.h"
 #include "GameObject.h"
+#include "PhysicsComponent.h"
 #include "Renderer.h"
-#include "Scene.h"
-#include "SceneManager.h"
 
 
 using namespace dae;
 
+ColliderComponent::~ColliderComponent()
+{
+    CollisionManager::GetInstance().RemoveCollider(this);
+}
+
+void ColliderComponent::Initialize()
+{
+    CollisionManager::GetInstance().AddCollider(this);
+}
+
 void ColliderComponent::FixedUpdate()
 {
     UpdatePos();
-    CheckForOverlaps();
 }
 
 void ColliderComponent::Render() const
@@ -114,30 +123,25 @@ void ColliderComponent::SetOverlapFunction(std::function<void(GameObject*)> over
     m_OverlapFunction = std::move(overlapFunction);
 }
 
-void ColliderComponent::CheckForOverlaps()
+bool ColliderComponent::CheckForOverlap(ColliderComponent* other)
 {
-    // if it has an overlap function
-    if (m_OverlapFunction)
+    if (IsOverlappingWith(other))
     {
-        // for all objects in the scene
-        Scene* scene = SceneManager::GetInstance().GetActiveScene();
-        for (auto& object : scene->GetAllObjects())
+        // if it has an overlap function
+        if (m_OverlapFunction)
         {
-            if (object.get() == m_pOwner)
-                continue;
-
-            //if they have a collider
-            ColliderComponent* otherCollComp = object->GetComponent<ColliderComponent>();
-            if (otherCollComp)
-            {
-	            //if they overlap
-                if (IsOverlappingWith(otherCollComp))
-                {
-	                //Call the overlapfunction
-                    m_OverlapFunction(otherCollComp->GetOwner());
-                }
-            }
+            //Call the overlapfunction
+            m_OverlapFunction(other->GetOwner());
         }
-    }
-}
 
+        //if it has a physics component, also tell it to do collisioncheck
+        PhysicsComponent* myPhysicsComp = m_pOwner->GetComponent<PhysicsComponent>();
+        PhysicsComponent* otherPhysicsComp = other->GetOwner()->GetComponent<PhysicsComponent>();
+        if (myPhysicsComp && otherPhysicsComp && otherPhysicsComp->HasCollision())
+        {
+            myPhysicsComp->DoCollisionLogic(otherPhysicsComp, IsOverlappingWithDirectional(other));
+        }
+        return true;
+    }
+    return false;
+}

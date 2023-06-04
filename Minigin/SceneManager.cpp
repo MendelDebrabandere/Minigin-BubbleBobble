@@ -1,4 +1,6 @@
 #include "SceneManager.h"
+
+#include "CollisionManager.h"
 #include "Scene.h"
 
 using namespace dae;
@@ -38,6 +40,7 @@ void SceneManager::FixedUpdate()
 
 void SceneManager::Update()
 {
+	CollisionManager::GetInstance().FixedUpdate();
 	for(auto& scene : m_Scenes)
 	{
 		scene->Update();
