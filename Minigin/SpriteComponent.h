@@ -26,8 +26,8 @@ namespace dae
 		void SetAnimVariables(int rows, int columns, float animTimer, int startIdx=0, int endIdx=0);
 		void Scale(float value);
 		void Pause(bool value);
-
 		void FlipTexture(bool value);
+		void DoOnceAnim(float animTimer, int startIdx, int endIdx);
 
 		glm::vec2 GetSize() const;
 	private:
@@ -48,6 +48,11 @@ namespace dae
 		float m_AnimTimer{};
 		bool m_Pause{};
 
-		bool m_FlipTexture{true};
+		bool m_FlipTexture{};
+
+		//Do once anim variables
+		bool m_DoOnceAnim{};
+		int m_DoOnceEndIdx{};
+		float m_DoOnceAnimTimer{};
 	};
 }

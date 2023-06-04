@@ -31,14 +31,7 @@ void GameSceneCreator::CreateGameScene(Scene* pGameScene)
 	//pTitle->AddComponent<TextureComponent>();
 	//pTitle->AddComponent<TextComponent>()->SetFont(pFont);
 	//pTitle->GetComponent<TextComponent>()->SetText("Programming 4 Assignment");
-
-	// FPS COUNTER
-	const auto pFPSCounter = pGameScene->CreateGameObject();
-	pFPSCounter->AddComponent<TextureComponent>();
-	pFPSCounter->AddComponent<FPSCounter>();
-	pFPSCounter->AddComponent<TextComponent>()->SetFont(pFont);
-
-
+	
 	std::cout << "\n";
 	std::cout << "\n";
 	std::cout << "\n";
@@ -51,6 +44,12 @@ void GameSceneCreator::CreateGameScene(Scene* pGameScene)
 
 	ServiceLocator::GetSoundSystem().PlayMusic("../Data/Sound/MainTheme.mp3", 15, -1);
 
-
 	LevelLoader::LoadLevel(pGameScene, 1);
+
+	// FPS COUNTER
+	const auto pFPSCounter = pGameScene->CreateGameObject();
+	pFPSCounter->AddComponent<TextureComponent>();
+	pFPSCounter->AddComponent<FPSCounter>();
+	pFPSCounter->AddComponent<TextComponent>()->SetFont(pFont);
+
 }

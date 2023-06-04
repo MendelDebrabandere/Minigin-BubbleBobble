@@ -20,7 +20,7 @@ private:
 	{
 		Shooting,
 		Hovering,
-		EnemyInside
+		ReachedTop,
 	};
 	BubbleState m_CurrentState{ BubbleState::Shooting };
 
@@ -32,5 +32,8 @@ private:
 	float m_Timer{};
 	bool m_DirectionRight{};
 
-	bool m_HasReachedTheTop{};
+	//This is a bool and not a state
+	//It still has to finish shooting, hovering and reach top
+	//with an enemy inside
+	bool m_HasEnemyInside{};
 };

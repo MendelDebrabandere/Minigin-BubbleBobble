@@ -17,16 +17,27 @@ void SpriteComponent::Update()
 {
 	m_RenderPos = m_pOwner->GetTransform()->GetWorldPosition();
 
-	if (!m_Pause) // if not paused, update animation
+	if (!m_Pause || m_DoOnceAnim) // if not paused or DoOnce is true, update animation
 	{
 		m_CurrTime += Time::GetInstance().GetDelta();
 
 		if (m_CurrTime >= m_AnimTimer)
 		{
+			//UpdateCurrIdx
 			++m_CurrIdx;
 			if (m_CurrIdx >= m_EndIdx)
+			{
+				//Check if it is doing a DoOnceAnim
+				if (m_DoOnceAnim)
+				{	//Reset to normal variables and turn DoOnce off
+					m_DoOnceAnim = false;
+					m_EndIdx = m_DoOnceEndIdx;
+					m_AnimTimer = m_DoOnceAnimTimer;
+				}
 				m_CurrIdx = m_StartIdx;
+			}
 
+			//Move rect
 			m_Rect.x = (m_CurrIdx % m_Columns) * m_Rect.w;
 			m_Rect.y = (m_CurrIdx / m_Columns) * m_Rect.h;
 
@@ -83,6 +94,27 @@ void SpriteComponent::Pause(bool value)
 void SpriteComponent::FlipTexture(bool value)
 {
 	m_FlipTexture = value;
+}
+
+void SpriteComponent::DoOnceAnim(float animTimer, int startIdx, int endIdx)
+{
+	if (m_DoOnceAnim)
+	{
+		//first reset variables
+		m_EndIdx = m_DoOnceEndIdx;
+		m_AnimTimer = m_DoOnceAnimTimer;
+	}                                             
+	m_DoOnceAnim = true;
+	m_CurrTime = 0.f;
+
+	//Save curr variables in the DoOnce variables
+	m_DoOnceEndIdx = m_EndIdx;
+	m_DoOnceAnimTimer = m_AnimTimer;
+
+	//Store the new values in the main ones
+	m_CurrIdx = startIdx;
+	m_EndIdx = endIdx;
+	m_AnimTimer = animTimer;
 }
 
 glm::vec2 SpriteComponent::GetSize() const

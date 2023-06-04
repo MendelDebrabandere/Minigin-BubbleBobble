@@ -10,8 +10,8 @@ using namespace dae;
 void PhysicsComponent::FixedUpdate()
 {
 	m_IsGrounded = false;
-	DoCollisionLogic();
 	DoGravityLogic();
+	DoCollisionLogic();
 }
 
 void PhysicsComponent::SetPhysicsSettings(bool gravity, bool collision, bool isStatic)

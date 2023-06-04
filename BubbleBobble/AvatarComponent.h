@@ -3,6 +3,12 @@
 
 #include "Component.h"
 
+enum class AvatarState
+{
+	Moving,
+	Respawning
+};
+
 class AvatarComponent : public dae::Component
 {
 public:
@@ -16,6 +22,11 @@ public:
 
 	void Update() override;
 
+	AvatarState GetCurrState() const;
+
 private:
+	AvatarState m_CurrentState{ AvatarState::Moving };
+
+
 	glm::vec2 m_LastPos{};
 };

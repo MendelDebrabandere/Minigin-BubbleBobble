@@ -28,13 +28,11 @@ void AvatarComponent::Update()
 				spriteComp->FlipTexture(false);
 			}
 		}
-
-
-
 		m_LastPos = currPos;
 	}
+}
 
-
-
-
+AvatarState AvatarComponent::GetCurrState() const
+{
+	return m_CurrentState;
 }
