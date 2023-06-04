@@ -78,6 +78,12 @@ void Transform::Translate(float x, float y)
 					m_LocalPosition.y + y);
 }
 
+void Transform::Translate(glm::vec2 vec)
+{
+	Translate(vec.x, vec.y);
+}
+
+
 bool Transform::GetFacingRight() const
 {
 	return m_FacingRight;

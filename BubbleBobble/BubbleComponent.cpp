@@ -31,14 +31,11 @@ void BubbleComponent::Initialize()
 				case BubbleState::Hovering:
 				case BubbleState::ReachedTop:
 				{
-					if (m_HasEnemyInside)
+					//if its a player
+					AvatarComponent* avatarComp = overlappingActor->GetComponent<AvatarComponent>();
+					if (avatarComp)
 					{
-						//if its a player
-						AvatarComponent* avatarComp = overlappingActor->GetComponent<AvatarComponent>();
-						if (avatarComp)
-						{
-							PopByPlayer(overlappingActor);
-						}
+						PopByPlayer(overlappingActor);
 					}
 					break;
 				}
@@ -48,16 +45,6 @@ void BubbleComponent::Initialize()
 }
 
 void BubbleComponent::Update()
-{
-	DoMovementLogic();
-}
-
-void BubbleComponent::SetShootDirection(bool right)
-{
-	m_DirectionRight = right;
-}
-
-void BubbleComponent::DoMovementLogic()
 {
 	//increment timer
 	float deltaTime = dae::Time::GetInstance().GetDelta();
@@ -69,8 +56,8 @@ void BubbleComponent::DoMovementLogic()
 
 	//Move object
 	glm::vec2 posDelta{};
-	
-	switch(m_CurrentState)
+
+	switch (m_CurrentState)
 	{
 	case BubbleState::Shooting:
 	{
@@ -115,11 +102,42 @@ void BubbleComponent::DoMovementLogic()
 			m_pOwner->Destroy();
 		break;
 	}
+	case BubbleState::Popping:
+	{
+		auto spriteComp = m_pOwner->GetComponent<dae::SpriteComponent>();
+		if (spriteComp)
+			if (spriteComp->IsDoingOnce() == false) //the do once explosion ended
+				m_pOwner->Destroy();
+		break;
+	}
+	case BubbleState::EnemyDying:
+	{
+		// By calculating the dotproduct with itself it basically returns the squaredMagnitude
+		if (abs(currPos.x - m_RandomGoToPos.x) <= 1.f && abs(currPos.y - m_RandomGoToPos.y) <= 1.f)
+		{
+			//TODO: spawn a fruity
+			m_pOwner->Destroy();
+		}
+
+		if (abs(currPos.x - m_RandomGoToPos.x) <= 1.f == false)
+			posDelta.x = m_RandomGoToPos.x - currPos.x < 0 ? -1.f : 1.f;
+		if (abs(currPos.y - m_RandomGoToPos.y) <= 1.f == false)
+			posDelta.y = m_RandomGoToPos.y - currPos.y < 0 ? -1.f : 1.f;
+
+		posDelta *= 100 * deltaTime;
+
+		break;
+	}
 	}
 
 	//Set transform
-	pTransform->SetWorldPosition(currPos + posDelta);
+	pTransform->Translate(posDelta);
 
+}
+
+void BubbleComponent::SetShootDirection(bool right)
+{
+	m_DirectionRight = right;
 }
 
 void BubbleComponent::PickUpEnemy(dae::GameObject* go)
@@ -129,12 +147,30 @@ void BubbleComponent::PickUpEnemy(dae::GameObject* go)
 	dae::SpriteComponent* spriteComp = m_pOwner->GetComponent<dae::SpriteComponent>();
 	if (spriteComp)
 	{
-		spriteComp->SetAnimVariables(4, 3, 0.3f, 0, 3);
+		spriteComp->SetAnimVariables(6, 4, 0.3f, 0, 3);
 		spriteComp->Scale(4);
 	}
 }
 
 void BubbleComponent::PopByPlayer(dae::GameObject* )
 {
-	m_pOwner->Destroy();
+	auto spriteComp = m_pOwner->GetComponent<dae::SpriteComponent>();
+	if (m_HasEnemyInside)
+	{
+		//TODO: give player score
+		m_CurrentState = BubbleState::EnemyDying;
+		if (spriteComp)
+		{
+			spriteComp->SetAnimVariables(6, 4, 0.1f, 20, 24);
+			spriteComp->Scale(4);
+			m_Timer = 0.f;
+			m_RandomGoToPos = glm::vec2{ 100 + rand() % 600, 100 + rand() % 600 };
+		}
+	}
+	else
+	{
+		m_CurrentState = BubbleState::Popping;
+		if (spriteComp)
+			spriteComp->DoOnceAnim(0.15f, 16, 18);
+	}
 }

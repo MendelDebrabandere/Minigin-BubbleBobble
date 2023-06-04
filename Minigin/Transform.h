@@ -22,6 +22,7 @@ namespace dae
 		void SetWorldPosition(float x, float y);
 		void SetWorldPosition(const glm::vec2& position);
 		void Translate(float x, float y);
+		void Translate(glm::vec2 vec);
 
 		bool GetFacingRight() const;
 	private:

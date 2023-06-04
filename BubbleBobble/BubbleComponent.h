@@ -1,4 +1,6 @@
 #pragma once
+#include <glm/vec2.hpp>
+
 #include "Component.h"
 
 class BubbleComponent : public dae::Component
@@ -22,10 +24,11 @@ private:
 		Shooting,
 		Hovering,
 		ReachedTop,
+		Popping,
+		EnemyDying
 	};
 	BubbleState m_CurrentState{ BubbleState::Shooting };
 
-	void DoMovementLogic();
 	void PickUpEnemy(dae::GameObject* go);
 	void PopByPlayer(dae::GameObject* go);
 
@@ -36,4 +39,6 @@ private:
 	//It still has to finish shooting, hovering and reach top
 	//with an enemy inside
 	bool m_HasEnemyInside{};
+
+	glm::vec2 m_RandomGoToPos{};
 };

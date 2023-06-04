@@ -121,6 +121,10 @@ void SpriteComponent::DoOnceAnim(float animTimer, int startIdx, int endIdx)
 	m_CurrIdx = startIdx;
 	m_EndIdx = endIdx;
 	m_AnimTimer = animTimer;
+
+	//Move rect
+	m_Rect.x = (m_CurrIdx % m_Columns) * m_Rect.w;
+	m_Rect.y = (m_CurrIdx / m_Columns) * m_Rect.h;
 }
 
 void SpriteComponent::ToggleVisuals(bool value)
