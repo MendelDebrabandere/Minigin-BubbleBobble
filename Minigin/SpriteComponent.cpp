@@ -128,6 +128,11 @@ void SpriteComponent::ToggleVisuals(bool value)
 	m_Show = value;
 }
 
+bool SpriteComponent::IsDoingOnce() const
+{
+	return m_DoOnceAnim;
+}
+
 glm::vec2 SpriteComponent::GetSize() const
 {
 	return glm::vec2(m_RenderWidth, m_RenderHeight);

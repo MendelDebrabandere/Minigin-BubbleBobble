@@ -29,6 +29,7 @@ namespace dae
 		void FlipTexture(bool value);
 		void DoOnceAnim(float animTimer, int startIdx, int endIdx);
 		void ToggleVisuals(bool value);
+		bool IsDoingOnce() const;
 
 		glm::vec2 GetSize() const;
 	private:
