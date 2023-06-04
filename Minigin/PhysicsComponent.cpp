@@ -57,7 +57,7 @@ void PhysicsComponent::DoCollisionLogic()
 				continue;
 
 			//if you are overlapping
-			const auto overlapData = myCollider->IsOverlappingWith(otherColliderComp);
+			const auto overlapData = myCollider->IsOverlappingWithDirectional(otherColliderComp);
 
 			//Platforms only collide from top
 			if (otherPhysicsComp->m_Platform && overlapData.first != ColliderComponent::OverlapData::Bottom)

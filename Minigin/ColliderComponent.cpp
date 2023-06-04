@@ -31,7 +31,26 @@ void ColliderComponent::Render() const
 	SDL_RenderDrawRect(renderer, &rect);
 }
 
-std::pair<ColliderComponent::OverlapData, float> ColliderComponent::IsOverlappingWith(const ColliderComponent* other)
+bool ColliderComponent::IsOverlappingWith(const ColliderComponent* other)
+{
+    //make sure m_Pos is up to date
+    UpdatePos();
+
+    const auto otherSize = other->GetSize();
+    const auto otherPos = other->GetOwner()->GetTransform()->GetWorldPosition();
+
+    // Check if not overlapping
+    if (m_Pos.x > otherPos.x + otherSize.x ||
+        m_Pos.x + m_Size.x < otherPos.x ||
+        m_Pos.y > otherPos.y + otherSize.y ||
+        m_Pos.y + m_Size.y < otherPos.y)
+    {
+        return false;
+    }
+    return true;
+}
+
+std::pair<ColliderComponent::OverlapData, float> ColliderComponent::IsOverlappingWithDirectional(const ColliderComponent* other)
 {
     //make sure m_Pos is up to date
     UpdatePos();
@@ -47,7 +66,7 @@ std::pair<ColliderComponent::OverlapData, float> ColliderComponent::IsOverlappin
     {
         return std::make_pair(OverlapData::Not, 0.f);
     }
-    
+
     std::vector<std::pair<OverlapData, float>> overlappingSides{};
 
     // Calculate overlap on each side
@@ -55,17 +74,17 @@ std::pair<ColliderComponent::OverlapData, float> ColliderComponent::IsOverlappin
     overlappingSides.emplace_back(OverlapData::Right, m_Pos.x + m_Size.x - otherPos.x);
     overlappingSides.emplace_back(OverlapData::Top, -1 * (m_Pos.y - otherPos.y - otherSize.y));
     overlappingSides.emplace_back(OverlapData::Bottom, m_Pos.y + m_Size.y - otherPos.y);
-    
-    for(auto& pair : overlappingSides)
+
+    for (auto& pair : overlappingSides)
     {
-	    if (pair.second < 0.f)
-	    {
+        if (pair.second < 0.f)
+        {
             pair.second = FLT_MAX;
-	    }
+        }
     }
 
 
-    std::pair smallestOverlap{ OverlapData::Not, FLT_MAX};
+    std::pair smallestOverlap{ OverlapData::Not, FLT_MAX };
 
 
     for (auto& pair : overlappingSides)
@@ -78,6 +97,11 @@ std::pair<ColliderComponent::OverlapData, float> ColliderComponent::IsOverlappin
 
     return smallestOverlap;
 
+}
+
+void ColliderComponent::SetSize(const glm::vec2& val)
+{
+     m_Size = val;
 }
 
 void ColliderComponent::UpdatePos()
@@ -99,13 +123,15 @@ void ColliderComponent::CheckForOverlaps()
         Scene* scene = SceneManager::GetInstance().GetActiveScene();
         for (auto& object : scene->GetAllObjects())
         {
+            if (object.get() == m_pOwner)
+                continue;
+
             //if they have a collider
             ColliderComponent* otherCollComp = object->GetComponent<ColliderComponent>();
             if (otherCollComp)
             {
 	            //if they overlap
-                auto overlap = IsOverlappingWith(otherCollComp);
-                if (overlap.first != OverlapData::Not)
+                if (IsOverlappingWith(otherCollComp))
                 {
 	                //Call the overlapfunction
                     m_OverlapFunction(otherCollComp->GetOwner());
