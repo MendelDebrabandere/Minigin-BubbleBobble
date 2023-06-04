@@ -7,7 +7,9 @@
 #include "Timer.h"
 #include "Transform.h"
 #include "GameObject.h"
+#include "SceneManager.h"
 #include "SpriteComponent.h"
+#include "ZenChan.h"
 
 void BubbleComponent::Initialize()
 {
@@ -20,11 +22,15 @@ void BubbleComponent::Initialize()
 				{
 				case BubbleState::Shooting:
 				{
-					//if its an enemy
-					EnemyComponent* enemyComp = overlappingActor->GetComponent<EnemyComponent>();
-					if (enemyComp)
+					//if it can pick up an enemy
+					if (m_HasEnemyInside == false)
 					{
-						PickUpEnemy(overlappingActor);
+						//if its an enemy
+						EnemyComponent* enemyComp = overlappingActor->GetComponent<EnemyComponent>();
+						if (enemyComp)
+						{
+							PickUpEnemy(overlappingActor);
+						}
 					}
 					break;
 				}
@@ -99,7 +105,18 @@ void BubbleComponent::Update()
 	case BubbleState::ReachedTop:
 	{
 		if (m_Timer >= 3.f)
+		{
+			if (m_HasEnemyInside)
+			{
+				if (m_ZenChan)
+					ZenChan::CreateZenChan(dae::SceneManager::GetInstance().GetActiveScene(),
+											m_pOwner->GetTransform()->GetWorldPosition());
+				else;
+					//TODO: spawn a maita
+			}
+
 			m_pOwner->Destroy();
+		}
 		break;
 	}
 	case BubbleState::Popping:

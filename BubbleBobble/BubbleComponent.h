@@ -39,6 +39,7 @@ private:
 	//It still has to finish shooting, hovering and reach top
 	//with an enemy inside
 	bool m_HasEnemyInside{};
+	bool m_ZenChan{true};
 
 	glm::vec2 m_RandomGoToPos{};
 };
