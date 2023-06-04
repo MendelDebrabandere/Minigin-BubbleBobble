@@ -28,8 +28,11 @@ void ColliderComponent::Render() const
 	SDL_RenderDrawRect(renderer, &rect);
 }
 
-std::pair<ColliderComponent::OverlapData, float> ColliderComponent::IsOverlappingWith(const ColliderComponent* other) const
+std::pair<ColliderComponent::OverlapData, float> ColliderComponent::IsOverlappingWith(const ColliderComponent* other)
 {
+    //make sure m_Pos is up to date
+    FixedUpdate();
+
     const auto otherSize = other->GetSize();
     const auto otherPos = other->GetOwner()->GetTransform()->GetWorldPosition();
 

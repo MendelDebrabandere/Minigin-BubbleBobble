@@ -29,7 +29,7 @@ namespace dae
 		void Render() const override;
 
 		void SetRendering(bool value) { m_DrawDebug = value; }
-		std::pair<OverlapData, float> IsOverlappingWith(const ColliderComponent* other) const;
+		std::pair<OverlapData, float> IsOverlappingWith(const ColliderComponent* other);
 
 		void SetSize(const glm::vec2& val) { m_Size = val; }
 

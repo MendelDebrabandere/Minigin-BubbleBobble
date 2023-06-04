@@ -7,6 +7,7 @@
 #include "SceneManager.h"
 #include "SpriteComponent.h"
 #include "Scene.h"
+#include "Timer.h"
 
 void AvatarComponent::Update()
 {
@@ -15,7 +16,27 @@ void AvatarComponent::Update()
 	case AvatarState::Moving:
 	{
 		CheckAnimPauseWithMovement();
+		break;
+	}
+	case AvatarState::Hit:
+	{
+		DoRespawnLogic();
+		break;
+	}
+	}
+}
+
+void AvatarComponent::FixedUpdate()
+{
+	switch (m_CurrentState)
+	{
+	case AvatarState::Moving:
+	{
 		DoEnemyHitDetection();
+		break;
+	}
+	case AvatarState::Hit:
+	{
 		break;
 	}
 	}
@@ -89,5 +110,27 @@ void AvatarComponent::DoEnemyHitDetection()
 				}
 			}
 		}
+	}
+}
+
+void AvatarComponent::DoRespawnLogic()
+{
+	float elapsedSec = dae::Time::GetInstance().GetDelta();
+	m_RespawnTimer += elapsedSec;
+
+	if (m_RespawnTimer >= m_MaxRespawmTimer)
+	{
+		//Respawn
+		dae::SpriteComponent* spriteComp = m_pOwner->GetComponent<dae::SpriteComponent>();
+		if (spriteComp)
+		{
+			spriteComp->SetAnimVariables(3, 7, 0.1f, 0, 7);
+			spriteComp->Scale(4);
+		}
+
+		m_pOwner->GetTransform()->SetWorldPosition(90, 640);
+
+		m_RespawnTimer = 0.f;
+		m_CurrentState = AvatarState::Moving;
 	}
 }
