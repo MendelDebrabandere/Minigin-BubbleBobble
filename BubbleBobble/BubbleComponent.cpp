@@ -14,7 +14,7 @@ void BubbleComponent::Initialize()
 	dae::ColliderComponent* myColl = m_pOwner->GetComponent<dae::ColliderComponent>();
 	if (myColl)
 	{
-		myColl->SetOverlapFunction([&](dae::GameObject* overlappingActor)
+		myColl->SetOverlapFunction([this](dae::GameObject* overlappingActor)
 			{
 				switch (m_CurrentState)
 				{

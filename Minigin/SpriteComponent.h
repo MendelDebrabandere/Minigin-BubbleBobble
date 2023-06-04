@@ -12,7 +12,7 @@ namespace dae
 	class SpriteComponent final : public Component
 	{
 	public:
-		SpriteComponent();
+		SpriteComponent() = default;
 		virtual ~SpriteComponent() = default;
 
 		SpriteComponent(const SpriteComponent& other) = delete;

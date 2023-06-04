@@ -13,7 +13,7 @@ void AvatarComponent::Initialize()
 	dae::ColliderComponent* myColl = m_pOwner->GetComponent<dae::ColliderComponent>();
 	if (myColl)
 	{
-		myColl->SetOverlapFunction([&](dae::GameObject* overlappingActor)
+		myColl->SetOverlapFunction([this](dae::GameObject* overlappingActor)
 			{
 				//if the player isnt invulnerable
 				if (m_Invulnerable == false && m_CurrentState == AvatarState::Moving)

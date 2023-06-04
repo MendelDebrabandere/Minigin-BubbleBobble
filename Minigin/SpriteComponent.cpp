@@ -8,11 +8,6 @@
 
 using namespace dae;
 
-SpriteComponent::SpriteComponent()
-	: Component()
-{
-}
-
 void SpriteComponent::Update()
 {
 	m_RenderPos = m_pOwner->GetTransform()->GetWorldPosition();
@@ -64,6 +59,14 @@ void SpriteComponent::SetTexture(const std::string& filename)
 
 void SpriteComponent::SetAnimVariables(int rows, int columns, float animTimer, int startIdx, int endIdx)
 {
+	//if it is in a do once cycle
+	if (m_DoOnceAnim)
+	{
+		//cancel it and just do the new animation
+		m_DoOnceAnim = false;
+	}
+
+	//Set all the variables
 	m_Rows = rows;
 	m_Columns = columns;
 	m_AnimTimer = animTimer;
