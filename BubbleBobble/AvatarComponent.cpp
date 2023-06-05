@@ -85,6 +85,11 @@ AvatarComponent::AvatarState AvatarComponent::GetCurrState() const
 	return m_CurrentState;
 }
 
+AvatarComponent::AvatarColor AvatarComponent::GetColor() const
+{
+	return m_MyColor;
+}
+
 void AvatarComponent::PickedUpFood(FoodComponent::FoodType type)
 {
 	m_Score.Notify(type);

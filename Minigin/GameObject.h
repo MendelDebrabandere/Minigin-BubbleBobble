@@ -89,11 +89,11 @@ namespace dae
 	{
 		static_assert(std::is_base_of<Component, T>(), "T needs to be derived from the Component class");
 
-		for (const auto& component : m_Components)
+		for (auto it = m_Components.begin(); it != m_Components.end(); ++it)
 		{
-			if (std::dynamic_pointer_cast<T>(component))
+			if (dynamic_cast<T*>(it->get()) != nullptr)
 			{
-				delete component;
+				m_Components.erase(it);
 				return true;
 			}
 		}

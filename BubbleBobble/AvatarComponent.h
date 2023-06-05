@@ -1,7 +1,6 @@
 #pragma once
 #include <glm/vec2.hpp>
 
-#include "Component.h"
 #include "FoodComponent.h"
 #include "Subject.h"
 
@@ -12,6 +11,12 @@ public:
 	{
 		Moving,
 		Hit
+	};
+
+	enum class AvatarColor
+	{
+		green,
+		blue
 	};
 
 	AvatarComponent() = default;
@@ -27,6 +32,8 @@ public:
 	void FixedUpdate() override;
 
 	AvatarState GetCurrState() const;
+
+	AvatarColor GetColor() const;
 
 	void PickedUpFood(FoodComponent::FoodType type);
 
@@ -47,4 +54,5 @@ private:
 	bool m_Invulnerable{};
 	float m_MaxInvulnerableTime{6.f};
 
+	AvatarColor m_MyColor{};
 };

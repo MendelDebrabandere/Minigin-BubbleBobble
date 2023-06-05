@@ -24,5 +24,14 @@ public:
 	void SetFoodType(FoodType type);
 
 private:
-	FoodType m_MyType;
+	enum class State
+	{
+		Food,
+		Points
+	};
+
+	FoodType m_MyType{};
+	State m_CurrState{ State::Food };
+
+	float m_Timer{};
 };

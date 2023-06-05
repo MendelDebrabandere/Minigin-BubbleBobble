@@ -22,7 +22,7 @@ GameObject* Food::CreateFood(Scene* pScene, const GameObject* transformingObj, F
 
 	SpriteComponent* spriteComp = pFood->AddComponent<SpriteComponent>();
 	spriteComp->SetTexture("Food.png");
-	spriteComp->SetAnimVariables(1, 2, 1.f);
+	spriteComp->SetAnimVariables(3, 2, 1.f);
 	spriteComp->Scale(4);
 	spriteComp->Pause(true);
 
