@@ -73,6 +73,12 @@
     <ClCompile Include="EnemyComponent.cpp">
       <Filter>Component</Filter>
     </ClCompile>
+    <ClCompile Include="Food.cpp">
+      <Filter>Prefabs</Filter>
+    </ClCompile>
+    <ClCompile Include="FoodComponent.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FPSCounter.h">
@@ -127,6 +133,12 @@
       <Filter>Component</Filter>
     </ClInclude>
     <ClInclude Include="EnemyComponent.h">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Food.h">
+      <Filter>Prefabs</Filter>
+    </ClInclude>
+    <ClInclude Include="FoodComponent.h">
       <Filter>Component</Filter>
     </ClInclude>
   </ItemGroup>

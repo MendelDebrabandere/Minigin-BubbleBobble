@@ -4,6 +4,7 @@
 #include "AvatarComponent.h"
 #include "ColliderComponent.h"
 #include "EnemyComponent.h"
+#include "Food.h"
 #include "Timer.h"
 #include "Transform.h"
 #include "GameObject.h"
@@ -145,7 +146,10 @@ void BubbleComponent::Update()
 		// By calculating the dotproduct with itself it basically returns the squaredMagnitude
 		if (abs(currPos.x - m_RandomGoToPos.x) <= 1.f && abs(currPos.y - m_RandomGoToPos.y) <= 1.f)
 		{
-			//TODO: spawn a fruity
+			//spawn a melon
+			auto scene = dae::SceneManager::GetInstance().GetActiveScene();
+			Food::CreateFood(scene, m_pOwner, FoodComponent::FoodType::Melon);
+
 			m_pOwner->Destroy();
 		}
 
@@ -187,8 +191,9 @@ void BubbleComponent::PopByPlayer(dae::GameObject* )
 	auto spriteComp = m_pOwner->GetComponent<dae::SpriteComponent>();
 	if (m_HasEnemyInside)
 	{
-		//TODO: give player score
 		m_CurrentState = BubbleState::EnemyDying;
+
+		//Make death sprite animation
 		if (spriteComp)
 		{
 			spriteComp->SetAnimVariables(6, 4, 0.1f, 20, 24);

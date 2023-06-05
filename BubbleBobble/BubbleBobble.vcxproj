@@ -167,6 +167,8 @@
     <ClCompile Include="BubbleBobble.cpp" />
     <ClCompile Include="BubbleComponent.cpp" />
     <ClCompile Include="EnemyComponent.cpp" />
+    <ClCompile Include="Food.cpp" />
+    <ClCompile Include="FoodComponent.cpp" />
     <ClCompile Include="FPSCounter.cpp" />
     <ClCompile Include="GameSceneCreator.cpp" />
     <ClCompile Include="HealthComponent.cpp" />
@@ -188,6 +190,8 @@
     <ClInclude Include="BubbleBobble.h" />
     <ClInclude Include="BubbleComponent.h" />
     <ClInclude Include="EnemyComponent.h" />
+    <ClInclude Include="Food.h" />
+    <ClInclude Include="FoodComponent.h" />
     <ClInclude Include="FPSCounter.h" />
     <ClInclude Include="GameSceneCreator.h" />
     <ClInclude Include="HealthComponent.h" />
