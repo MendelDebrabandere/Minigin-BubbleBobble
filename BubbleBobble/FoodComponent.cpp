@@ -17,20 +17,8 @@ void FoodComponent::Initialize()
 				if (avatarComp)
 				{
 					//TODO: give player score
-					switch (m_MyType)
-					{
-					case FoodType::Melon:
-					{
-						break;
-					}
-					case FoodType::Fries:
-					{
-						break;
-					}
-					}
-
+					avatarComp->PickedUpFood(m_MyType);
 					m_pOwner->Destroy();
-
 				}
 			});
 	}

@@ -2,6 +2,8 @@
 #include <glm/vec2.hpp>
 
 #include "Component.h"
+#include "FoodComponent.h"
+#include "Subject.h"
 
 class AvatarComponent : public dae::Component
 {
@@ -26,6 +28,9 @@ public:
 
 	AvatarState GetCurrState() const;
 
+	void PickedUpFood(FoodComponent::FoodType type);
+
+	dae::Subject<FoodComponent::FoodType> m_Score;
 private:
 	void UpdateAnimVariablesMoving();
 	void DoRespawnLogic();
@@ -41,4 +46,5 @@ private:
 	//using a bool for this state since it can be active in multiple states
 	bool m_Invulnerable{};
 	float m_MaxInvulnerableTime{6.f};
+
 };

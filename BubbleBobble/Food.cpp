@@ -24,6 +24,7 @@ GameObject* Food::CreateFood(Scene* pScene, const GameObject* transformingObj, F
 	spriteComp->SetTexture("Food.png");
 	spriteComp->SetAnimVariables(1, 2, 1.f);
 	spriteComp->Scale(4);
+	spriteComp->Pause(true);
 
 	ColliderComponent* colliderComp = pFood->AddComponent<ColliderComponent>();
 	colliderComp->SetSize(spriteComp->GetSize());

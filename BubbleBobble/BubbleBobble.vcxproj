@@ -170,7 +170,6 @@
     <ClCompile Include="Food.cpp" />
     <ClCompile Include="FoodComponent.cpp" />
     <ClCompile Include="FPSCounter.cpp" />
-    <ClCompile Include="HealthComponent.cpp" />
     <ClCompile Include="JumpCommand.cpp" />
     <ClCompile Include="LeaveMenuCommand.cpp" />
     <ClCompile Include="LevelLoader.cpp" />
@@ -178,7 +177,7 @@
     <ClCompile Include="MoveLeftCommand.cpp" />
     <ClCompile Include="MoveRightCommand.cpp" />
     <ClCompile Include="Platform.cpp" />
-    <ClCompile Include="RotatorComponent.cpp" />
+    <ClCompile Include="ScoreDisplay.cpp" />
     <ClCompile Include="ShootBubbleCommand.cpp" />
     <ClCompile Include="ZenChan.cpp" />
   </ItemGroup>
@@ -193,14 +192,13 @@
     <ClInclude Include="Food.h" />
     <ClInclude Include="FoodComponent.h" />
     <ClInclude Include="FPSCounter.h" />
-    <ClInclude Include="HealthComponent.h" />
     <ClInclude Include="JumpCommand.h" />
     <ClInclude Include="LeaveMenuCommand.h" />
     <ClInclude Include="LevelLoader.h" />
     <ClInclude Include="MoveLeftCommand.h" />
     <ClInclude Include="MoveRightCommand.h" />
     <ClInclude Include="Platform.h" />
-    <ClInclude Include="RotatorComponent.h" />
+    <ClInclude Include="ScoreDisplay.h" />
     <ClInclude Include="ShootBubbleCommand.h" />
     <ClInclude Include="ZenChan.h" />
   </ItemGroup>

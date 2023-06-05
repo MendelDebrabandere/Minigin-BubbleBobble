@@ -19,12 +19,6 @@
     <ClCompile Include="main.cpp">
       <Filter>Main</Filter>
     </ClCompile>
-    <ClCompile Include="RotatorComponent.cpp">
-      <Filter>Component</Filter>
-    </ClCompile>
-    <ClCompile Include="HealthComponent.cpp">
-      <Filter>Component</Filter>
-    </ClCompile>
     <ClCompile Include="FPSCounter.cpp">
       <Filter>Component</Filter>
     </ClCompile>
@@ -79,15 +73,12 @@
     <ClCompile Include="LeaveMenuCommand.cpp">
       <Filter>Command</Filter>
     </ClCompile>
+    <ClCompile Include="ScoreDisplay.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FPSCounter.h">
-      <Filter>Component</Filter>
-    </ClInclude>
-    <ClInclude Include="HealthComponent.h">
-      <Filter>Component</Filter>
-    </ClInclude>
-    <ClInclude Include="RotatorComponent.h">
       <Filter>Component</Filter>
     </ClInclude>
     <ClInclude Include="MoveLeftCommand.h">
@@ -140,6 +131,9 @@
     </ClInclude>
     <ClInclude Include="LeaveMenuCommand.h">
       <Filter>Command</Filter>
+    </ClInclude>
+    <ClInclude Include="ScoreDisplay.h">
+      <Filter>Component</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

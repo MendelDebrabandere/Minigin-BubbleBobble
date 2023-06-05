@@ -115,6 +115,7 @@ void Minigin::Run()
 		while (lag >= fixedTimeStep)
 		{
 			sceneManager.FixedUpdate();
+			sceneManager.UpdateCleanup();
 			lag -= fixedTimeStep;
 		}
 

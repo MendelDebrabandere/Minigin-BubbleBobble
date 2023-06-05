@@ -179,8 +179,5 @@
     <ClCompile Include="ServiceLocator.cpp">
       <Filter>ServiceLocator</Filter>
     </ClCompile>
-    <ClCompile Include="Subject.cpp">
-      <Filter>Observer</Filter>
-    </ClCompile>
   </ItemGroup>
 </Project>

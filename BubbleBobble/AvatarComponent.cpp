@@ -85,6 +85,11 @@ AvatarComponent::AvatarState AvatarComponent::GetCurrState() const
 	return m_CurrentState;
 }
 
+void AvatarComponent::PickedUpFood(FoodComponent::FoodType type)
+{
+	m_Score.Notify(type);
+}
+
 void AvatarComponent::UpdateAnimVariablesMoving()
 {
 	dae::SpriteComponent* spriteComp = m_pOwner->GetComponent<dae::SpriteComponent>();
