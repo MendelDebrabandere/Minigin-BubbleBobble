@@ -174,6 +174,16 @@ void BubbleComponent::SetShootDirection(bool right)
 	m_DirectionRight = right;
 }
 
+BubbleComponent::BubbleState BubbleComponent::GetState() const
+{
+	return m_CurrentState;
+}
+
+bool BubbleComponent::HasEnemyInside() const
+{
+	return m_HasEnemyInside;
+}
+
 void BubbleComponent::PickUpEnemy(dae::GameObject* go)
 {
 	m_HasEnemyInside = true;

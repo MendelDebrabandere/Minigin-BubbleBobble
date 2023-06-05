@@ -4,5 +4,5 @@
 class Platform final
 {
 public:
-	static dae::GameObject* CreatePlatform(dae::Scene* pScene, const glm::vec2& spawnPos);
+	static dae::GameObject* CreatePlatform(dae::Scene* pScene, const glm::vec2& spawnPos, int level);
 };

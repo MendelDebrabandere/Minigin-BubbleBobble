@@ -170,9 +170,9 @@
     <ClCompile Include="Food.cpp" />
     <ClCompile Include="FoodComponent.cpp" />
     <ClCompile Include="FPSCounter.cpp" />
-    <ClCompile Include="GameSceneCreator.cpp" />
     <ClCompile Include="HealthComponent.cpp" />
     <ClCompile Include="JumpCommand.cpp" />
+    <ClCompile Include="LeaveMenuCommand.cpp" />
     <ClCompile Include="LevelLoader.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MoveLeftCommand.cpp" />
@@ -193,9 +193,9 @@
     <ClInclude Include="Food.h" />
     <ClInclude Include="FoodComponent.h" />
     <ClInclude Include="FPSCounter.h" />
-    <ClInclude Include="GameSceneCreator.h" />
     <ClInclude Include="HealthComponent.h" />
     <ClInclude Include="JumpCommand.h" />
+    <ClInclude Include="LeaveMenuCommand.h" />
     <ClInclude Include="LevelLoader.h" />
     <ClInclude Include="MoveLeftCommand.h" />
     <ClInclude Include="MoveRightCommand.h" />

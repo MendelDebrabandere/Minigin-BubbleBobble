@@ -28,6 +28,15 @@ void SceneManager::SetActiveScene(const Scene* pScene)
 	}
 }
 
+Scene* SceneManager::GetActiveScene()
+{
+	if (m_Scenes.size() != 0 && m_ActiveSceneIdx != -1)
+		return m_Scenes[m_ActiveSceneIdx].get();
+	else
+		return nullptr;
+}
+
+
 void SceneManager::FixedUpdate()
 {
 	for (auto& scene : m_Scenes)
@@ -38,6 +47,9 @@ void SceneManager::FixedUpdate()
 
 void SceneManager::Update()
 {
+	if (m_SceneSelectorFunction)
+		m_SceneSelectorFunction();
+
 	for(auto& scene : m_Scenes)
 	{
 		scene->Update();
@@ -58,5 +70,10 @@ void SceneManager::UpdateCleanup()
 	{
 		scene->UpdateCleanup();
 	}
+}
+
+void SceneManager::SetSceneSelector(std::function<void()> sceneSelectorFunction)
+{
+	m_SceneSelectorFunction = sceneSelectorFunction;
 }
 

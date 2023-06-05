@@ -37,9 +37,6 @@
     <ClCompile Include="BubbleBobble.cpp">
       <Filter>Prefabs</Filter>
     </ClCompile>
-    <ClCompile Include="GameSceneCreator.cpp">
-      <Filter>Prefabs</Filter>
-    </ClCompile>
     <ClCompile Include="Avatar.cpp">
       <Filter>Prefabs</Filter>
     </ClCompile>
@@ -79,6 +76,9 @@
     <ClCompile Include="FoodComponent.cpp">
       <Filter>Component</Filter>
     </ClCompile>
+    <ClCompile Include="LeaveMenuCommand.cpp">
+      <Filter>Command</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FPSCounter.h">
@@ -97,9 +97,6 @@
       <Filter>Command</Filter>
     </ClInclude>
     <ClInclude Include="BubbleBobble.h">
-      <Filter>Prefabs</Filter>
-    </ClInclude>
-    <ClInclude Include="GameSceneCreator.h">
       <Filter>Prefabs</Filter>
     </ClInclude>
     <ClInclude Include="Avatar.h">
@@ -140,6 +137,9 @@
     </ClInclude>
     <ClInclude Include="FoodComponent.h">
       <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="LeaveMenuCommand.h">
+      <Filter>Command</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

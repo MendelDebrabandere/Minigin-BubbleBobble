@@ -1,7 +1,5 @@
 #include "Scene.h"
 
-#include "Subject.h"
-
 using namespace dae;
 
 unsigned int Scene::m_idCounter = 0;
@@ -72,4 +70,9 @@ void Scene::UpdateCleanup()
 const std::string& dae::Scene::GetName() const
 {
 	return m_name;
+}
+
+void dae::Scene::SetName(const std::string& name)
+{
+	m_name = name;
 }

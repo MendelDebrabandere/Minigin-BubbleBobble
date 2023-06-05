@@ -1,4 +1,5 @@
 #pragma once
+#include <functional>
 #include <vector>
 #include <string>
 #include <memory>
@@ -16,14 +17,19 @@ namespace dae
 		void SetActiveScene(const std::string& name);
 		void SetActiveScene(const Scene* pScene);
 
-		Scene* GetActiveScene() { return m_Scenes[m_ActiveSceneIdx].get(); }
+		Scene* GetActiveScene();
 
 		void FixedUpdate();
 		void Update();
 		void Render();
 		void UpdateCleanup();
+
+		void SetSceneSelector(std::function<void()> sceneSelectorFunction);
+
 	private:
 		std::vector<std::shared_ptr<Scene>> m_Scenes;
 		int m_ActiveSceneIdx{-1};
+
+		std::function<void()> m_SceneSelectorFunction;
 	};
 }

@@ -1,6 +1,4 @@
 #pragma once
-#include <memory>
-#include <queue>
 #include "SoundSystem.h"
 
 namespace dae

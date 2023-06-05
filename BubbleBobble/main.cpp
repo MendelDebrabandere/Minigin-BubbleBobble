@@ -18,7 +18,7 @@ int main(int, char* [])
 	ServiceLocator::InitDefault();
 
 	Minigin engine{ "../Data/" };
-	BubbleBobble::Create(&engine);
+	BubbleBobble::Create();
 	engine.Run();
 
 	return 0;

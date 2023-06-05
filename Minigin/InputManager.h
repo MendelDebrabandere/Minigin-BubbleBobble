@@ -1,6 +1,7 @@
 #pragma once
 #include <map>
 #include <memory>
+#include <vector>
 
 #include "Singleton.h"
 #include "XBox360Controller.h"
@@ -27,6 +28,8 @@ namespace dae
 		void AddKeyboardCommand(unsigned int keyboardKey, InputType type, std::unique_ptr<Command> pCommand);
 
 		bool IsKeyboardKeyDown(unsigned int keyboardKey);
+
+		void RemoveAllInputs();
 
 	private:
 		struct InputDataController

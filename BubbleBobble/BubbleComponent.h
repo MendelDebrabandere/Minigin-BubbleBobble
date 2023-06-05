@@ -6,6 +6,15 @@
 class BubbleComponent : public dae::Component
 {
 public:
+	enum class BubbleState
+	{
+		Shooting,
+		Hovering,
+		ReachedTop,
+		Popping,
+		EnemyDying
+	};
+
 	BubbleComponent() = default;
 	virtual ~BubbleComponent() = default;
 
@@ -18,15 +27,10 @@ public:
 	void Update() override;
 	void SetShootDirection(bool right);
 
+	BubbleState GetState() const;
+	bool HasEnemyInside() const;
+
 private:
-	enum class BubbleState
-	{
-		Shooting,
-		Hovering,
-		ReachedTop,
-		Popping,
-		EnemyDying
-	};
 	BubbleState m_CurrentState{ BubbleState::Shooting };
 
 	void PickUpEnemy(dae::GameObject* go);

@@ -34,12 +34,12 @@ void LevelLoader::LoadLevel(Scene* pScene, int number)
 				{
 				case '1':
 				{
-					Block::CreateBlock(pScene, glm::vec2{ blockSize * posX, blockSize * posY });
+					Block::CreateBlock(pScene, glm::vec2{ blockSize * posX, blockSize * posY }, number);
 					break;
 				}
 				case '2':
 				{
-					Platform::CreatePlatform(pScene, glm::vec2{ blockSize * posX, blockSize * posY });
+					Platform::CreatePlatform(pScene, glm::vec2{ blockSize * posX, blockSize * posY }, number);
 					break;
 				}
 				case '3':

@@ -1,5 +1,4 @@
 #pragma once
-#include "Minigin.h"
 
 class BubbleBobble final
 {
@@ -11,5 +10,8 @@ public:
 	BubbleBobble& operator=(const BubbleBobble&) = delete;
 	BubbleBobble& operator=(BubbleBobble&&) = delete;
 
-	static void Create(dae::Minigin* pEngine);
+	static void Create();
+
+	static void MakeMainMenu();
+private:
 };

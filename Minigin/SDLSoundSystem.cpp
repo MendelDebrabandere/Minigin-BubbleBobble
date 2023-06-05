@@ -1,7 +1,6 @@
 #include "SDLSoundSystem.h"
 #include <iostream>
 #include <map>
-#include <memory>
 #include <SDL_mixer.h>
 #include <SDL.h>
 #include <thread>

@@ -21,6 +21,7 @@ namespace dae
 		void UpdateCleanup();
 
 		const std::string& GetName() const;
+		void SetName(const std::string& name);
 
 		std::vector<std::unique_ptr<GameObject>>& GetAllObjects() { return m_objects; }
 

@@ -12,7 +12,9 @@ bool InputManager::ProcessInput()
 		if (e.type == SDL_QUIT) {
 			return false;
 		}
+
 		//Keyboard OnDown and OnRelease
+		size_t previousSize = m_KeyboardActionMap.size();
 		for (auto& mapPair : m_KeyboardActionMap)
 		{
 			if (unsigned int(e.key.keysym.sym) == mapPair.first.key)
@@ -30,6 +32,13 @@ bool InputManager::ProcessInput()
 				//RELEASE
 				else if (mapPair.first.type == InputType::OnRelease && e.type == SDL_KEYUP)
 					mapPair.second->Execute();
+
+				//if a command changed the input map
+				if (m_KeyboardActionMap.size() != previousSize)
+				{
+					//stop the loop
+					break;
+				}
 			}
 		}
 	}
@@ -111,17 +120,23 @@ void InputManager::AddControllerCommand(XBox360Controller::ControllerButton butt
 
 	//make the action and add it to the map
 	InputDataController inputData{ controllerID, button, type };
-	m_ControllerActionMap[inputData] = std::move(pCommand);
+	m_ControllerActionMap.insert(std::pair(inputData, std::move(pCommand)));
 }
 
 void InputManager::AddKeyboardCommand(unsigned int keyboardKey, InputType type, std::unique_ptr<Command> pCommand)
 {
 	//make the action and add it to the map
 	InputDataKeyboard inputData{ keyboardKey, type };
-	m_KeyboardActionMap[inputData] = std::move(pCommand);
+	m_KeyboardActionMap.insert(std::pair(inputData, std::move(pCommand)));
 }
 
 bool InputManager::IsKeyboardKeyDown(unsigned int keyboardKey)
 {
 	return std::ranges::find(m_PressedKeys, keyboardKey) != m_PressedKeys.end();
+}
+
+void InputManager::RemoveAllInputs()
+{
+	m_KeyboardActionMap.clear();
+	m_ControllerActionMap.clear();
 }
