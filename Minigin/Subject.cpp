@@ -1,25 +1,36 @@
 #include "Subject.h"
-#include "Observer.h"
 
 using namespace dae;
 
-void Subject::Notify(size_t subject, int event, int value)
+template<typename... Args>
+Subject<Args...>::~Subject()
 {
-	for (auto pObserver : mpObservers)
-		pObserver->OnNotify(subject, event, value);
+	for (auto& observer : m_ObserverPtrs)
+	{
+		observer->OnSubjectDestroy();
+	}
 }
 
-void Subject::AddObserver(Observer* pObserver)
+template<typename ...Args>
+void Subject<Args...>::AddObserver(Observer<Args...>* pObserver)
 {
-	mpObservers.push_back(pObserver);
+	m_ObserverPtrs.push_back(pObserver);
 }
 
-void Subject::RemoveObserver(Observer* pObserver)
+template<typename ...Args>
+void Subject<Args...>::RemoveObserver(Observer<Args...>* pObserver)
 {
-	mpObservers.erase(
-		std::remove_if(mpObservers.begin(), mpObservers.end(),
-			[pObserver](Observer* pObs) { return pObs == pObserver; }
-		),
-		mpObservers.end()
-	);
+	m_ObserverPtrs.erase(std::remove(
+		m_ObserverPtrs.begin(),
+		m_ObserverPtrs.end(), pObserver),
+		m_ObserverPtrs.end());
+}
+
+template<typename ...Args>
+void dae::Subject<Args...>::Notify(Args ...args)
+{
+	for (auto& pObserver : m_ObserverPtrs)
+	{
+		pObserver->HandleEvent(args...);
+	}
 }

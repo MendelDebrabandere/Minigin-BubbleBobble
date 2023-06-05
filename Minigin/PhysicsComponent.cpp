@@ -26,6 +26,11 @@ void PhysicsComponent::Jump(float speed)
 	m_VerticalSpeed = speed;
 }
 
+void PhysicsComponent::SetGrounded(bool val)
+{
+	m_IsGrounded = val;
+}
+
 //Collision is going to happen if one of the objects has m_Collision to true,
 //They will only overlap if both have m_Collision to false
 void PhysicsComponent::DoCollisionLogic()
@@ -118,9 +123,13 @@ void PhysicsComponent::DoGravityLogic()
 	if (myCollider)
 	{
 		glm::vec2 worldPos = m_pOwner->GetTransform()->GetWorldPosition();
-		if (worldPos.y >= 800)
+		if (worldPos.y > 800)
 		{
 			m_pOwner->GetTransform()->SetWorldPosition(worldPos.x, 0 - myCollider->GetSize().y);
+		}
+		else if (worldPos.y < - myCollider->GetSize().y)
+		{
+			m_pOwner->GetTransform()->SetWorldPosition(worldPos.x, 800);
 		}
 	}
 

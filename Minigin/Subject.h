@@ -1,26 +1,24 @@
 #pragma once
 #include <vector>
 
+#include "Observer.h"
+
 namespace dae
 {
-	class Observer;
-
-	class Subject
+	template<typename... Args>
+	class Subject final
 	{
 	public:
-		explicit Subject() = default;
-		virtual ~Subject() = default;
-		Subject(const Subject&) = delete;
-		Subject(Subject&&) = delete;
-		Subject& operator=(const Subject&) = delete;
-		Subject& operator=(Subject&&) = delete;
+		~Subject();
 
-		void Notify(size_t subject, int event, int value);
-		void AddObserver(Observer* pObserver);
-		void RemoveObserver(Observer* pObserver);
+		void AddObserver(Observer<Args...>* pObserver);
+
+		void RemoveObserver(Observer<Args...>* pObserver);
+
+		void Notify(Args... args);
+
 	private:
-		std::vector<Observer*> mpObservers;
+		std::vector<Observer<Args ...>*> m_ObserverPtrs;
 	};
-
 }
 

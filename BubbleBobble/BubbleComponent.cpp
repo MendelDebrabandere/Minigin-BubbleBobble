@@ -7,6 +7,8 @@
 #include "Timer.h"
 #include "Transform.h"
 #include "GameObject.h"
+#include "InputManager.h"
+#include "PhysicsComponent.h"
 #include "SceneManager.h"
 #include "SpriteComponent.h"
 #include "ZenChan.h"
@@ -39,9 +41,20 @@ void BubbleComponent::Initialize()
 				{
 					//if its a player
 					AvatarComponent* avatarComp = overlappingActor->GetComponent<AvatarComponent>();
-					if (avatarComp)
+					dae::ColliderComponent* playerColl = overlappingActor->GetComponent<dae::ColliderComponent>();
+					dae::ColliderComponent* myColl = m_pOwner->GetComponent<dae::ColliderComponent>();
+					if (avatarComp && playerColl && myColl)
 					{
-						PopByPlayer(overlappingActor);
+						//if the player hits it from the top && the player is holding down spacebar
+						if (myColl->IsOverlappingWithDirectional(playerColl).first == dae::ColliderComponent::OverlapData::Top
+							&& dae::InputManager::GetInstance().IsKeyboardKeyDown('w'))
+						{
+							//set the physics to grounded so that the player can jump
+							dae::PhysicsComponent* playerPhysics = overlappingActor->GetComponent<dae::PhysicsComponent>(); \
+								playerPhysics->SetGrounded(true);
+						}
+						else
+							PopByPlayer(overlappingActor);
 					}
 					break;
 				}

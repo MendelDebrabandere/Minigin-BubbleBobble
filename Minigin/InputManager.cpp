@@ -21,16 +21,7 @@ bool InputManager::ProcessInput()
 				if (mapPair.first.type == InputType::OnDown && e.type == SDL_KEYDOWN)
 				{
 					//Check if it isnt being held down
-					bool containsKey{ false };
-					for (unsigned int key : m_PressedKeys)
-					{
-						if (key == mapPair.first.key)
-						{
-							containsKey = true;
-							break;
-						}
-					}
-					if (containsKey)
+					if (std::ranges::find(m_PressedKeys, mapPair.first.key) != m_PressedKeys.end())
 						continue;
 
 					mapPair.second->Execute();
@@ -128,4 +119,9 @@ void InputManager::AddKeyboardCommand(unsigned int keyboardKey, InputType type, 
 	//make the action and add it to the map
 	InputDataKeyboard inputData{ keyboardKey, type };
 	m_KeyboardActionMap[inputData] = std::move(pCommand);
+}
+
+bool InputManager::IsKeyboardKeyDown(unsigned int keyboardKey)
+{
+	return std::ranges::find(m_PressedKeys, keyboardKey) != m_PressedKeys.end();
 }

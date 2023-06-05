@@ -26,6 +26,8 @@ namespace dae
 		void AddControllerCommand(XBox360Controller::ControllerButton button, unsigned int controllerID, InputType type, std::unique_ptr<Command> pCommand);
 		void AddKeyboardCommand(unsigned int keyboardKey, InputType type, std::unique_ptr<Command> pCommand);
 
+		bool IsKeyboardKeyDown(unsigned int keyboardKey);
+
 	private:
 		struct InputDataController
 		{

@@ -20,6 +20,7 @@ namespace dae
 		void SetPlatform(bool val) { m_Platform = val; }
 
 		bool GetGrounded() const { return m_IsGrounded; }
+		void SetGrounded(bool val); // used for artificially enabling jump (jumping on bubbles)
 
 	private:
 
