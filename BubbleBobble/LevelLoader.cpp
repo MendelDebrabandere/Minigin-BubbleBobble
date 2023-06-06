@@ -10,7 +10,7 @@
 
 using namespace dae;
 
-void LevelLoader::LoadLevel(Scene* pScene, int number)
+void LevelLoader::LoadLevel(Scene* pScene, int number, bool loadAvatar)
 {
 	// load level from file
 	std::string line;
@@ -54,7 +54,8 @@ void LevelLoader::LoadLevel(Scene* pScene, int number)
 				}
 				case '5':
 				{
-					Avatar::CreateAvatar(pScene, glm::vec2{ blockSize * posX, blockSize * posY });
+					if (loadAvatar) 
+						Avatar::CreateAvatar(pScene, glm::vec2{ blockSize * posX, blockSize * posY });
 					break;
 				}
 				}

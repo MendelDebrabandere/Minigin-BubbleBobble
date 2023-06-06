@@ -4,6 +4,6 @@
 class LevelLoader final
 {
 public:
-	static void LoadLevel(dae::Scene* pScene, int number);
+	static void LoadLevel(dae::Scene* pScene, int number, bool loadAvatar);
 };
 

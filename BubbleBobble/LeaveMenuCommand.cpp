@@ -1,5 +1,6 @@
 #include "LeaveMenuCommand.h"
 
+#include "AvatarComponent.h"
 #include "BubbleBobble.h"
 #include "BubbleComponent.h"
 #include "EnemyComponent.h"
@@ -7,6 +8,7 @@
 #include "InputManager.h"
 #include "LevelLoader.h"
 #include "SceneManager.h"
+#include "ScoreDisplay.h"
 #include "ServiceLocator.h"
 #include "SoundSystem.h"
 
@@ -20,7 +22,7 @@ void LeaveMenuCommand::Execute()
 
 	//load the first level
 	pGameScene->SetName("1"); // level 1
-	LevelLoader::LoadLevel(pGameScene, 1); // level 1
+	LevelLoader::LoadLevel(pGameScene, 1, true); // level 1
 	sceneManager.SetActiveScene(pGameScene);
 
 	//Set a scene selector function so it can change level automatically in game
@@ -64,8 +66,14 @@ void LeaveMenuCommand::Execute()
 				auto* pGameScene = sceneManager.GetActiveScene();
 				auto name = pGameScene->GetName();
 
-				pGameScene->RemoveAll();
-				dae::InputManager::GetInstance().RemoveAllInputs();
+				//Remove everything that doesnt have the avatar component
+				auto& objVec = pGameScene->GetAllObjects();
+				objVec.erase(std::remove_if(objVec.begin(), objVec.end(), [](std::unique_ptr<dae::GameObject>& go) {
+					return (go->GetComponent<AvatarComponent>() == nullptr && go->GetComponent<ScoreDisplay>() == nullptr);
+					}), objVec.end());
+
+				//keep inputs since the avatar doesnt get deleted
+				//dae::InputManager::GetInstance().RemoveAllInputs();
 
 				if (std::isdigit(name[0]))
 				{
@@ -74,7 +82,7 @@ void LeaveMenuCommand::Execute()
 					if (levelNr < 3)
 					{
 						pGameScene->SetName(std::to_string(levelNr + 1));
-						LevelLoader::LoadLevel(pGameScene, levelNr + 1);
+						LevelLoader::LoadLevel(pGameScene, levelNr + 1, false);
 						sceneManager.SetActiveScene(pGameScene);
 					}
 					else

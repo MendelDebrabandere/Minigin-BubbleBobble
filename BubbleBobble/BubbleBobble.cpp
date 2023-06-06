@@ -42,6 +42,8 @@ void BubbleBobble::MakeMainMenu()
 	auto& pSceneManager = SceneManager::GetInstance();
 	auto* pGameScene = pSceneManager.GetActiveScene();
 
+	dae::InputManager::GetInstance().RemoveAllInputs();
+
 	if (pGameScene)
 	{
 		pGameScene->RemoveAll();
