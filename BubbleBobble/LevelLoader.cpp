@@ -4,6 +4,7 @@
 #include <fstream>
 
 #include "Avatar.h"
+#include "AvatarComponent.h"
 #include "Block.h"
 #include "Platform.h"
 #include "ZenChan.h"
@@ -56,6 +57,17 @@ void LevelLoader::LoadLevel(Scene* pScene, int number, bool loadAvatar)
 				{
 					if (loadAvatar) 
 						Avatar::CreateAvatar(pScene, glm::vec2{ blockSize * posX, blockSize * posY });
+					else
+					{
+						//translate the current one to the pos
+						for (auto& go : pScene->GetAllObjects())
+						{
+							if (go->GetComponent<AvatarComponent>())
+							{
+								go->GetTransform()->SetWorldPosition(glm::vec2{ blockSize * posX, blockSize * posY });
+							}
+						}
+					}
 					break;
 				}
 				}
