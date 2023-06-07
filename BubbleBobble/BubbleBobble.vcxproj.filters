@@ -76,11 +76,14 @@
     <ClCompile Include="ScoreDisplay.cpp">
       <Filter>Component</Filter>
     </ClCompile>
-    <ClCompile Include="ZenChanMovementComponent.cpp">
+    <ClCompile Include="ZenChanComponent.cpp">
       <Filter>Component</Filter>
     </ClCompile>
     <ClCompile Include="Maita.cpp">
-      <Filter>Main</Filter>
+      <Filter>Prefabs</Filter>
+    </ClCompile>
+    <ClCompile Include="MaitaComponent.cpp">
+      <Filter>Component</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -141,9 +144,14 @@
     <ClInclude Include="ScoreDisplay.h">
       <Filter>Component</Filter>
     </ClInclude>
-    <ClInclude Include="ZenChanMovementComponent.h">
+    <ClInclude Include="ZenChanComponent.h">
       <Filter>Component</Filter>
     </ClInclude>
-    <ClInclude Include="Maita.h" />
+    <ClInclude Include="Maita.h">
+      <Filter>Prefabs</Filter>
+    </ClInclude>
+    <ClInclude Include="MaitaComponent.h">
+      <Filter>Component</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

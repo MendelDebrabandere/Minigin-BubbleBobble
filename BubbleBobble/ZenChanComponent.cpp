@@ -1,11 +1,11 @@
-#include "ZenChanMovementComponent.h"
+#include "ZenChanComponent.h"
 
 #include "GameObject.h"
 #include "PhysicsComponent.h"
 #include "SpriteComponent.h"
 #include "Timer.h"
 
-void ZenChanMovementComponent::Update()
+void ZenChanComponent::Update()
 {
 	//get data variables
 	dae::Transform* transform = m_pOwner->GetTransform();

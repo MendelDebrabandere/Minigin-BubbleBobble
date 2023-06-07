@@ -7,6 +7,7 @@
 #include "AvatarComponent.h"
 #include "Block.h"
 #include "FPSCounter.h"
+#include "Maita.h"
 #include "TextComponent.h"
 #include "Platform.h"
 #include "ResourceManager.h"
@@ -34,32 +35,34 @@ void LevelLoader::LoadLevel(Scene* pScene, int number, bool loadAvatar)
 		{
 			for (char letter : line)
 			{
+				glm::vec2 spawnPos{ blockSize * posX, blockSize * posY };
+
 				switch(letter)
 				{
 				case '1':
 				{
-					Block::CreateBlock(pScene, glm::vec2{ blockSize * posX, blockSize * posY }, number);
+					Block::CreateBlock(pScene, spawnPos, number);
 					break;
 				}
 				case '2':
 				{
-					Platform::CreatePlatform(pScene, glm::vec2{ blockSize * posX, blockSize * posY }, number);
+					Platform::CreatePlatform(pScene, spawnPos, number);
 					break;
 				}
 				case '3':
 				{
-					//TODO: Spawn a Maita
+					Maita::CreateMaita(pScene, spawnPos);
 					break;
 				}
 				case '4':
 				{
-					ZenChan::CreateZenChan(pScene, glm::vec2{ blockSize * posX, blockSize * posY });
+					ZenChan::CreateZenChan(pScene, spawnPos);
 					break;
 				}
 				case '5':
 				{
 					if (loadAvatar) 
-						Avatar::CreateAvatar(pScene, glm::vec2{ blockSize * posX, blockSize * posY });
+						Avatar::CreateAvatar(pScene, spawnPos);
 					else
 					{
 						//translate the current one to the pos
