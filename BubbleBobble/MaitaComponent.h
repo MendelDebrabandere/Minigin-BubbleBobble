@@ -16,5 +16,6 @@ public:
 	void Update() override;
 
 private:
+	bool m_Throwing{};
 	float m_RockThrowingTimer{};
 };

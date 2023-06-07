@@ -46,9 +46,20 @@ void SpriteComponent::Render() const
 	if (m_Show)
 	{
 		if (m_FlipTexture == false)
-			Renderer::GetInstance().RenderTexture(*m_Texture, m_RenderPos.x, m_RenderPos.y, m_RenderWidth, m_RenderHeight, &m_Rect);
+			Renderer::GetInstance().RenderTexture(*m_Texture,
+													m_RenderPos.x + m_RenderOffset.x,
+													m_RenderPos.y + m_RenderOffset.y,
+													m_RenderWidth,
+													m_RenderHeight,
+													&m_Rect);
 		else
-			Renderer::GetInstance().RenderTexture(*m_Texture, m_RenderPos.x, m_RenderPos.y, m_RenderWidth, m_RenderHeight, &m_Rect, SDL_FLIP_HORIZONTAL);
+			Renderer::GetInstance().RenderTexture(*m_Texture,
+													m_RenderPos.x + m_RenderOffset.x,
+													m_RenderPos.y + m_RenderOffset.y,
+													m_RenderWidth,
+													m_RenderHeight,
+													&m_Rect,
+													SDL_FLIP_HORIZONTAL);
 	}
 }
 
@@ -140,4 +151,9 @@ bool SpriteComponent::IsDoingOnce() const
 glm::vec2 SpriteComponent::GetSize() const
 {
 	return glm::vec2(m_RenderWidth, m_RenderHeight);
+}
+
+void SpriteComponent::SetRenderOffset(const glm::vec2& offset)
+{
+	m_RenderOffset = offset;
 }

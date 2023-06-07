@@ -85,6 +85,9 @@
     <ClCompile Include="MaitaComponent.cpp">
       <Filter>Component</Filter>
     </ClCompile>
+    <ClCompile Include="Rock.cpp">
+      <Filter>Prefabs</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FPSCounter.h">
@@ -152,6 +155,9 @@
     </ClInclude>
     <ClInclude Include="MaitaComponent.h">
       <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Rock.h">
+      <Filter>Prefabs</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -142,3 +142,8 @@ void EnemyComponent::ResetMoveSpeed()
 {
 	m_WalkingSpeed = 150.f;
 }
+
+bool EnemyComponent::GetMoveRight() const
+{
+	return m_WalkingRight;
+}

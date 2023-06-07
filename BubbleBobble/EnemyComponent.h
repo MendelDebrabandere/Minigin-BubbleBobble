@@ -18,6 +18,8 @@ public:
 	void MultiplyMoveSpeed(float value);
 	void ResetMoveSpeed();
 
+	bool GetMoveRight() const;
+
 private:
 	enum class BehaviorState
 	{

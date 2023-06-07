@@ -32,6 +32,7 @@ namespace dae
 		bool IsDoingOnce() const;
 
 		glm::vec2 GetSize() const;
+		void SetRenderOffset(const glm::vec2& offset);
 	private:
 		std::shared_ptr<Texture2D> m_Texture{};
 		float m_RenderWidth{};
@@ -58,5 +59,7 @@ namespace dae
 		float m_DoOnceAnimTimer{};
 
 		bool m_Show{ true };
+
+		glm::vec2 m_RenderOffset{};
 	};
 }
