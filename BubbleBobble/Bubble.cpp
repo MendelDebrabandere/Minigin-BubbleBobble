@@ -21,7 +21,7 @@ GameObject* Bubble::CreateBubble(Scene* pScene, const GameObject* pShooterObj)
 
 	SpriteComponent* spriteComp = pBubble->AddComponent<SpriteComponent>();
 	spriteComp->SetTexture("Bubble.png");
-	spriteComp->SetAnimVariables(6, 4, 0.3f, 8, 11);
+	spriteComp->SetAnimVariables(9, 4, 0.3f, 16, 20);
 	spriteComp->Scale(4);
 
 	ColliderComponent* colliderComp = pBubble->AddComponent<ColliderComponent>();

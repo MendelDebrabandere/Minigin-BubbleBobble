@@ -6,6 +6,11 @@
 #include "Timer.h"
 
 
+void ZenChanComponent::Initialize()
+{
+	m_ChargingTimer = float(rand() % 20 + 10);
+}
+
 void ZenChanComponent::Update()
 {
 	float deltaTime = dae::Time::GetInstance().GetDelta();

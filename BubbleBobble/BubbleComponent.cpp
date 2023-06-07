@@ -9,10 +9,12 @@
 #include "Transform.h"
 #include "GameObject.h"
 #include "InputManager.h"
+#include "Maita.h"
 #include "PhysicsComponent.h"
 #include "SceneManager.h"
 #include "SpriteComponent.h"
 #include "ZenChan.h"
+#include "ZenChanComponent.h"
 
 void BubbleComponent::Initialize()
 {
@@ -125,8 +127,9 @@ void BubbleComponent::Update()
 				if (m_ZenChan)
 					ZenChan::CreateZenChan(dae::SceneManager::GetInstance().GetActiveScene(),
 											m_pOwner->GetTransform()->GetWorldPosition());
-				else;
-					//TODO: spawn a maita
+				else
+					Maita::CreateMaita(dae::SceneManager::GetInstance().GetActiveScene(),
+										m_pOwner->GetTransform()->GetWorldPosition());
 			}
 
 			m_pOwner->Destroy();
@@ -187,11 +190,20 @@ bool BubbleComponent::HasEnemyInside() const
 void BubbleComponent::PickUpEnemy(dae::GameObject* go)
 {
 	m_HasEnemyInside = true;
+
+	if (go->GetComponent<ZenChanComponent>())
+		m_ZenChan = true;
+	else
+		m_ZenChan = false;
+
 	go->Destroy();
 	dae::SpriteComponent* spriteComp = m_pOwner->GetComponent<dae::SpriteComponent>();
 	if (spriteComp)
 	{
-		spriteComp->SetAnimVariables(6, 4, 0.3f, 0, 3);
+		if (m_ZenChan)
+			spriteComp->SetAnimVariables(9, 4, 0.3f, 0, 4);
+		else
+			spriteComp->SetAnimVariables(9, 4, 0.3f, 8, 12);
 		spriteComp->Scale(4);
 	}
 }
@@ -206,7 +218,7 @@ void BubbleComponent::PopByPlayer(dae::GameObject* )
 		//Make death sprite animation
 		if (spriteComp)
 		{
-			spriteComp->SetAnimVariables(6, 4, 0.1f, 20, 24);
+			spriteComp->SetAnimVariables(9, 4, 0.1f, 28, 32);
 			spriteComp->Scale(4);
 			m_Timer = 0.f;
 			m_RandomGoToPos = glm::vec2{ 100 + rand() % 600, 100 + rand() % 600 };
@@ -216,6 +228,6 @@ void BubbleComponent::PopByPlayer(dae::GameObject* )
 	{
 		m_CurrentState = BubbleState::Popping;
 		if (spriteComp)
-			spriteComp->DoOnceAnim(0.15f, 16, 18);
+			spriteComp->DoOnceAnim(0.15f, 24, 26);
 	}
 }

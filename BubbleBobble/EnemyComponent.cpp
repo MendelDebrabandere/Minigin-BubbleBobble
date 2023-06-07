@@ -112,7 +112,11 @@ void EnemyComponent::Update()
 		//if it hits a floor
 		if (collisionState.BottomCollision)
 		{
-			m_CurrBehavior = BehaviorState::Wander; //(falling)
+			//50% chance of jumping again if player is above them
+			if (rand() % 3 == 0 && releativeAvatarPos.y < -10)
+				physComp->Jump(m_JumpSpeed);
+			else
+				m_CurrBehavior = BehaviorState::Wander; //(falling)
 		}
 		break;
 	}

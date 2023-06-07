@@ -12,8 +12,9 @@ public:
 	MaitaComponent& operator=(const MaitaComponent& other) = delete;
 	MaitaComponent& operator=(MaitaComponent&& other) = delete;
 
-	//void Update() override;
+	void Initialize() override;
+	void Update() override;
 
 private:
-
+	float m_RockThrowingTimer{};
 };

@@ -12,9 +12,10 @@ public:
 	ZenChanComponent& operator=(const ZenChanComponent& other) = delete;
 	ZenChanComponent& operator=(ZenChanComponent&& other) = delete;
 
+	void Initialize() override;
 	void Update() override;
 
 private:
 	bool m_Charging{};
-	float m_ChargingTimer{ float(rand() % 20 + 10) };
+	float m_ChargingTimer{};
 };
