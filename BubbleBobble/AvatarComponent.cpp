@@ -146,6 +146,7 @@ void AvatarComponent::DoRespawnLogic()
 		{
 			spriteComp->SetAnimVariables(3, 7, 0.1f, 0, 7);
 			spriteComp->Scale(4);
+			spriteComp->Pause(false);
 		}
 
 		m_pOwner->GetTransform()->SetWorldPosition(90, 640);
