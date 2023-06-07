@@ -78,6 +78,7 @@ void SpriteComponent::SetAnimVariables(int rows, int columns, float animTimer, i
 	}
 
 	//Set all the variables
+	m_CurrTime = 0.f;
 	m_Rows = rows;
 	m_Columns = columns;
 	m_AnimTimer = animTimer;

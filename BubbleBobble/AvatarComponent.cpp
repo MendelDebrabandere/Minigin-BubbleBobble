@@ -4,6 +4,7 @@
 #include "EnemyComponent.h"
 #include "Transform.h"
 #include "GameObject.h"
+#include "RockComponent.h"
 #include "SpriteComponent.h"
 #include "Timer.h"
 
@@ -18,9 +19,10 @@ void AvatarComponent::Initialize()
 				//if the player isnt invulnerable
 				if (m_Invulnerable == false && m_CurrentState == AvatarState::Moving)
 				{
-					//if its an enemy
+					//if its an enemy or a rock
 					EnemyComponent* enemyComp = overlappingActor->GetComponent<EnemyComponent>();
-					if (enemyComp)
+					RockComponent* rockComp = overlappingActor->GetComponent<RockComponent>();
+					if (enemyComp || rockComp)
 					{
 						//Got hit by enemy
 						m_CurrentState = AvatarState::Hit;
@@ -31,6 +33,8 @@ void AvatarComponent::Initialize()
 							spriteComp->Scale(4);
 							spriteComp->Pause(false);
 						}
+						if (rockComp)
+							rockComp->Crash();
 					}
 				}
 			});
