@@ -12,6 +12,7 @@ public:
 	EnemyComponent& operator=(const EnemyComponent& other) = delete;
 	EnemyComponent& operator=(EnemyComponent&& other) = delete;
 
+	void Initialize() override;
 	void Update() override;
 
 	void MultiplyMoveSpeed(float value);
@@ -26,12 +27,13 @@ private:
 
 	BehaviorState m_CurrBehavior{ BehaviorState::Wander };
 
-	bool m_WalkingRight{ false };
-	float m_WalkingSpeed{ 150.f };
+	bool m_WalkingRight{};
+	float m_WalkingSpeed{};
 
-	float m_JumpingCooldown{ 2 };
-	float m_JumpSpeed{ -450 };
+	float m_JumpingCooldown{};
+	float m_JumpSpeed{};
 
+	float m_ChangeWalkDirTimer{};
 
-	float m_ChangeWalkDirTimer{ float(rand() % 5 + 5) };
+	dae::Transform* m_pAvatarTransform{};
 };

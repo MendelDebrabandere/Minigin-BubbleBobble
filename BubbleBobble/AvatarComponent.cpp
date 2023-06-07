@@ -29,6 +29,7 @@ void AvatarComponent::Initialize()
 						{
 							spriteComp->SetAnimVariables(3, 7, 0.1f, 14, 18);
 							spriteComp->Scale(4);
+							spriteComp->Pause(false);
 						}
 					}
 				}
