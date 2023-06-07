@@ -7,7 +7,6 @@
 #include "MoveLeftCommand.h"
 #include "MoveRightCommand.h"
 #include "PhysicsComponent.h"
-#include "ScoreDisplay.h"
 #include "ShootBubbleCommand.h"
 #include "SpriteComponent.h"
 
@@ -15,7 +14,6 @@ using namespace dae;
 
 GameObject* Avatar::CreateAvatar(Scene* pScene, const glm::vec2& spawnPos)
 {
-	GameObject* pScore{ pScene->CreateGameObject() };
 	GameObject* pAvatar{ pScene->CreateGameObject() };
 	pAvatar->GetComponent<Transform>()->SetWorldPosition(spawnPos.x, spawnPos.y);
 
@@ -37,12 +35,7 @@ GameObject* Avatar::CreateAvatar(Scene* pScene, const glm::vec2& spawnPos)
 	InputManager::GetInstance().AddKeyboardCommand(' ', InputManager::InputType::OnDown, std::make_unique<ShootBubbleCommand>(pAvatar));
 
 
-	auto avatarComp = pAvatar->AddComponent<AvatarComponent>();
-
-
-	auto scoreComp = pScore->AddComponent<ScoreDisplay>();
-	scoreComp->SetPlayer(avatarComp);
-
+	pAvatar->AddComponent<AvatarComponent>();
 
 	return pAvatar;
 }

@@ -91,6 +91,9 @@
     <ClCompile Include="RockComponent.cpp">
       <Filter>Component</Filter>
     </ClCompile>
+    <ClCompile Include="HUD.cpp">
+      <Filter>Prefabs</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FPSCounter.h">
@@ -164,6 +167,9 @@
     </ClInclude>
     <ClInclude Include="RockComponent.h">
       <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="HUD.h">
+      <Filter>Prefabs</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

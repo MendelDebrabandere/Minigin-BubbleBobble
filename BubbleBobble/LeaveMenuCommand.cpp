@@ -5,6 +5,7 @@
 #include "BubbleComponent.h"
 #include "EnemyComponent.h"
 #include "FoodComponent.h"
+#include "HUD.h"
 #include "InputManager.h"
 #include "LevelLoader.h"
 #include "SceneManager.h"
@@ -24,6 +25,9 @@ void LeaveMenuCommand::Execute()
 	pGameScene->SetName("1"); // level 1
 	LevelLoader::LoadLevel(pGameScene, 1, true); // level 1
 	sceneManager.SetActiveScene(pGameScene);
+
+	//Create HUD
+	HUD::CreateHUD(pGameScene);
 
 	//Set a scene selector function so it can change level automatically in game
 	dae::SceneManager::GetInstance().SetSceneSelector([]()

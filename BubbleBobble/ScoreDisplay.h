@@ -1,7 +1,11 @@
 #pragma once
-#include "Component.h"
 #include "FoodComponent.h"
 #include "Subject.h"
+
+namespace dae
+{
+	class TextComponent;
+}
 
 class AvatarComponent;
 
@@ -16,16 +20,18 @@ public:
 	ScoreDisplay& operator=(const ScoreDisplay& other) = delete;
 	ScoreDisplay& operator=(ScoreDisplay&& other) = delete;
 
+	void Initialize() override;
 	void SetPlayer(AvatarComponent* player);
 
 private:
 
 	void HandleEvent(FoodComponent::FoodType type) override;
 	void OnSubjectDestroy() override {}
-	void UpdateScoreText() {}
+	void UpdateScoreText();
 
 	int m_score{};
 	AvatarComponent* m_Player{};
 
+	dae::TextComponent* m_pText{};
 };
 

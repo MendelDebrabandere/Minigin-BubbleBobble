@@ -2,6 +2,13 @@
 
 #include "AvatarComponent.h"
 #include "GameObject.h"
+#include "TextComponent.h"
+#include <sstream>
+
+void ScoreDisplay::Initialize()
+{
+	UpdateScoreText();
+}
 
 void ScoreDisplay::SetPlayer(AvatarComponent* player)
 {
@@ -27,10 +34,30 @@ void ScoreDisplay::HandleEvent(FoodComponent::FoodType type)
 	UpdateScoreText();
 }
 
+void ScoreDisplay::UpdateScoreText()
+{
+
+	// Get text component if its not there
+	if (m_pText == nullptr)
+	{
+		m_pText = GetOwner()->GetComponent<dae::TextComponent>();
+
+		if (m_pText == nullptr) return;
+	}
+
+	// Update text component
+	std::stringstream scoreText{};
+
+	scoreText << "Score: ";
+	scoreText << m_score;
+
+	m_pText->SetText(scoreText.str());
+}
+
 ScoreDisplay::~ScoreDisplay()
 {
-	if (m_Player)
-	{
-		m_Player->m_Score.RemoveObserver(this);
-	}
+	//if (m_Player)
+	//{
+	//	m_Player->m_Score.RemoveObserver(this);
+	//}
 }
