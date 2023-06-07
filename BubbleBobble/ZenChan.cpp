@@ -21,7 +21,7 @@ GameObject* ZenChan::CreateZenChan(Scene* pScene, const glm::vec2& spawnPos)
 
 	auto colliderComp = pZen->AddComponent<ColliderComponent>();
 	colliderComp->SetSize(spriteComp->GetSize());
-	colliderComp->SetRendering(true);
+	//colliderComp->SetRendering(true);
 
 	auto physicsComp = pZen->AddComponent<PhysicsComponent>();
 	physicsComp->SetPhysicsSettings(true, false, false);

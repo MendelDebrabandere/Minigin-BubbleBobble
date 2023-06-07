@@ -26,7 +26,7 @@ GameObject* Bubble::CreateBubble(Scene* pScene, const GameObject* pShooterObj)
 
 	ColliderComponent* colliderComp = pBubble->AddComponent<ColliderComponent>();
 	colliderComp->SetSize(spriteComp->GetSize());
-	colliderComp->SetRendering(true);
+	//colliderComp->SetRendering(true);
 
 	BubbleComponent* flyingComp = pBubble->AddComponent<BubbleComponent>();
 	flyingComp->SetShootDirection(facingRight);

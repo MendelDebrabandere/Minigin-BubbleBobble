@@ -26,7 +26,7 @@ GameObject* Avatar::CreateAvatar(Scene* pScene, const glm::vec2& spawnPos)
 
 	auto colliderComp = pAvatar->AddComponent<ColliderComponent>();
 	colliderComp->SetSize(spriteComp->GetSize());
-	colliderComp->SetRendering(true);
+	//colliderComp->SetRendering(true);
 
 	auto physicsComp = pAvatar->AddComponent<PhysicsComponent>();
 	physicsComp->SetPhysicsSettings(true, false, false);

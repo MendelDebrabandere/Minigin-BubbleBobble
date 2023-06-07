@@ -28,7 +28,7 @@ GameObject* Food::CreateFood(Scene* pScene, const GameObject* transformingObj, F
 
 	ColliderComponent* colliderComp = pFood->AddComponent<ColliderComponent>();
 	colliderComp->SetSize(spriteComp->GetSize());
-	colliderComp->SetRendering(true);
+	//colliderComp->SetRendering(true);
 
 	PhysicsComponent* physicsComp = pFood->AddComponent<PhysicsComponent>();
 	physicsComp->SetPhysicsSettings(true, false, false);

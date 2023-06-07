@@ -19,7 +19,7 @@ GameObject* Block::CreateBlock(Scene* pScene, const glm::vec2& spawnPos, int lev
 
 	auto colliderComp = pBlock->AddComponent<ColliderComponent>();
 	colliderComp->SetSize(spriteComp->GetSize());
-	colliderComp->SetRendering(true);
+	//colliderComp->SetRendering(true);
 
 	auto physicsComp = pBlock->AddComponent<PhysicsComponent>();
 	physicsComp->SetPhysicsSettings(false, true, true);

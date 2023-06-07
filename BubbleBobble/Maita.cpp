@@ -23,7 +23,7 @@ GameObject* Maita::CreateMaita(Scene* pScene, const glm::vec2& spawnPos)
 
 	auto colliderComp = pMiata->AddComponent<ColliderComponent>();
 	colliderComp->SetSize(spriteComp->GetSize());
-	colliderComp->SetRendering(true);
+	//colliderComp->SetRendering(true);
 
 	auto physicsComp = pMiata->AddComponent<PhysicsComponent>();
 	physicsComp->SetPhysicsSettings(true, false, false);
