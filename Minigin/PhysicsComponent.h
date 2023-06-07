@@ -3,6 +3,14 @@
 
 namespace dae
 {
+	struct CollisionState
+	{
+		bool BottomCollision{};
+		bool TopCollision{};
+		bool RightCollision{};
+		bool LeftCollision{};
+	};
+
 	class PhysicsComponent final : public dae::Component
 	{
 	public:
@@ -19,7 +27,7 @@ namespace dae
 		void Jump(float speed);
 		void SetPlatform(bool val) { m_Platform = val; }
 
-		bool GetGrounded() const { return m_IsGrounded; }
+		CollisionState GetCollisionState() const { return m_CollisionState; }
 		void SetGrounded(bool val); // used for artificially enabling jump (jumping on bubbles)
 
 	private:
@@ -31,7 +39,7 @@ namespace dae
 		bool m_Collision{ true };
 		bool m_Static{ false };
 
-		bool m_IsGrounded{ false };
+		CollisionState m_CollisionState{};
 
 		float m_VerticalSpeed{};
 		float m_GravityAccel{ 500 };

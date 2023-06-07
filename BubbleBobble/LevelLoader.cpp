@@ -6,7 +6,10 @@
 #include "Avatar.h"
 #include "AvatarComponent.h"
 #include "Block.h"
+#include "FPSCounter.h"
+#include "TextComponent.h"
 #include "Platform.h"
+#include "ResourceManager.h"
 #include "ZenChan.h"
 
 using namespace dae;
@@ -79,4 +82,11 @@ void LevelLoader::LoadLevel(Scene* pScene, int number, bool loadAvatar)
 		}
 		myfile.close();
 	}
+
+	// FPS COUNTER
+	const auto pFont{ ResourceManager::GetInstance().LoadFont("Lingua.otf", 36) };
+	const auto pFPSCounter = pScene->CreateGameObject();
+	pFPSCounter->AddComponent<TextureComponent>();
+	pFPSCounter->AddComponent<FPSCounter>();
+	pFPSCounter->AddComponent<TextComponent>()->SetFont(pFont);
 }

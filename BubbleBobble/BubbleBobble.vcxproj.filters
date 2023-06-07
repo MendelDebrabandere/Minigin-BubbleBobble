@@ -76,6 +76,9 @@
     <ClCompile Include="ScoreDisplay.cpp">
       <Filter>Component</Filter>
     </ClCompile>
+    <ClCompile Include="ZenChanMovementComponent.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FPSCounter.h">
@@ -133,6 +136,9 @@
       <Filter>Command</Filter>
     </ClInclude>
     <ClInclude Include="ScoreDisplay.h">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="ZenChanMovementComponent.h">
       <Filter>Component</Filter>
     </ClInclude>
   </ItemGroup>

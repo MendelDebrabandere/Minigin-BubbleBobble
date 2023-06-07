@@ -9,7 +9,9 @@ using namespace dae;
 
 void PhysicsComponent::FixedUpdate()
 {
-	m_IsGrounded = false;
+	//reset collision state
+	m_CollisionState = CollisionState{};
+	//do logic
 	DoGravityLogic();
 	DoCollisionLogic();
 }
@@ -28,7 +30,7 @@ void PhysicsComponent::Jump(float speed)
 
 void PhysicsComponent::SetGrounded(bool val)
 {
-	m_IsGrounded = val;
+	m_CollisionState.BottomCollision = val;
 }
 
 //Collision is going to happen if one of the objects has m_Collision to true,
@@ -74,6 +76,7 @@ void PhysicsComponent::DoCollisionLogic()
 			{
 				m_pOwner->GetTransform()->Translate(0, overlapData.second);
 				myCollider->UpdatePos();
+				m_CollisionState.TopCollision = true;
 				m_VerticalSpeed = 0.f;
 				break;
 			}
@@ -83,7 +86,7 @@ void PhysicsComponent::DoCollisionLogic()
 				{
 					m_pOwner->GetTransform()->Translate(0, -overlapData.second);
 					myCollider->UpdatePos();
-					m_IsGrounded = true;
+					m_CollisionState.BottomCollision = true;
 					m_VerticalSpeed = 0.f;
 				}
 				break;
@@ -92,12 +95,14 @@ void PhysicsComponent::DoCollisionLogic()
 			{
 				m_pOwner->GetTransform()->Translate(overlapData.second, 0);
 				myCollider->UpdatePos();
+				m_CollisionState.LeftCollision = true;
 				break;
 			}
 			case ColliderComponent::OverlapData::Right:
 			{
 				m_pOwner->GetTransform()->Translate(-overlapData.second, 0);
 				myCollider->UpdatePos();
+				m_CollisionState.RightCollision = true;
 				break;
 			}
 			case ColliderComponent::OverlapData::Not:

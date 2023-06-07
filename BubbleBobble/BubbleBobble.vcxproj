@@ -180,6 +180,7 @@
     <ClCompile Include="ScoreDisplay.cpp" />
     <ClCompile Include="ShootBubbleCommand.cpp" />
     <ClCompile Include="ZenChan.cpp" />
+    <ClCompile Include="ZenChanMovementComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Avatar.h" />
@@ -201,6 +202,7 @@
     <ClInclude Include="ScoreDisplay.h" />
     <ClInclude Include="ShootBubbleCommand.h" />
     <ClInclude Include="ZenChan.h" />
+    <ClInclude Include="ZenChanMovementComponent.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

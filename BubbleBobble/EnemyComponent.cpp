@@ -3,5 +3,4 @@
 
 void EnemyComponent::Update()
 {
-	//TODO: AI movement logic
 }

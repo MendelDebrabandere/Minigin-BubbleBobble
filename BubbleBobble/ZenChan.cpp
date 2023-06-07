@@ -5,6 +5,7 @@
 #include "JumpCommand.h"
 #include "PhysicsComponent.h"
 #include "SpriteComponent.h"
+#include "ZenChanMovementComponent.h"
 
 using namespace dae;
 
@@ -26,6 +27,8 @@ GameObject* ZenChan::CreateZenChan(Scene* pScene, const glm::vec2& spawnPos)
 	physicsComp->SetPhysicsSettings(true, false, false);
 
 	pZen->AddComponent<EnemyComponent>();
+
+	pZen->AddComponent<ZenChanMovementComponent>();
 
 	return pZen;
 }
