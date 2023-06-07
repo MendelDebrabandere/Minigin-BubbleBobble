@@ -163,7 +163,7 @@ void BubbleComponent::Update()
 		if (abs(currPos.y - m_RandomGoToPos.y) <= 1.f == false)
 			posDelta.y = m_RandomGoToPos.y - currPos.y < 0 ? -1.f : 1.f;
 
-		posDelta *= 100 * deltaTime;
+		posDelta *= 250 * deltaTime;
 
 		break;
 	}
