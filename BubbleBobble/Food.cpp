@@ -9,7 +9,7 @@
 
 using namespace dae;
 
-GameObject* Food::CreateFood(Scene* pScene, const GameObject* transformingObj, FoodComponent::FoodType /*type*/)
+GameObject* Food::CreateFood(Scene* pScene, const GameObject* transformingObj, FoodComponent::FoodType type)
 {
 	Transform* transform = transformingObj->GetTransform();
 	if (transform == nullptr)
@@ -22,7 +22,10 @@ GameObject* Food::CreateFood(Scene* pScene, const GameObject* transformingObj, F
 
 	SpriteComponent* spriteComp = pFood->AddComponent<SpriteComponent>();
 	spriteComp->SetTexture("Food.png");
-	spriteComp->SetAnimVariables(3, 2, 1.f);
+	if (type == FoodComponent::FoodType::Melon)
+		spriteComp->SetAnimVariables(3, 2, 1.f, 0, 0);
+	else if (type == FoodComponent::FoodType::Fries)
+		spriteComp->SetAnimVariables(3, 2, 1.f, 1, 1);
 	spriteComp->Scale(4);
 	spriteComp->Pause(true);
 
@@ -33,7 +36,7 @@ GameObject* Food::CreateFood(Scene* pScene, const GameObject* transformingObj, F
 	PhysicsComponent* physicsComp = pFood->AddComponent<PhysicsComponent>();
 	physicsComp->SetPhysicsSettings(true, false, false);
 
-	pFood->AddComponent<FoodComponent>();
+	pFood->AddComponent<FoodComponent>()->SetFoodType(type);
 
 	return pFood;
 }

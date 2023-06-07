@@ -149,10 +149,12 @@ void BubbleComponent::Update()
 		// By calculating the dotproduct with itself it basically returns the squaredMagnitude
 		if (abs(currPos.x - m_RandomGoToPos.x) <= 1.f && abs(currPos.y - m_RandomGoToPos.y) <= 1.f)
 		{
-			//spawn a melon
+			//spawn a food
 			auto scene = dae::SceneManager::GetInstance().GetActiveScene();
-			Food::CreateFood(scene, m_pOwner, FoodComponent::FoodType::Melon);
-
+			if (m_ZenChan)
+				Food::CreateFood(scene, m_pOwner, FoodComponent::FoodType::Melon);
+			else
+				Food::CreateFood(scene, m_pOwner, FoodComponent::FoodType::Fries);
 			m_pOwner->Destroy();
 		}
 
@@ -218,7 +220,10 @@ void BubbleComponent::PopByPlayer(dae::GameObject* )
 		//Make death sprite animation
 		if (spriteComp)
 		{
-			spriteComp->SetAnimVariables(9, 4, 0.1f, 28, 32);
+			if (m_ZenChan)
+				spriteComp->SetAnimVariables(9, 4, 0.1f, 28, 32);
+			else
+				spriteComp->SetAnimVariables(9, 4, 0.1f, 32, 36);
 			spriteComp->Scale(4);
 			m_Timer = 0.f;
 			m_RandomGoToPos = glm::vec2{ 100 + rand() % 600, 100 + rand() % 600 };
