@@ -57,7 +57,7 @@ void BubbleComponent::Initialize()
 								playerPhysics->SetGrounded(true);
 						}
 						else
-							PopByPlayer(overlappingActor);
+							Pop(true);
 					}
 					break;
 				}
@@ -132,7 +132,7 @@ void BubbleComponent::Update()
 										m_pOwner->GetTransform()->GetWorldPosition());
 			}
 
-			m_pOwner->Destroy();
+			Pop(false);
 		}
 		break;
 	}
@@ -210,10 +210,10 @@ void BubbleComponent::PickUpEnemy(dae::GameObject* go)
 	}
 }
 
-void BubbleComponent::PopByPlayer(dae::GameObject* )
+void BubbleComponent::Pop(bool byPlayer)
 {
 	auto spriteComp = m_pOwner->GetComponent<dae::SpriteComponent>();
-	if (m_HasEnemyInside)
+	if (m_HasEnemyInside && byPlayer)
 	{
 		m_CurrentState = BubbleState::EnemyDying;
 

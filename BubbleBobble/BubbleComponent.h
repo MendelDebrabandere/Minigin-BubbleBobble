@@ -34,7 +34,7 @@ private:
 	BubbleState m_CurrentState{ BubbleState::Shooting };
 
 	void PickUpEnemy(dae::GameObject* go);
-	void PopByPlayer(dae::GameObject* go);
+	void Pop(bool byPlayer);
 
 	float m_Timer{};
 	bool m_DirectionRight{};
