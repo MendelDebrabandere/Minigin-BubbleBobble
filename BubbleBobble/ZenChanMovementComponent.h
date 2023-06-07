@@ -28,4 +28,9 @@ private:
 
 	float m_JumpingCooldown{2};
 	float m_JumpSpeed{ -450 };
+
+	bool m_Charging{};
+	float m_ChargingTimer{ float(rand() % 20 + 10) };
+
+	float m_ChangeWalkDirTimer{ float(rand() % 5 + 5) };
 };

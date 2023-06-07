@@ -79,6 +79,9 @@
     <ClCompile Include="ZenChanMovementComponent.cpp">
       <Filter>Component</Filter>
     </ClCompile>
+    <ClCompile Include="Maita.cpp">
+      <Filter>Main</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FPSCounter.h">
@@ -141,5 +144,6 @@
     <ClInclude Include="ZenChanMovementComponent.h">
       <Filter>Component</Filter>
     </ClInclude>
+    <ClInclude Include="Maita.h" />
   </ItemGroup>
 </Project>

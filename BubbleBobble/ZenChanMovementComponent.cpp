@@ -14,6 +14,8 @@ void ZenChanMovementComponent::Update()
 
 	glm::vec2 moveDelta{};
 
+	m_ChangeWalkDirTimer -= deltaTime;
+
 	switch (m_CurrBehavior)
 	{
 	case BehaviorState::Wander:
@@ -39,6 +41,13 @@ void ZenChanMovementComponent::Update()
 				physComp->Jump(m_JumpSpeed);
 				break;
 			}
+		}
+
+		//change direction depending on timer
+		if (m_ChangeWalkDirTimer < 0.f)
+		{
+			m_WalkingRight = !m_WalkingRight;
+			m_ChangeWalkDirTimer = float(rand() % 5 + 5);
 		}
 
 		auto collisionState = physComp->GetCollisionState();
@@ -76,6 +85,34 @@ void ZenChanMovementComponent::Update()
 		break;
 	}
 	}
+
+	//Charging logic happens independent of state, it is outside of the switch
+	m_ChargingTimer -= deltaTime;
+	auto spriteComponent = m_pOwner->GetComponent<dae::SpriteComponent>();
+	if (m_Charging)
+	{
+		moveDelta.x *= 2.3f;
+		if (m_ChargingTimer < 0.f)
+		{
+			//stop charging
+			m_Charging = false;
+			m_ChargingTimer = float(rand() % 10 + 7); //random time between 7-17 sec before charging again
+			spriteComponent->SetAnimVariables(3, 8, 0.3f, 0, 4);
+			spriteComponent->Scale(4);
+		}
+	}
+	else
+	{
+		if (m_ChargingTimer < 0.f)
+		{
+			//start charging
+			m_Charging = true;
+			m_ChargingTimer = float(rand() % 5 + 4); //random time between 4-9 sec before stopping
+			spriteComponent->SetAnimVariables(3, 8, 0.1f, 4, 8);
+			spriteComponent->Scale(4);
+		}
+	}
+
 
 	transform->Translate(moveDelta);
 

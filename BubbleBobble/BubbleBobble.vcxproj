@@ -174,6 +174,7 @@
     <ClCompile Include="LeaveMenuCommand.cpp" />
     <ClCompile Include="LevelLoader.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Maita.cpp" />
     <ClCompile Include="MoveLeftCommand.cpp" />
     <ClCompile Include="MoveRightCommand.cpp" />
     <ClCompile Include="Platform.cpp" />
@@ -196,6 +197,7 @@
     <ClInclude Include="JumpCommand.h" />
     <ClInclude Include="LeaveMenuCommand.h" />
     <ClInclude Include="LevelLoader.h" />
+    <ClInclude Include="Maita.h" />
     <ClInclude Include="MoveLeftCommand.h" />
     <ClInclude Include="MoveRightCommand.h" />
     <ClInclude Include="Platform.h" />
