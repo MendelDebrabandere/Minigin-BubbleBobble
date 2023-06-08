@@ -8,17 +8,17 @@
 void JumpCommand::Execute()
 {
 	AvatarComponent* avatarComp = m_pGo->GetComponent<AvatarComponent>();
-	if (avatarComp->GetCurrState() == AvatarComponent::AvatarState::Moving)
+	if (avatarComp && avatarComp->GetCurrState() != AvatarComponent::AvatarState::Moving)
+		return;
+
+	auto physicsComp = m_pGo->GetComponent<dae::PhysicsComponent>();
+
+	if (physicsComp == nullptr)
+		return;
+
+	if (physicsComp->GetCollisionState().BottomCollision)
 	{
-		auto physicsComp = m_pGo->GetComponent<dae::PhysicsComponent>();
-
-		if (physicsComp == nullptr)
-			return;
-
-		if (physicsComp->GetCollisionState().BottomCollision)
-		{
-			physicsComp->Jump(m_Speed);
-			dae::ServiceLocator::GetSoundSystem().PlaySound("../Data/Sound/TestEffect.wav", 50, 0);
-		}
+		physicsComp->Jump(m_Speed);
+		dae::ServiceLocator::GetSoundSystem().PlaySound("../Data/Sound/TestEffect.wav", 50, 0);
 	}
 }

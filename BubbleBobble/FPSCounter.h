@@ -10,14 +10,14 @@ class FPSCounter final : public dae::Component
 {
 public:
 	FPSCounter() = default;
-	virtual ~FPSCounter() = default;
+	~FPSCounter() override = default;
 
 	FPSCounter(const FPSCounter& other) = delete;
 	FPSCounter(FPSCounter&& other) = delete;
 	FPSCounter& operator=(const FPSCounter& other) = delete;
 	FPSCounter& operator=(FPSCounter&& other) = delete;
 
-	virtual void Update() override;
+	void Update() override;
 private:
 	int m_AmountOfPassedFrames{};
 	float m_AccuSec{};

@@ -5,7 +5,7 @@ class RockComponent : public dae::Component
 {
 public:
 	RockComponent() = default;
-	virtual ~RockComponent() = default;
+	~RockComponent() override = default;
 
 	RockComponent(const RockComponent& other) = delete;
 	RockComponent(RockComponent&& other) = delete;
@@ -17,6 +17,8 @@ public:
 
 	void SetMoveRight(bool right);
 	void Crash();
+
+	bool CanDamage() const;
 
 private:
 	enum class RockState

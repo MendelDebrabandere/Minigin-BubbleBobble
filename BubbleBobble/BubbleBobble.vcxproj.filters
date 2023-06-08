@@ -14,6 +14,9 @@
     <Filter Include="Prefabs">
       <UniqueIdentifier>{332b561e-bac2-45f0-9eaf-d15a5b875f32}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Scenes">
+      <UniqueIdentifier>{423eea64-b116-46cd-ba79-a4cd59981c9e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -94,6 +97,9 @@
     <ClCompile Include="HUD.cpp">
       <Filter>Prefabs</Filter>
     </ClCompile>
+    <ClCompile Include="HealthDisplay.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FPSCounter.h">
@@ -170,6 +176,12 @@
     </ClInclude>
     <ClInclude Include="HUD.h">
       <Filter>Prefabs</Filter>
+    </ClInclude>
+    <ClInclude Include="HealthDisplay.h">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Level01.h">
+      <Filter>Scenes</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

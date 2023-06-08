@@ -13,7 +13,7 @@ class ScoreDisplay final : public dae::Component, public dae::Observer<FoodCompo
 {
 public:
 	ScoreDisplay() = default;
-	virtual ~ScoreDisplay();
+	~ScoreDisplay() override ;
 
 	ScoreDisplay(const ScoreDisplay& other) = delete;
 	ScoreDisplay(ScoreDisplay&& other) = delete;

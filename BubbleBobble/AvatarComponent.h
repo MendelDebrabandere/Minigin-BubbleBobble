@@ -20,7 +20,7 @@ public:
 	};
 
 	AvatarComponent() = default;
-	virtual ~AvatarComponent() = default;
+	~AvatarComponent() override = default;
 
 	AvatarComponent(const AvatarComponent& other) = delete;
 	AvatarComponent(AvatarComponent&& other) = delete;
@@ -37,7 +37,8 @@ public:
 
 	void PickedUpFood(FoodComponent::FoodType type);
 
-	dae::Subject<FoodComponent::FoodType> m_Score;
+	dae::Subject<FoodComponent::FoodType> m_FoodPickup;
+	dae::Subject<int> m_HealthChange;
 private:
 	void UpdateAnimVariablesMoving();
 	void DoRespawnLogic();

@@ -61,3 +61,8 @@ void RockComponent::Crash()
 	spriteComp->SetAnimVariables(2, 4, 0.2f, 4, 7);
 	spriteComp->Scale(4);
 }
+
+bool RockComponent::CanDamage() const
+{
+	return m_CurrState == RockState::Rolling;
+}

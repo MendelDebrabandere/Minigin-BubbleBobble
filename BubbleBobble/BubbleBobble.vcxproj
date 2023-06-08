@@ -170,6 +170,7 @@
     <ClCompile Include="Food.cpp" />
     <ClCompile Include="FoodComponent.cpp" />
     <ClCompile Include="FPSCounter.cpp" />
+    <ClCompile Include="HealthDisplay.cpp" />
     <ClCompile Include="HUD.cpp" />
     <ClCompile Include="JumpCommand.cpp" />
     <ClCompile Include="LeaveMenuCommand.cpp" />
@@ -198,9 +199,11 @@
     <ClInclude Include="Food.h" />
     <ClInclude Include="FoodComponent.h" />
     <ClInclude Include="FPSCounter.h" />
+    <ClInclude Include="HealthDisplay.h" />
     <ClInclude Include="HUD.h" />
     <ClInclude Include="JumpCommand.h" />
     <ClInclude Include="LeaveMenuCommand.h" />
+    <ClInclude Include="Level01.h" />
     <ClInclude Include="LevelLoader.h" />
     <ClInclude Include="Maita.h" />
     <ClInclude Include="MaitaComponent.h" />

@@ -25,7 +25,15 @@ void AvatarComponent::Initialize()
 					if (enemyComp || rockComp)
 					{
 						//Got hit by enemy
+						if (rockComp)
+						{
+							if (rockComp->CanDamage() == false)
+								return;
+							rockComp->Crash();
+						}
+
 						m_CurrentState = AvatarState::Hit;
+						m_HealthChange.Notify(-1);
 						dae::SpriteComponent* spriteComp = m_pOwner->GetComponent<dae::SpriteComponent>();
 						if (spriteComp)
 						{
@@ -33,8 +41,7 @@ void AvatarComponent::Initialize()
 							spriteComp->Scale(4);
 							spriteComp->Pause(false);
 						}
-						if (rockComp)
-							rockComp->Crash();
+
 					}
 				}
 			});
@@ -97,7 +104,7 @@ AvatarComponent::AvatarColor AvatarComponent::GetColor() const
 
 void AvatarComponent::PickedUpFood(FoodComponent::FoodType type)
 {
-	m_Score.Notify(type);
+	m_FoodPickup.Notify(type);
 }
 
 void AvatarComponent::UpdateAnimVariablesMoving()
