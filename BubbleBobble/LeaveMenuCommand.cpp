@@ -5,6 +5,7 @@
 #include "BubbleComponent.h"
 #include "EnemyComponent.h"
 #include "FoodComponent.h"
+#include "HealthDisplay.h"
 #include "HUD.h"
 #include "InputManager.h"
 #include "LevelLoader.h"
@@ -73,7 +74,9 @@ void LeaveMenuCommand::Execute()
 				//Remove everything that doesnt have the avatar component
 				auto& objVec = pGameScene->GetAllObjects();
 				objVec.erase(std::remove_if(objVec.begin(), objVec.end(), [](std::unique_ptr<dae::GameObject>& go) {
-					return (go->GetComponent<AvatarComponent>() == nullptr && go->GetComponent<ScoreDisplay>() == nullptr);
+					return (go->GetComponent<AvatarComponent>() == nullptr &&
+							go->GetComponent<ScoreDisplay>() == nullptr &&
+							go->GetComponent<HealthDisplay>() == nullptr);
 					}), objVec.end());
 
 				//keep inputs since the avatar doesnt get deleted

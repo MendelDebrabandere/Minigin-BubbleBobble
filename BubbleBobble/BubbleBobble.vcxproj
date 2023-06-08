@@ -203,7 +203,6 @@
     <ClInclude Include="HUD.h" />
     <ClInclude Include="JumpCommand.h" />
     <ClInclude Include="LeaveMenuCommand.h" />
-    <ClInclude Include="Level01.h" />
     <ClInclude Include="LevelLoader.h" />
     <ClInclude Include="Maita.h" />
     <ClInclude Include="MaitaComponent.h" />

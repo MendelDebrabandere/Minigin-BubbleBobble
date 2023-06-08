@@ -8,6 +8,7 @@
 
 #include <chrono>
 
+#include "EventQueue.h"
 #include "InputManager.h"
 #include "SceneManager.h"
 #include "Renderer.h"
@@ -96,6 +97,7 @@ void Minigin::Run()
 	auto& sceneManager = SceneManager::GetInstance();
 	auto& input = InputManager::GetInstance();
 	auto& time = Time::GetInstance();
+	auto& events = EventQueue::GetInstance();
 
 	bool doContinue = true;
 	constexpr float fixedTimeStep{ 0.005f }; // 200 times per second
@@ -122,6 +124,8 @@ void Minigin::Run()
 		sceneManager.Update();
 
 		sceneManager.UpdateCleanup();
+
+		events.NotifyListeners();
 
 		renderer.Render();
 

@@ -5,6 +5,8 @@
 #include "TextComponent.h"
 #include <sstream>
 
+#include "BubbleBobble.h"
+
 void HealthDisplay::Initialize()
 {
 	m_HP = 3;
@@ -30,7 +32,7 @@ void HealthDisplay::HandleEvent(int healthDelta)
 	m_HP += healthDelta;
 
 	if (m_HP < 0)
-		std::cout << "GAME OVER\n";
+		BubbleBobble::MakeMainMenu();
 
 	UpdateText();
 }
