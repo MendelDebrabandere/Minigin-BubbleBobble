@@ -25,6 +25,7 @@ void BubbleBobble::Create()
 
 	//Make the main menu level
 	MakeMainMenu();
+	MakeAllLevels();
 
 
 	std::cout << "\n";
@@ -42,7 +43,7 @@ void BubbleBobble::MakeMainMenu()
 	auto& pSceneManager = SceneManager::GetInstance();
 	auto* pGameScene = pSceneManager.GetActiveScene();
 
-	dae::InputManager::GetInstance().RemoveAllInputs();
+	InputManager::GetInstance().RemoveAllInputs();
 
 	if (pGameScene)
 	{
@@ -54,8 +55,6 @@ void BubbleBobble::MakeMainMenu()
 	}
 
 	pSceneManager.SetActiveScene(pGameScene);
-	//remove whatever scene selector there was before now
-	pSceneManager.SetSceneSelector([]() {});
 
 
 	//Add a command to start the game
@@ -88,4 +87,16 @@ void BubbleBobble::MakeMainMenu()
 	pFPSCounter->AddComponent<FPSCounter>();
 	pFPSCounter->AddComponent<TextComponent>()->SetFont(pFont);
 
+}
+
+void BubbleBobble::MakeAllLevels()
+{
+	auto& pSceneManager = SceneManager::GetInstance();
+	Scene* level01 = pSceneManager.CreateScene("Level01");
+	Scene* level02 = pSceneManager.CreateScene("Level02");
+	Scene* level03 = pSceneManager.CreateScene("Level03");
+
+	LevelLoader::LoadLevel(level01, 1, true);
+	LevelLoader::LoadLevel(level02, 2, false);
+	LevelLoader::LoadLevel(level03, 3, false);
 }

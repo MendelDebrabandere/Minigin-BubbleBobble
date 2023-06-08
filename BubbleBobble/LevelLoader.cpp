@@ -15,7 +15,7 @@
 
 using namespace dae;
 
-void LevelLoader::LoadLevel(Scene* pScene, int number, bool loadAvatar)
+void LevelLoader::LoadLevel(Scene* pScene, int number, bool /*loadAvatar*/)
 {
 	// load level from file
 	std::string line;
@@ -59,23 +59,23 @@ void LevelLoader::LoadLevel(Scene* pScene, int number, bool loadAvatar)
 					ZenChan::CreateZenChan(pScene, spawnPos);
 					break;
 				}
-				case '5':
-				{
-					if (loadAvatar) 
-						Avatar::CreateAvatar(pScene, spawnPos);
-					else
-					{
-						//translate the current one to the pos
-						for (auto& go : pScene->GetAllObjects())
-						{
-							if (go->GetComponent<AvatarComponent>())
-							{
-								go->GetTransform()->SetWorldPosition(glm::vec2{ blockSize * posX, blockSize * posY });
-							}
-						}
-					}
-					break;
-				}
+				//case '5':
+				//{
+				//	if (loadAvatar) 
+				//		Avatar::CreateAvatar(pScene, spawnPos);
+				//	else
+				//	{
+				//		//translate the current one to the pos
+				//		for (auto& go : pScene->GetAllObjects())
+				//		{
+				//			if (go->GetComponent<AvatarComponent>())
+				//			{
+				//				go->GetTransform()->SetWorldPosition(glm::vec2{ blockSize * posX, blockSize * posY });
+				//			}
+				//		}
+				//	}
+				//	break;
+				//}
 				}
 
 				++posX;

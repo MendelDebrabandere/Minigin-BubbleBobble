@@ -181,8 +181,10 @@
     <ClCompile Include="MoveLeftCommand.cpp" />
     <ClCompile Include="MoveRightCommand.cpp" />
     <ClCompile Include="Platform.cpp" />
+    <ClCompile Include="PlayerManager.cpp" />
     <ClCompile Include="Rock.cpp" />
     <ClCompile Include="RockComponent.cpp" />
+    <ClCompile Include="SceneSwapper.cpp" />
     <ClCompile Include="ScoreDisplay.cpp" />
     <ClCompile Include="ShootBubbleCommand.cpp" />
     <ClCompile Include="ZenChan.cpp" />
@@ -209,8 +211,10 @@
     <ClInclude Include="MoveLeftCommand.h" />
     <ClInclude Include="MoveRightCommand.h" />
     <ClInclude Include="Platform.h" />
+    <ClInclude Include="PlayerManager.h" />
     <ClInclude Include="Rock.h" />
     <ClInclude Include="RockComponent.h" />
+    <ClInclude Include="SceneSwapper.h" />
     <ClInclude Include="ScoreDisplay.h" />
     <ClInclude Include="ShootBubbleCommand.h" />
     <ClInclude Include="ZenChan.h" />

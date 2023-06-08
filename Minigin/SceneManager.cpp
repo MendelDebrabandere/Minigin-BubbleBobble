@@ -12,10 +12,16 @@ Scene* SceneManager::CreateScene(const std::string& name)
 
 void SceneManager::SetActiveScene(const std::string& name)
 {
+	onSceneExit.Notify(m_Scenes[m_ActiveSceneIdx].get());
+
 	for (unsigned int i = 0; i < m_Scenes.size(); ++i)
 	{
 		if (m_Scenes[i]->GetName() == name)
+		{
 			m_ActiveSceneIdx = i;
+
+			onSceneLoaded.Notify(m_Scenes[m_ActiveSceneIdx].get());
+		}
 	}
 }
 
@@ -39,41 +45,33 @@ Scene* SceneManager::GetActiveScene()
 
 void SceneManager::FixedUpdate()
 {
-	for (auto& scene : m_Scenes)
+	if (m_ActiveSceneIdx >= 0)
 	{
-		scene->FixedUpdate();
+		m_Scenes[m_ActiveSceneIdx]->FixedUpdate();
 	}
 }
 
 void SceneManager::Update()
 {
-	if (m_SceneSelectorFunction)
-		m_SceneSelectorFunction();
-
-	for(auto& scene : m_Scenes)
+	if (m_ActiveSceneIdx >= 0)
 	{
-		scene->Update();
+		m_Scenes[m_ActiveSceneIdx]->Update();
 	}
 }
 
 void SceneManager::Render()
 {
-	for (const auto& scene : m_Scenes)
+	if (m_ActiveSceneIdx >= 0)
 	{
-		scene->Render();
+		m_Scenes[m_ActiveSceneIdx]->Render();
 	}
 }
 
 void SceneManager::UpdateCleanup()
 {
-	for (auto& scene : m_Scenes)
+	if (m_ActiveSceneIdx >= 0)
 	{
-		scene->UpdateCleanup();
+		m_Scenes[m_ActiveSceneIdx]->UpdateCleanup();
 	}
-}
-
-void SceneManager::SetSceneSelector(std::function<void()> sceneSelectorFunction)
-{
-	m_SceneSelectorFunction = sceneSelectorFunction;
 }
 

@@ -4,6 +4,7 @@
 #include <string>
 #include <memory>
 #include "Singleton.h"
+#include "Subject.h"
 
 namespace dae
 {
@@ -24,12 +25,11 @@ namespace dae
 		void Render();
 		void UpdateCleanup();
 
-		void SetSceneSelector(std::function<void()> sceneSelectorFunction);
+		Subject<Scene*> onSceneExit{};
+		Subject<Scene*> onSceneLoaded{};
 
 	private:
 		std::vector<std::shared_ptr<Scene>> m_Scenes;
 		int m_ActiveSceneIdx{-1};
-
-		std::function<void()> m_SceneSelectorFunction;
 	};
 }

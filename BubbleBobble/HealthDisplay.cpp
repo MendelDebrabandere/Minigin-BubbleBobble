@@ -32,7 +32,7 @@ void HealthDisplay::HandleEvent(int healthDelta)
 	m_HP += healthDelta;
 
 	if (m_HP < 0)
-		BubbleBobble::MakeMainMenu();
+		//TODO: load highscore screen
 
 	UpdateText();
 }
