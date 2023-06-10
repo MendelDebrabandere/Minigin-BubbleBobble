@@ -4,7 +4,6 @@
 #include <string>
 #include <memory>
 #include "Singleton.h"
-#include "Subject.h"
 
 namespace dae
 {
@@ -18,6 +17,8 @@ namespace dae
 		void SetActiveScene(const std::string& name);
 		void SetActiveScene(const Scene* pScene);
 
+		void SetSceneSwapperFunc(const std::function<void()>& func);
+
 		Scene* GetActiveScene();
 
 		void FixedUpdate();
@@ -25,11 +26,10 @@ namespace dae
 		void Render();
 		void UpdateCleanup();
 
-		Subject<Scene*> onSceneExit{};
-		Subject<Scene*> onSceneLoaded{};
-
 	private:
 		std::vector<std::shared_ptr<Scene>> m_Scenes;
 		int m_ActiveSceneIdx{-1};
+
+		std::function<void()> m_SceneSwapperFunction{};
 	};
 }

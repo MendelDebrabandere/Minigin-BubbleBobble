@@ -1,99 +1,28 @@
 #include "LeaveMenuCommand.h"
 
-#include "AvatarComponent.h"
-#include "BubbleBobble.h"
-#include "BubbleComponent.h"
-#include "EnemyComponent.h"
-#include "FoodComponent.h"
-#include "HealthDisplay.h"
-#include "HUD.h"
+
+#include "Avatar.h"
 #include "InputManager.h"
 #include "LevelLoader.h"
 #include "SceneManager.h"
-#include "ScoreDisplay.h"
+#include "SceneSwapper.h"
 #include "ServiceLocator.h"
 #include "SoundSystem.h"
 
 void LeaveMenuCommand::Execute()
 {
 	auto& sceneManager = dae::SceneManager::GetInstance();
+	auto scene = sceneManager.GetActiveScene();
 
 	dae::InputManager::GetInstance().RemoveAllInputs();
 
-	sceneManager.SetActiveScene("Level01");
+	scene->RemoveAll();
+	LevelLoader::LoadLevel(scene, 1, true);
+	scene->SetName("1");
 
-	//Create HUD
-	//HUD::CreateHUD(pGameScene);
+	Avatar::CreateAvatar(sceneManager.GetActiveScene(), glm::vec2{100,700});
 
-	////Set a scene selector function so it can change level automatically in game
-	//dae::SceneManager::GetInstance().SetSceneSelector([]()
-	//	{
-	//		bool canChangeLevel{ true };
-	//		//Check if it should change the scene to next level
-	//		for (auto& object : dae::SceneManager::GetInstance().GetActiveScene()->GetAllObjects())
-	//		{
-	//			//dont change when there are still enemies
-	//			if (object->HasComponent<EnemyComponent>())
-	//			{
-	//				canChangeLevel = false;
-	//				break;
-	//			}
-
-	//			//dont change when there are still foods
-	//			if (object->HasComponent<FoodComponent>())
-	//			{
-	//				canChangeLevel = false;
-	//				break;
-	//			}
-
-	//			//dont change when there are still bubbles with enemies in them
-	//			if (object->HasComponent<BubbleComponent>())
-	//			{
-	//				auto bubbleComponent = object->GetComponent<BubbleComponent>();
-	//				if (bubbleComponent->GetState() == BubbleComponent::BubbleState::EnemyDying ||
-	//					bubbleComponent->HasEnemyInside())
-	//				{
-	//					canChangeLevel = false;
-	//					break;
-	//				}
-	//			}
-	//		}
-
-	//		//you can change the game mode now
-	//		if (canChangeLevel)
-	//		{
-	//			auto& sceneManager = dae::SceneManager::GetInstance();
-	//			auto* pGameScene = sceneManager.GetActiveScene();
-	//			auto name = pGameScene->GetName();
-
-	//			//Remove everything that doesnt have the avatar component
-	//			auto& objVec = pGameScene->GetAllObjects();
-	//			objVec.erase(std::remove_if(objVec.begin(), objVec.end(), [](std::unique_ptr<dae::GameObject>& go) {
-	//				return (go->GetComponent<AvatarComponent>() == nullptr &&
-	//						go->GetComponent<ScoreDisplay>() == nullptr &&
-	//						go->GetComponent<HealthDisplay>() == nullptr);
-	//				}), objVec.end());
-
-	//			//keep inputs since the avatar doesnt get deleted
-	//			//dae::InputManager::GetInstance().RemoveAllInputs();
-
-	//			if (std::isdigit(name[0]))
-	//			{
-	//				int levelNr = std::stoi(name);
-
-	//				if (levelNr < 3)
-	//				{
-	//					pGameScene->SetName(std::to_string(levelNr + 1));
-	//					LevelLoader::LoadLevel(pGameScene, levelNr + 1, false);
-	//					sceneManager.SetActiveScene(pGameScene);
-	//				}
-	//				else
-	//				{
-	//					BubbleBobble::MakeMainMenu();
-	//				}
-	//			}
-	//		}
-	//	});
+	SceneSwapper::GetInstance().m_State = SceneSwapper::GameState::SinglePlayer;
 
 	//Start playing the in game music
 	dae::ServiceLocator::GetSoundSystem().PlayMusic("../Data/Sound/MainTheme.mp3", 15, -1);

@@ -13,6 +13,4 @@ public:
 	static void Create();
 
 private:
-	static void MakeMainMenu();
-	static void MakeAllLevels();
 };

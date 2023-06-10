@@ -17,9 +17,6 @@
     <Filter Include="Scenes">
       <UniqueIdentifier>{423eea64-b116-46cd-ba79-a4cd59981c9e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="PlayerManager">
-      <UniqueIdentifier>{05d72fe6-e2c2-4d82-b311-5e334e38aedd}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -106,8 +103,8 @@
     <ClCompile Include="SceneSwapper.cpp">
       <Filter>Scenes</Filter>
     </ClCompile>
-    <ClCompile Include="PlayerManager.cpp">
-      <Filter>PlayerManager</Filter>
+    <ClCompile Include="MainMenuScene.cpp">
+      <Filter>Scenes</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -192,8 +189,8 @@
     <ClInclude Include="SceneSwapper.h">
       <Filter>Scenes</Filter>
     </ClInclude>
-    <ClInclude Include="PlayerManager.h">
-      <Filter>PlayerManager</Filter>
+    <ClInclude Include="MainMenuScene.h">
+      <Filter>Scenes</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

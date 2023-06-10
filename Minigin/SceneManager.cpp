@@ -12,15 +12,11 @@ Scene* SceneManager::CreateScene(const std::string& name)
 
 void SceneManager::SetActiveScene(const std::string& name)
 {
-	onSceneExit.Notify(m_Scenes[m_ActiveSceneIdx].get());
-
 	for (unsigned int i = 0; i < m_Scenes.size(); ++i)
 	{
 		if (m_Scenes[i]->GetName() == name)
 		{
 			m_ActiveSceneIdx = i;
-
-			onSceneLoaded.Notify(m_Scenes[m_ActiveSceneIdx].get());
 		}
 	}
 }
@@ -32,6 +28,11 @@ void SceneManager::SetActiveScene(const Scene* pScene)
 		if (m_Scenes[i].get() == pScene)
 			m_ActiveSceneIdx = i;
 	}
+}
+
+void SceneManager::SetSceneSwapperFunc(const std::function<void()>& func)
+{
+	m_SceneSwapperFunction = func;
 }
 
 Scene* SceneManager::GetActiveScene()
@@ -53,6 +54,9 @@ void SceneManager::FixedUpdate()
 
 void SceneManager::Update()
 {
+	if (m_SceneSwapperFunction)
+		m_SceneSwapperFunction();
+
 	if (m_ActiveSceneIdx >= 0)
 	{
 		m_Scenes[m_ActiveSceneIdx]->Update();
