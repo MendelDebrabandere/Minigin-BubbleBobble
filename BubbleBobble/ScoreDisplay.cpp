@@ -19,26 +19,18 @@ void ScoreDisplay::SetPlayer(AvatarComponent* player)
 	}
 }
 
-void ScoreDisplay::Disable()
-{
-	m_Disable = true;
-}
-
 void ScoreDisplay::HandleEvent(FoodComponent::FoodType type)
 {
-	if (m_Disable == false)
+	switch (type)
 	{
-		switch (type)
-		{
-		case FoodComponent::FoodType::Melon:
-			m_score += 100;
-			break;
-		case FoodComponent::FoodType::Fries:
-			m_score += 200;
-			break;
-		}
-		UpdateScoreText();
+	case FoodComponent::FoodType::Melon:
+		m_score += 100;
+		break;
+	case FoodComponent::FoodType::Fries:
+		m_score += 200;
+		break;
 	}
+	UpdateScoreText();
 }
 
 void ScoreDisplay::OnSubjectDestroy()
@@ -48,24 +40,21 @@ void ScoreDisplay::OnSubjectDestroy()
 
 void ScoreDisplay::UpdateScoreText()
 {
-	if (m_Disable == false)
+	// Get text component if its not there
+	if (m_pText == nullptr)
 	{
-		// Get text component if its not there
-		if (m_pText == nullptr)
-		{
-			m_pText = GetOwner()->GetComponent<dae::TextComponent>();
+		m_pText = GetOwner()->GetComponent<dae::TextComponent>();
 
-			if (m_pText == nullptr) return;
-		}
-
-		// Update text component
-		std::stringstream scoreText{};
-
-		scoreText << "Score: ";
-		scoreText << m_score;
-
-		m_pText->SetText(scoreText.str());
+		if (m_pText == nullptr) return;
 	}
+
+	// Update text component
+	std::stringstream scoreText{};
+
+	scoreText << "Score: ";
+	scoreText << m_score;
+
+	m_pText->SetText(scoreText.str());
 }
 
 ScoreDisplay::~ScoreDisplay()

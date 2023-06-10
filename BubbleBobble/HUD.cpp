@@ -13,12 +13,6 @@ GameObject* HUD::CreateHUD(Scene* pScene , AvatarComponent* avatarComp, PlayerMa
 {
 	const auto pFont{ ResourceManager::GetInstance().LoadFont("Retro.otf", 30) };
 
-	// Name
-	const auto pName = pScene->CreateGameObject();
-	pName->AddComponent<TextureComponent>();
-	pName->AddComponent<TextComponent>()->SetFont(pFont);
-	pName->AddComponent<ScoreDisplay>()->Disable();
-
 	// ScoreDisplay
 	const auto pScore = pScene->CreateGameObject();
 	pScore->AddComponent<TextureComponent>();
@@ -34,21 +28,15 @@ GameObject* HUD::CreateHUD(Scene* pScene , AvatarComponent* avatarComp, PlayerMa
 
 	if (avatarComp->GetColor() == AvatarComponent::AvatarColor::green)
 	{
-		pName->GetComponent<TextComponent>()->SetText("Green: ");
-		pName->GetTransform()->SetWorldPosition(1045, 550);
 		pHealth->GetTransform()->SetWorldPosition(1045, 610);
 		pScore->GetTransform()->SetWorldPosition(1045, 670);
-		pName->GetComponent<TextComponent>()->SetColor(50, 255, 50);
 		pHealth->GetComponent<TextComponent>()->SetColor(50, 255, 50);
 		pScore->GetComponent<TextComponent>()->SetColor(50, 255, 50);
 	}
 	else
 	{
-		pName->GetComponent<TextComponent>()->SetText("Blue: ");
-		pName->GetTransform()->SetWorldPosition(1045, 150);
 		pHealth->GetTransform()->SetWorldPosition(1045, 210);
 		pScore->GetTransform()->SetWorldPosition(1045, 270);
-		pName->GetComponent<TextComponent>()->SetColor(50, 50, 255);
 		pHealth->GetComponent<TextComponent>()->SetColor(50, 50, 255);
 		pScore->GetComponent<TextComponent>()->SetColor(50, 50, 255);
 	}
@@ -57,14 +45,6 @@ GameObject* HUD::CreateHUD(Scene* pScene , AvatarComponent* avatarComp, PlayerMa
 	if (maitaComp)
 	{
 		pScore->Destroy();
-
-		// Name
-		const auto pMaitaName = pScene->CreateGameObject();
-		pMaitaName->AddComponent<TextureComponent>();
-		pMaitaName->AddComponent<TextComponent>()->SetFont(pFont);
-		pMaitaName->AddComponent<ScoreDisplay>()->Disable();
-		pMaitaName->GetComponent<TextComponent>()->SetText("Maita: ");
-		pMaitaName->GetTransform()->SetWorldPosition(1045, 150);
 
 		// HealthDisplay
 		const auto pMaitaHealth = pScene->CreateGameObject();
