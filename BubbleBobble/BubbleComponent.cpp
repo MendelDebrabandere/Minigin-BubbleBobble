@@ -202,10 +202,20 @@ void BubbleComponent::PickUpEnemy(dae::GameObject* go)
 	dae::SpriteComponent* spriteComp = m_pOwner->GetComponent<dae::SpriteComponent>();
 	if (spriteComp)
 	{
-		if (m_ZenChan)
-			spriteComp->SetAnimVariables(9, 4, 0.3f, 0, 4);
+		if (m_Blue)
+		{
+			if (m_ZenChan)
+				spriteComp->SetAnimVariables(9, 4, 0.3f, 4, 8);
+			else
+				spriteComp->SetAnimVariables(9, 4, 0.3f, 12, 16);
+		}
 		else
-			spriteComp->SetAnimVariables(9, 4, 0.3f, 8, 12);
+		{
+			if (m_ZenChan)
+				spriteComp->SetAnimVariables(9, 4, 0.3f, 0, 4);
+			else
+				spriteComp->SetAnimVariables(9, 4, 0.3f, 8, 12);
+		}
 		spriteComp->Scale(4);
 	}
 }
@@ -235,4 +245,9 @@ void BubbleComponent::Pop(bool byPlayer)
 		if (spriteComp)
 			spriteComp->DoOnceAnim(0.15f, 24, 26);
 	}
+}
+
+void BubbleComponent::SetBlue(bool value)
+{
+	m_Blue = value;
 }

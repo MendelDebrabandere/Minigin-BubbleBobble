@@ -32,6 +32,9 @@ public:
 
 	void Pop(bool byPlayer);
 
+	void SetBlue(bool value);
+
+
 private:
 	BubbleState m_CurrentState{ BubbleState::Shooting };
 
@@ -47,4 +50,6 @@ private:
 	bool m_ZenChan{true};
 
 	glm::vec2 m_RandomGoToPos{};
+
+	bool m_Blue{ false };
 };
