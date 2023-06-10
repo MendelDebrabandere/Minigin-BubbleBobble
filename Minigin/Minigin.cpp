@@ -57,7 +57,7 @@ Minigin::Minigin(const std::string &dataPath)
 	}
 
 	g_window = SDL_CreateWindow(
-		"Programming 4 assignment",
+		"Programming 4 exam: Bubble Bobble | Mendel Debrabandere 2DAE07",
 		SDL_WINDOWPOS_CENTERED,
 		SDL_WINDOWPOS_CENTERED,
 		1280,

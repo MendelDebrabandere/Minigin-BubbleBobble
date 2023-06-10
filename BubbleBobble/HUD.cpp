@@ -11,7 +11,7 @@ using namespace dae;
 
 GameObject* HUD::CreateHUD(Scene* pScene , AvatarComponent* avatarComp, PlayerMaitaComponent* maitaComp )
 {
-	const auto pFont{ ResourceManager::GetInstance().LoadFont("Lingua.otf", 36) };
+	const auto pFont{ ResourceManager::GetInstance().LoadFont("Retro.otf", 30) };
 
 	// Name
 	const auto pName = pScene->CreateGameObject();
@@ -34,17 +34,23 @@ GameObject* HUD::CreateHUD(Scene* pScene , AvatarComponent* avatarComp, PlayerMa
 
 	if (avatarComp->GetColor() == AvatarComponent::AvatarColor::green)
 	{
-		pName->GetComponent<TextComponent>()->SetText("Green player: ");
+		pName->GetComponent<TextComponent>()->SetText("Green: ");
 		pName->GetTransform()->SetWorldPosition(1045, 550);
 		pHealth->GetTransform()->SetWorldPosition(1045, 610);
 		pScore->GetTransform()->SetWorldPosition(1045, 670);
+		pName->GetComponent<TextComponent>()->SetColor(50, 255, 50);
+		pHealth->GetComponent<TextComponent>()->SetColor(50, 255, 50);
+		pScore->GetComponent<TextComponent>()->SetColor(50, 255, 50);
 	}
 	else
 	{
-		pName->GetComponent<TextComponent>()->SetText("Blue player: ");
+		pName->GetComponent<TextComponent>()->SetText("Blue: ");
 		pName->GetTransform()->SetWorldPosition(1045, 150);
 		pHealth->GetTransform()->SetWorldPosition(1045, 210);
 		pScore->GetTransform()->SetWorldPosition(1045, 270);
+		pName->GetComponent<TextComponent>()->SetColor(50, 50, 255);
+		pHealth->GetComponent<TextComponent>()->SetColor(50, 50, 255);
+		pScore->GetComponent<TextComponent>()->SetColor(50, 50, 255);
 	}
 
 	//Maita UI

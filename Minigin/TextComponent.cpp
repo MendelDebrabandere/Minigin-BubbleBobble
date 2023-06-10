@@ -19,6 +19,12 @@ void dae::TextComponent::SetText(const std::string& text)
 	m_HasChanged = true;
 }
 
+void dae::TextComponent::SetColor(unsigned char r, unsigned char g, unsigned char b)
+{
+	m_Color = SDL_Color{ r, g, b };
+	m_HasChanged = true;
+}
+
 void dae::TextComponent::Update()
 {
 	if (!m_HasChanged) return;
@@ -40,7 +46,7 @@ void dae::TextComponent::ReloadTexture()
 	}
 
 	// Create a texture using the current font, text and color
-	const auto surf = TTF_RenderText_Blended(m_pFont->GetFont(), m_Text.c_str(), SDL_Color{ 255,255,255 });
+	const auto surf = TTF_RenderText_Blended(m_pFont->GetFont(), m_Text.c_str(), m_Color);
 	if (surf == nullptr)
 	{
 		throw std::runtime_error(std::string("Render text failed: ") + SDL_GetError());

@@ -56,7 +56,7 @@ void HealthDisplay::UpdateText()
 	// Update text component
 	std::stringstream healthText{};
 
-	healthText << "Health: ";
+	healthText << "Lives: ";
 	healthText << m_HP;
 
 	m_pText->SetText(healthText.str());

@@ -21,3 +21,8 @@ void TextureComponent::Render() const
 	const glm::vec2 pos = m_pOwner->GetTransform()->GetWorldPosition();
 	Renderer::GetInstance().RenderTexture(*m_pTexture, pos.x, pos.y);
 }
+
+glm::vec2 TextureComponent::GetTextureSize()
+{
+	return m_pTexture->GetSize();
+}

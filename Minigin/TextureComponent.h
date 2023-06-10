@@ -1,4 +1,6 @@
 #pragma once
+#include <glm/vec2.hpp>
+
 #include "Component.h"
 
 namespace dae
@@ -19,6 +21,8 @@ namespace dae
 		void SetTexture(const std::shared_ptr<Texture2D>& pTexture);
 
 		void Render() const override;
+
+		glm::vec2 GetTextureSize();
 
 	private:
 		std::shared_ptr<Texture2D> m_pTexture{};

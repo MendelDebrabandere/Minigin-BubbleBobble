@@ -37,7 +37,7 @@ void MainMenuScene::Create()
 	InputManager::GetInstance().AddKeyboardCommand('2', InputManager::InputType::OnDown, std::make_unique<StartCoopCommand>());
 	InputManager::GetInstance().AddKeyboardCommand('3', InputManager::InputType::OnDown, std::make_unique<StartVersusCommand>());
 
-	const auto pFont{ ResourceManager::GetInstance().LoadFont("Lingua.otf", 36) };
+	const auto pFont{ ResourceManager::GetInstance().LoadFont("Retro.otf", 30) };
 
 	// BubbleBobble logo
 	const auto pBG = pGameScene->CreateGameObject();
@@ -54,10 +54,11 @@ void MainMenuScene::Create()
 
 	// made by text
 	const auto pName = pGameScene->CreateGameObject();
-	pName->GetTransform()->SetWorldPosition(390, 750);
 	pName->AddComponent<TextureComponent>();
 	pName->AddComponent<TextComponent>()->SetFont(pFont);
 	pName->GetComponent<TextComponent>()->SetText("Made by Mendel Debrabandere");
+	pName->GetComponent<TextComponent>()->Update();
+	pName->GetTransform()->SetWorldPosition(1280.f / 2 - pName->GetComponent<TextureComponent>()->GetTextureSize().x / 2, 750);
 
 	// FPS COUNTER
 	const auto pFPSCounter = pGameScene->CreateGameObject();
@@ -68,22 +69,28 @@ void MainMenuScene::Create()
 
 	// SinglePlayer
 	const auto pSinglePlayer = pGameScene->CreateGameObject();
-	pSinglePlayer->GetTransform()->SetWorldPosition(360, 350);
 	pSinglePlayer->AddComponent<TextureComponent>();
 	pSinglePlayer->AddComponent<TextComponent>()->SetFont(pFont);
 	pSinglePlayer->GetComponent<TextComponent>()->SetText("Press 1 to start SinglePlayer mode");
+	pSinglePlayer->GetComponent<TextComponent>()->SetColor(120, 250, 120);
+	pSinglePlayer->GetComponent<TextComponent>()->Update();
+	pSinglePlayer->GetTransform()->SetWorldPosition(1280.f / 2 - pSinglePlayer->GetComponent<TextureComponent>()->GetTextureSize().x / 2, 350);
 
 	// Coop
 	const auto pCoop = pGameScene->CreateGameObject();
-	pCoop->GetTransform()->SetWorldPosition(405, 420);
 	pCoop->AddComponent<TextureComponent>();
 	pCoop->AddComponent<TextComponent>()->SetFont(pFont);
 	pCoop->GetComponent<TextComponent>()->SetText("Press 2 to start Co-op mode");
+	pCoop->GetComponent<TextComponent>()->SetColor(150, 150, 250);
+	pCoop->GetComponent<TextComponent>()->Update();
+	pCoop->GetTransform()->SetWorldPosition(1280.f / 2 - pCoop->GetComponent<TextureComponent>()->GetTextureSize().x / 2, 420);
 
 	// versus
 	const auto pVersus = pGameScene->CreateGameObject();
-	pVersus->GetTransform()->SetWorldPosition(400, 490);
 	pVersus->AddComponent<TextureComponent>();
 	pVersus->AddComponent<TextComponent>()->SetFont(pFont);
 	pVersus->GetComponent<TextComponent>()->SetText("Press 3 to start Versus mode");
+	pVersus->GetComponent<TextComponent>()->SetColor(250, 150, 80);
+	pVersus->GetComponent<TextComponent>()->Update();
+	pVersus->GetTransform()->SetWorldPosition(1280.f / 2 - pVersus->GetComponent<TextureComponent>()->GetTextureSize().x / 2, 490);
 }
