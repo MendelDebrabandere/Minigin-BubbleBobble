@@ -187,6 +187,7 @@
     <ClCompile Include="RockComponent.cpp" />
     <ClCompile Include="ScoreDisplay.cpp" />
     <ClCompile Include="ShootBubbleCommand.cpp" />
+    <ClCompile Include="SkipLevelCommand.cpp" />
     <ClCompile Include="ZenChan.cpp" />
     <ClCompile Include="ZenChanComponent.cpp" />
   </ItemGroup>
@@ -217,6 +218,7 @@
     <ClInclude Include="RockComponent.h" />
     <ClInclude Include="ScoreDisplay.h" />
     <ClInclude Include="ShootBubbleCommand.h" />
+    <ClInclude Include="SkipLevelCommand.h" />
     <ClInclude Include="ZenChan.h" />
     <ClInclude Include="ZenChanComponent.h" />
   </ItemGroup>

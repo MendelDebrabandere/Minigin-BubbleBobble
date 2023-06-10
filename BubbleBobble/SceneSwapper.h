@@ -22,6 +22,7 @@ public:
 
 	void Init();
 	void Update();
+	void SkipLevel();
 
 	GameState m_State{ GameState::Menu };
 private:

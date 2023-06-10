@@ -7,6 +7,7 @@
 #include "SceneManager.h"
 #include "Scene.h"
 #include "TextComponent.h"
+#include "Texture2D.h"
 
 using namespace dae;
 
@@ -32,26 +33,27 @@ void MainMenuScene::Create()
 	//Add a command to start the game
 	InputManager::GetInstance().AddKeyboardCommand(' ', InputManager::InputType::OnDown, std::make_unique<LeaveMenuCommand>());
 
-	const auto pBackgroundTexture{ ResourceManager::GetInstance().LoadTexture("background.tga") };
 	const auto pFont{ ResourceManager::GetInstance().LoadFont("Lingua.otf", 36) };
-	const auto pLogoTexture{ ResourceManager::GetInstance().LoadTexture("logo.tga") };
 
-	// BACKGROUND
+	// BubbleBobble logo
 	const auto pBG = pGameScene->CreateGameObject();
-	pBG->AddComponent<TextureComponent>()->SetTexture(pBackgroundTexture);
+	const auto pGameLogoTexture{ ResourceManager::GetInstance().LoadTexture("BubbleBobbleLogo.png") };
+	pBG->AddComponent<TextureComponent>()->SetTexture(pGameLogoTexture);
+	pBG->GetTransform()->SetWorldPosition(1280.f/2 - pGameLogoTexture->GetSize().x / 2, 20);
 
 	// DAE LOGO
 	const auto pLogo = pGameScene->CreateGameObject();
-	pLogo->GetComponent<Transform>()->SetWorldPosition(216, 180);
+	const auto pLogoTexture{ ResourceManager::GetInstance().LoadTexture("logo.tga") };
 	pLogo->AddComponent<TextureComponent>()->SetTexture(pLogoTexture);
 	pLogo->AddComponent<FPSCounter>();
+	pLogo->GetTransform()->SetWorldPosition(1280.f / 2 - pLogoTexture->GetSize().x / 2, 680);
 
-	// TEXT
-	const auto pTitle = pGameScene->CreateGameObject();
-	pTitle->GetComponent<Transform>()->SetWorldPosition(80, 20);
-	pTitle->AddComponent<TextureComponent>();
-	pTitle->AddComponent<TextComponent>()->SetFont(pFont);
-	pTitle->GetComponent<TextComponent>()->SetText("Press space to start");
+	// made by text
+	const auto pName = pGameScene->CreateGameObject();
+	pName->GetTransform()->SetWorldPosition(390, 750);
+	pName->AddComponent<TextureComponent>();
+	pName->AddComponent<TextComponent>()->SetFont(pFont);
+	pName->GetComponent<TextComponent>()->SetText("Made by Mendel Debrabandere");
 
 	// FPS COUNTER
 	const auto pFPSCounter = pGameScene->CreateGameObject();

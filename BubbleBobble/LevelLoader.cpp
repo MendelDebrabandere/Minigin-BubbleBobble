@@ -2,15 +2,18 @@
 
 #include <string>
 #include <fstream>
+#include <SDL_keycode.h>
 
 #include "Avatar.h"
 #include "AvatarComponent.h"
 #include "Block.h"
 #include "FPSCounter.h"
+#include "InputManager.h"
 #include "Maita.h"
 #include "TextComponent.h"
 #include "Platform.h"
 #include "ResourceManager.h"
+#include "SkipLevelCommand.h"
 #include "ZenChan.h"
 
 using namespace dae;
@@ -92,4 +95,8 @@ void LevelLoader::LoadLevel(Scene* pScene, int number, bool /*loadAvatar*/)
 	pFPSCounter->AddComponent<TextureComponent>();
 	pFPSCounter->AddComponent<FPSCounter>();
 	pFPSCounter->AddComponent<TextComponent>()->SetFont(pFont);
+
+	//F1
+	InputManager::GetInstance().AddKeyboardCommand(SDLK_F1, InputManager::InputType::OnDown, std::make_unique<SkipLevelCommand>());
+
 }
