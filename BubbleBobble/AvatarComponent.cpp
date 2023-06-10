@@ -58,21 +58,7 @@ void AvatarComponent::Update()
 	case AvatarState::Moving:
 	{
 		UpdateAnimVariablesMoving();
-		break;
-	}
-	case AvatarState::Hit:
-	{
-		break;
-	}
-	}
-}
 
-void AvatarComponent::FixedUpdate()
-{
-	switch (m_CurrentState)
-	{
-	case AvatarState::Moving:
-	{
 		//If they are invulnerable, count down
 		if (m_Invulnerable)
 		{

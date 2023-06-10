@@ -193,6 +193,7 @@
     <ClCompile Include="ShootBubbleCommand.cpp" />
     <ClCompile Include="SkipLevelCommand.cpp" />
     <ClCompile Include="StartVersusCommand.cpp" />
+    <ClCompile Include="ThrowRockCommand.cpp" />
     <ClCompile Include="ZenChan.cpp" />
     <ClCompile Include="ZenChanComponent.cpp" />
   </ItemGroup>
@@ -229,6 +230,7 @@
     <ClInclude Include="ShootBubbleCommand.h" />
     <ClInclude Include="SkipLevelCommand.h" />
     <ClInclude Include="StartVersusCommand.h" />
+    <ClInclude Include="ThrowRockCommand.h" />
     <ClInclude Include="ZenChan.h" />
     <ClInclude Include="ZenChanComponent.h" />
   </ItemGroup>

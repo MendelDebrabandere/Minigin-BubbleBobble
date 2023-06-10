@@ -23,7 +23,8 @@ public:
 
 	void Initialize() override;
 	void Update() override;
-	void FixedUpdate() override;
+
+	void ThrowRock();
 
 	PlayerMaitaState GetCurrState() const;
 
@@ -42,7 +43,10 @@ private:
 
 	//using a bool for this state since it can be active in multiple states
 	bool m_Invulnerable{};
-	float m_MaxInvulnerableTime{ 6.f };
+	float m_MaxInvulnerableTime{ 3.f };
+
+	bool m_Throwing{};
+	float m_RockThrowingTimer{};
 };
 
 

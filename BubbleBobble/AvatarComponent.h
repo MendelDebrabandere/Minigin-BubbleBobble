@@ -29,7 +29,6 @@ public:
 
 	void Initialize() override;
 	void Update() override;
-	void FixedUpdate() override;
 
 	AvatarState GetCurrState() const;
 
@@ -54,7 +53,7 @@ private:
 
 	//using a bool for this state since it can be active in multiple states
 	bool m_Invulnerable{};
-	float m_MaxInvulnerableTime{6.f};
+	float m_MaxInvulnerableTime{3.f};
 
 	AvatarColor m_MyColor{};
 };

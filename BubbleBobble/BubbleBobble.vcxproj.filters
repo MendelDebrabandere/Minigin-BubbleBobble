@@ -154,6 +154,9 @@
     <ClCompile Include="ZenChan.cpp">
       <Filter>Prefabs\Enemy</Filter>
     </ClCompile>
+    <ClCompile Include="ThrowRockCommand.cpp">
+      <Filter>Command\GameCommands</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="LevelLoader.h">
@@ -257,6 +260,9 @@
     </ClInclude>
     <ClInclude Include="ZenChan.h">
       <Filter>Prefabs\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="ThrowRockCommand.h">
+      <Filter>Command\GameCommands</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

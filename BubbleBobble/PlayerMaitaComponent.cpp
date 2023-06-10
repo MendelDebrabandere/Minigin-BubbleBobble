@@ -5,7 +5,9 @@
 #include "EnemyComponent.h"
 #include "Transform.h"
 #include "GameObject.h"
+#include "Rock.h"
 #include "RockComponent.h"
+#include "SceneManager.h"
 #include "SpriteComponent.h"
 #include "Timer.h"
 
@@ -53,25 +55,12 @@ void PlayerMaitaComponent::Update()
 	case PlayerMaitaState::Moving:
 	{
 		UpdateAnimVariablesMoving();
-		break;
-	}
-	case PlayerMaitaState::Hit:
-	{
-		break;
-	}
-	}
-}
 
-void PlayerMaitaComponent::FixedUpdate()
-{
-	switch (m_CurrentState)
-	{
-	case PlayerMaitaState::Moving:
-	{
+		float elapsedSec = dae::Time::GetInstance().GetDelta();
+
 		//If they are invulnerable, count down
 		if (m_Invulnerable)
 		{
-			float elapsedSec = dae::Time::GetInstance().GetDelta();
 			m_Timer += elapsedSec;
 
 			if (m_Timer >= m_MaxInvulnerableTime)
@@ -80,13 +69,52 @@ void PlayerMaitaComponent::FixedUpdate()
 				m_Invulnerable = false;
 			}
 		}
+
+		auto spriteComp = m_pOwner->GetComponent<dae::SpriteComponent>();
+		spriteComp->SetRenderOffset(glm::vec2{ 0, 0 });
+		if (m_Throwing)
+		{
+
+			m_RockThrowingTimer += elapsedSec;
+
+			if (m_RockThrowingTimer >= 0.2f * 3.9f)
+			{
+				Rock::CreateRock(dae::SceneManager::GetInstance().GetActiveScene(), m_pOwner, m_pOwner->GetTransform()->GetFacingRight());
+				spriteComp->SetAnimVariables(4, 8, 0.3f, 8, 13);
+				spriteComp->Scale(4);
+				m_Throwing = false;
+				m_RockThrowingTimer = 0.f;
+				break;
+			}
+
+			//Do sprite offset
+			if (m_pOwner->GetTransform()->GetFacingRight() == false)
+				spriteComp->SetRenderOffset(glm::vec2{ -spriteComp->GetSize().x / 2, 0 });
+
+		}
 		break;
 	}
 	case PlayerMaitaState::Hit:
 	{
 		DoRespawnLogic();
+
+		auto spriteComp = m_pOwner->GetComponent<dae::SpriteComponent>();
+		spriteComp->SetRenderOffset(glm::vec2(0, 0));
 		break;
 	}
+	}
+}
+
+void PlayerMaitaComponent::ThrowRock()
+{
+	if (m_CurrentState == PlayerMaitaState::Moving)
+	{
+		auto spriteComp = m_pOwner->GetComponent<dae::SpriteComponent>();
+		spriteComp->SetAnimVariables(4, 4, 0.2f, 7, 12);
+		m_RockThrowingTimer = 0.f;
+		spriteComp->Scale(4);
+		m_Throwing = true;
+
 	}
 }
 
@@ -106,7 +134,7 @@ void PlayerMaitaComponent::UpdateAnimVariablesMoving()
 
 		glm::vec2 currPos = transform->GetLocalPosition();
 
-		if (m_LastPos == currPos)
+		if (m_LastPos == currPos && m_Throwing == false)
 			spriteComp->Pause(true);
 		else
 		{

@@ -12,6 +12,7 @@
 #include "MoveLeftCommand.h"
 #include "MoveRightCommand.h"
 #include "PlayerMaitaComponent.h"
+#include "ThrowRockCommand.h"
 
 using namespace dae;
 
@@ -36,7 +37,7 @@ GameObject* PlayerMaita::CreateMaita(Scene* pScene, const glm::vec2& spawnPos)
 	InputManager::GetInstance().AddControllerCommand(XBox360Controller::ControllerButton::DPadLeft, 0, InputManager::InputType::Pressed, std::make_unique<MoveLeftCommand>(pMiata, 200.f));
 	InputManager::GetInstance().AddControllerCommand(XBox360Controller::ControllerButton::DPadRight, 0, InputManager::InputType::Pressed, std::make_unique<MoveRightCommand>(pMiata, 200.f));
 	InputManager::GetInstance().AddControllerCommand(XBox360Controller::ControllerButton::ButtonA, 0, InputManager::InputType::Pressed, std::make_unique<JumpCommand>(pMiata, -450.f));
-	//InputManager::GetInstance().AddControllerCommand(XBox360Controller::ControllerButton::ButtonB, 0, InputManager::InputType::OnDown, std::make_unique<ShootBubbleCommand>(pAvatar));
+	InputManager::GetInstance().AddControllerCommand(XBox360Controller::ControllerButton::ButtonB, 0, InputManager::InputType::OnDown, std::make_unique<ThrowRockCommand>(pMiata));
 
 	pMiata->AddComponent<PlayerMaitaComponent>();
 
