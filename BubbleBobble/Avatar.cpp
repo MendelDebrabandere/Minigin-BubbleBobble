@@ -12,7 +12,7 @@
 
 using namespace dae;
 
-GameObject* Avatar::CreateAvatar(Scene* pScene, const glm::vec2& spawnPos, bool green)
+GameObject* Avatar::CreateAvatar(Scene* pScene, const glm::vec2& spawnPos, bool green, bool coop)
 {
 	GameObject* pAvatar{ pScene->CreateGameObject() };
 	pAvatar->GetComponent<Transform>()->SetWorldPosition(spawnPos.x, spawnPos.y);
@@ -32,10 +32,44 @@ GameObject* Avatar::CreateAvatar(Scene* pScene, const glm::vec2& spawnPos, bool 
 	auto physicsComp = pAvatar->AddComponent<PhysicsComponent>();
 	physicsComp->SetPhysicsSettings(true, false, false);
 
-	InputManager::GetInstance().AddKeyboardCommand('a', InputManager::InputType::Pressed, std::make_unique<MoveLeftCommand>(pAvatar, 200.f));
-	InputManager::GetInstance().AddKeyboardCommand('d', InputManager::InputType::Pressed, std::make_unique<MoveRightCommand>(pAvatar, 200.f));
-	InputManager::GetInstance().AddKeyboardCommand('w', InputManager::InputType::Pressed, std::make_unique<JumpCommand>(pAvatar, -450.f));
-	InputManager::GetInstance().AddKeyboardCommand(' ', InputManager::InputType::OnDown, std::make_unique<ShootBubbleCommand>(pAvatar));
+	if (coop == false) //bind to
+	{
+		//keyboard
+		InputManager::GetInstance().AddKeyboardCommand('a', InputManager::InputType::Pressed, std::make_unique<MoveLeftCommand>(pAvatar, 200.f));
+		InputManager::GetInstance().AddKeyboardCommand('d', InputManager::InputType::Pressed, std::make_unique<MoveRightCommand>(pAvatar, 200.f));
+		InputManager::GetInstance().AddKeyboardCommand('w', InputManager::InputType::Pressed, std::make_unique<JumpCommand>(pAvatar, -450.f));
+		InputManager::GetInstance().AddKeyboardCommand(' ', InputManager::InputType::OnDown, std::make_unique<ShootBubbleCommand>(pAvatar));
+		//controller
+		InputManager::GetInstance().AddControllerCommand(XBox360Controller::ControllerButton::DPadLeft, 0, InputManager::InputType::Pressed, std::make_unique<MoveLeftCommand>(pAvatar, 200.f));
+		InputManager::GetInstance().AddControllerCommand(XBox360Controller::ControllerButton::DPadRight, 0, InputManager::InputType::Pressed, std::make_unique<MoveRightCommand>(pAvatar, 200.f));
+		InputManager::GetInstance().AddControllerCommand(XBox360Controller::ControllerButton::ButtonA, 0, InputManager::InputType::Pressed, std::make_unique<JumpCommand>(pAvatar, -450.f));
+		InputManager::GetInstance().AddControllerCommand(XBox360Controller::ControllerButton::ButtonB, 0, InputManager::InputType::OnDown, std::make_unique<ShootBubbleCommand>(pAvatar));
+	}
+	else
+	{
+		if (green) //GREEN PLAYER IN COOP
+		{
+			//keyboard
+			InputManager::GetInstance().AddKeyboardCommand('a', InputManager::InputType::Pressed, std::make_unique<MoveLeftCommand>(pAvatar, 200.f));
+			InputManager::GetInstance().AddKeyboardCommand('d', InputManager::InputType::Pressed, std::make_unique<MoveRightCommand>(pAvatar, 200.f));
+			InputManager::GetInstance().AddKeyboardCommand('w', InputManager::InputType::Pressed, std::make_unique<JumpCommand>(pAvatar, -450.f));
+			InputManager::GetInstance().AddKeyboardCommand(' ', InputManager::InputType::OnDown, std::make_unique<ShootBubbleCommand>(pAvatar));
+			//controller
+			InputManager::GetInstance().AddControllerCommand(XBox360Controller::ControllerButton::DPadLeft, 1, InputManager::InputType::Pressed, std::make_unique<MoveLeftCommand>(pAvatar, 200.f));
+			InputManager::GetInstance().AddControllerCommand(XBox360Controller::ControllerButton::DPadRight, 1, InputManager::InputType::Pressed, std::make_unique<MoveRightCommand>(pAvatar, 200.f));
+			InputManager::GetInstance().AddControllerCommand(XBox360Controller::ControllerButton::ButtonA, 1, InputManager::InputType::Pressed, std::make_unique<JumpCommand>(pAvatar, -450.f));
+			InputManager::GetInstance().AddControllerCommand(XBox360Controller::ControllerButton::ButtonB, 1, InputManager::InputType::OnDown, std::make_unique<ShootBubbleCommand>(pAvatar));
+		}
+		else //BLUE PLAYER IN COOP
+		{
+			//controller
+			InputManager::GetInstance().AddControllerCommand(XBox360Controller::ControllerButton::DPadLeft, 0, InputManager::InputType::Pressed, std::make_unique<MoveLeftCommand>(pAvatar, 200.f));
+			InputManager::GetInstance().AddControllerCommand(XBox360Controller::ControllerButton::DPadRight, 0, InputManager::InputType::Pressed, std::make_unique<MoveRightCommand>(pAvatar, 200.f));
+			InputManager::GetInstance().AddControllerCommand(XBox360Controller::ControllerButton::ButtonA, 0, InputManager::InputType::Pressed, std::make_unique<JumpCommand>(pAvatar, -450.f));
+			InputManager::GetInstance().AddControllerCommand(XBox360Controller::ControllerButton::ButtonB, 0, InputManager::InputType::OnDown, std::make_unique<ShootBubbleCommand>(pAvatar));
+		}
+
+	}
 
 
 	auto avatarComp = pAvatar->AddComponent<AvatarComponent>();

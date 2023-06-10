@@ -2,12 +2,14 @@
 
 
 #include "Avatar.h"
+#include "HUD.h"
 #include "InputManager.h"
 #include "LevelLoader.h"
 #include "SceneManager.h"
 #include "SceneSwapper.h"
 #include "ServiceLocator.h"
 #include "SoundSystem.h"
+#include "AvatarComponent.h"
 
 void StartSinglePlayerCommand::Execute()
 {
@@ -20,7 +22,10 @@ void StartSinglePlayerCommand::Execute()
 	LevelLoader::LoadLevel(scene, 1, true);
 	scene->SetName("1");
 
-	Avatar::CreateAvatar(sceneManager.GetActiveScene(), glm::vec2{100,700}, true);
+	auto avatar = Avatar::CreateAvatar(sceneManager.GetActiveScene(), glm::vec2{100,700}, true, false);
+
+	HUD::CreateHUD(scene, avatar->GetComponent<AvatarComponent>());
+
 
 	SceneSwapper::GetInstance().m_State = SceneSwapper::GameState::SinglePlayer;
 

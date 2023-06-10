@@ -1,8 +1,10 @@
 #pragma once
 #include "Scene.h"
 
+class AvatarComponent;
+
 class HUD final
 {
 public:
-	static dae::GameObject* CreateHUD(dae::Scene* pScene);
+	static dae::GameObject* CreateHUD(dae::Scene* pScene, AvatarComponent* avatarComp);
 };

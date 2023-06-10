@@ -31,7 +31,7 @@ void HealthDisplay::HandleEvent(int healthDelta)
 {
 	m_HP += healthDelta;
 
-	if (m_HP < 0)
+	//if (m_HP < 0)
 		//TODO: load highscore screen
 
 	UpdateText();

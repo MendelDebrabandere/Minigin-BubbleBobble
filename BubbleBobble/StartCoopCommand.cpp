@@ -2,12 +2,14 @@
 
 
 #include "Avatar.h"
+#include "HUD.h"
 #include "InputManager.h"
 #include "LevelLoader.h"
 #include "SceneManager.h"
 #include "SceneSwapper.h"
 #include "ServiceLocator.h"
 #include "SoundSystem.h"
+#include "AvatarComponent.h"
 
 void StartCoopCommand::Execute()
 {
@@ -20,8 +22,11 @@ void StartCoopCommand::Execute()
 	LevelLoader::LoadLevel(scene, 1, true);
 	scene->SetName("1");
 
-	Avatar::CreateAvatar(sceneManager.GetActiveScene(), glm::vec2{ 100,700 }, true);
-	Avatar::CreateAvatar(sceneManager.GetActiveScene(), glm::vec2{ 850,700 }, false);
+	auto avatar1 = Avatar::CreateAvatar(scene, glm::vec2{ 100,700 }, true, true);
+	auto avatar2 = Avatar::CreateAvatar(scene, glm::vec2{ 850,700 }, false, false);
+
+	HUD::CreateHUD(scene, avatar1->GetComponent<AvatarComponent>());
+	HUD::CreateHUD(scene, avatar2->GetComponent<AvatarComponent>());
 
 	SceneSwapper::GetInstance().m_State = SceneSwapper::GameState::Coop;
 
