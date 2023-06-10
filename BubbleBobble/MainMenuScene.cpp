@@ -23,12 +23,12 @@ void MainMenuScene::Create()
 	if (pGameScene)
 	{
 		pGameScene->RemoveAll();
+		pGameScene->SetName("MainMenu");
 	}
 	else
 	{
 		pGameScene = pSceneManager.CreateScene("MainMenu");
 	}
-
 	pSceneManager.SetActiveScene(pGameScene);
 
 

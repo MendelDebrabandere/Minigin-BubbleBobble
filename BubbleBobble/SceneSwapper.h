@@ -1,8 +1,10 @@
 #pragma once
+#include "EventListener.h"
 #include "Singleton.h"
 
 
-class SceneSwapper final : public dae::Singleton<SceneSwapper>
+class SceneSwapper final : public dae::Singleton<SceneSwapper>,
+							public dae::EventListener
 {
 public:
 	enum class GameState
@@ -23,6 +25,8 @@ public:
 	void Init();
 	void Update();
 	void SkipLevel();
+
+	void OnEvent(const dae::Event& e) override;
 
 	GameState m_State{ GameState::Menu };
 private:

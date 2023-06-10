@@ -28,7 +28,7 @@ public:
 private:
 
 	void HandleEvent(int healthDelta) override;
-	void OnSubjectDestroy() override {}
+	void OnSubjectDestroy() override;
 	void UpdateText();
 
 	int m_HP{};

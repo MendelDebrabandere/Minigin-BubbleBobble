@@ -28,7 +28,7 @@ public:
 private:
 
 	void HandleEvent(FoodComponent::FoodType type) override;
-	void OnSubjectDestroy() override {}
+	void OnSubjectDestroy() override;
 	void UpdateScoreText();
 
 	int m_score{};

@@ -41,6 +41,11 @@ void ScoreDisplay::HandleEvent(FoodComponent::FoodType type)
 	}
 }
 
+void ScoreDisplay::OnSubjectDestroy()
+{
+	m_Player = nullptr;
+}
+
 void ScoreDisplay::UpdateScoreText()
 {
 	if (m_Disable == false)
@@ -65,8 +70,8 @@ void ScoreDisplay::UpdateScoreText()
 
 ScoreDisplay::~ScoreDisplay()
 {
-	//if (m_Player)
-	//{
-	//	m_Player->m_FoodPickup.RemoveObserver(this);
-	//}
+	if (m_Player)
+	{
+		m_Player->m_FoodPickup.RemoveObserver(this);
+	}
 }

@@ -5,6 +5,8 @@
 #include "TextComponent.h"
 #include <sstream>
 
+#include "EventQueue.h"
+
 void HealthDisplay::Initialize()
 {
 	m_HP = 3;
@@ -29,10 +31,15 @@ void HealthDisplay::HandleEvent(int healthDelta)
 {
 	m_HP += healthDelta;
 
-	//if (m_HP < 0)
-		//TODO: load highscore screen
+	if (m_HP < 0)
+ 		dae::EventQueue::GetInstance().SendEvent(dae::Event{ "PlayerDied" });
+	else
+		UpdateText();
+}
 
-	UpdateText();
+void HealthDisplay::OnSubjectDestroy()
+{
+	m_pSubject = nullptr;
 }
 
 void HealthDisplay::UpdateText()
@@ -57,8 +64,8 @@ void HealthDisplay::UpdateText()
 
 HealthDisplay::~HealthDisplay()
 {
-	//if (m_Player)
-	//{
-	//	m_Player->m_HealthChange.RemoveObserver(this);
-	//}
+	if (m_pSubject)
+	{
+		m_pSubject->RemoveObserver(this);
+	}
 }

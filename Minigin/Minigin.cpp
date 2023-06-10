@@ -123,9 +123,9 @@ void Minigin::Run()
 
 		sceneManager.Update();
 
-		sceneManager.UpdateCleanup();
-
 		events.NotifyListeners();
+
+		sceneManager.UpdateCleanup();
 
 		renderer.Render();
 
