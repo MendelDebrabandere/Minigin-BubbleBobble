@@ -2,10 +2,11 @@
 
 #include "FPSCounter.h"
 #include "InputManager.h"
-#include "LeaveMenuCommand.h"
 #include "ResourceManager.h"
 #include "SceneManager.h"
 #include "Scene.h"
+#include "StartCoopCommand.h"
+#include "StartSinglePlayerCommand.h"
 #include "TextComponent.h"
 #include "Texture2D.h"
 
@@ -30,8 +31,9 @@ void MainMenuScene::Create()
 	pSceneManager.SetActiveScene(pGameScene);
 
 
-	//Add a command to start the game
-	InputManager::GetInstance().AddKeyboardCommand(' ', InputManager::InputType::OnDown, std::make_unique<LeaveMenuCommand>());
+	//Add a commands to start the game
+	InputManager::GetInstance().AddKeyboardCommand('1', InputManager::InputType::OnDown, std::make_unique<StartSinglePlayerCommand>());
+	InputManager::GetInstance().AddKeyboardCommand('2', InputManager::InputType::OnDown, std::make_unique<StartCoopCommand>());
 
 	const auto pFont{ ResourceManager::GetInstance().LoadFont("Lingua.otf", 36) };
 
@@ -61,4 +63,25 @@ void MainMenuScene::Create()
 	pFPSCounter->AddComponent<FPSCounter>();
 	pFPSCounter->AddComponent<TextComponent>()->SetFont(pFont);
 
+
+	// SinglePlayer
+	const auto pSinglePlayer = pGameScene->CreateGameObject();
+	pSinglePlayer->GetTransform()->SetWorldPosition(360, 350);
+	pSinglePlayer->AddComponent<TextureComponent>();
+	pSinglePlayer->AddComponent<TextComponent>()->SetFont(pFont);
+	pSinglePlayer->GetComponent<TextComponent>()->SetText("Press 1 to start SinglePlayer mode");
+
+	// Coop
+	const auto pCoop = pGameScene->CreateGameObject();
+	pCoop->GetTransform()->SetWorldPosition(405, 420);
+	pCoop->AddComponent<TextureComponent>();
+	pCoop->AddComponent<TextComponent>()->SetFont(pFont);
+	pCoop->GetComponent<TextComponent>()->SetText("Press 2 to start Co-op mode");
+
+	// versus
+	const auto pVersus = pGameScene->CreateGameObject();
+	pVersus->GetTransform()->SetWorldPosition(400, 490);
+	pVersus->AddComponent<TextureComponent>();
+	pVersus->AddComponent<TextComponent>()->SetFont(pFont);
+	pVersus->GetComponent<TextComponent>()->SetText("Press 3 to start Versus mode");
 }

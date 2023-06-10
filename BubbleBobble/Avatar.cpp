@@ -12,14 +12,17 @@
 
 using namespace dae;
 
-GameObject* Avatar::CreateAvatar(Scene* pScene, const glm::vec2& spawnPos)
+GameObject* Avatar::CreateAvatar(Scene* pScene, const glm::vec2& spawnPos, bool green)
 {
 	GameObject* pAvatar{ pScene->CreateGameObject() };
 	pAvatar->GetComponent<Transform>()->SetWorldPosition(spawnPos.x, spawnPos.y);
 
 	auto spriteComp = pAvatar->AddComponent<SpriteComponent>();
 	spriteComp->SetTexture("Avatar.png");
-	spriteComp->SetAnimVariables(3, 7, 0.1f, 0, 7);
+	if (green)
+		spriteComp->SetAnimVariables(6, 7, 0.1f, 0, 7);
+	else
+		spriteComp->SetAnimVariables(6, 7, 0.1f, 21, 28);
 	spriteComp->Scale(4);
 
 	auto colliderComp = pAvatar->AddComponent<ColliderComponent>();
@@ -35,7 +38,11 @@ GameObject* Avatar::CreateAvatar(Scene* pScene, const glm::vec2& spawnPos)
 	InputManager::GetInstance().AddKeyboardCommand(' ', InputManager::InputType::OnDown, std::make_unique<ShootBubbleCommand>(pAvatar));
 
 
-	pAvatar->AddComponent<AvatarComponent>();
+	auto avatarComp = pAvatar->AddComponent<AvatarComponent>();
+	if (green)
+		avatarComp->SetColor(AvatarComponent::AvatarColor::green);
+	else
+		avatarComp->SetColor(AvatarComponent::AvatarColor::blue);
 
 	return pAvatar;
 }

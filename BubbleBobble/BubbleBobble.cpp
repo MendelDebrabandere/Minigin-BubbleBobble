@@ -4,16 +4,12 @@
 #include <ctime>
 #include <iostream>
 
-#include "FPSCounter.h"
 #include "InputManager.h"
-#include "LeaveMenuCommand.h"
-#include "LevelLoader.h"
 #include "NullSoundSystem.h"
 #include "ResourceManager.h"
 #include "SceneManager.h"
 #include "SceneSwapper.h"
 #include "ServiceLocator.h"
-#include "TextComponent.h"
 
 using namespace dae;
 

@@ -17,6 +17,12 @@
     <Filter Include="Scenes">
       <UniqueIdentifier>{423eea64-b116-46cd-ba79-a4cd59981c9e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Command\GameCommands">
+      <UniqueIdentifier>{8974832e-18f4-4da1-a580-ec6d46c9ee26}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Command\SceneChangingCommands">
+      <UniqueIdentifier>{5392cf55-1651-4113-9c11-fa0ac7180663}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -25,29 +31,17 @@
     <ClCompile Include="FPSCounter.cpp">
       <Filter>Component</Filter>
     </ClCompile>
-    <ClCompile Include="MoveLeftCommand.cpp">
-      <Filter>Command</Filter>
-    </ClCompile>
-    <ClCompile Include="MoveRightCommand.cpp">
-      <Filter>Command</Filter>
-    </ClCompile>
     <ClCompile Include="Avatar.cpp">
       <Filter>Prefabs</Filter>
     </ClCompile>
     <ClCompile Include="Block.cpp">
       <Filter>Prefabs</Filter>
     </ClCompile>
-    <ClCompile Include="JumpCommand.cpp">
-      <Filter>Command</Filter>
-    </ClCompile>
     <ClCompile Include="Platform.cpp">
       <Filter>Prefabs</Filter>
     </ClCompile>
     <ClCompile Include="ZenChan.cpp">
       <Filter>Prefabs</Filter>
-    </ClCompile>
-    <ClCompile Include="ShootBubbleCommand.cpp">
-      <Filter>Command</Filter>
     </ClCompile>
     <ClCompile Include="Bubble.cpp">
       <Filter>Prefabs</Filter>
@@ -66,9 +60,6 @@
     </ClCompile>
     <ClCompile Include="FoodComponent.cpp">
       <Filter>Component</Filter>
-    </ClCompile>
-    <ClCompile Include="LeaveMenuCommand.cpp">
-      <Filter>Command</Filter>
     </ClCompile>
     <ClCompile Include="ScoreDisplay.cpp">
       <Filter>Component</Filter>
@@ -106,19 +97,34 @@
     <ClCompile Include="MainMenuScene.cpp">
       <Filter>Scenes</Filter>
     </ClCompile>
+    <ClCompile Include="HighScoreScene.cpp">
+      <Filter>Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="JumpCommand.cpp">
+      <Filter>Command\GameCommands</Filter>
+    </ClCompile>
+    <ClCompile Include="MoveLeftCommand.cpp">
+      <Filter>Command\GameCommands</Filter>
+    </ClCompile>
+    <ClCompile Include="MoveRightCommand.cpp">
+      <Filter>Command\GameCommands</Filter>
+    </ClCompile>
+    <ClCompile Include="ShootBubbleCommand.cpp">
+      <Filter>Command\GameCommands</Filter>
+    </ClCompile>
+    <ClCompile Include="StartSinglePlayerCommand.cpp">
+      <Filter>Command\SceneChangingCommands</Filter>
+    </ClCompile>
     <ClCompile Include="SkipLevelCommand.cpp">
-      <Filter>Command</Filter>
+      <Filter>Command\SceneChangingCommands</Filter>
+    </ClCompile>
+    <ClCompile Include="StartCoopCommand.cpp">
+      <Filter>Command\SceneChangingCommands</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FPSCounter.h">
       <Filter>Component</Filter>
-    </ClInclude>
-    <ClInclude Include="MoveLeftCommand.h">
-      <Filter>Command</Filter>
-    </ClInclude>
-    <ClInclude Include="MoveRightCommand.h">
-      <Filter>Command</Filter>
     </ClInclude>
     <ClInclude Include="Avatar.h">
       <Filter>Prefabs</Filter>
@@ -126,17 +132,11 @@
     <ClInclude Include="Block.h">
       <Filter>Prefabs</Filter>
     </ClInclude>
-    <ClInclude Include="JumpCommand.h">
-      <Filter>Command</Filter>
-    </ClInclude>
     <ClInclude Include="Platform.h">
       <Filter>Prefabs</Filter>
     </ClInclude>
     <ClInclude Include="ZenChan.h">
       <Filter>Prefabs</Filter>
-    </ClInclude>
-    <ClInclude Include="ShootBubbleCommand.h">
-      <Filter>Command</Filter>
     </ClInclude>
     <ClInclude Include="Bubble.h">
       <Filter>Prefabs</Filter>
@@ -155,9 +155,6 @@
     </ClInclude>
     <ClInclude Include="FoodComponent.h">
       <Filter>Component</Filter>
-    </ClInclude>
-    <ClInclude Include="LeaveMenuCommand.h">
-      <Filter>Command</Filter>
     </ClInclude>
     <ClInclude Include="ScoreDisplay.h">
       <Filter>Component</Filter>
@@ -195,8 +192,29 @@
     <ClInclude Include="MainMenuScene.h">
       <Filter>Scenes</Filter>
     </ClInclude>
+    <ClInclude Include="HighScoreScene.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="JumpCommand.h">
+      <Filter>Command\GameCommands</Filter>
+    </ClInclude>
+    <ClInclude Include="MoveLeftCommand.h">
+      <Filter>Command\GameCommands</Filter>
+    </ClInclude>
+    <ClInclude Include="MoveRightCommand.h">
+      <Filter>Command\GameCommands</Filter>
+    </ClInclude>
+    <ClInclude Include="ShootBubbleCommand.h">
+      <Filter>Command\GameCommands</Filter>
+    </ClInclude>
+    <ClInclude Include="StartSinglePlayerCommand.h">
+      <Filter>Command\SceneChangingCommands</Filter>
+    </ClInclude>
     <ClInclude Include="SkipLevelCommand.h">
-      <Filter>Command</Filter>
+      <Filter>Command\SceneChangingCommands</Filter>
+    </ClInclude>
+    <ClInclude Include="StartCoopCommand.h">
+      <Filter>Command\SceneChangingCommands</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -22,7 +22,10 @@ void ShootBubbleCommand::Execute()
 			dae::Scene* scene = dae::SceneManager::GetInstance().GetActiveScene();
 			Bubble::CreateBubble(scene, m_pGo);
 
-			spriteComp->DoOnceAnim(0.1f, 7, 12);
+			if (avatarComp->GetColor() == AvatarComponent::AvatarColor::green)
+				spriteComp->DoOnceAnim(0.1f, 7, 12);
+			else
+				spriteComp->DoOnceAnim(0.1f, 28, 33);
 		}
 	}
 }

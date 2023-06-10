@@ -1,10 +1,10 @@
 #pragma once
 #include "Command.h"
 
-class LeaveMenuCommand final : public dae::Command
+class StartCoopCommand final : public dae::Command
 {
 public:
-	LeaveMenuCommand() = default;
+	StartCoopCommand() = default;
 
 	void Execute() override;
 private:

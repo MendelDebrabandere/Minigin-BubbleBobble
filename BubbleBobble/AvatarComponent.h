@@ -33,6 +33,7 @@ public:
 
 	AvatarState GetCurrState() const;
 
+	void SetColor(AvatarColor color);
 	AvatarColor GetColor() const;
 
 	void PickedUpFood(FoodComponent::FoodType type);

@@ -171,9 +171,11 @@
     <ClCompile Include="FoodComponent.cpp" />
     <ClCompile Include="FPSCounter.cpp" />
     <ClCompile Include="HealthDisplay.cpp" />
+    <ClCompile Include="HighScoreScene.cpp" />
     <ClCompile Include="HUD.cpp" />
     <ClCompile Include="JumpCommand.cpp" />
-    <ClCompile Include="LeaveMenuCommand.cpp" />
+    <ClCompile Include="StartCoopCommand.cpp" />
+    <ClCompile Include="StartSinglePlayerCommand.cpp" />
     <ClCompile Include="LevelLoader.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainMenuScene.cpp" />
@@ -203,9 +205,11 @@
     <ClInclude Include="FoodComponent.h" />
     <ClInclude Include="FPSCounter.h" />
     <ClInclude Include="HealthDisplay.h" />
+    <ClInclude Include="HighScoreScene.h" />
     <ClInclude Include="HUD.h" />
     <ClInclude Include="JumpCommand.h" />
-    <ClInclude Include="LeaveMenuCommand.h" />
+    <ClInclude Include="StartCoopCommand.h" />
+    <ClInclude Include="StartSinglePlayerCommand.h" />
     <ClInclude Include="LevelLoader.h" />
     <ClInclude Include="MainMenuScene.h" />
     <ClInclude Include="Maita.h" />

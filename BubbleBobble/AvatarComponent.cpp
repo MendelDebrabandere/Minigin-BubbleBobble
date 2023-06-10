@@ -37,7 +37,10 @@ void AvatarComponent::Initialize()
 						dae::SpriteComponent* spriteComp = m_pOwner->GetComponent<dae::SpriteComponent>();
 						if (spriteComp)
 						{
-							spriteComp->SetAnimVariables(3, 7, 0.1f, 14, 18);
+							if (m_MyColor == AvatarColor::green)
+								spriteComp->SetAnimVariables(6, 7, 0.1f, 14, 18);
+							else
+								spriteComp->SetAnimVariables(6, 7, 0.1f, 35, 39);
 							spriteComp->Scale(4);
 							spriteComp->Pause(false);
 						}
@@ -95,6 +98,11 @@ void AvatarComponent::FixedUpdate()
 AvatarComponent::AvatarState AvatarComponent::GetCurrState() const
 {
 	return m_CurrentState;
+}
+
+void AvatarComponent::SetColor(AvatarColor color)
+{
+	m_MyColor = color;
 }
 
 AvatarComponent::AvatarColor AvatarComponent::GetColor() const
@@ -156,12 +164,19 @@ void AvatarComponent::DoRespawnLogic()
 		dae::SpriteComponent* spriteComp = m_pOwner->GetComponent<dae::SpriteComponent>();
 		if (spriteComp)
 		{
-			spriteComp->SetAnimVariables(3, 7, 0.1f, 0, 7);
+			if (m_MyColor == AvatarColor::green)
+				spriteComp->SetAnimVariables(6, 7, 0.1f, 0, 7);
+			else
+				spriteComp->SetAnimVariables(6, 7, 0.1f, 21, 28);
 			spriteComp->Scale(4);
 			spriteComp->Pause(false);
 		}
 
-		m_pOwner->GetTransform()->SetWorldPosition(90, 640);
+
+		if (m_MyColor == AvatarColor::green)
+			m_pOwner->GetTransform()->SetWorldPosition(100, 700);
+		else
+			m_pOwner->GetTransform()->SetWorldPosition(850, 700);
 
 		m_Timer = 0.f;
 		m_CurrentState = AvatarState::Moving;
