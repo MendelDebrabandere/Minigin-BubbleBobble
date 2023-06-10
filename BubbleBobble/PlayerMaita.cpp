@@ -35,7 +35,7 @@ GameObject* PlayerMaita::CreateMaita(Scene* pScene, const glm::vec2& spawnPos)
 	//controller
 	InputManager::GetInstance().AddControllerCommand(XBox360Controller::ControllerButton::DPadLeft, 0, InputManager::InputType::Pressed, std::make_unique<MoveLeftCommand>(pMiata, 200.f));
 	InputManager::GetInstance().AddControllerCommand(XBox360Controller::ControllerButton::DPadRight, 0, InputManager::InputType::Pressed, std::make_unique<MoveRightCommand>(pMiata, 200.f));
-	//InputManager::GetInstance().AddControllerCommand(XBox360Controller::ControllerButton::ButtonA, 1, InputManager::InputType::Pressed, std::make_unique<JumpCommand>(pAvatar, -450.f));
+	InputManager::GetInstance().AddControllerCommand(XBox360Controller::ControllerButton::ButtonA, 0, InputManager::InputType::Pressed, std::make_unique<JumpCommand>(pMiata, -450.f));
 	//InputManager::GetInstance().AddControllerCommand(XBox360Controller::ControllerButton::ButtonB, 0, InputManager::InputType::OnDown, std::make_unique<ShootBubbleCommand>(pAvatar));
 
 	pMiata->AddComponent<PlayerMaitaComponent>();

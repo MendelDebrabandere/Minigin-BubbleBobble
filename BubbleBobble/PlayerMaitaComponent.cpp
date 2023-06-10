@@ -22,20 +22,24 @@ void PlayerMaitaComponent::Initialize()
 				{
 					//if its a bubble
 					BubbleComponent* bubbleComp = overlappingActor->GetComponent<BubbleComponent>();
-					if (bubbleComp)
+					if (bubbleComp && bubbleComp->GetState() == BubbleComponent::BubbleState::Shooting)
 					{
-						//TODO: bubbleComp->Pop();
-
-						m_CurrentState = PlayerMaitaState::Hit;
-						m_HealthChange.Notify(-1);
-						dae::SpriteComponent* spriteComp = m_pOwner->GetComponent<dae::SpriteComponent>();
-						if (spriteComp)
+						bubbleComp->Pop(false);
 						{
-							spriteComp->SetAnimVariables(4, 8, 0.1f, 24, 28);
-							spriteComp->Scale(4);
-							spriteComp->Pause(false);
+							m_CurrentState = PlayerMaitaState::Hit;
+							m_HealthChange.Notify(-1);
+							dae::SpriteComponent* spriteComp = m_pOwner->GetComponent<dae::SpriteComponent>();
+							if (spriteComp)
+							{
+								spriteComp->SetAnimVariables(4, 8, 0.1f, 24, 28);
+								spriteComp->Scale(4);
+								spriteComp->Pause(false);
+							}
 						}
-
+					}
+					else if(bubbleComp && (bubbleComp->GetState() == BubbleComponent::BubbleState::Hovering || bubbleComp->GetState() == BubbleComponent::BubbleState::ReachedTop))
+					{
+						bubbleComp->Pop(false);
 					}
 				}
 			});
