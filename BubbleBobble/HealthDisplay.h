@@ -21,7 +21,7 @@ public:
 	HealthDisplay& operator=(HealthDisplay&& other) = delete;
 
 	void Initialize() override;
-	void SetPlayer(AvatarComponent* player);
+	void SetSubject(dae::Subject<int>* healthSubj);
 
 	int GetHP() const;
 
@@ -32,7 +32,7 @@ private:
 	void UpdateText();
 
 	int m_HP{};
-	AvatarComponent* m_Player{};
+	dae::Subject<int>* m_pSubject{};
 
 	dae::TextComponent* m_pText{};
 };

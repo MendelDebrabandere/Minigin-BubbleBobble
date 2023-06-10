@@ -23,6 +23,8 @@ public:
 	void Initialize() override;
 	void SetPlayer(AvatarComponent* player);
 
+	void Disable();
+
 private:
 
 	void HandleEvent(FoodComponent::FoodType type) override;
@@ -33,5 +35,7 @@ private:
 	AvatarComponent* m_Player{};
 
 	dae::TextComponent* m_pText{};
+
+	bool m_Disable{};
 };
 

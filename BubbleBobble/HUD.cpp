@@ -3,19 +3,21 @@
 #include "ResourceManager.h"
 #include "AvatarComponent.h"
 #include "HealthDisplay.h"
+#include "PlayerMaitaComponent.h"
 #include "ScoreDisplay.h"
 #include "TextComponent.h"
 
 using namespace dae;
 
-GameObject* HUD::CreateHUD(Scene* pScene , AvatarComponent* avatarComp )
+GameObject* HUD::CreateHUD(Scene* pScene , AvatarComponent* avatarComp, PlayerMaitaComponent* maitaComp )
 {
 	const auto pFont{ ResourceManager::GetInstance().LoadFont("Lingua.otf", 36) };
 
-	// ScoreDisplay
+	// Name
 	const auto pName = pScene->CreateGameObject();
 	pName->AddComponent<TextureComponent>();
 	pName->AddComponent<TextComponent>()->SetFont(pFont);
+	pName->AddComponent<ScoreDisplay>()->Disable();
 
 	// ScoreDisplay
 	const auto pScore = pScene->CreateGameObject();
@@ -27,7 +29,7 @@ GameObject* HUD::CreateHUD(Scene* pScene , AvatarComponent* avatarComp )
 	const auto pHealth = pScene->CreateGameObject();
 	pHealth->AddComponent<TextureComponent>();
 	pHealth->AddComponent<TextComponent>()->SetFont(pFont);
-	pHealth->AddComponent<HealthDisplay>()->SetPlayer(avatarComp);
+	pHealth->AddComponent<HealthDisplay>()->SetSubject(&avatarComp->m_HealthChange);
 
 
 	if (avatarComp->GetColor() == AvatarComponent::AvatarColor::green)
@@ -43,6 +45,27 @@ GameObject* HUD::CreateHUD(Scene* pScene , AvatarComponent* avatarComp )
 		pName->GetTransform()->SetWorldPosition(1045, 150);
 		pHealth->GetTransform()->SetWorldPosition(1045, 210);
 		pScore->GetTransform()->SetWorldPosition(1045, 270);
+	}
+
+	//Maita UI
+	if (maitaComp)
+	{
+		pScore->Destroy();
+
+		// Name
+		const auto pMaitaName = pScene->CreateGameObject();
+		pMaitaName->AddComponent<TextureComponent>();
+		pMaitaName->AddComponent<TextComponent>()->SetFont(pFont);
+		pMaitaName->AddComponent<ScoreDisplay>()->Disable();
+		pMaitaName->GetComponent<TextComponent>()->SetText("Maita: ");
+		pMaitaName->GetTransform()->SetWorldPosition(1045, 150);
+
+		// HealthDisplay
+		const auto pMaitaHealth = pScene->CreateGameObject();
+		pMaitaHealth->AddComponent<TextureComponent>();
+		pMaitaHealth->AddComponent<TextComponent>()->SetFont(pFont);
+		pMaitaHealth->AddComponent<HealthDisplay>()->SetSubject(&maitaComp->m_HealthChange);
+		pMaitaHealth->GetTransform()->SetWorldPosition(1045, 210);
 	}
 
 	return pScore;

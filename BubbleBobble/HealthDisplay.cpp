@@ -5,20 +5,18 @@
 #include "TextComponent.h"
 #include <sstream>
 
-#include "BubbleBobble.h"
-
 void HealthDisplay::Initialize()
 {
 	m_HP = 3;
 	UpdateText();
 }
 
-void HealthDisplay::SetPlayer(AvatarComponent* player)
+void HealthDisplay::SetSubject(dae::Subject<int>* healthSubj)
 {
-	m_Player = player;
-	if (m_Player)
+	m_pSubject = healthSubj;
+	if (m_pSubject)
 	{
-		m_Player->m_HealthChange.AddObserver(this);
+		m_pSubject->AddObserver(this);
 	}
 }
 

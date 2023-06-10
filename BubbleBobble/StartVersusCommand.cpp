@@ -32,12 +32,10 @@ void StartVersusCommand::Execute()
 			go->Destroy();
 	}
 
-	Avatar::CreateAvatar(scene, glm::vec2{ 100,700 }, true, true);
-	PlayerMaita::CreateMaita(scene, glm::vec2{ 850,700 });
+	auto avatar = Avatar::CreateAvatar(scene, glm::vec2{ 100,700 }, true, true);
+	auto maita = PlayerMaita::CreateMaita(scene, glm::vec2{ 850,700 });
 
-	//no hud needed in versus
-	//HUD::CreateHUD(scene, avatar1->GetComponent<AvatarComponent>());
-	//HUD::CreateHUD(scene, avatar2->GetComponent<AvatarComponent>());
+	HUD::CreateHUD(scene, avatar->GetComponent<AvatarComponent>(), maita->GetComponent<PlayerMaitaComponent>());
 
 	SceneSwapper::GetInstance().m_State = SceneSwapper::GameState::Versus;
 
