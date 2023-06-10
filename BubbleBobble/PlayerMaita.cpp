@@ -11,6 +11,7 @@
 #include "MaitaComponent.h"
 #include "MoveLeftCommand.h"
 #include "MoveRightCommand.h"
+#include "PlayerMaitaComponent.h"
 
 using namespace dae;
 
@@ -21,7 +22,7 @@ GameObject* PlayerMaita::CreateMaita(Scene* pScene, const glm::vec2& spawnPos)
 
 	auto spriteComp = pMiata->AddComponent<SpriteComponent>();
 	spriteComp->SetTexture("Enemies.png");
-	spriteComp->SetAnimVariables(3, 8, 0.3f, 8, 13);
+	spriteComp->SetAnimVariables(4, 8, 0.1f, 8, 13);
 	spriteComp->Scale(4);
 
 	auto colliderComp = pMiata->AddComponent<ColliderComponent>();
@@ -36,6 +37,8 @@ GameObject* PlayerMaita::CreateMaita(Scene* pScene, const glm::vec2& spawnPos)
 	InputManager::GetInstance().AddControllerCommand(XBox360Controller::ControllerButton::DPadRight, 0, InputManager::InputType::Pressed, std::make_unique<MoveRightCommand>(pMiata, 200.f));
 	//InputManager::GetInstance().AddControllerCommand(XBox360Controller::ControllerButton::ButtonA, 1, InputManager::InputType::Pressed, std::make_unique<JumpCommand>(pAvatar, -450.f));
 	//InputManager::GetInstance().AddControllerCommand(XBox360Controller::ControllerButton::ButtonB, 0, InputManager::InputType::OnDown, std::make_unique<ShootBubbleCommand>(pAvatar));
+
+	pMiata->AddComponent<PlayerMaitaComponent>();
 
 
 	return pMiata;

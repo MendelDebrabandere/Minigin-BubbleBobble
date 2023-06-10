@@ -23,67 +23,34 @@
     <Filter Include="Command\SceneChangingCommands">
       <UniqueIdentifier>{5392cf55-1651-4113-9c11-fa0ac7180663}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Component\Player">
+      <UniqueIdentifier>{8a0115ba-7707-4cc3-aea1-6638842b63f5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Enemy">
+      <UniqueIdentifier>{155877c8-295b-48c1-ab5a-ce4055160fe2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\GameObject">
+      <UniqueIdentifier>{3951f205-cf0c-4ffc-8212-8cc98f5d3977}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\HUD">
+      <UniqueIdentifier>{1631c1fe-e4d3-4c98-9f06-e4e2efc52bd4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Prefabs\Player">
+      <UniqueIdentifier>{324c10f6-5f81-47a3-a4c6-1b1af7dc8726}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Prefabs\GameObject">
+      <UniqueIdentifier>{6c6ed25d-e30b-4eef-bc1c-c6f2cda59317}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Prefabs\HUD">
+      <UniqueIdentifier>{99b579ea-5346-484d-b053-380555347a89}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Prefabs\Enemy">
+      <UniqueIdentifier>{0b94bb07-08bd-422a-bea8-3f927046524e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>Main</Filter>
-    </ClCompile>
-    <ClCompile Include="FPSCounter.cpp">
-      <Filter>Component</Filter>
-    </ClCompile>
-    <ClCompile Include="Avatar.cpp">
-      <Filter>Prefabs</Filter>
-    </ClCompile>
-    <ClCompile Include="Block.cpp">
-      <Filter>Prefabs</Filter>
-    </ClCompile>
-    <ClCompile Include="Platform.cpp">
-      <Filter>Prefabs</Filter>
-    </ClCompile>
-    <ClCompile Include="ZenChan.cpp">
-      <Filter>Prefabs</Filter>
-    </ClCompile>
-    <ClCompile Include="Bubble.cpp">
-      <Filter>Prefabs</Filter>
-    </ClCompile>
-    <ClCompile Include="BubbleComponent.cpp">
-      <Filter>Component</Filter>
-    </ClCompile>
-    <ClCompile Include="AvatarComponent.cpp">
-      <Filter>Component</Filter>
-    </ClCompile>
-    <ClCompile Include="EnemyComponent.cpp">
-      <Filter>Component</Filter>
-    </ClCompile>
-    <ClCompile Include="Food.cpp">
-      <Filter>Prefabs</Filter>
-    </ClCompile>
-    <ClCompile Include="FoodComponent.cpp">
-      <Filter>Component</Filter>
-    </ClCompile>
-    <ClCompile Include="ScoreDisplay.cpp">
-      <Filter>Component</Filter>
-    </ClCompile>
-    <ClCompile Include="ZenChanComponent.cpp">
-      <Filter>Component</Filter>
-    </ClCompile>
-    <ClCompile Include="Maita.cpp">
-      <Filter>Prefabs</Filter>
-    </ClCompile>
-    <ClCompile Include="MaitaComponent.cpp">
-      <Filter>Component</Filter>
-    </ClCompile>
-    <ClCompile Include="Rock.cpp">
-      <Filter>Prefabs</Filter>
-    </ClCompile>
-    <ClCompile Include="RockComponent.cpp">
-      <Filter>Component</Filter>
-    </ClCompile>
-    <ClCompile Include="HUD.cpp">
-      <Filter>Prefabs</Filter>
-    </ClCompile>
-    <ClCompile Include="HealthDisplay.cpp">
-      <Filter>Component</Filter>
     </ClCompile>
     <ClCompile Include="LevelLoader.cpp">
       <Filter>Scenes</Filter>
@@ -121,71 +88,74 @@
     <ClCompile Include="StartCoopCommand.cpp">
       <Filter>Command\SceneChangingCommands</Filter>
     </ClCompile>
-    <ClCompile Include="PlayerMaita.cpp">
-      <Filter>Prefabs</Filter>
-    </ClCompile>
     <ClCompile Include="StartVersusCommand.cpp">
       <Filter>Command\SceneChangingCommands</Filter>
     </ClCompile>
+    <ClCompile Include="AvatarComponent.cpp">
+      <Filter>Component\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyComponent.cpp">
+      <Filter>Component\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="BubbleComponent.cpp">
+      <Filter>Component\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="FoodComponent.cpp">
+      <Filter>Component\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="FPSCounter.cpp">
+      <Filter>Component\HUD</Filter>
+    </ClCompile>
+    <ClCompile Include="HealthDisplay.cpp">
+      <Filter>Component\HUD</Filter>
+    </ClCompile>
+    <ClCompile Include="MaitaComponent.cpp">
+      <Filter>Component\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerMaitaComponent.cpp">
+      <Filter>Component\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="RockComponent.cpp">
+      <Filter>Component\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="ScoreDisplay.cpp">
+      <Filter>Component\HUD</Filter>
+    </ClCompile>
+    <ClCompile Include="ZenChanComponent.cpp">
+      <Filter>Component\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Avatar.cpp">
+      <Filter>Prefabs\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerMaita.cpp">
+      <Filter>Prefabs\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Rock.cpp">
+      <Filter>Prefabs\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Platform.cpp">
+      <Filter>Prefabs\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Food.cpp">
+      <Filter>Prefabs\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Block.cpp">
+      <Filter>Prefabs\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Bubble.cpp">
+      <Filter>Prefabs\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="HUD.cpp">
+      <Filter>Prefabs\HUD</Filter>
+    </ClCompile>
+    <ClCompile Include="Maita.cpp">
+      <Filter>Prefabs\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="ZenChan.cpp">
+      <Filter>Prefabs\Enemy</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="FPSCounter.h">
-      <Filter>Component</Filter>
-    </ClInclude>
-    <ClInclude Include="Avatar.h">
-      <Filter>Prefabs</Filter>
-    </ClInclude>
-    <ClInclude Include="Block.h">
-      <Filter>Prefabs</Filter>
-    </ClInclude>
-    <ClInclude Include="Platform.h">
-      <Filter>Prefabs</Filter>
-    </ClInclude>
-    <ClInclude Include="ZenChan.h">
-      <Filter>Prefabs</Filter>
-    </ClInclude>
-    <ClInclude Include="Bubble.h">
-      <Filter>Prefabs</Filter>
-    </ClInclude>
-    <ClInclude Include="BubbleComponent.h">
-      <Filter>Component</Filter>
-    </ClInclude>
-    <ClInclude Include="AvatarComponent.h">
-      <Filter>Component</Filter>
-    </ClInclude>
-    <ClInclude Include="EnemyComponent.h">
-      <Filter>Component</Filter>
-    </ClInclude>
-    <ClInclude Include="Food.h">
-      <Filter>Prefabs</Filter>
-    </ClInclude>
-    <ClInclude Include="FoodComponent.h">
-      <Filter>Component</Filter>
-    </ClInclude>
-    <ClInclude Include="ScoreDisplay.h">
-      <Filter>Component</Filter>
-    </ClInclude>
-    <ClInclude Include="ZenChanComponent.h">
-      <Filter>Component</Filter>
-    </ClInclude>
-    <ClInclude Include="Maita.h">
-      <Filter>Prefabs</Filter>
-    </ClInclude>
-    <ClInclude Include="MaitaComponent.h">
-      <Filter>Component</Filter>
-    </ClInclude>
-    <ClInclude Include="Rock.h">
-      <Filter>Prefabs</Filter>
-    </ClInclude>
-    <ClInclude Include="RockComponent.h">
-      <Filter>Component</Filter>
-    </ClInclude>
-    <ClInclude Include="HUD.h">
-      <Filter>Prefabs</Filter>
-    </ClInclude>
-    <ClInclude Include="HealthDisplay.h">
-      <Filter>Component</Filter>
-    </ClInclude>
     <ClInclude Include="LevelLoader.h">
       <Filter>Scenes</Filter>
     </ClInclude>
@@ -222,11 +192,71 @@
     <ClInclude Include="StartCoopCommand.h">
       <Filter>Command\SceneChangingCommands</Filter>
     </ClInclude>
-    <ClInclude Include="PlayerMaita.h">
-      <Filter>Prefabs</Filter>
-    </ClInclude>
     <ClInclude Include="StartVersusCommand.h">
       <Filter>Command\SceneChangingCommands</Filter>
+    </ClInclude>
+    <ClInclude Include="AvatarComponent.h">
+      <Filter>Component\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="BubbleComponent.h">
+      <Filter>Component\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyComponent.h">
+      <Filter>Component\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="FoodComponent.h">
+      <Filter>Component\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="FPSCounter.h">
+      <Filter>Component\HUD</Filter>
+    </ClInclude>
+    <ClInclude Include="HealthDisplay.h">
+      <Filter>Component\HUD</Filter>
+    </ClInclude>
+    <ClInclude Include="MaitaComponent.h">
+      <Filter>Component\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerMaitaComponent.h">
+      <Filter>Component\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="RockComponent.h">
+      <Filter>Component\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="ScoreDisplay.h">
+      <Filter>Component\HUD</Filter>
+    </ClInclude>
+    <ClInclude Include="ZenChanComponent.h">
+      <Filter>Component\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Avatar.h">
+      <Filter>Prefabs\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerMaita.h">
+      <Filter>Prefabs\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Rock.h">
+      <Filter>Prefabs\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Platform.h">
+      <Filter>Prefabs\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Food.h">
+      <Filter>Prefabs\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Block.h">
+      <Filter>Prefabs\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Bubble.h">
+      <Filter>Prefabs\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="HUD.h">
+      <Filter>Prefabs\HUD</Filter>
+    </ClInclude>
+    <ClInclude Include="Maita.h">
+      <Filter>Prefabs\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="ZenChan.h">
+      <Filter>Prefabs\Enemy</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

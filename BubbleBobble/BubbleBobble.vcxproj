@@ -175,6 +175,7 @@
     <ClCompile Include="HUD.cpp" />
     <ClCompile Include="JumpCommand.cpp" />
     <ClCompile Include="PlayerMaita.cpp" />
+    <ClCompile Include="PlayerMaitaComponent.cpp" />
     <ClCompile Include="StartCoopCommand.cpp" />
     <ClCompile Include="StartSinglePlayerCommand.cpp" />
     <ClCompile Include="LevelLoader.cpp" />
@@ -211,6 +212,7 @@
     <ClInclude Include="HUD.h" />
     <ClInclude Include="JumpCommand.h" />
     <ClInclude Include="PlayerMaita.h" />
+    <ClInclude Include="PlayerMaitaComponent.h" />
     <ClInclude Include="StartCoopCommand.h" />
     <ClInclude Include="StartSinglePlayerCommand.h" />
     <ClInclude Include="LevelLoader.h" />

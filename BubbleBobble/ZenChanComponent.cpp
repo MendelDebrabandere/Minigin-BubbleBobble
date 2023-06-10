@@ -31,7 +31,7 @@ void ZenChanComponent::Update()
 			//stop charging
 			m_Charging = false;
 			m_ChargingTimer = float(rand() % 10 + 7); //random time between 7-17 sec before charging again
-			spriteComponent->SetAnimVariables(3, 8, 0.3f, 0, 4);
+			spriteComponent->SetAnimVariables(4, 8, 0.3f, 0, 4);
 			spriteComponent->Scale(4);
 		}
 	}
@@ -43,7 +43,7 @@ void ZenChanComponent::Update()
 			//start charging
 			m_Charging = true;
 			m_ChargingTimer = float(rand() % 5 + 4); //random time between 4-9 sec before stopping
-			spriteComponent->SetAnimVariables(3, 8, 0.1f, 4, 8);
+			spriteComponent->SetAnimVariables(4, 8, 0.1f, 4, 8);
 			spriteComponent->Scale(4);
 		}
 	}

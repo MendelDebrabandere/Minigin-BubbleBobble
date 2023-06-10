@@ -11,6 +11,8 @@ public:
 
 	void Execute() override;
 private:
+	void Move();
+
 	dae::GameObject* m_pGo{};
 	float m_Speed{};
 };

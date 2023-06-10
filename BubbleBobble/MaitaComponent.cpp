@@ -22,13 +22,13 @@ void MaitaComponent::Update()
 	{
 		if (!m_Throwing)
 		{
-			spriteComp->SetAnimVariables(3, 4, 0.2f, 7, 12);
+			spriteComp->SetAnimVariables(4, 4, 0.2f, 7, 12);
 			m_RockThrowingTimer = 0.2f * 3.9f;
 		}
 		else
 		{
 			Rock::CreateRock(dae::SceneManager::GetInstance().GetActiveScene(), m_pOwner, m_pOwner->GetComponent<EnemyComponent>()->GetMoveRight());
-			spriteComp->SetAnimVariables(3, 8, 0.3f, 8, 13);
+			spriteComp->SetAnimVariables(4, 8, 0.3f, 8, 13);
 			m_RockThrowingTimer = float(rand() % 3 + 5);
 		}
 		spriteComp->Scale(4);

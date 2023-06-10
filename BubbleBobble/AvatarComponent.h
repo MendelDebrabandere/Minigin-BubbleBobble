@@ -4,7 +4,7 @@
 #include "FoodComponent.h"
 #include "Subject.h"
 
-class AvatarComponent : public dae::Component
+class AvatarComponent final : public dae::Component
 {
 public:
 	enum class AvatarState

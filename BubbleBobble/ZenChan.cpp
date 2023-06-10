@@ -16,7 +16,7 @@ GameObject* ZenChan::CreateZenChan(Scene* pScene, const glm::vec2& spawnPos)
 
 	auto spriteComp = pZen->AddComponent<SpriteComponent>();
 	spriteComp->SetTexture("Enemies.png");
-	spriteComp->SetAnimVariables(3, 8, 0.3f, 0, 4);
+	spriteComp->SetAnimVariables(4, 8, 0.3f, 0, 4);
 	spriteComp->Scale(4);
 
 	auto colliderComp = pZen->AddComponent<ColliderComponent>();
