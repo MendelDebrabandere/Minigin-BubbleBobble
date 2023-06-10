@@ -174,6 +174,7 @@
     <ClCompile Include="HighScoreScene.cpp" />
     <ClCompile Include="HUD.cpp" />
     <ClCompile Include="JumpCommand.cpp" />
+    <ClCompile Include="PlayerMaita.cpp" />
     <ClCompile Include="StartCoopCommand.cpp" />
     <ClCompile Include="StartSinglePlayerCommand.cpp" />
     <ClCompile Include="LevelLoader.cpp" />
@@ -190,6 +191,7 @@
     <ClCompile Include="ScoreDisplay.cpp" />
     <ClCompile Include="ShootBubbleCommand.cpp" />
     <ClCompile Include="SkipLevelCommand.cpp" />
+    <ClCompile Include="StartVersusCommand.cpp" />
     <ClCompile Include="ZenChan.cpp" />
     <ClCompile Include="ZenChanComponent.cpp" />
   </ItemGroup>
@@ -208,6 +210,7 @@
     <ClInclude Include="HighScoreScene.h" />
     <ClInclude Include="HUD.h" />
     <ClInclude Include="JumpCommand.h" />
+    <ClInclude Include="PlayerMaita.h" />
     <ClInclude Include="StartCoopCommand.h" />
     <ClInclude Include="StartSinglePlayerCommand.h" />
     <ClInclude Include="LevelLoader.h" />
@@ -223,6 +226,7 @@
     <ClInclude Include="ScoreDisplay.h" />
     <ClInclude Include="ShootBubbleCommand.h" />
     <ClInclude Include="SkipLevelCommand.h" />
+    <ClInclude Include="StartVersusCommand.h" />
     <ClInclude Include="ZenChan.h" />
     <ClInclude Include="ZenChanComponent.h" />
   </ItemGroup>

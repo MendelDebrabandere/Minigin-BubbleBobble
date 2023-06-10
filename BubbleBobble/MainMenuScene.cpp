@@ -7,6 +7,7 @@
 #include "Scene.h"
 #include "StartCoopCommand.h"
 #include "StartSinglePlayerCommand.h"
+#include "StartVersusCommand.h"
 #include "TextComponent.h"
 #include "Texture2D.h"
 
@@ -34,6 +35,7 @@ void MainMenuScene::Create()
 	//Add a commands to start the game
 	InputManager::GetInstance().AddKeyboardCommand('1', InputManager::InputType::OnDown, std::make_unique<StartSinglePlayerCommand>());
 	InputManager::GetInstance().AddKeyboardCommand('2', InputManager::InputType::OnDown, std::make_unique<StartCoopCommand>());
+	InputManager::GetInstance().AddKeyboardCommand('3', InputManager::InputType::OnDown, std::make_unique<StartVersusCommand>());
 
 	const auto pFont{ ResourceManager::GetInstance().LoadFont("Lingua.otf", 36) };
 

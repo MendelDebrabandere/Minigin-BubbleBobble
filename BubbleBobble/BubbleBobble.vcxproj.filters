@@ -121,6 +121,12 @@
     <ClCompile Include="StartCoopCommand.cpp">
       <Filter>Command\SceneChangingCommands</Filter>
     </ClCompile>
+    <ClCompile Include="PlayerMaita.cpp">
+      <Filter>Prefabs</Filter>
+    </ClCompile>
+    <ClCompile Include="StartVersusCommand.cpp">
+      <Filter>Command\SceneChangingCommands</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FPSCounter.h">
@@ -214,6 +220,12 @@
       <Filter>Command\SceneChangingCommands</Filter>
     </ClInclude>
     <ClInclude Include="StartCoopCommand.h">
+      <Filter>Command\SceneChangingCommands</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerMaita.h">
+      <Filter>Prefabs</Filter>
+    </ClInclude>
+    <ClInclude Include="StartVersusCommand.h">
       <Filter>Command\SceneChangingCommands</Filter>
     </ClInclude>
   </ItemGroup>
