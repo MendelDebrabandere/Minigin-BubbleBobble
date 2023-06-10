@@ -1,15 +1,11 @@
 #include "EventListener.h"
 
-#include "EventQueue.h"
-
 using namespace dae;
+
+int EventListener::s_IdCounter{ 0 };
 
 EventListener::EventListener()
 {
-	EventQueue::GetInstance().AddListener(this);
-}
-
-EventListener::~EventListener()
-{
-	EventQueue::GetInstance().RemoveListener(this);
+	m_ID = s_IdCounter;
+	++s_IdCounter;
 }

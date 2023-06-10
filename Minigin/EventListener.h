@@ -7,7 +7,7 @@ namespace dae
 	{
 	public:
 		EventListener();
-		virtual ~EventListener();
+		virtual ~EventListener() = default;
 		EventListener(const EventListener&) = delete;
 		EventListener(EventListener&&) = delete;
 		EventListener& operator= (const EventListener&) = delete;
@@ -15,7 +15,11 @@ namespace dae
 
 		virtual void OnEvent(const Event& event) = 0;
 
-	private:
+		int GetId() const { return m_ID; }
 
+	private:
+		int m_ID{};
+
+		static int s_IdCounter;
 	};
 }

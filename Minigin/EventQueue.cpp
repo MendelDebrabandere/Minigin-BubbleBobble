@@ -32,10 +32,20 @@ bool EventQueue::PollEvent(Event& e)
 
 void EventQueue::AddListener(EventListener* listener)
 {
-	m_Listeners.insert(listener);
+	m_Listeners.push_back(listener);
 }
 
-void EventQueue::RemoveListener(EventListener* listener)
+void EventQueue::RemoveListener(int listenerId)
 {
-	m_Listeners.erase(listener);
+	std::vector<EventListener*> newListeners;
+
+	for (auto* listener : m_Listeners)
+	{
+		if (listener && listener->GetId() != listenerId)
+		{
+			newListeners.push_back(listener);
+		}
+	}
+
+	m_Listeners = newListeners;
 }

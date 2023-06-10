@@ -6,7 +6,6 @@
 #include "EventListener.h"
 
 #include <queue>
-#include <unordered_set>
 
 namespace dae
 {
@@ -21,14 +20,17 @@ namespace dae
 		void NotifyListeners();
 
 		void AddListener(EventListener* listener);
-		void RemoveListener(EventListener* listener);
+		void RemoveListener(int listenerId);
+
+
 
 	private:
 		bool PollEvent(Event& e);
 
 		std::queue<Event> m_EventQueue{};
 
-		std::unordered_set<EventListener*> m_Listeners;
+		
+		std::vector<EventListener*> m_Listeners;
 	};
 }
 

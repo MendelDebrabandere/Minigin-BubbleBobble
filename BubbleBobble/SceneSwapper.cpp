@@ -1,12 +1,12 @@
 #include "SceneSwapper.h"
 
-#include "Avatar.h"
 #include "AvatarComponent.h"
-#include "BubbleBobble.h"
 #include "BubbleComponent.h"
 #include "EnemyComponent.h"
+#include "EventQueue.h"
 #include "FoodComponent.h"
 #include "HealthDisplay.h"
+#include "HighScoreScene.h"
 #include "LevelLoader.h"
 #include "MainMenuScene.h"
 #include "SceneManager.h"
@@ -21,6 +21,8 @@ void SceneSwapper::Init()
 {
 	SceneManager::GetInstance().SetSceneSwapperFunc([this]() {Update(); });
 	MainMenuScene::Create();
+
+	EventQueue::GetInstance().AddListener(this);
 }
 
 void SceneSwapper::Update()
@@ -117,11 +119,15 @@ void SceneSwapper::SkipLevel()
 			else
 			{
 				if (m_State == GameState::SinglePlayer)
-					//TODO: go to highscore
-					MainMenuScene::Create();
+				{
+					HighScoreScene::Create();
+					m_State = GameState::SetHighScore;
+				}
 				else
+				{
 					MainMenuScene::Create();
-				m_State = GameState::Menu;
+					m_State = GameState::Menu;
+				}
 			}
 		}
 	}
@@ -132,12 +138,16 @@ void SceneSwapper::OnEvent(const dae::Event& e)
 	if (e.name == "PlayerDied")
 	{
 		if (m_State == GameState::SinglePlayer)
-			MainMenuScene::Create();
-			//TODO: go to highscore
+		{
+			HighScoreScene::Create();
+			m_State = GameState::SetHighScore;
+		}
 		else
+		{
 			MainMenuScene::Create();
+			m_State = GameState::Menu;
+		}
 
-		m_State = GameState::Menu;
 	}
 }
 

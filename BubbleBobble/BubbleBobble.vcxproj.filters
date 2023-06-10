@@ -157,6 +157,9 @@
     <ClCompile Include="ThrowRockCommand.cpp">
       <Filter>Command\GameCommands</Filter>
     </ClCompile>
+    <ClCompile Include="TypingKeyboardComponent.cpp">
+      <Filter>Component\HUD</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="LevelLoader.h">
@@ -263,6 +266,9 @@
     </ClInclude>
     <ClInclude Include="ThrowRockCommand.h">
       <Filter>Command\GameCommands</Filter>
+    </ClInclude>
+    <ClInclude Include="TypingKeyboardComponent.h">
+      <Filter>Component\HUD</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

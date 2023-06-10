@@ -1,6 +1,8 @@
 #include <SDL.h>
 #include "InputManager.h"
 
+#include "EventQueue.h"
+
 using namespace dae;
 
 bool InputManager::ProcessInput()
@@ -39,6 +41,15 @@ bool InputManager::ProcessInput()
 					//stop the loop
 					break;
 				}
+			}
+		}
+
+		if (e.type == SDL_KEYDOWN)
+		{
+			//broadcast event of onkeydown
+			if (e.key.keysym.sym >= 'a' && e.key.keysym.sym <= 'z')
+			{
+				EventQueue::GetInstance().SendEvent(Event{std::string{char(e.key.keysym.sym)}});
 			}
 		}
 	}
