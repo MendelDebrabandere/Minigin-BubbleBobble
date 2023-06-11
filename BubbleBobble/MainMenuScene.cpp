@@ -107,7 +107,7 @@ void MainMenuScene::Create()
 
 	HighScoreLoader::LoadHighScores("HighScores.json");
 	const auto highScores = HighScoreLoader::GetTopFive();
-	for (int i{}; i < highScores.size(); ++i)
+	for (unsigned int i{}; i < highScores.size(); ++i)
 	{
 		const auto pScore = pGameScene->CreateGameObject();
 		pScore->AddComponent<TextureComponent>();

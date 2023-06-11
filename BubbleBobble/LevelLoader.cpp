@@ -20,6 +20,19 @@ using namespace dae;
 
 void LevelLoader::LoadLevel(Scene* pScene, int number, bool /*loadAvatar*/)
 {
+	//set avatar pos
+	for (auto& go : pScene->GetAllObjects())
+	{
+		const auto avatarComp = go->GetComponent<AvatarComponent>();
+		if (avatarComp)
+		{
+			if (avatarComp->GetColor() == AvatarComponent::AvatarColor::green)
+				go->GetTransform()->SetWorldPosition(100, 700);
+			else
+				go->GetTransform()->SetWorldPosition(850, 700);
+		}
+	}
+
 	// load level from file
 	std::string line;
 	std::string fileName{ "../Data/Level" };
@@ -62,23 +75,6 @@ void LevelLoader::LoadLevel(Scene* pScene, int number, bool /*loadAvatar*/)
 					ZenChan::CreateZenChan(pScene, spawnPos);
 					break;
 				}
-				//case '5':
-				//{
-				//	if (loadAvatar) 
-				//		Avatar::CreateAvatar(pScene, spawnPos);
-				//	else
-				//	{
-				//		//translate the current one to the pos
-				//		for (auto& go : pScene->GetAllObjects())
-				//		{
-				//			if (go->GetComponent<AvatarComponent>())
-				//			{
-				//				go->GetTransform()->SetWorldPosition(glm::vec2{ blockSize * posX, blockSize * posY });
-				//			}
-				//		}
-				//	}
-				//	break;
-				//}
 				}
 
 				++posX;
@@ -88,7 +84,7 @@ void LevelLoader::LoadLevel(Scene* pScene, int number, bool /*loadAvatar*/)
 		}
 		myfile.close();
 	}
-
+	
 	// FPS COUNTER
 	const auto pFont{ ResourceManager::GetInstance().LoadFont("Lingua.otf", 36) };
 	const auto pFPSCounter = pScene->CreateGameObject();
