@@ -118,7 +118,7 @@ void SceneSwapper::SkipLevel()
 			}
 			else
 			{
-				if (m_State == GameState::SinglePlayer)
+				if (m_State == GameState::SinglePlayer || m_State == GameState::Coop)
 				{
 					HighScoreScene::Create();
 					m_State = GameState::SetHighScore;
@@ -137,7 +137,7 @@ void SceneSwapper::OnEvent(const dae::Event& e)
 {
 	if (e.name == "PlayerDied")
 	{
-		if (m_State == GameState::SinglePlayer)
+		if (m_State == GameState::SinglePlayer || m_State == GameState::Coop)
 		{
 			HighScoreScene::Create();
 			m_State = GameState::SetHighScore;

@@ -23,6 +23,8 @@ public:
 	void Initialize() override;
 	void SetPlayer(AvatarComponent* player);
 
+	int GetScore() const;
+
 private:
 
 	void HandleEvent(FoodComponent::FoodType type) override;

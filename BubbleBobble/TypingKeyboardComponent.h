@@ -21,6 +21,8 @@ public:
 
 	void OnEvent(const dae::Event& event);
 
+	const std::string& GetInput() const;
+
 private:
 	std::string m_TextString{};
 

@@ -23,18 +23,19 @@ void HighScoreScene::Create()
 	InputManager::GetInstance().RemoveAllInputs();
 
 
-	//int totalHighScore{};
-	//for (auto& go : pGameScene->GetAllObjects())
-	//{
-	//	const auto scoreDisplay = go->GetComponent<ScoreDisplay>();
-	//	if (scoreDisplay)
-	//	{
-	//		totalHighScore += scoreDisplay->
-	//	}
-	//}
+	//Get total highscore
+	int totalHighScore{};
+	for (auto& go : pGameScene->GetAllObjects())
+	{
+		const auto scoreDisplay = go->GetComponent<ScoreDisplay>();
+		if (scoreDisplay)
+		{
+			totalHighScore += scoreDisplay->GetScore();
+		}
+	}
 
 
-
+	//clear scene and set up for new one
 	if (pGameScene)
 	{
 		pGameScene->RemoveAll();
@@ -48,10 +49,10 @@ void HighScoreScene::Create()
 	pSceneManager.SetActiveScene(pGameScene);
 
 
-
-
-	//Add a command to go to the menu
-	InputManager::GetInstance().AddKeyboardCommand(SDLK_RETURN, InputManager::InputType::OnDown, std::make_unique<LeaveHighScoreSceneCommand>());
+	//CREATE SCENE
+	//=============================================
+	//Add a command to go to the scene
+	InputManager::GetInstance().AddKeyboardCommand(SDLK_RETURN, InputManager::InputType::OnDown, std::make_unique<LeaveHighScoreSceneCommand>(totalHighScore));
 
 	const auto pFont{ ResourceManager::GetInstance().LoadFont("Retro.otf", 36) };
 
@@ -66,6 +67,15 @@ void HighScoreScene::Create()
 	pFPSCounter->AddComponent<TextureComponent>();
 	pFPSCounter->AddComponent<FPSCounter>();
 	pFPSCounter->AddComponent<TextComponent>()->SetFont(pFont);
+
+	// Your Highscore:
+	const auto pScore = pGameScene->CreateGameObject();
+	pScore->AddComponent<TextureComponent>();
+	pScore->AddComponent<TextComponent>()->SetFont(pFont);
+	pScore->GetComponent<TextComponent>()->SetText("Total score: " + std::to_string(totalHighScore));
+	pScore->GetComponent<TextComponent>()->Update();
+	pScore->GetTransform()->SetWorldPosition(1280.f / 2 - pScore->GetComponent<TextureComponent>()->GetTextureSize().x / 2, 350);
+
 
 	// Enter your name for your highscore
 	const auto pName = pGameScene->CreateGameObject();

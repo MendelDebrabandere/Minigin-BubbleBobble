@@ -1,5 +1,4 @@
 #include "TypingKeyboardComponent.h"
-#include <memory>
 
 #include "EventQueue.h"
 #include "GameObject.h"
@@ -46,4 +45,9 @@ void TypingKeyboardComponent::OnEvent(const dae::Event& event)
 
 		m_pText->SetText(m_TextString);
 	}
+}
+
+const std::string& TypingKeyboardComponent::GetInput() const
+{
+	return m_TextString;
 }

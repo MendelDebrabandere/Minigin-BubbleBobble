@@ -19,6 +19,11 @@ void ScoreDisplay::SetPlayer(AvatarComponent* player)
 	}
 }
 
+int ScoreDisplay::GetScore() const
+{
+	return m_score;
+}
+
 void ScoreDisplay::HandleEvent(FoodComponent::FoodType type)
 {
 	switch (type)
