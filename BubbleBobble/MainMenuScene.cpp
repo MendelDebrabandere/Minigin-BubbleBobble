@@ -117,4 +117,38 @@ void MainMenuScene::Create()
 		pScore->GetComponent<TextComponent>()->Update();
 		pScore->GetTransform()->SetWorldPosition(20, 50.f + 30.f * (static_cast<float>(i) + 1.f));
 	}
+
+	//==============================
+	//CONTROLS
+	const auto pKeyboard = pGameScene->CreateGameObject();
+	pKeyboard->AddComponent<TextureComponent>();
+	pKeyboard->AddComponent<TextComponent>()->SetFont(pFont);
+	pKeyboard->GetComponent<TextComponent>()->SetText("Keyboard controls:");
+	pKeyboard->GetComponent<TextComponent>()->SetColor(200, 200, 200);
+	pKeyboard->GetComponent<TextComponent>()->Update();
+	pKeyboard->GetTransform()->SetWorldPosition(890, 30);
+
+	const auto pWASD = pGameScene->CreateGameObject();
+	pWASD->AddComponent<TextureComponent>();
+	pWASD->AddComponent<TextComponent>()->SetFont(pFont);
+	pWASD->GetComponent<TextComponent>()->SetText("WASD and spacebar");
+	pWASD->GetComponent<TextComponent>()->SetColor(200, 200, 200);
+	pWASD->GetComponent<TextComponent>()->Update();
+	pWASD->GetTransform()->SetWorldPosition(890, 70);
+
+	const auto pController = pGameScene->CreateGameObject();
+	pController->AddComponent<TextureComponent>();
+	pController->AddComponent<TextComponent>()->SetFont(pFont);
+	pController->GetComponent<TextComponent>()->SetText("Controller controls:");
+	pController->GetComponent<TextComponent>()->SetColor(200, 200, 200);
+	pController->GetComponent<TextComponent>()->Update();
+	pController->GetTransform()->SetWorldPosition(890, 150);
+
+	const auto pDPAD = pGameScene->CreateGameObject();
+	pDPAD->AddComponent<TextureComponent>();
+	pDPAD->AddComponent<TextComponent>()->SetFont(pFont);
+	pDPAD->GetComponent<TextComponent>()->SetText("DPAD, A and B");
+	pDPAD->GetComponent<TextComponent>()->SetColor(200, 200, 200);
+	pDPAD->GetComponent<TextComponent>()->Update();
+	pDPAD->GetTransform()->SetWorldPosition(890, 190);
 }
