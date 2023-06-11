@@ -2,11 +2,9 @@
 
 #include "BubbleComponent.h"
 #include "ColliderComponent.h"
-#include "EnemyComponent.h"
 #include "Transform.h"
 #include "GameObject.h"
 #include "Rock.h"
-#include "RockComponent.h"
 #include "SceneManager.h"
 #include "SpriteComponent.h"
 #include "Timer.h"

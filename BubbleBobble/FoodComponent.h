@@ -1,7 +1,7 @@
 #pragma once
 #include "Component.h"
 
-class FoodComponent : public dae::Component
+class FoodComponent final : public dae::Component
 {
 public:
 	enum class FoodType
@@ -11,7 +11,7 @@ public:
 	};
 
 	FoodComponent() = default;
-	virtual ~FoodComponent() = default;
+	~FoodComponent() override = default;
 
 	FoodComponent(const FoodComponent& other) = delete;
 	FoodComponent(FoodComponent&& other) = delete;

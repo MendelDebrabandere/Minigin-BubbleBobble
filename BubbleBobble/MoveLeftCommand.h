@@ -1,5 +1,6 @@
 #pragma once
 #include "Command.h"
+#include "GameObject.h"
 
 class MoveLeftCommand final : public dae::Command
 {

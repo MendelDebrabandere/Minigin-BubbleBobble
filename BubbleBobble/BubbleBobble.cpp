@@ -3,10 +3,7 @@
 #include <ctime>
 #include <iostream>
 
-#include "NullSoundSystem.h"
-#include "ResourceManager.h"
 #include "SceneSwapper.h"
-#include "ServiceLocator.h"
 
 using namespace dae;
 

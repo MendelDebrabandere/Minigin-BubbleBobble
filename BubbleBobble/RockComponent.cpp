@@ -33,7 +33,7 @@ void RockComponent::Update()
 
 		//set horizontal movespeed
 		int moveDir = m_MoveRight ? 1 : -1;
-		m_pOwner->GetTransform()->Translate(moveDir * m_HorMoveSpeed * elapsedSec, 0);
+		m_pOwner->GetTransform()->Translate(static_cast<float>(moveDir) * m_HorMoveSpeed * elapsedSec, 0);
 		break;
 	}
 	case RockState::Crashing:

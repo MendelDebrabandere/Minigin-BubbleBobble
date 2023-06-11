@@ -19,7 +19,7 @@
 
 using namespace dae;
 
-void LevelLoader::LoadLevel(Scene* pScene, int number, bool /*loadAvatar*/)
+void LevelLoader::LoadLevel(Scene* pScene, int number)
 {
 	//set avatar pos
 	for (auto& go : pScene->GetAllObjects())
@@ -81,6 +81,8 @@ void LevelLoader::LoadLevel(Scene* pScene, int number, bool /*loadAvatar*/)
 					ZenChan::CreateZenChan(pScene, spawnPos);
 					break;
 				}
+				default:
+					break;
 				}
 
 				++posX;

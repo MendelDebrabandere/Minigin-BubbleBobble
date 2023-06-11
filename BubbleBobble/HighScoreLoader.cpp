@@ -10,11 +10,6 @@
 #include <stringbuffer.h>
 //#pragma warning(default : 4996)
 
-//init variables
-std::map<std::string, int> HighScoreLoader::m_HighScores{};
-rapidjson::Document HighScoreLoader::m_Document{};
-std::string HighScoreLoader::m_FileName{};
-
 using namespace rapidjson;
 
 int HighScoreLoader::LoadHighScores(const std::string& fileName)

@@ -76,9 +76,6 @@ void SceneSwapper::Update()
 		break;
 	}
 	case GameState::Versus:
-	{
-		break;
-	}
 	case GameState::SetHighScore:
 	{
 		break;
@@ -94,7 +91,7 @@ void SceneSwapper::SkipLevel()
 	{
 		auto& sceneManager = SceneManager::GetInstance();
 		auto* pGameScene = sceneManager.GetActiveScene();
-		auto name = pGameScene->GetName();
+		auto& name = pGameScene->GetName();
 
 		//Remove everything that doesnt have the avatar component
 		auto& objVec = pGameScene->GetAllObjects();
@@ -114,7 +111,7 @@ void SceneSwapper::SkipLevel()
 			if (levelNr < 3)
 			{
 				pGameScene->SetName(std::to_string(levelNr + 1));
-				LevelLoader::LoadLevel(pGameScene, levelNr + 1, false);
+				LevelLoader::LoadLevel(pGameScene, levelNr + 1);
 				sceneManager.SetActiveScene(pGameScene);
 			}
 			else

@@ -23,7 +23,7 @@ public:
 private:
 	static void GenerateDefaultJson(const std::string& filename);
 
-	static std::map<std::string, int> m_HighScores;
-	static rapidjson::Document m_Document;
-	static std::string m_FileName;
+	inline static std::map<std::string, int> m_HighScores{};
+	inline static rapidjson::Document m_Document{};
+	inline static std::string m_FileName{};
 };

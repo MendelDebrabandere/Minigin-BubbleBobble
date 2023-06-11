@@ -15,7 +15,7 @@ void FPSCounter::Update()
 	{
 		m_AccuSec -= m_UpdateInterval;
 
-		m_FPS = static_cast<int>(m_AmountOfPassedFrames / m_UpdateInterval);
+		m_FPS = static_cast<int>(static_cast<float>(m_AmountOfPassedFrames) / m_UpdateInterval);
 
 		m_AmountOfPassedFrames = 0;
 

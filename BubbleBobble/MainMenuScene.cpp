@@ -14,6 +14,7 @@
 #include "TextComponent.h"
 #include "Texture2D.h"
 #include "ToggleSoundSysCommand.h"
+#include "TextureComponent.h"
 
 using namespace dae;
 

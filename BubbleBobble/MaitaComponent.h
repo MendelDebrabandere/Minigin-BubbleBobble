@@ -1,11 +1,11 @@
 #pragma once
 #include "Component.h"
 
-class MaitaComponent : public dae::Component
+class MaitaComponent final : public dae::Component
 {
 public:
 	MaitaComponent() = default;
-	virtual ~MaitaComponent() = default;
+	~MaitaComponent() override = default;
 
 	MaitaComponent(const MaitaComponent& other) = delete;
 	MaitaComponent(MaitaComponent&& other) = delete;

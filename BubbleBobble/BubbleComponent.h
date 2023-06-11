@@ -3,7 +3,7 @@
 
 #include "Component.h"
 
-class BubbleComponent : public dae::Component
+class BubbleComponent final : public dae::Component
 {
 public:
 	enum class BubbleState
@@ -16,7 +16,7 @@ public:
 	};
 
 	BubbleComponent() = default;
-	virtual ~BubbleComponent() = default;
+	~BubbleComponent() override = default;
 
 	BubbleComponent(const BubbleComponent& other) = delete;
 	BubbleComponent(BubbleComponent&& other) = delete;

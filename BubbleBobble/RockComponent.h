@@ -1,7 +1,7 @@
 #pragma once
 #include "Component.h"
 
-class RockComponent : public dae::Component
+class RockComponent final : public dae::Component
 {
 public:
 	RockComponent() = default;

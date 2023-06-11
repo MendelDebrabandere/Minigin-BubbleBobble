@@ -3,12 +3,10 @@
 #include "ZenChan.h"
 
 #include "ColliderComponent.h"
-#include "EnemyComponent.h"
 #include "InputManager.h"
 #include "JumpCommand.h"
 #include "PhysicsComponent.h"
 #include "SpriteComponent.h"
-#include "MaitaComponent.h"
 #include "MoveLeftCommand.h"
 #include "MoveRightCommand.h"
 #include "PlayerMaitaComponent.h"

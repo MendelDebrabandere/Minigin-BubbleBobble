@@ -19,7 +19,7 @@ public:
 	TypingKeyboardComponent& operator=(const TypingKeyboardComponent& other) = delete;
 	TypingKeyboardComponent& operator=(TypingKeyboardComponent&& other) = delete;
 
-	void OnEvent(const dae::Event& event);
+	void OnEvent(const dae::Event& event) override;
 
 	const std::string& GetInput() const;
 

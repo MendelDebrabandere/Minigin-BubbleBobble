@@ -1,5 +1,6 @@
 #pragma once
 #include "Command.h"
+#include "GameObject.h"
 #include "Timer.h"
 
 class ThrowRockCommand final : public dae::Command

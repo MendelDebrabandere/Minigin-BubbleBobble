@@ -4,7 +4,6 @@
 
 #include "ColliderComponent.h"
 #include "EnemyComponent.h"
-#include "JumpCommand.h"
 #include "PhysicsComponent.h"
 #include "SpriteComponent.h"
 #include "MaitaComponent.h"

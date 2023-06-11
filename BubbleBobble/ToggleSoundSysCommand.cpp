@@ -1,5 +1,6 @@
 #include "ToggleSoundSysCommand.h"
 
+#include <iostream>
 #include <SDL_mixer.h>
 
 #include "SDLSoundSystem.h"
@@ -15,17 +16,15 @@ void ToggleSoundSysCommand::Execute()
 
 		if (m_SoundIsOn)
 		{
-			//dae::ServiceLocator::RegisterSoundSystem(new dae::SDLSoundSystem());
-			std::cout << "Muted sound\n";
+			std::cout << "Unmuted sound\n";
 			Mix_Volume(-1, MIX_MAX_VOLUME);
 			Mix_VolumeMusic(MIX_MAX_VOLUME);
 		}
 		else
 		{
-			//dae::ServiceLocator::RegisterSoundSystem(new dae::NullSoundSystem());
 			Mix_Volume(-1, 0);
 			Mix_VolumeMusic(0);
-			std::cout << "SoundSystem is set to NullSoundSystem\n";
+			std::cout << "Muted sound\n";
 		}
 	}
 }

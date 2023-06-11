@@ -63,6 +63,8 @@ void BubbleComponent::Initialize()
 					}
 					break;
 				}
+				default:
+					break;
 				}
 			});
 	}

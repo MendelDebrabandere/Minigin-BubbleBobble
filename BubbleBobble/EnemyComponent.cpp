@@ -14,7 +14,7 @@ void EnemyComponent::Initialize()
 	m_WalkingSpeed = 150.f;
 	m_JumpingCooldown = 2;
 	m_JumpSpeed = -450;
-	m_ChangeWalkDirTimer = float(rand() % 2 + 3);
+	m_ChangeWalkDirTimer = static_cast<float>(rand() % 2 + 3);
 
 	// init avatar transform
 	auto& allObjects = dae::SceneManager::GetInstance().GetActiveScene()->GetAllObjects();
@@ -72,6 +72,8 @@ void EnemyComponent::Update()
 					m_JumpingCooldown = 1.11f;
 					physComp->Jump(m_JumpSpeed);
 					break;
+				default:
+					break;
 				}
 			}
 		}
@@ -83,7 +85,7 @@ void EnemyComponent::Update()
 				m_WalkingRight = false;
 			else
 				m_WalkingRight = true;
-			m_ChangeWalkDirTimer = float(rand() % 2 + 3);
+			m_ChangeWalkDirTimer = static_cast<float>(rand() % 2 + 3);
 		}
 
 		auto collisionState = physComp->GetCollisionState();
@@ -101,7 +103,7 @@ void EnemyComponent::Update()
 		}
 
 		//move
-		int moveDir = m_WalkingRight ? 1 : -1;
+		float moveDir = m_WalkingRight ? 1.f : -1.f;
 		moveDelta.x = m_WalkingSpeed * moveDir * deltaTime;
 
 		break;
