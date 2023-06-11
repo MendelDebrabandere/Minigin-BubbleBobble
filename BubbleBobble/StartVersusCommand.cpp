@@ -44,5 +44,5 @@ void StartVersusCommand::Execute()
 	SceneSwapper::GetInstance().m_State = SceneSwapper::GameState::Versus;
 
 	//Start playing the in game music
-	dae::ServiceLocator::GetSoundSystem().PlayMusic("../Data/Sound/MainTheme.mp3", 15, -1);
+	dae::ServiceLocator::GetSoundSystem().PlayMusic("../Data/Sound/MainTheme.mp3", 100, -1);
 }

@@ -5,6 +5,8 @@
 #include "Transform.h"
 #include "GameObject.h"
 #include "RockComponent.h"
+#include "ServiceLocator.h"
+#include "SoundSystem.h"
 #include "SpriteComponent.h"
 #include "Timer.h"
 
@@ -33,6 +35,8 @@ void AvatarComponent::Initialize()
 						}
 
 						m_CurrentState = AvatarState::Hit;
+						dae::ServiceLocator::GetSoundSystem().PlaySound("../Data/Sound/Damaged.wav", 100, 0);
+
 						dae::SpriteComponent* spriteComp = m_pOwner->GetComponent<dae::SpriteComponent>();
 						if (spriteComp)
 						{

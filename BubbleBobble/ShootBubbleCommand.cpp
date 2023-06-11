@@ -23,7 +23,7 @@ void ShootBubbleCommand::Execute()
 		{
 			dae::Scene* scene = dae::SceneManager::GetInstance().GetActiveScene();
 			Bubble::CreateBubble(scene, m_pGo);\
-			dae::ServiceLocator::GetSoundSystem().PlaySound("../Data/Sound/ShootBubbleEffect.wav", 50, 0);
+			dae::ServiceLocator::GetSoundSystem().PlaySound("../Data/Sound/ShootBubbleEffect.wav", 100, 0);
 
 
 			if (avatarComp->GetColor() == AvatarComponent::AvatarColor::green)

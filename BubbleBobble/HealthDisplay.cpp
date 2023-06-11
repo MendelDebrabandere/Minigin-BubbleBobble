@@ -6,8 +6,6 @@
 #include <sstream>
 
 #include "EventQueue.h"
-#include "ServiceLocator.h"
-#include "SoundSystem.h"
 
 void HealthDisplay::Initialize()
 {
@@ -32,7 +30,6 @@ int HealthDisplay::GetHP() const
 void HealthDisplay::HandleEvent(int healthDelta)
 {
 	m_HP += healthDelta;
-	dae::ServiceLocator::GetSoundSystem().PlaySound("../Data/Sound/Damaged.wav", 50, 0);
 
 	if (m_HP < 0)
  		dae::EventQueue::GetInstance().SendEvent(dae::Event{ "PlayerDied" });

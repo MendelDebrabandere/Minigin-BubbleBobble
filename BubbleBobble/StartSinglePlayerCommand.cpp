@@ -34,5 +34,5 @@ void StartSinglePlayerCommand::Execute()
 	SceneSwapper::GetInstance().m_State = SceneSwapper::GameState::SinglePlayer;
 
 	//Start playing the in game music
-	dae::ServiceLocator::GetSoundSystem().PlayMusic("../Data/Sound/MainTheme.mp3", 15, -1);
+	dae::ServiceLocator::GetSoundSystem().PlayMusic("../Data/Sound/MainTheme.mp3", 100, -1);
 }

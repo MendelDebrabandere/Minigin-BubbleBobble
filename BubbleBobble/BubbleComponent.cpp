@@ -230,7 +230,7 @@ void BubbleComponent::Pop(bool byPlayer)
 	if (m_HasEnemyInside && byPlayer)
 	{
 		m_CurrentState = BubbleState::EnemyDying;
-		dae::ServiceLocator::GetSoundSystem().PlaySound("../Data/Sound/PopBubbleWithEnemy.wav", 50, 0);
+		dae::ServiceLocator::GetSoundSystem().PlaySound("../Data/Sound/PopBubbleWithEnemy.wav", 100, 0);
 
 		//Make death sprite animation
 		if (spriteComp)

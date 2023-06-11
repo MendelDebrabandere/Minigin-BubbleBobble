@@ -6,6 +6,8 @@
 #include "GameObject.h"
 #include "Rock.h"
 #include "SceneManager.h"
+#include "ServiceLocator.h"
+#include "SoundSystem.h"
 #include "SpriteComponent.h"
 #include "Timer.h"
 
@@ -27,6 +29,7 @@ void PlayerMaitaComponent::Initialize()
 						bubbleComp->Pop(false);
 						{
 							m_CurrentState = PlayerMaitaState::Hit;
+							dae::ServiceLocator::GetSoundSystem().PlaySound("../Data/Sound/Damaged.wav", 100, 0);
 							dae::SpriteComponent* spriteComp = m_pOwner->GetComponent<dae::SpriteComponent>();
 							if (spriteComp)
 							{

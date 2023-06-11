@@ -28,7 +28,7 @@ void FoodComponent::Initialize()
 				{
 					avatarComp->PickedUpFood(m_MyType);
 					m_CurrState = State::Points;
-					dae::ServiceLocator::GetSoundSystem().PlaySound("../Data/Sound/PickupFood.wav", 50, 0);
+					dae::ServiceLocator::GetSoundSystem().PlaySound("../Data/Sound/PickupFood.wav", 100, 0);
 					//Set sprite variables
 					switch(m_MyType)
 					{
