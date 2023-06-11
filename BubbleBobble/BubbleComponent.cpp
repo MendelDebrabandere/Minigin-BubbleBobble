@@ -12,6 +12,8 @@
 #include "Maita.h"
 #include "PhysicsComponent.h"
 #include "SceneManager.h"
+#include "ServiceLocator.h"
+#include "SoundSystem.h"
 #include "SpriteComponent.h"
 #include "ZenChan.h"
 #include "ZenChanComponent.h"
@@ -226,6 +228,7 @@ void BubbleComponent::Pop(bool byPlayer)
 	if (m_HasEnemyInside && byPlayer)
 	{
 		m_CurrentState = BubbleState::EnemyDying;
+		dae::ServiceLocator::GetSoundSystem().PlaySound("../Data/Sound/PopBubbleWithEnemy.wav", 50, 0);
 
 		//Make death sprite animation
 		if (spriteComp)

@@ -4,6 +4,8 @@
 #include "ColliderComponent.h"
 #include "GameObject.h"
 #include "PhysicsComponent.h"
+#include "ServiceLocator.h"
+#include "SoundSystem.h"
 #include "SpriteComponent.h"
 #include "Timer.h"
 
@@ -26,6 +28,7 @@ void FoodComponent::Initialize()
 				{
 					avatarComp->PickedUpFood(m_MyType);
 					m_CurrState = State::Points;
+					dae::ServiceLocator::GetSoundSystem().PlaySound("../Data/Sound/PickupFood.wav", 50, 0);
 					//Set sprite variables
 					switch(m_MyType)
 					{

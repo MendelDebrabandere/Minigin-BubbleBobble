@@ -3,8 +3,10 @@
 #include "AvatarComponent.h"
 #include "Bubble.h"
 #include "SceneManager.h"
+#include "ServiceLocator.h"
 #include "SpriteComponent.h"
 #include "Timer.h"
+#include "SoundSystem.h"
 
 void ShootBubbleCommand::Execute()
 {
@@ -20,7 +22,9 @@ void ShootBubbleCommand::Execute()
 		if (avatarComp->GetCurrState() == AvatarComponent::AvatarState::Moving)
 		{
 			dae::Scene* scene = dae::SceneManager::GetInstance().GetActiveScene();
-			Bubble::CreateBubble(scene, m_pGo);
+			Bubble::CreateBubble(scene, m_pGo);\
+			dae::ServiceLocator::GetSoundSystem().PlaySound("../Data/Sound/ShootBubbleEffect.wav", 50, 0);
+
 
 			if (avatarComp->GetColor() == AvatarComponent::AvatarColor::green)
 				spriteComp->DoOnceAnim(0.1f, 7, 12);

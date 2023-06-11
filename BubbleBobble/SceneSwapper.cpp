@@ -11,7 +11,8 @@
 #include "MainMenuScene.h"
 #include "SceneManager.h"
 #include "ScoreDisplay.h"
-
+#include "ServiceLocator.h"
+#include "SoundSystem.h"
 
 using namespace dae;
 
@@ -137,6 +138,9 @@ void SceneSwapper::OnEvent(const dae::Event& e)
 {
 	if (e.name == "PlayerDied")
 	{
+		dae::ServiceLocator::GetSoundSystem().ToggleMusic();
+
+
 		if (m_State == GameState::SinglePlayer || m_State == GameState::Coop)
 		{
 			HighScoreScene::Create();

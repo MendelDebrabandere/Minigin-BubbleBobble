@@ -23,6 +23,6 @@ void JumpCommand::Execute()
 	if (physicsComp->GetCollisionState().BottomCollision)
 	{
 		physicsComp->Jump(m_Speed);
-		dae::ServiceLocator::GetSoundSystem().PlaySound("../Data/Sound/TestEffect.wav", 50, 0);
+		dae::ServiceLocator::GetSoundSystem().PlaySound("../Data/Sound/JumpEffect.wav", 50, 0);
 	}
 }
