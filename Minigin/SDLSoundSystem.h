@@ -12,11 +12,7 @@ namespace dae
 	{
 	public:
 		SDLSoundSystem();
-		~SDLSoundSystem() override ;
-		SDLSoundSystem(const SDLSoundSystem&) = delete;
-		SDLSoundSystem(SDLSoundSystem&&) = delete;
-		SDLSoundSystem& operator=(const SDLSoundSystem&) = delete;
-		SDLSoundSystem& operator=(SDLSoundSystem&&) = delete;
+		~SDLSoundSystem() ;
 
 		void PlaySound(const std::string& fileName, int volume, int loops) override;
 		void PlayMusic(const std::string& fileName, int volume, int loops) override;

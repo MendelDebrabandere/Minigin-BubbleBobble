@@ -87,7 +87,8 @@ public:
 private:
 	bool LoadMusic(const std::string& fileName)
     {
-		Mix_Music* m = Mix_LoadMUS(fileName.c_str());
+        Mix_Music* m = nullptr;
+        m = Mix_LoadMUS(fileName.c_str());
         if (m == nullptr)
         {
             printf("Failed to load music. SDL_Mixer error: %s\n", Mix_GetError());
@@ -98,7 +99,8 @@ private:
     }
 	bool LoadSound(const std::string& fileName)
     {
-        Mix_Chunk* m = Mix_LoadWAV(fileName.c_str());
+        Mix_Chunk* m = nullptr;
+        m = Mix_LoadWAV(fileName.c_str());
 		if (m == nullptr)
         {
 			printf("Failed to load music. SDL_Mixer error: %s\n", Mix_GetError());

@@ -3,13 +3,11 @@
 #include <SDL_pixels.h>
 #include <string>
 #include "Component.h"
+#include "Font.h"
+#include "TextureComponent.h"
 
 namespace dae
 {
-	class TextureComponent;
-	class Font;
-
-
 	class TextComponent final : public Component
 	{
 	public:

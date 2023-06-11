@@ -26,7 +26,7 @@ void StartVersusCommand::Execute()
 
 	//load level
 	scene->RemoveAll();
-	LevelLoader::LoadLevel(scene, 1, true);
+	LevelLoader::LoadLevel(scene, 1);
 	scene->SetName("1");
 
 	//remove all enemies, since we dont want other enemies in versus mode

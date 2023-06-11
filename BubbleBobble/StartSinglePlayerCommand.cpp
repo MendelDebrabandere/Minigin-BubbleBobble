@@ -23,7 +23,7 @@ void StartSinglePlayerCommand::Execute()
 	dae::InputManager::GetInstance().AddKeyboardCommand(SDLK_F2, dae::InputManager::InputType::OnDown, std::make_unique<ToggleSoundSysCommand>());
 
 	scene->RemoveAll();
-	LevelLoader::LoadLevel(scene, 1, true);
+	LevelLoader::LoadLevel(scene, 1);
 	scene->SetName("1");
 
 	auto avatar = Avatar::CreateAvatar(sceneManager.GetActiveScene(), glm::vec2{100,700}, true, false);

@@ -26,7 +26,7 @@ const glm::vec2& Transform::GetWorldPosition()
 
 void Transform::SetLocalPosition(float x, float y)
 {
-	if (std::fabs(m_LocalPosition.x - x) < FLT_EPSILON)
+	if (m_LocalPosition.x != x)
 	{
 		if (m_LocalPosition.x < x)
 			m_FacingRight = true;
