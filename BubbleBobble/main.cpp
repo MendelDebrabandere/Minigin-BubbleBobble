@@ -17,7 +17,7 @@ int main(int, char* [])
 	// Register the soundSystem
 	ServiceLocator::InitDefault();
 
-	Minigin engine{ "../Data/" };
+	Minigin engine{ std::string("../Data/") };
 	BubbleBobble::Create();
 	engine.Run();
 
