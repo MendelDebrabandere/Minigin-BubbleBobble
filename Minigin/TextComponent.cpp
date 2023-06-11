@@ -45,6 +45,12 @@ void dae::TextComponent::ReloadTexture()
 		if (m_pTextureRenderer == nullptr) return;
 	}
 
+	if (m_Text.empty())
+	{
+		m_pTextureRenderer->SetTexture(std::make_shared<Texture2D>(nullptr));
+		return;
+	}
+
 	// Create a texture using the current font, text and color
 	const auto surf = TTF_RenderText_Blended(m_pFont->GetFont(), m_Text.c_str(), m_Color);
 	if (surf == nullptr)

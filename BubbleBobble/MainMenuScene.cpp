@@ -1,6 +1,7 @@
 #include "MainMenuScene.h"
 
 #include "FPSCounter.h"
+#include "HighScoreLoader.h"
 #include "InputManager.h"
 #include "ResourceManager.h"
 #include "SceneManager.h"
@@ -93,4 +94,27 @@ void MainMenuScene::Create()
 	pVersus->GetComponent<TextComponent>()->SetColor(250, 150, 80);
 	pVersus->GetComponent<TextComponent>()->Update();
 	pVersus->GetTransform()->SetWorldPosition(1280.f / 2 - pVersus->GetComponent<TextureComponent>()->GetTextureSize().x / 2, 490);
+
+	//===========================================
+	//Highscores
+	const auto pHighScore = pGameScene->CreateGameObject();
+	pHighScore->AddComponent<TextureComponent>();
+	pHighScore->AddComponent<TextComponent>()->SetFont(pFont);
+	pHighScore->GetComponent<TextComponent>()->SetText("Highscores:");
+	pHighScore->GetComponent<TextComponent>()->SetColor(200, 200, 200);
+	pHighScore->GetComponent<TextComponent>()->Update();
+	pHighScore->GetTransform()->SetWorldPosition(20, 40);
+
+	HighScoreLoader::LoadHighScores("HighScores.json");
+	const auto highScores = HighScoreLoader::GetTopFive();
+	for (int i{}; i < highScores.size(); ++i)
+	{
+		const auto pScore = pGameScene->CreateGameObject();
+		pScore->AddComponent<TextureComponent>();
+		pScore->AddComponent<TextComponent>()->SetFont(pFont);
+		pScore->GetComponent<TextComponent>()->SetText(highScores[i].first + " - " + std::to_string(highScores[i].second));
+		pScore->GetComponent<TextComponent>()->SetColor(200, 200, 200);
+		pScore->GetComponent<TextComponent>()->Update();
+		pScore->GetTransform()->SetWorldPosition(20, 50.f + 30.f * (static_cast<float>(i) + 1.f));
+	}
 }

@@ -4,9 +4,11 @@
 
 #include "FPSCounter.h"
 #include "InputManager.h"
+#include "LeaveHighScoreSceneCommand.h"
 #include "ResourceManager.h"
 #include "SceneManager.h"
 #include "Scene.h"
+#include "ScoreDisplay.h"
 #include "TextComponent.h"
 #include "Texture2D.h"
 #include "TypingKeyboardComponent.h"
@@ -19,6 +21,19 @@ void HighScoreScene::Create()
 	auto* pGameScene = pSceneManager.GetActiveScene();
 
 	InputManager::GetInstance().RemoveAllInputs();
+
+
+	//int totalHighScore{};
+	//for (auto& go : pGameScene->GetAllObjects())
+	//{
+	//	const auto scoreDisplay = go->GetComponent<ScoreDisplay>();
+	//	if (scoreDisplay)
+	//	{
+	//		totalHighScore += scoreDisplay->
+	//	}
+	//}
+
+
 
 	if (pGameScene)
 	{
@@ -36,7 +51,7 @@ void HighScoreScene::Create()
 
 
 	//Add a command to go to the menu
-	//InputManager::GetInstance().AddKeyboardCommand(SDLK_RETURN, InputManager::InputType::OnDown, std::make_unique<LeaveMenuCommand>())
+	InputManager::GetInstance().AddKeyboardCommand(SDLK_RETURN, InputManager::InputType::OnDown, std::make_unique<LeaveHighScoreSceneCommand>());
 
 	const auto pFont{ ResourceManager::GetInstance().LoadFont("Retro.otf", 36) };
 
@@ -60,10 +75,21 @@ void HighScoreScene::Create()
 	pName->GetComponent<TextComponent>()->Update();
 	pName->GetTransform()->SetWorldPosition(1280.f / 2 - pName->GetComponent<TextureComponent>()->GetTextureSize().x / 2, 400);
 
+	//Input typer
 	const auto pTyper = pGameScene->CreateGameObject();
 	pTyper->AddComponent<TypingKeyboardComponent>();
 	pTyper->AddComponent<TextureComponent>();
 	pTyper->AddComponent<TextComponent>()->SetFont(pFont);
+	pTyper->GetComponent<TextComponent>()->SetColor(250,50,50);
 	pTyper->GetTransform()->SetWorldPosition(500, 500);
 
+
+	//Cap is at 10 characters
+	const auto pCap = pGameScene->CreateGameObject();
+	pCap->AddComponent<TextureComponent>();
+	pCap->AddComponent<TextComponent>()->SetFont(pFont);
+	pCap->GetComponent<TextComponent>()->SetText("Max name length is 10 characters");
+	pCap->GetComponent<TextComponent>()->SetColor(150,150,150);
+	pCap->GetComponent<TextComponent>()->Update();
+	pCap->GetTransform()->SetWorldPosition(1280.f / 2 - pCap->GetComponent<TextureComponent>()->GetTextureSize().x / 2, 700);
 }

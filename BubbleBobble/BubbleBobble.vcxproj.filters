@@ -47,13 +47,13 @@
     <Filter Include="Prefabs\Enemy">
       <UniqueIdentifier>{0b94bb07-08bd-422a-bea8-3f927046524e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Scenes\DataParsers">
+      <UniqueIdentifier>{28438d99-066f-4885-86f8-159e55be8e20}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>Main</Filter>
-    </ClCompile>
-    <ClCompile Include="LevelLoader.cpp">
-      <Filter>Scenes</Filter>
     </ClCompile>
     <ClCompile Include="BubbleBobble.cpp">
       <Filter>Main</Filter>
@@ -160,11 +160,17 @@
     <ClCompile Include="TypingKeyboardComponent.cpp">
       <Filter>Component\HUD</Filter>
     </ClCompile>
+    <ClCompile Include="LevelLoader.cpp">
+      <Filter>Scenes\DataParsers</Filter>
+    </ClCompile>
+    <ClCompile Include="HighScoreLoader.cpp">
+      <Filter>Scenes\DataParsers</Filter>
+    </ClCompile>
+    <ClCompile Include="LeaveHighScoreSceneCommand.cpp">
+      <Filter>Command\SceneChangingCommands</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="LevelLoader.h">
-      <Filter>Scenes</Filter>
-    </ClInclude>
     <ClInclude Include="BubbleBobble.h">
       <Filter>Main</Filter>
     </ClInclude>
@@ -269,6 +275,15 @@
     </ClInclude>
     <ClInclude Include="TypingKeyboardComponent.h">
       <Filter>Component\HUD</Filter>
+    </ClInclude>
+    <ClInclude Include="LevelLoader.h">
+      <Filter>Scenes\DataParsers</Filter>
+    </ClInclude>
+    <ClInclude Include="HighScoreLoader.h">
+      <Filter>Scenes\DataParsers</Filter>
+    </ClInclude>
+    <ClInclude Include="LeaveHighScoreSceneCommand.h">
+      <Filter>Command\SceneChangingCommands</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

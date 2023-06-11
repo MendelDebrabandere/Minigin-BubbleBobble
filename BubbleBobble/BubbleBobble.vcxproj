@@ -91,7 +91,7 @@
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <TreatWarningAsError>true</TreatWarningAsError>
-      <AdditionalIncludeDirectories>$(SolutionDir)Minigin;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\3rdParty\rapidjson;$(SolutionDir)Minigin;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -110,7 +110,7 @@
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <TreatWarningAsError>true</TreatWarningAsError>
-      <AdditionalIncludeDirectories>$(SolutionDir)Minigin;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\3rdParty\rapidjson;$(SolutionDir)Minigin;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -129,7 +129,7 @@
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <TreatWarningAsError>true</TreatWarningAsError>
-      <AdditionalIncludeDirectories>$(SolutionDir)Minigin;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\3rdParty\rapidjson;$(SolutionDir)Minigin;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -148,7 +148,7 @@
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <TreatWarningAsError>true</TreatWarningAsError>
-      <AdditionalIncludeDirectories>$(SolutionDir)Minigin;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\3rdParty\rapidjson;$(SolutionDir)Minigin;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -171,9 +171,11 @@
     <ClCompile Include="FoodComponent.cpp" />
     <ClCompile Include="FPSCounter.cpp" />
     <ClCompile Include="HealthDisplay.cpp" />
+    <ClCompile Include="HighScoreLoader.cpp" />
     <ClCompile Include="HighScoreScene.cpp" />
     <ClCompile Include="HUD.cpp" />
     <ClCompile Include="JumpCommand.cpp" />
+    <ClCompile Include="LeaveHighScoreSceneCommand.cpp" />
     <ClCompile Include="PlayerMaita.cpp" />
     <ClCompile Include="PlayerMaitaComponent.cpp" />
     <ClCompile Include="StartCoopCommand.cpp" />
@@ -210,9 +212,11 @@
     <ClInclude Include="FoodComponent.h" />
     <ClInclude Include="FPSCounter.h" />
     <ClInclude Include="HealthDisplay.h" />
+    <ClInclude Include="HighScoreLoader.h" />
     <ClInclude Include="HighScoreScene.h" />
     <ClInclude Include="HUD.h" />
     <ClInclude Include="JumpCommand.h" />
+    <ClInclude Include="LeaveHighScoreSceneCommand.h" />
     <ClInclude Include="PlayerMaita.h" />
     <ClInclude Include="PlayerMaitaComponent.h" />
     <ClInclude Include="StartCoopCommand.h" />

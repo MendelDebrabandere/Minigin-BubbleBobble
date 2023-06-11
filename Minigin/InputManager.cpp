@@ -47,8 +47,12 @@ bool InputManager::ProcessInput()
 		if (e.type == SDL_KEYDOWN)
 		{
 			//broadcast event of onkeydown
-			if (e.key.keysym.sym >= 'a' && e.key.keysym.sym <= 'z')
+			if ((e.key.keysym.sym >= 'a' && e.key.keysym.sym <= 'z') || e.key.keysym.sym == SDLK_BACKSPACE)
 			{
+				//check if the key isnt being held down
+				if (std::ranges::find(m_PressedKeys, static_cast<unsigned>(e.key.keysym.sym)) != m_PressedKeys.end())
+					continue;
+
 				EventQueue::GetInstance().SendEvent(Event{std::string{char(e.key.keysym.sym)}});
 			}
 		}
