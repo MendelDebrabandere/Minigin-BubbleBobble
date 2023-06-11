@@ -196,6 +196,7 @@
     <ClCompile Include="SkipLevelCommand.cpp" />
     <ClCompile Include="StartVersusCommand.cpp" />
     <ClCompile Include="ThrowRockCommand.cpp" />
+    <ClCompile Include="ToggleSoundSysCommand.cpp" />
     <ClCompile Include="TypingKeyboardComponent.cpp" />
     <ClCompile Include="ZenChan.cpp" />
     <ClCompile Include="ZenChanComponent.cpp" />
@@ -236,6 +237,7 @@
     <ClInclude Include="SkipLevelCommand.h" />
     <ClInclude Include="StartVersusCommand.h" />
     <ClInclude Include="ThrowRockCommand.h" />
+    <ClInclude Include="ToggleSoundSysCommand.h" />
     <ClInclude Include="TypingKeyboardComponent.h" />
     <ClInclude Include="ZenChan.h" />
     <ClInclude Include="ZenChanComponent.h" />

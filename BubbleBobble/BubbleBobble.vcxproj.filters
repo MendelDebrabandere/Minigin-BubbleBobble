@@ -169,6 +169,9 @@
     <ClCompile Include="LeaveHighScoreSceneCommand.cpp">
       <Filter>Command\SceneChangingCommands</Filter>
     </ClCompile>
+    <ClCompile Include="ToggleSoundSysCommand.cpp">
+      <Filter>Command\GameCommands</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BubbleBobble.h">
@@ -284,6 +287,9 @@
     </ClInclude>
     <ClInclude Include="LeaveHighScoreSceneCommand.h">
       <Filter>Command\SceneChangingCommands</Filter>
+    </ClInclude>
+    <ClInclude Include="ToggleSoundSysCommand.h">
+      <Filter>Command\GameCommands</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

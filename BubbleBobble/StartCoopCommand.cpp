@@ -1,5 +1,7 @@
 #include "StartCoopCommand.h"
 
+#include <SDL_keycode.h>
+
 
 #include "Avatar.h"
 #include "HUD.h"
@@ -10,6 +12,7 @@
 #include "ServiceLocator.h"
 #include "SoundSystem.h"
 #include "AvatarComponent.h"
+#include "ToggleSoundSysCommand.h"
 
 void StartCoopCommand::Execute()
 {
@@ -17,6 +20,7 @@ void StartCoopCommand::Execute()
 	auto scene = sceneManager.GetActiveScene();
 
 	dae::InputManager::GetInstance().RemoveAllInputs();
+	dae::InputManager::GetInstance().AddKeyboardCommand(SDLK_F2, dae::InputManager::InputType::OnDown, std::make_unique<ToggleSoundSysCommand>());
 
 	scene->RemoveAll();
 	LevelLoader::LoadLevel(scene, 1, true);

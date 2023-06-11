@@ -11,6 +11,7 @@
 #include "ScoreDisplay.h"
 #include "TextComponent.h"
 #include "Texture2D.h"
+#include "ToggleSoundSysCommand.h"
 #include "TypingKeyboardComponent.h"
 
 using namespace dae;
@@ -22,6 +23,7 @@ void HighScoreScene::Create()
 
 	InputManager::GetInstance().RemoveAllInputs();
 
+	InputManager::GetInstance().AddKeyboardCommand(SDLK_F2, InputManager::InputType::OnDown, std::make_unique<ToggleSoundSysCommand>());
 
 	//Get total highscore
 	int totalHighScore{};

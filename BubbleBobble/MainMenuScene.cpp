@@ -1,5 +1,7 @@
 #include "MainMenuScene.h"
 
+#include <SDL_keycode.h>
+
 #include "FPSCounter.h"
 #include "HighScoreLoader.h"
 #include "InputManager.h"
@@ -11,6 +13,7 @@
 #include "StartVersusCommand.h"
 #include "TextComponent.h"
 #include "Texture2D.h"
+#include "ToggleSoundSysCommand.h"
 
 using namespace dae;
 
@@ -20,6 +23,7 @@ void MainMenuScene::Create()
 	auto* pGameScene = pSceneManager.GetActiveScene();
 
 	InputManager::GetInstance().RemoveAllInputs();
+	InputManager::GetInstance().AddKeyboardCommand(SDLK_F2, InputManager::InputType::OnDown, std::make_unique<ToggleSoundSysCommand>());
 
 	if (pGameScene)
 	{

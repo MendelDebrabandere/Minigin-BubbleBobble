@@ -1,5 +1,7 @@
 #include "StartVersusCommand.h"
 
+#include <SDL_keycode.h>
+
 
 #include "Avatar.h"
 #include "HUD.h"
@@ -12,6 +14,7 @@
 #include "AvatarComponent.h"
 #include "EnemyComponent.h"
 #include "PlayerMaita.h"
+#include "ToggleSoundSysCommand.h"
 
 void StartVersusCommand::Execute()
 {
@@ -19,6 +22,7 @@ void StartVersusCommand::Execute()
 	auto scene = sceneManager.GetActiveScene();
 
 	dae::InputManager::GetInstance().RemoveAllInputs();
+	dae::InputManager::GetInstance().AddKeyboardCommand(SDLK_F2, dae::InputManager::InputType::OnDown, std::make_unique<ToggleSoundSysCommand>());
 
 	//load level
 	scene->RemoveAll();
