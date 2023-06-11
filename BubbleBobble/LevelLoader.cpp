@@ -12,6 +12,7 @@
 #include "Maita.h"
 #include "TextComponent.h"
 #include "Platform.h"
+#include "PlayerMaitaComponent.h"
 #include "ResourceManager.h"
 #include "SkipLevelCommand.h"
 #include "ZenChan.h"
@@ -24,12 +25,17 @@ void LevelLoader::LoadLevel(Scene* pScene, int number, bool /*loadAvatar*/)
 	for (auto& go : pScene->GetAllObjects())
 	{
 		const auto avatarComp = go->GetComponent<AvatarComponent>();
+		const auto maitaComp = go->GetComponent<PlayerMaitaComponent>();
 		if (avatarComp)
 		{
 			if (avatarComp->GetColor() == AvatarComponent::AvatarColor::green)
 				go->GetTransform()->SetWorldPosition(100, 700);
 			else
 				go->GetTransform()->SetWorldPosition(850, 700);
+		}
+		else if (maitaComp)
+		{
+			go->GetTransform()->SetWorldPosition(850, 700);
 		}
 	}
 

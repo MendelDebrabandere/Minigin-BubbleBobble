@@ -29,7 +29,6 @@ void PlayerMaitaComponent::Initialize()
 						bubbleComp->Pop(false);
 						{
 							m_CurrentState = PlayerMaitaState::Hit;
-							m_HealthChange.Notify(-1);
 							dae::SpriteComponent* spriteComp = m_pOwner->GetComponent<dae::SpriteComponent>();
 							if (spriteComp)
 							{
@@ -183,6 +182,7 @@ void PlayerMaitaComponent::DoRespawnLogic()
 
 		m_Timer = 0.f;
 		m_CurrentState = PlayerMaitaState::Moving;
+		m_HealthChange.Notify(-1);
 
 		m_Invulnerable = true;
 	}

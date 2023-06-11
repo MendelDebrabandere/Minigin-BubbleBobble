@@ -33,7 +33,6 @@ void AvatarComponent::Initialize()
 						}
 
 						m_CurrentState = AvatarState::Hit;
-						m_HealthChange.Notify(-1);
 						dae::SpriteComponent* spriteComp = m_pOwner->GetComponent<dae::SpriteComponent>();
 						if (spriteComp)
 						{
@@ -166,6 +165,7 @@ void AvatarComponent::DoRespawnLogic()
 
 		m_Timer = 0.f;
 		m_CurrentState = AvatarState::Moving;
+		m_HealthChange.Notify(-1);
 
 		m_Invulnerable = true;
 	}
