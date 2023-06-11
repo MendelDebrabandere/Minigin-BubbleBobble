@@ -9,6 +9,8 @@
 #include "SceneManager.h"
 #include "Scene.h"
 #include "ScoreDisplay.h"
+#include "ServiceLocator.h"
+#include "SoundSystem.h"
 #include "TextComponent.h"
 #include "Texture2D.h"
 #include "ToggleSoundSysCommand.h"
@@ -19,6 +21,8 @@ using namespace dae;
 
 void HighScoreScene::Create()
 {
+	ServiceLocator::GetSoundSystem().ToggleMusic(false);
+
 	auto& pSceneManager = SceneManager::GetInstance();
 	auto* pGameScene = pSceneManager.GetActiveScene();
 

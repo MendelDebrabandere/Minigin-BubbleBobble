@@ -35,4 +35,5 @@ void StartSinglePlayerCommand::Execute()
 
 	//Start playing the in game music
 	dae::ServiceLocator::GetSoundSystem().PlayMusic("../Data/Sound/MainTheme.mp3", 100, -1);
+	dae::ServiceLocator::GetSoundSystem().ToggleMusic(true);
 }

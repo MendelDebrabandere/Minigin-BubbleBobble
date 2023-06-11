@@ -135,7 +135,7 @@ void SceneSwapper::OnEvent(const dae::Event& e)
 {
 	if (e.name == "PlayerDied")
 	{
-		dae::ServiceLocator::GetSoundSystem().ToggleMusic();
+		dae::ServiceLocator::GetSoundSystem().ToggleMusic(false);
 
 
 		if (m_State == GameState::SinglePlayer || m_State == GameState::Coop)

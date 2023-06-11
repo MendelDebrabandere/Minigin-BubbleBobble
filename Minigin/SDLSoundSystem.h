@@ -21,7 +21,7 @@ namespace dae
 
 		void PlaySound(const std::string& fileName, int volume, int loops) override;
 		void PlayMusic(const std::string& fileName, int volume, int loops) override;
-		void ToggleMusic() override;
+		void ToggleMusic(bool val) override;
 
 	private:
 		enum class EventType

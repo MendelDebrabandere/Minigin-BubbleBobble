@@ -94,7 +94,7 @@ void LevelLoader::LoadLevel(Scene* pScene, int number)
 	}
 	
 	// FPS COUNTER
-	const auto pFont{ ResourceManager::GetInstance().LoadFont("Lingua.otf", 36) };
+	const auto pFont{ ResourceManager::GetInstance().LoadFont("Retro.otf", 36) };
 	const auto pFPSCounter = pScene->CreateGameObject();
 	pFPSCounter->AddComponent<TextureComponent>();
 	pFPSCounter->AddComponent<FPSCounter>();

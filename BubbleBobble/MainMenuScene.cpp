@@ -8,6 +8,8 @@
 #include "ResourceManager.h"
 #include "SceneManager.h"
 #include "Scene.h"
+#include "ServiceLocator.h"
+#include "SoundSystem.h"
 #include "StartCoopCommand.h"
 #include "StartSinglePlayerCommand.h"
 #include "StartVersusCommand.h"
@@ -20,6 +22,8 @@ using namespace dae;
 
 void MainMenuScene::Create()
 {
+	ServiceLocator::GetSoundSystem().ToggleMusic(false);
+
 	auto& pSceneManager = SceneManager::GetInstance();
 	auto* pGameScene = pSceneManager.GetActiveScene();
 

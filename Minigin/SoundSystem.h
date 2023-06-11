@@ -14,7 +14,7 @@ namespace dae
 
 		virtual void PlaySound(const std::string& fileName, int volume, int loops) = 0;
 		virtual void PlayMusic(const std::string& fileName, int volume, int loops) = 0;
-		virtual void ToggleMusic() = 0;
+		virtual void ToggleMusic(bool val) = 0;
 	};
 }
 

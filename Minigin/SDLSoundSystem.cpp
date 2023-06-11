@@ -72,15 +72,14 @@ public:
 		Mix_PlayChannel(1, m_SoundsMap[fileName], loops);
 	}
 
-    void ToggleMusic()
+    void ToggleMusic(bool val)
     {
-        if (Mix_PausedMusic() == 1)
+        if (bool(Mix_PausedMusic()) == val)
         {
-            Mix_ResumeMusic();
-        }
-        else
-        {
-            Mix_PauseMusic();
+            if (val)
+                Mix_ResumeMusic();
+            else
+                Mix_PauseMusic();
         }
     }
 
@@ -152,9 +151,9 @@ void SDLSoundSystem::PlayMusic(const std::string& fileName, int volume, int loop
     m_ConditionVariable.notify_all();
 }
 
-void SDLSoundSystem::ToggleMusic()
+void SDLSoundSystem::ToggleMusic(bool val)
 {
-    m_pSDL_MixerImpl->ToggleMusic();
+    m_pSDL_MixerImpl->ToggleMusic(val);
 }
 
 void SDLSoundSystem::SoundLoaderThread()
