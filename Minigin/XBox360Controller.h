@@ -43,6 +43,10 @@ namespace dae
 
 		explicit XBox360Controller(unsigned int controllerIndex);
 		~XBox360Controller();
+		XBox360Controller(const XBox360Controller& other) = delete;
+		XBox360Controller& operator=(const XBox360Controller& rhs) = delete;
+		XBox360Controller(XBox360Controller&& other) = delete;
+		XBox360Controller& operator=(XBox360Controller&& rhs) = delete;
 
 	};
 }

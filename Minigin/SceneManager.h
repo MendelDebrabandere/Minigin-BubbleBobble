@@ -19,11 +19,11 @@ namespace dae
 
 		void SetSceneSwapperFunc(const std::function<void()>& func);
 
-		Scene* GetActiveScene();
+		Scene* GetActiveScene() const;
 
 		void FixedUpdate();
 		void Update();
-		void Render();
+		void Render() const;
 		void UpdateCleanup();
 
 	private:

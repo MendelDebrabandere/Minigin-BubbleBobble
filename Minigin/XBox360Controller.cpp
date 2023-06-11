@@ -19,7 +19,9 @@ class XBox360Controller::XBox360ControllerImpl final
 
 public:
 	XBox360ControllerImpl(int controllerIndex)
-		:_controllerIndex{ controllerIndex }
+		:buttonsPressedThisFrame{}
+		, buttonsReleasedThisFrame{}
+		, _controllerIndex{ controllerIndex }
 	{
 		ZeroMemory(&previousState, sizeof(XINPUT_STATE));
 		ZeroMemory(&currentState, sizeof(XINPUT_STATE));
@@ -48,7 +50,7 @@ public:
 XBox360Controller::XBox360Controller(unsigned int controllerIndex)
 	: m_ControllerIndex{ controllerIndex }
 {
-	pImpl = new XBox360ControllerImpl(controllerIndex);
+	pImpl = new XBox360ControllerImpl(static_cast<int>(controllerIndex));
 }
 
 XBox360Controller::~XBox360Controller()

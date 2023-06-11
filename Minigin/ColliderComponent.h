@@ -20,7 +20,7 @@ namespace dae
 		};
 
 		ColliderComponent() = default;
-		virtual ~ColliderComponent() override = default;
+		~ColliderComponent() override = default;
 		ColliderComponent(const ColliderComponent& other) = delete;
 		ColliderComponent operator=(const ColliderComponent& rhs) = delete;
 		ColliderComponent(ColliderComponent&& other) = delete;
@@ -36,8 +36,8 @@ namespace dae
 		void SetSize(const glm::vec2& val);
 		void UpdatePos();
 
-		glm::vec2 GetSize() const { return m_Size; }
-		glm::vec2 GetPos() const { return m_Pos; }
+		const glm::vec2& GetSize() const { return m_Size; }
+		const glm::vec2& GetPos() const { return m_Pos; }
 
 		void SetOverlapFunction(std::function<void(GameObject*)> overlapFunction);
 

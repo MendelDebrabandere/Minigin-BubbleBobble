@@ -21,8 +21,8 @@ SDL_Window* g_window{};
 
 void PrintSDLVersion()
 {
-	SDL_version version{};
-	SDL_VERSION(&version);
+	SDL_version version;
+	SDL_VERSION(&version)
 	printf("We compiled against SDL version %u.%u.%u ...\n",
 		version.major, version.minor, version.patch);
 
@@ -30,7 +30,7 @@ void PrintSDLVersion()
 	printf("We are linking against SDL version %u.%u.%u.\n",
 		version.major, version.minor, version.patch);
 
-	SDL_IMAGE_VERSION(&version);
+	SDL_IMAGE_VERSION(&version)
 	printf("We compiled against SDL_image version %u.%u.%u ...\n",
 		version.major, version.minor, version.patch);
 
@@ -86,7 +86,7 @@ Minigin::~Minigin()
 	SDL_Quit();
 }
 
-SceneManager* Minigin::GetSceneManager()
+SceneManager* Minigin::GetSceneManager() const
 {
 	return mpSceneManager;
 }

@@ -19,7 +19,7 @@ bool InputManager::ProcessInput()
 		size_t previousSize = m_KeyboardActionMap.size();
 		for (auto& mapPair : m_KeyboardActionMap)
 		{
-			if (unsigned int(e.key.keysym.sym) == mapPair.first.key)
+			if (static_cast<unsigned int>(e.key.keysym.sym) == mapPair.first.key)
 			{
 				//DOWN
 				if (mapPair.first.type == InputType::OnDown && e.type == SDL_KEYDOWN)
@@ -64,7 +64,7 @@ bool InputManager::ProcessInput()
 	const Uint8* state = SDL_GetKeyboardState(nullptr);
 	for (auto& mapPair : m_KeyboardActionMap)
 	{
-		if (state[SDL_GetScancodeFromKey(mapPair.first.key)])
+		if (state[SDL_GetScancodeFromKey(static_cast<int>(mapPair.first.key))])
 		{
 			m_PressedKeys.push_back(mapPair.first.key);
 
@@ -86,13 +86,9 @@ bool InputManager::ProcessInput()
 		{
 			if (mapPair.first.controllerID == controller->GetIdx())
 			{
-				if (mapPair.first.type == InputType::OnDown && controller->IsDown(mapPair.first.button))
-					mapPair.second->Execute();
-
-				else if (mapPair.first.type == InputType::Pressed && controller->IsPressed(mapPair.first.button))
-					mapPair.second->Execute();
-
-				else if (mapPair.first.type == InputType::OnRelease && controller->IsUp(mapPair.first.button))
+				if ((mapPair.first.type == InputType::OnDown && controller->IsDown(mapPair.first.button)) ||
+					(mapPair.first.type == InputType::Pressed && controller->IsPressed(mapPair.first.button)) ||
+					(mapPair.first.type == InputType::OnRelease && controller->IsUp(mapPair.first.button)))
 					mapPair.second->Execute();
 			}
 		}

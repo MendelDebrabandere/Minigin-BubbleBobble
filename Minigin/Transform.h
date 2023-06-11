@@ -8,7 +8,7 @@ namespace dae
 	{
 	public:
 		Transform() = default;
-		virtual ~Transform() = default;
+		~Transform() override = default;
 
 		Transform(const Transform& other) = delete;
 		Transform(Transform&& other) = delete;

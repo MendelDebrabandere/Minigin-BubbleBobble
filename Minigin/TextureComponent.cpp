@@ -22,7 +22,7 @@ void TextureComponent::Render() const
 	Renderer::GetInstance().RenderTexture(*m_pTexture, pos.x, pos.y);
 }
 
-glm::vec2 TextureComponent::GetTextureSize()
+glm::vec2 TextureComponent::GetTextureSize() const
 {
 	return m_pTexture->GetSize();
 }

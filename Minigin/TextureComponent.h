@@ -1,4 +1,5 @@
 #pragma once
+#include <memory>
 #include <glm/vec2.hpp>
 
 #include "Component.h"
@@ -11,7 +12,7 @@ namespace dae
 	{
 	public:
 		TextureComponent() = default;
-		virtual ~TextureComponent() = default;
+		~TextureComponent() override = default;
 
 		TextureComponent(const TextureComponent& other) = delete;
 		TextureComponent(TextureComponent&& other) = delete;
@@ -22,7 +23,7 @@ namespace dae
 
 		void Render() const override;
 
-		glm::vec2 GetTextureSize();
+		glm::vec2 GetTextureSize() const;
 
 	private:
 		std::shared_ptr<Texture2D> m_pTexture{};

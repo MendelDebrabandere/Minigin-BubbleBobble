@@ -21,7 +21,7 @@ void dae::TextComponent::SetText(const std::string& text)
 
 void dae::TextComponent::SetColor(unsigned char r, unsigned char g, unsigned char b)
 {
-	m_Color = SDL_Color{ r, g, b };
+	m_Color = SDL_Color{ r, g, b, 255 };
 	m_HasChanged = true;
 }
 

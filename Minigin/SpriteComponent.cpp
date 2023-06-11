@@ -2,7 +2,6 @@
 #include "SpriteComponent.h"
 #include "GameObject.h"
 #include "ResourceManager.h"
-#include "Texture2D.h"
 #include "Timer.h"
 #include <glm/vec2.hpp>
 

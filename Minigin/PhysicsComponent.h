@@ -15,7 +15,7 @@ namespace dae
 	{
 	public:
 		PhysicsComponent() = default;
-		virtual ~PhysicsComponent() override = default;
+		~PhysicsComponent() override = default;
 		PhysicsComponent(const PhysicsComponent& other) = delete;
 		PhysicsComponent operator=(const PhysicsComponent& rhs) = delete;
 		PhysicsComponent(PhysicsComponent&& other) = delete;

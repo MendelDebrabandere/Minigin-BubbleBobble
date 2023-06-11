@@ -3,7 +3,6 @@
 #include <vector>
 #include <iostream>
 
-#include "TextureComponent.h"
 #include "Transform.h"
 
 namespace dae
@@ -32,7 +31,7 @@ namespace dae
 		const std::vector<std::unique_ptr<GameObject>>& GetChildren() const { return m_pChildren; }
 
 		void Destroy();
-		bool IsMarkedAsDead() const { return m_IsMarkedDead; };
+		bool IsMarkedAsDead() const { return m_IsMarkedDead; }
 
 		GameObject* CreateGameObject();
 

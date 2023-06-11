@@ -1,19 +1,19 @@
 #pragma once
+#include <memory>
 #include <SDL_rect.h>
 #include <string>
 #include <glm/vec2.hpp>
+#include "Texture2D.h"
 
 #include "Component.h"
 
 namespace dae
 {
-	class Texture2D;
-
 	class SpriteComponent final : public Component
 	{
 	public:
 		SpriteComponent() = default;
-		virtual ~SpriteComponent() = default;
+		~SpriteComponent() override = default;
 
 		SpriteComponent(const SpriteComponent& other) = delete;
 		SpriteComponent(SpriteComponent&& other) = delete;

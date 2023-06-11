@@ -5,7 +5,7 @@ namespace dae
 {
 	class SceneManager;
 
-	class Minigin
+	class Minigin final
 	{
 	public:
 		explicit Minigin(const std::string& dataPath);
@@ -16,7 +16,7 @@ namespace dae
 		Minigin& operator=(const Minigin& other) = delete;
 		Minigin& operator=(Minigin&& other) = delete;
 
-		SceneManager* GetSceneManager();
+		SceneManager* GetSceneManager() const;
 
 		void Run();
 
