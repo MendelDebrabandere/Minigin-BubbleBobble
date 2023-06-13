@@ -1,19 +1,19 @@
 # Minigin-BubbleBobble
-Github repo: https://github.com/MendelDebrabandere/Minigin-BubbleBobble
+GitHub repo: https://github.com/MendelDebrabandere/Minigin-BubbleBobble
 
 A game engine made myself in the Programming 4 course in DAE:
 ![BubbleBobble](https://github.com/MendelDebrabandere/Minigin-BubbleBobble/assets/95921047/ada02a54-47c9-4378-bb1b-a12e8a51baaa)
 
-This is a project that is based of this simple start project: https://github.com/avadae/minigin
+This is a project that is based on this simple start project: https://github.com/avadae/minigin
 
-The start project is basically just a C++ visual studio project with SDL set up.
+The start project is basically just a C++ Visual Studio project with SDL set up.
 All the game engine stuff is added by myself.
 
 ## Minigin
-This is the engine part of the project. It is written and designed in a way that it is a self sufficient egnine as if it was made for publishing.
-It is by no means a big or impressive engine like Unreal ur Unity but it is a simple and clean 2D engine that uses some core game programming patterns.
+This is the engine part of the project. It is written and designed in a way that it is a self-sufficient engine, as if it was made for publishing.
+It is by no means a big or impressive engine like Unreal or Unity, but it is a simple and clean 2D engine that uses some core game programming patterns.
 Most of the patterns come from the book "Game Programming Patterns" by Robert Nystrom (https://gameprogrammingpatterns.com).
-As said in the beginning, this is a project that was made for the programming 4 course in DAE where we learnt about the patterns of the book in class.
+As said in the beginning, this is a project that was made for the programming 4 course in DAE where we learned about the patterns of the book in class.
 
 Here is a list of the patterns the game engine contains:
 - Command
@@ -26,8 +26,6 @@ Here is a list of the patterns the game engine contains:
 - Service Locator
 
 ## Bubble Bobble
-This is the game i made on the engine. It is a partial remake of the original Bubble Bobble by Taito Corporation.
+This is the game I made on the engine. It is a partial remake of the original Bubble Bobble by Taito Corporation.
 This is made as test/proof that the features of the engine actually work, for what is a game engine if no games are made using it.
 The game can be played singleplayer, co-op multiplayer or versus multiplayer. In all 3 cases it supports controller input.
-
-
