@@ -11,7 +11,7 @@ public:
 	};
 
 	FoodComponent() = default;
-	~FoodComponent() override = default;
+	~FoodComponent() override;
 
 	FoodComponent(const FoodComponent& other) = delete;
 	FoodComponent(FoodComponent&& other) = delete;

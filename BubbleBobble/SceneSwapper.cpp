@@ -20,68 +20,11 @@ using namespace dae;
 
 void SceneSwapper::Init()
 {
-	SceneManager::GetInstance().SetSceneSwapperFunc([this]() {Update(); });
 	MainMenuScene::Create();
 
 	EventQueue::GetInstance().AddListener(this);
 }
 
-void SceneSwapper::Update()
-{
-	switch (m_State)
-	{
-	case GameState::Menu:
-	{
-		break;
-	}
-	case GameState::SinglePlayer:
-	case GameState::Coop:
-	{
-		bool canChangeLevel{ true };
-		//Check if it should change the scene to next level
-		for (auto& object : dae::SceneManager::GetInstance().GetActiveScene()->GetAllObjects())
-		{
-			//dont change when there are still enemies
-			if (object->HasComponent<EnemyComponent>())
-			{
-				canChangeLevel = false;
-				break;
-			}
-
-			//dont change when there are still foods
-			if (object->HasComponent<FoodComponent>())
-			{
-				canChangeLevel = false;
-				break;
-			}
-
-			//dont change when there are still bubbles with enemies in them
-			if (object->HasComponent<BubbleComponent>())
-			{
-				auto bubbleComponent = object->GetComponent<BubbleComponent>();
-				if (bubbleComponent->GetState() == BubbleComponent::BubbleState::EnemyDying ||
-					bubbleComponent->HasEnemyInside())
-				{
-					canChangeLevel = false;
-					break;
-				}
-			}
-		}
-
-		//you can change the game mode now
-		if (canChangeLevel)
-		{
-			SkipLevel();
-		}
-		break;
-	}
-	case GameState::Versus:
-	case GameState::SetHighScore:
-	{
-		break;
-	}
-	}
-}
 
 void SceneSwapper::SkipLevel()
 {
@@ -133,11 +76,11 @@ void SceneSwapper::SkipLevel()
 
 void SceneSwapper::OnEvent(const dae::Event& e)
 {
-	if (e.name == "PlayerDied")
+	//PLAYER DIED
+	if (e.name ==  "PlayerDied")
 	{
 		dae::ServiceLocator::GetSoundSystem().ToggleMusic(false);
-
-
+		
 		if (m_State == GameState::SinglePlayer || m_State == GameState::Coop)
 		{
 			HighScoreScene::Create();
@@ -148,7 +91,54 @@ void SceneSwapper::OnEvent(const dae::Event& e)
 			MainMenuScene::Create();
 			m_State = GameState::Menu;
 		}
-
 	}
+
+
+
+	//PICKED UP SCORE
+	else if (e.name == "FoodCompDestroyed")
+	{
+		if (m_State == GameState::Coop || m_State == GameState::SinglePlayer)
+		{
+			bool canChangeLevel{ true };
+			//Check if it should change the scene to next level
+			for (auto& object : dae::SceneManager::GetInstance().GetActiveScene()->GetAllObjects())
+			{
+				//dont change when there are still enemies
+				if (object->HasComponent<EnemyComponent>())
+				{
+					canChangeLevel = false;
+					break;
+				}
+
+				//dont change when there are still foods
+				if (object->HasComponent<FoodComponent>())
+				{
+					canChangeLevel = false;
+					break;
+				}
+
+				//dont change when there are still bubbles with enemies in them
+				if (object->HasComponent<BubbleComponent>())
+				{
+					auto bubbleComponent = object->GetComponent<BubbleComponent>();
+					if (bubbleComponent->GetState() == BubbleComponent::BubbleState::EnemyDying ||
+						bubbleComponent->HasEnemyInside())
+					{
+						canChangeLevel = false;
+						break;
+					}
+				}
+			}
+
+			//you can change the game mode now
+			if (canChangeLevel)
+			{
+				SkipLevel();
+			}
+		}
+	}
+
+
 }
 

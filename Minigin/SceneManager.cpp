@@ -30,11 +30,6 @@ void SceneManager::SetActiveScene(const Scene* pScene)
 	}
 }
 
-void SceneManager::SetSceneSwapperFunc(const std::function<void()>& func)
-{
-	m_SceneSwapperFunction = func;
-}
-
 Scene* SceneManager::GetActiveScene() const
 {
 	if (m_Scenes.size() != 0 && m_ActiveSceneIdx != -1)
@@ -54,9 +49,6 @@ void SceneManager::FixedUpdate()
 
 void SceneManager::Update()
 {
-	if (m_SceneSwapperFunction)
-		m_SceneSwapperFunction();
-
 	if (m_ActiveSceneIdx >= 0)
 	{
 		m_Scenes[m_ActiveSceneIdx]->Update();

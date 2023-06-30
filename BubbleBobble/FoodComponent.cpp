@@ -2,6 +2,7 @@
 
 #include "AvatarComponent.h"
 #include "ColliderComponent.h"
+#include "EventQueue.h"
 #include "GameObject.h"
 #include "PhysicsComponent.h"
 #include "ServiceLocator.h"
@@ -9,6 +10,11 @@
 #include "SpriteComponent.h"
 #include "Timer.h"
 
+
+FoodComponent::~FoodComponent()
+{
+	dae::EventQueue::GetInstance().SendEvent(dae::Event{"FoodCompDestroyed"});
+}
 
 void FoodComponent::Initialize()
 {

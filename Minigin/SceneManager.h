@@ -17,8 +17,6 @@ namespace dae
 		void SetActiveScene(const std::string& name);
 		void SetActiveScene(const Scene* pScene);
 
-		void SetSceneSwapperFunc(const std::function<void()>& func);
-
 		Scene* GetActiveScene() const;
 
 		void FixedUpdate();
@@ -29,7 +27,5 @@ namespace dae
 	private:
 		std::vector<std::shared_ptr<Scene>> m_Scenes;
 		int m_ActiveSceneIdx{-1};
-
-		std::function<void()> m_SceneSwapperFunction{};
 	};
 }
