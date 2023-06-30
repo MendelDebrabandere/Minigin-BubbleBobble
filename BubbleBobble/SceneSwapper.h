@@ -23,7 +23,6 @@ public:
 	SceneSwapper operator=(SceneSwapper&& rhs) = delete;
 
 	void Init();
-	void Update();
 	void SkipLevel();
 
 	void OnEvent(const dae::Event& e) override;
