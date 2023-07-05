@@ -1,10 +1,11 @@
 #pragma once
 #include "Component.h"
+#include "SpriteComponent.h"
 
 class ZenChanComponent final : public dae::Component
 {
 public:
-	ZenChanComponent() = default;
+	ZenChanComponent();
 	~ZenChanComponent() override = default;
 
 	ZenChanComponent(const ZenChanComponent& other) = delete;
@@ -18,4 +19,8 @@ public:
 private:
 	bool m_Charging{};
 	float m_ChargingTimer{};
+
+	static float m_SpriteScale;
+	static dae::SpriteDataPreset m_WalkingPreset;
+	static dae::SpriteDataPreset m_ChargingPreset;
 };

@@ -5,10 +5,23 @@
 #include "SpriteComponent.h"
 #include "Timer.h"
 
+float ZenChanComponent::m_SpriteScale{ 4 };
+dae::SpriteDataPreset ZenChanComponent::m_WalkingPreset{ false, 4, 8, 0.3f, 0, 4 };
+dae::SpriteDataPreset ZenChanComponent::m_ChargingPreset{ false, 4, 8, 0.1f, 4, 8 };
+
+ZenChanComponent::ZenChanComponent()
+	: m_ChargingTimer{ static_cast<float>(rand() % 20 + 10) }
+{
+}
 
 void ZenChanComponent::Initialize()
 {
-	m_ChargingTimer = static_cast<float>(rand() % 20 + 10);
+	dae::SpriteComponent* spriteComp = m_pOwner->GetComponent<dae::SpriteComponent>();
+	if (spriteComp)
+	{
+		spriteComp->SetAnimVariables(m_WalkingPreset);
+		spriteComp->Scale(m_SpriteScale);
+	}
 }
 
 void ZenChanComponent::Update()
@@ -31,8 +44,8 @@ void ZenChanComponent::Update()
 			//stop charging
 			m_Charging = false;
 			m_ChargingTimer = static_cast<float>(rand() % 10 + 7); //random time between 7-17 sec before charging again
-			spriteComponent->SetAnimVariables(4, 8, 0.3f, 0, 4);
-			spriteComponent->Scale(4);
+			spriteComponent->SetAnimVariables(m_WalkingPreset);
+			spriteComponent->Scale(m_SpriteScale);
 		}
 	}
 	else
@@ -43,8 +56,8 @@ void ZenChanComponent::Update()
 			//start charging
 			m_Charging = true;
 			m_ChargingTimer = static_cast<float>(rand() % 5 + 4); //random time between 4-9 sec before stopping
-			spriteComponent->SetAnimVariables(4, 8, 0.1f, 4, 8);
-			spriteComponent->Scale(4);
+			spriteComponent->SetAnimVariables(m_ChargingPreset);
+			spriteComponent->Scale(m_SpriteScale);
 		}
 	}
 

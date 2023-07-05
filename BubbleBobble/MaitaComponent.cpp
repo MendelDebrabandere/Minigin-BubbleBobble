@@ -7,9 +7,23 @@
 #include "SpriteComponent.h"
 #include "Timer.h"
 
+float MaitaComponent::m_SpriteScale{4};
+dae::SpriteDataPreset MaitaComponent::m_WalkingPreset{false, 4, 8, 0.3f, 8, 13};
+dae::SpriteDataPreset MaitaComponent::m_AttackingPreset{false, 4, 4, 0.2f, 7, 12};
+
+MaitaComponent::MaitaComponent()
+	: m_RockThrowingTimer{ static_cast<float>(rand() % 3 + 5) }
+{
+}
+
 void MaitaComponent::Initialize()
 {
-	m_RockThrowingTimer = float(rand() % 3 + 5);
+	dae::SpriteComponent* spriteComp = m_pOwner->GetComponent<dae::SpriteComponent>();
+	if (spriteComp)
+	{
+		spriteComp->SetAnimVariables(m_WalkingPreset);
+		spriteComp->Scale(m_SpriteScale);
+	}
 }
 
 void MaitaComponent::Update()
@@ -22,16 +36,16 @@ void MaitaComponent::Update()
 	{
 		if (!m_Throwing)
 		{
-			spriteComp->SetAnimVariables(4, 4, 0.2f, 7, 12);
+			spriteComp->SetAnimVariables(m_AttackingPreset);
 			m_RockThrowingTimer = 0.2f * 3.9f;
 		}
 		else
 		{
 			Rock::CreateRock(dae::SceneManager::GetInstance().GetActiveScene(), m_pOwner, m_pOwner->GetComponent<EnemyComponent>()->GetMoveRight());
-			spriteComp->SetAnimVariables(4, 8, 0.3f, 8, 13);
+			spriteComp->SetAnimVariables(m_WalkingPreset);
 			m_RockThrowingTimer = static_cast<float>(rand() % 3 + 5);
 		}
-		spriteComp->Scale(4);
+		spriteComp->Scale(m_SpriteScale);
 
 		m_Throwing = !m_Throwing;
 	}

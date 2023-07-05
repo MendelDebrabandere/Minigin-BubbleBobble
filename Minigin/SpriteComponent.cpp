@@ -97,6 +97,18 @@ void SpriteComponent::SetAnimVariables(int rows, int columns, float animTimer, i
 	m_RenderHeight = float(m_Rect.h);
 }
 
+void SpriteComponent::SetAnimVariables(const SpriteDataPreset& preset)
+{
+	if (preset.DoOnce)
+	{
+		DoOnceAnim(preset.AnimTimer, preset.StartIdx, preset.EndIdx);
+	}
+	else
+	{
+		SetAnimVariables(preset.Rows, preset.Columns, preset.AnimTimer, preset.StartIdx, preset.EndIdx);
+	}
+}
+
 void SpriteComponent::Scale(float value)
 {
 	m_RenderWidth *= value;
