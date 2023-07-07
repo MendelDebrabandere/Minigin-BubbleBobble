@@ -3,6 +3,7 @@
 
 #include "FoodComponent.h"
 #include "Subject.h"
+#include "SpriteDataPreset.h"
 
 class PlayerMaitaComponent final : public dae::Component
 {
@@ -47,6 +48,12 @@ private:
 
 	bool m_Throwing{};
 	float m_RockThrowingTimer{};
+
+
+	static float m_SpriteScale;
+	static dae::SpriteDataPreset m_Damaged;
+	static dae::SpriteDataPreset m_Walking;
+	static dae::SpriteDataPreset m_ThrowBoulder;
 };
 
 

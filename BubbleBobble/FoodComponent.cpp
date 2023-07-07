@@ -10,6 +10,11 @@
 #include "SpriteComponent.h"
 #include "Timer.h"
 
+float FoodComponent::m_SpriteScale{ 4 };
+dae::SpriteDataPreset FoodComponent::m_GreenScore100{ false, 3, 2, 1.f, 2, 0 };
+dae::SpriteDataPreset FoodComponent::m_GreenScore200{ false, 3, 2, 1.f, 3, 0 };
+dae::SpriteDataPreset FoodComponent::m_BlueScore100{ false, 3, 2, 1.f, 4, 4 };
+dae::SpriteDataPreset FoodComponent::m_BlueScore200{ false, 3, 2, 1.f, 5, 0 };
 
 FoodComponent::~FoodComponent()
 {
@@ -41,21 +46,21 @@ void FoodComponent::Initialize()
 					case FoodType::Fries:
 					{
 						if (avatarComp->GetColor() == AvatarComponent::AvatarColor::green)
-							spriteComp->SetAnimVariables(3, 2, 1.f, 3);
+							spriteComp->SetAnimVariables(m_GreenScore200);
 						else
-							spriteComp->SetAnimVariables(3, 2, 1.f, 5);
+							spriteComp->SetAnimVariables(m_BlueScore200);
 						break;
 					}
 					case FoodType::Melon:
 					{
 						if (avatarComp->GetColor() == AvatarComponent::AvatarColor::green)
-							spriteComp->SetAnimVariables(3, 2, 1.f, 2);
+							spriteComp->SetAnimVariables(m_GreenScore100);
 						else
-							spriteComp->SetAnimVariables(3, 2, 1.f, 4);
+							spriteComp->SetAnimVariables(m_BlueScore100);
 						break;
 					}
 					}
-					spriteComp->Scale(4);
+					spriteComp->Scale(m_SpriteScale);
 					spriteComp->Pause(true);
 
 					physComp->SetPhysicsSettings(false, false, false);

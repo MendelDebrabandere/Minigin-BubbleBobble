@@ -1,5 +1,6 @@
 #pragma once
 #include "Component.h"
+#include "SpriteDataPreset.h"
 
 class RockComponent final : public dae::Component
 {
@@ -33,4 +34,7 @@ private:
 	bool m_MoveRight{};
 
 	float m_CrashingTimer{};
+
+	static float m_SpriteScale;
+	static dae::SpriteDataPreset m_CrashAnim;
 };

@@ -3,6 +3,7 @@
 
 #include "FoodComponent.h"
 #include "Subject.h"
+#include "SpriteDataPreset.h"
 
 class AvatarComponent final : public dae::Component
 {
@@ -56,4 +57,10 @@ private:
 	float m_MaxInvulnerableTime{3.f};
 
 	AvatarColor m_MyColor{};
+
+	static float m_SpriteScale;
+	static dae::SpriteDataPreset m_GreenWalking;
+	static dae::SpriteDataPreset m_GreenDamaged;
+	static dae::SpriteDataPreset m_BlueWalking;
+	static dae::SpriteDataPreset m_BlueDamaged;
 };

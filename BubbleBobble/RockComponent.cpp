@@ -6,6 +6,8 @@
 #include "SpriteComponent.h"
 #include "Timer.h"
 
+float RockComponent::m_SpriteScale{ 4 };
+dae::SpriteDataPreset RockComponent::m_CrashAnim{ false, 2, 4, 0.2f, 4, 7 };
 
 void RockComponent::Initialize()
 {
@@ -39,7 +41,7 @@ void RockComponent::Update()
 	case RockState::Crashing:
 	{
 		m_CrashingTimer += elapsedSec;
-		if (m_CrashingTimer > 0.59f)
+		if (m_CrashingTimer > m_CrashAnim.AnimTimer * 3 - 0.01f)
 		{
 			m_pOwner->Destroy();
 		}
@@ -58,8 +60,8 @@ void RockComponent::Crash()
 {
 	m_CurrState = RockState::Crashing;
 	auto spriteComp = m_pOwner->GetComponent<dae::SpriteComponent>();
-	spriteComp->SetAnimVariables(2, 4, 0.2f, 4, 7);
-	spriteComp->Scale(4);
+	spriteComp->SetAnimVariables(m_CrashAnim);
+	spriteComp->Scale(m_SpriteScale);
 }
 
 bool RockComponent::CanDamage() const

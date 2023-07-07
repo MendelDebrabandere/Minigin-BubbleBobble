@@ -129,6 +129,9 @@
     <ClInclude Include="Event.h">
       <Filter>Events</Filter>
     </ClInclude>
+    <ClInclude Include="SpriteDataPreset.h">
+      <Filter>Component</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="InputManager.cpp">

@@ -1,6 +1,6 @@
 #pragma once
 #include "Component.h"
-#include "SpriteComponent.h"
+#include "SpriteDataPreset.h"
 
 class ZenChanComponent final : public dae::Component
 {

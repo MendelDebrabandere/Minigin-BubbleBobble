@@ -18,6 +18,15 @@
 #include "ZenChan.h"
 #include "ZenChanComponent.h"
 
+float BubbleComponent::m_SpriteScale{ 4 };
+dae::SpriteDataPreset BubbleComponent::m_GreenZenChan{ false, 9, 4, 0.3f, 0, 4 };
+dae::SpriteDataPreset BubbleComponent::m_BlueZenChan{ false, 9, 4, 0.3f, 4, 8 };
+dae::SpriteDataPreset BubbleComponent::m_GreenMaita{ false, 9, 4, 0.3f, 8, 12 };
+dae::SpriteDataPreset BubbleComponent::m_BlueMaita{ false, 9, 4, 0.3f, 12, 16 };
+dae::SpriteDataPreset BubbleComponent::m_Pop{ true, 9, 4, 0.15f, 24, 26 };
+dae::SpriteDataPreset BubbleComponent::m_DeadZenChan{ false, 9, 4, 0.1f, 28, 32 };
+dae::SpriteDataPreset BubbleComponent::m_DeadMaita{ false, 9, 4, 0.1f, 32, 36 };
+
 void BubbleComponent::Initialize()
 {
 	dae::ColliderComponent* myColl = m_pOwner->GetComponent<dae::ColliderComponent>();
@@ -197,10 +206,7 @@ void BubbleComponent::PickUpEnemy(dae::GameObject* go)
 {
 	m_HasEnemyInside = true;
 
-	if (go->GetComponent<ZenChanComponent>())
-		m_ZenChan = true;
-	else
-		m_ZenChan = false;
+	m_ZenChan = go->GetComponent<ZenChanComponent>();
 
 	go->Destroy();
 	dae::SpriteComponent* spriteComp = m_pOwner->GetComponent<dae::SpriteComponent>();
@@ -209,18 +215,18 @@ void BubbleComponent::PickUpEnemy(dae::GameObject* go)
 		if (m_Blue)
 		{
 			if (m_ZenChan)
-				spriteComp->SetAnimVariables(9, 4, 0.3f, 4, 8);
+				spriteComp->SetAnimVariables(m_BlueZenChan);
 			else
-				spriteComp->SetAnimVariables(9, 4, 0.3f, 12, 16);
+				spriteComp->SetAnimVariables(m_BlueMaita);
 		}
 		else
 		{
 			if (m_ZenChan)
-				spriteComp->SetAnimVariables(9, 4, 0.3f, 0, 4);
+				spriteComp->SetAnimVariables(m_GreenZenChan);
 			else
-				spriteComp->SetAnimVariables(9, 4, 0.3f, 8, 12);
+				spriteComp->SetAnimVariables(m_GreenMaita);
 		}
-		spriteComp->Scale(4);
+		spriteComp->Scale(m_SpriteScale);
 	}
 }
 
@@ -236,10 +242,10 @@ void BubbleComponent::Pop(bool byPlayer)
 		if (spriteComp)
 		{
 			if (m_ZenChan)
-				spriteComp->SetAnimVariables(9, 4, 0.1f, 28, 32);
+				spriteComp->SetAnimVariables(m_DeadZenChan);
 			else
-				spriteComp->SetAnimVariables(9, 4, 0.1f, 32, 36);
-			spriteComp->Scale(4);
+				spriteComp->SetAnimVariables(m_DeadMaita);
+			spriteComp->Scale(m_SpriteScale);
 			m_Timer = 0.f;
 			m_RandomGoToPos = glm::vec2{ 100 + rand() % 600, 100 + rand() % 600 };
 		}
@@ -248,7 +254,7 @@ void BubbleComponent::Pop(bool byPlayer)
 	{
 		m_CurrentState = BubbleState::Popping;
 		if (spriteComp)
-			spriteComp->DoOnceAnim(0.15f, 24, 26);
+			spriteComp->SetAnimVariables(m_Pop);
 	}
 }
 

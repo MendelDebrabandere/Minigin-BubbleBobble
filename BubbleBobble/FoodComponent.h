@@ -1,5 +1,6 @@
 #pragma once
 #include "Component.h"
+#include "SpriteDataPreset.h"
 
 class FoodComponent final : public dae::Component
 {
@@ -34,4 +35,10 @@ private:
 	State m_CurrState{ State::Food };
 
 	float m_Timer{};
+
+	static float m_SpriteScale;
+	static dae::SpriteDataPreset m_GreenScore100;
+	static dae::SpriteDataPreset m_GreenScore200;
+	static dae::SpriteDataPreset m_BlueScore100;
+	static dae::SpriteDataPreset m_BlueScore200;
 };

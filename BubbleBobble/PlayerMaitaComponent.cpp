@@ -11,6 +11,11 @@
 #include "SpriteComponent.h"
 #include "Timer.h"
 
+float PlayerMaitaComponent::m_SpriteScale{ 4 };
+dae::SpriteDataPreset PlayerMaitaComponent::m_Damaged{ false, 4, 8, 0.1f, 24, 28 };
+dae::SpriteDataPreset PlayerMaitaComponent::m_Walking{ false, 4, 8, 0.3f, 8, 13 };
+dae::SpriteDataPreset PlayerMaitaComponent::m_ThrowBoulder{ false, 4, 4, 0.2f, 7, 12 };
+
 void PlayerMaitaComponent::Initialize()
 {
 	//Set up enemy hit detection
@@ -33,8 +38,8 @@ void PlayerMaitaComponent::Initialize()
 							dae::SpriteComponent* spriteComp = m_pOwner->GetComponent<dae::SpriteComponent>();
 							if (spriteComp)
 							{
-								spriteComp->SetAnimVariables(4, 8, 0.1f, 24, 28);
-								spriteComp->Scale(4);
+								spriteComp->SetAnimVariables(m_Damaged);
+								spriteComp->Scale(m_SpriteScale);
 								spriteComp->Pause(false);
 							}
 						}
@@ -80,8 +85,8 @@ void PlayerMaitaComponent::Update()
 			if (m_RockThrowingTimer >= 0.2f * 3.9f)
 			{
 				Rock::CreateRock(dae::SceneManager::GetInstance().GetActiveScene(), m_pOwner, m_pOwner->GetTransform()->GetFacingRight());
-				spriteComp->SetAnimVariables(4, 8, 0.3f, 8, 13);
-				spriteComp->Scale(4);
+				spriteComp->SetAnimVariables(m_Walking);
+				spriteComp->Scale(m_SpriteScale);
 				m_Throwing = false;
 				m_RockThrowingTimer = 0.f;
 				break;
@@ -110,9 +115,9 @@ void PlayerMaitaComponent::ThrowRock()
 	if (m_CurrentState == PlayerMaitaState::Moving)
 	{
 		auto spriteComp = m_pOwner->GetComponent<dae::SpriteComponent>();
-		spriteComp->SetAnimVariables(4, 4, 0.2f, 7, 12);
+		spriteComp->SetAnimVariables(m_ThrowBoulder);
 		m_RockThrowingTimer = 0.f;
-		spriteComp->Scale(4);
+		spriteComp->Scale(m_SpriteScale);
 		m_Throwing = true;
 
 	}
@@ -173,8 +178,8 @@ void PlayerMaitaComponent::DoRespawnLogic()
 		dae::SpriteComponent* spriteComp = m_pOwner->GetComponent<dae::SpriteComponent>();
 		if (spriteComp)
 		{
-			spriteComp->SetAnimVariables(4, 8, 0.1f, 8, 13);
-			spriteComp->Scale(4);
+			spriteComp->SetAnimVariables(m_Walking);
+			spriteComp->Scale(m_SpriteScale);
 			spriteComp->Pause(false);
 		}
 

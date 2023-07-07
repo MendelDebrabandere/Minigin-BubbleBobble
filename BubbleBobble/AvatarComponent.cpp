@@ -10,6 +10,14 @@
 #include "SpriteComponent.h"
 #include "Timer.h"
 
+
+float AvatarComponent::m_SpriteScale{ 4 };
+dae::SpriteDataPreset AvatarComponent::m_GreenWalking{ false, 6, 7, 0.1f, 0, 7 };
+dae::SpriteDataPreset AvatarComponent::m_GreenDamaged{ false, 6, 7, 0.1f, 14, 18 };
+dae::SpriteDataPreset AvatarComponent::m_BlueWalking{ false, 6, 7, 0.1f, 21, 28 };
+dae::SpriteDataPreset AvatarComponent::m_BlueDamaged{ false, 6, 7, 0.1f, 35, 39 };
+
+
 void AvatarComponent::Initialize()
 {
 	//Set up enemy hit detection
@@ -41,10 +49,10 @@ void AvatarComponent::Initialize()
 						if (spriteComp)
 						{
 							if (m_MyColor == AvatarColor::green)
-								spriteComp->SetAnimVariables(6, 7, 0.1f, 14, 18);
+								spriteComp->SetAnimVariables(m_GreenDamaged);
 							else
-								spriteComp->SetAnimVariables(6, 7, 0.1f, 35, 39);
-							spriteComp->Scale(4);
+								spriteComp->SetAnimVariables(m_BlueDamaged);
+							spriteComp->Scale(m_SpriteScale);
 							spriteComp->Pause(false);
 						}
 
@@ -154,10 +162,10 @@ void AvatarComponent::DoRespawnLogic()
 		if (spriteComp)
 		{
 			if (m_MyColor == AvatarColor::green)
-				spriteComp->SetAnimVariables(6, 7, 0.1f, 0, 7);
+				spriteComp->SetAnimVariables(m_GreenWalking);
 			else
-				spriteComp->SetAnimVariables(6, 7, 0.1f, 21, 28);
-			spriteComp->Scale(4);
+				spriteComp->SetAnimVariables(m_BlueWalking);
+			spriteComp->Scale(m_SpriteScale);
 			spriteComp->Pause(false);
 		}
 
