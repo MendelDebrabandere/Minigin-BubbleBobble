@@ -4,6 +4,7 @@
 #include <iostream>
 #include <sstream>
 #include "EventQueue.h"
+#include "Minigin.h"
 #include "ServerConnector.h"
 
 using namespace dae;
@@ -317,7 +318,7 @@ void InputManager::ProcessReceivedPacket(const ClientInputPacket& receivedPacket
 		auto iter = m_KeyboardActionMap.find({ key, InputType::OnDown });
 		if (iter != m_KeyboardActionMap.end())
 		{
-			iter->second->Execute();
+			Minigin::AddTask([=](void) { iter->second->Execute(); });
 		}
 	}
 

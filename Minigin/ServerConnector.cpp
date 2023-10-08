@@ -6,6 +6,7 @@
 #include <tchar.h>
 
 #include "InputManager.h"
+#include "Minigin.h"
 #include "Scene.h"
 #include "SceneManager.h"
 
@@ -183,10 +184,6 @@ void ServerConnector::SetAsClient()
     }
 }
 
-void ServerConnector::CloseConnection()
-{
-}
-
 Connection ServerConnector::GetConnection() const
 {
     return m_Connection;
@@ -202,8 +199,8 @@ void ServerConnector::SendInputPacket(const std::string& inputPacket) const
 
     if (byteCount == 0)
         std::cout << "Error sending inputPacket.\n";
-    else
-        std::cout << "Successfully sent inputPacket.\n";
+    //else
+    //    std::cout << "Successfully sent inputPacket.\n";
 }
 
 void ServerConnector::ReceiveInputPackets()
@@ -218,8 +215,10 @@ void ServerConnector::ReceiveInputPackets()
             // Data received
             // Process the received data here.
             // Deserialize and handle the input packet.
-            std::cout << "Received Input: " << std::string(recvbuf) << std::endl;
+            //std::cout << "Received Input: " << std::string(recvbuf) << std::endl;
+            Minigin::LockMutex();
             InputManager::GetInstance().ReceiveInputFromClient(std::string(recvbuf));
+            Minigin::UnlockMutex();
         }
         else if (bytesReceived == 0)
         {

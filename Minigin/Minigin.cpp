@@ -112,6 +112,16 @@ void Minigin::Run()
 	{
 		const auto frameStart{ std::chrono::high_resolution_clock::now() };
 
+		//use a mutex so that the multiplayer thread wont interfere during gameplay
+		LockMutex();
+
+		//do all tasks for the main thread now (other threads give tasks to main thread)
+		while (!s_Tasks.empty())
+		{
+			s_Tasks.front()();
+			s_Tasks.pop();
+		}
+
 		time.Update();
 		lag += time.GetDelta();
 
@@ -133,6 +143,8 @@ void Minigin::Run()
 		renderer.Render();
 
 		ResourceManager::GetInstance().CheckForDeletedTextures();
+
+		UnlockMutex();
 
 		const float frameTime{ std::chrono::duration<float>(std::chrono::high_resolution_clock::now() - frameStart).count() };
 		const float sleepTime{ maxFrameTime - frameTime };

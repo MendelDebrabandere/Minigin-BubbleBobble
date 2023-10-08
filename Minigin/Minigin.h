@@ -1,4 +1,7 @@
 #pragma once
+#include <functional>
+#include <mutex>
+#include <queue>
 #include <string>
 
 namespace dae
@@ -20,7 +23,15 @@ namespace dae
 
 		void Run();
 
+		static void LockMutex() { s_Mutex.lock(); }
+		static void UnlockMutex() { s_Mutex.unlock(); }
+
+		static void AddTask(const std::function<void()> func) { s_Tasks.push(func); }
 	private:
 		SceneManager* mpSceneManager;
+
+
+		inline static std::mutex s_Mutex{};
+		inline static std::queue<std::function<void()>> s_Tasks{};
 	};
 }
