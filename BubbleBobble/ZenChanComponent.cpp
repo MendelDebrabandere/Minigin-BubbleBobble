@@ -62,3 +62,23 @@ void ZenChanComponent::Update()
 	}
 
 }
+
+rapidjson::Value ZenChanComponent::Serialize(rapidjson::Document::AllocatorType& allocator) const
+{
+	rapidjson::Value obj(rapidjson::kObjectType);
+
+	// Serialize basic types
+	obj.AddMember("Charging", m_Charging, allocator);
+	obj.AddMember("ChargingTimer", m_ChargingTimer, allocator);
+
+	return obj;
+}
+
+void ZenChanComponent::Deserialize(const rapidjson::Value& obj)
+{
+	if (obj.HasMember("Charging"))
+		m_Charging = obj["Charging"].GetBool();
+
+	if (obj.HasMember("ChargingTimer"))
+		m_ChargingTimer = obj["ChargingTimer"].GetFloat();
+}

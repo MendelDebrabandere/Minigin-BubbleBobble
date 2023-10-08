@@ -58,3 +58,24 @@ void MaitaComponent::Update()
 			spriteComp->SetRenderOffset(glm::vec2{ -spriteComp->GetSize().x /2, 0 });
 	}
 }
+
+rapidjson::Value MaitaComponent::Serialize(rapidjson::Document::AllocatorType& allocator) const
+{
+	rapidjson::Value obj(rapidjson::kObjectType);
+
+	// Serialize basic types
+	obj.AddMember("Throwing", m_Throwing, allocator);
+	obj.AddMember("RockThrowingTimer", m_RockThrowingTimer, allocator);
+
+	return obj;
+}
+
+void MaitaComponent::Deserialize(const rapidjson::Value& obj)
+{
+	if (obj.HasMember("Throwing"))
+		m_Throwing = obj["Throwing"].GetBool();
+
+	if (obj.HasMember("RockThrowingTimer"))
+		m_RockThrowingTimer = obj["RockThrowingTimer"].GetFloat();
+}
+

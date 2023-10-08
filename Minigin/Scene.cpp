@@ -98,7 +98,7 @@ rapidjson::Document Scene::SerializeScene() const
 
 void Scene::Deserialize(const rapidjson::Document& doc)
 {
-	// Assuming the Scene name is not changed during runtime and does not need deserialization
+	//TODO: Assuming the Scene name is not changed during runtime and does not need deserialization
 
 	// Deserialize all game objects
 	const rapidjson::Value& objects = doc["objects"];
@@ -107,16 +107,18 @@ void Scene::Deserialize(const rapidjson::Document& doc)
 
 	auto& allObj = GetAllObjects();
 
-	int it{};
-
-	for (const auto& obj : objects.GetArray())
+	for (const auto& jsonObj : objects.GetArray())
 	{
-		//GameObject* gameObject = CreateGameObject(); // Creates a new game object in the current scene
-		allObj[it]->Deserialize(obj);  // This is a function you'd need to implement in GameObject
-		++it;
+		for (const auto& gameObj : allObj)
+		{
+			if (gameObj->GetId() == jsonObj["id"])
+			{
+				gameObj->Deserialize(jsonObj);
+			}
+		}
 	}
 
-	// You may need additional logic here, such as:
+	//TODO: 2 things
 	// - Deleting game objects that exist in the current scene but not in the received data
-	// - Matching and updating existing game objects rather than always creating new ones
+	// - Spawning game objects that exist in the received data but not in the current scene
 }

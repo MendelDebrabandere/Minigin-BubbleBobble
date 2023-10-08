@@ -149,3 +149,41 @@ bool EnemyComponent::GetMoveRight() const
 {
 	return m_WalkingRight;
 }
+
+rapidjson::Value EnemyComponent::Serialize(rapidjson::Document::AllocatorType& allocator) const
+{
+	rapidjson::Value obj(rapidjson::kObjectType);
+
+	// Serialize basic types
+	obj.AddMember("BehaviorState", static_cast<int>(m_CurrBehavior), allocator);
+	obj.AddMember("WalkingRight", m_WalkingRight, allocator);
+	obj.AddMember("WalkingSpeed", m_WalkingSpeed, allocator);
+	obj.AddMember("JumpingCooldown", m_JumpingCooldown, allocator);
+	obj.AddMember("JumpSpeed", m_JumpSpeed, allocator);
+	obj.AddMember("ChangeWalkDirTimer", m_ChangeWalkDirTimer, allocator);
+
+	return obj;
+}
+
+
+void EnemyComponent::Deserialize(const rapidjson::Value& obj)
+{
+	if (obj.HasMember("BehaviorState"))
+		m_CurrBehavior = static_cast<BehaviorState>(obj["BehaviorState"].GetInt());
+
+	if (obj.HasMember("WalkingRight"))
+		m_WalkingRight = obj["WalkingRight"].GetBool();
+
+	if (obj.HasMember("WalkingSpeed"))
+		m_WalkingSpeed = obj["WalkingSpeed"].GetFloat();
+
+	if (obj.HasMember("JumpingCooldown"))
+		m_JumpingCooldown = obj["JumpingCooldown"].GetFloat();
+
+	if (obj.HasMember("JumpSpeed"))
+		m_JumpSpeed = obj["JumpSpeed"].GetFloat();
+
+	if (obj.HasMember("ChangeWalkDirTimer"))
+		m_ChangeWalkDirTimer = obj["ChangeWalkDirTimer"].GetFloat();
+}
+

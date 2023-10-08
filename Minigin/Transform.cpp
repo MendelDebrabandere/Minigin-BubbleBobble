@@ -131,8 +131,6 @@ void Transform::Deserialize(const rapidjson::Value& value)
 	if (value.HasMember("facingRight")) {
 		m_FacingRight = value["facingRight"].GetBool();
 	}
-
-	// (Optional) Deserialize any other properties as needed
 }
 
 void Transform::EnableChangedFlag()

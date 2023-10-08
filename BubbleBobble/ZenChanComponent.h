@@ -16,6 +16,9 @@ public:
 	void Initialize() override;
 	void Update() override;
 
+	virtual rapidjson::Value Serialize(rapidjson::Document::AllocatorType&) const override;
+	virtual void Deserialize(const rapidjson::Value&) override;
+
 private:
 	bool m_Charging{};
 	float m_ChargingTimer{};

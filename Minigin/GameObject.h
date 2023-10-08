@@ -14,7 +14,7 @@ namespace dae
 	class GameObject final
 	{
 	public:
-		GameObject() = default;
+		GameObject();
 		~GameObject() = default;
 		GameObject(const GameObject& other) = delete;
 		GameObject(GameObject&& other) = delete;
@@ -36,6 +36,8 @@ namespace dae
 
 		GameObject* CreateGameObject();
 
+		int GetId() const { return m_Id; }
+
 		template <class T>
 		T* AddComponent();
 
@@ -52,6 +54,10 @@ namespace dae
 		void Deserialize(const rapidjson::Value& value);
 
 	private:
+		inline static int s_IdCounter{};
+
+		int m_Id{};
+
 		GameObject* m_pParent{};
 		std::vector<std::unique_ptr<GameObject>> m_pChildren{};
 

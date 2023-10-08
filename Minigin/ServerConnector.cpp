@@ -221,7 +221,7 @@ void ServerConnector::SetAsClient()
 
 void ServerConnector::SendGameStatePackets()
 {
-    constexpr float gameStateSendingFrequency{ 4.f }; // send gamestate every 0.1sec
+    constexpr float gameStateSendingFrequency{ 0.1f }; // send gamestate every 0.1sec
     float previousTime = Time::GetInstance().GetTotal();
 
     while (true)
@@ -235,7 +235,7 @@ void ServerConnector::SendGameStatePackets()
             previousTime = currTotalTime;
 
 	        //send gamestate
-            std::cout << "GAMESTATE SENDING\n";
+            //std::cout << "GAMESTATE SENDING\n";
 
             rapidjson::Document doc = SceneManager::GetInstance().GetActiveScene()->SerializeScene();
             rapidjson::StringBuffer buffer;
@@ -262,7 +262,7 @@ void ServerConnector::SendPacket(PacketTypes type, const std::string& payload)
     // Send header
     send(m_Socket, reinterpret_cast<char*>(&header), sizeof(header), 0);
 
-    std::cout << payload << '\n';
+    //std::cout << payload << '\n';
     // Send payload
     send(m_Socket, payload.c_str(), static_cast<int>(payload.size()), 0);
 }
@@ -326,7 +326,6 @@ void ServerConnector::ReceivePacket()
         case PacketTypes::RANDOM_SEED:
         {
             // Set your RNG with the received seed
-            std::srand(payloadBuffer[0]);
             std::cout << "RANDOM MULTIPLAYER SEED = " << payloadBuffer[0] << '\n';
             // add set seed as task to the main thread, (randomseed value is thread-local)
             Minigin::AddTask([=]() {Minigin::SetRandomSeed(payloadBuffer[0]); });

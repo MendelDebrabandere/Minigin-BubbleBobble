@@ -4,6 +4,12 @@
 
 using namespace dae;
 
+GameObject::GameObject()
+	:m_Id{s_IdCounter}
+{
+	++s_IdCounter;
+}
+
 void GameObject::Init()
 {
 	m_pTransform = AddComponent<Transform>();
@@ -131,8 +137,8 @@ rapidjson::Value GameObject::Serialize(rapidjson::Document::AllocatorType& alloc
 {
 	rapidjson::Value object(rapidjson::kObjectType);
 
-	// If you have an ID for GameObjects
-	// object.AddMember("id", rapidjson::Value(m_id), allocator);
+	// Serialize Id
+	object.AddMember("id", rapidjson::Value(m_Id), allocator);
 
 	// Serialize Transform
 	object.AddMember("transform", m_pTransform->Serialize(allocator), allocator);
@@ -162,17 +168,19 @@ void GameObject::Deserialize(const rapidjson::Value& value)
 		m_pTransform->Deserialize(value["transform"]);
 	}
 
-	//// Deserialize Components (this assumes you have a way of creating components by type)
-	//if (value.HasMember("components")) {
-	//	const rapidjson::Value& components = value["components"];
-	//	assert(components.IsArray());
+	// Deserialize Components (this assumes you have a way of creating components by type)
+	if (value.HasMember("components")) {
+		const rapidjson::Value& components = value["components"];
+		assert(components.IsArray());
 
-	//	for (const auto& comp : components.GetArray())
-	//	{
-	//		// You'll need logic here to determine the type of component to create/add
-	//		comp->Deserialize();
-	//	}
-	//}
+		int it{};
+		for (const auto& comp : components.GetArray())
+		{
+			// You'll need logic here to determine the type of component to create/add
+			m_Components[it]->Deserialize(comp);
+			++it;
+		}
+	}
 
 	// Deserialize Children
 	if (value.HasMember("children")) {
@@ -185,6 +193,4 @@ void GameObject::Deserialize(const rapidjson::Value& value)
 			childObject->Deserialize(child);
 		}
 	}
-
-	// Any other properties that need deserialization...
 }
