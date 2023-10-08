@@ -89,6 +89,52 @@ bool Transform::GetFacingRight() const
 	return m_FacingRight;
 }
 
+rapidjson::Value Transform::Serialize(rapidjson::Document::AllocatorType& allocator) const
+{
+	rapidjson::Value object(rapidjson::kObjectType);
+
+	// Serialize LocalPosition
+	rapidjson::Value localPosition(rapidjson::kObjectType);
+	localPosition.AddMember("x", rapidjson::Value(m_LocalPosition.x), allocator);
+	localPosition.AddMember("y", rapidjson::Value(m_LocalPosition.y), allocator);
+	object.AddMember("localPosition", localPosition, allocator);
+
+	// Serialize WorldPosition
+	rapidjson::Value worldPosition(rapidjson::kObjectType);
+	worldPosition.AddMember("x", rapidjson::Value(m_WorldPosition.x), allocator);
+	worldPosition.AddMember("y", rapidjson::Value(m_WorldPosition.y), allocator);
+	object.AddMember("worldPosition", worldPosition, allocator);
+
+	// Serialize FacingRight
+	object.AddMember("facingRight", rapidjson::Value(m_FacingRight), allocator);
+
+	// (Optional) Serialize any other properties as needed
+
+	return object;
+}
+
+void Transform::Deserialize(const rapidjson::Value& value)
+{
+	// Deserialize LocalPosition
+	if (value.HasMember("localPosition")) {
+		m_LocalPosition.x = value["localPosition"]["x"].GetFloat();
+		m_LocalPosition.y = value["localPosition"]["y"].GetFloat();
+	}
+
+	// Deserialize WorldPosition (if needed)
+	if (value.HasMember("worldPosition")) {
+		m_WorldPosition.x = value["worldPosition"]["x"].GetFloat();
+		m_WorldPosition.y = value["worldPosition"]["y"].GetFloat();
+	}
+
+	// Deserialize FacingRight
+	if (value.HasMember("facingRight")) {
+		m_FacingRight = value["facingRight"].GetBool();
+	}
+
+	// (Optional) Deserialize any other properties as needed
+}
+
 void Transform::EnableChangedFlag()
 {
 	m_HasChanged = true;

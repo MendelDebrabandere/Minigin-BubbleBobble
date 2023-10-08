@@ -1,4 +1,6 @@
 #pragma once
+#include <document.h>
+
 #include "GameObject.h"
 
 namespace dae
@@ -25,11 +27,15 @@ namespace dae
 
 		std::vector<std::unique_ptr<GameObject>>& GetAllObjects() { return m_objects; }
 
-		~Scene();
+		~Scene() = default;
 		Scene(const Scene& other) = delete;
 		Scene(Scene&& other) = delete;
 		Scene& operator=(const Scene& other) = delete;
 		Scene& operator=(Scene&& other) = delete;
+
+		rapidjson::Document SerializeScene() const;
+		void Deserialize(const rapidjson::Document& doc);
+
 
 	private: 
 

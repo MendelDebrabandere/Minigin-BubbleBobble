@@ -188,7 +188,7 @@ void InputManager::SendClientInputsToServer(const ClientInputPacket& packet) con
 	std::string serializedData = SerializePacket(packet);
 
 	// 2. Send the serialized data over the network socket to the host
-	ServerConnector::GetInstance().SendInputPacket(serializedData);
+	ServerConnector::GetInstance().SendPacket(PacketTypes::PLAYER_INPUT, serializedData);
 }
 
 std::string InputManager::SerializePacket(const ClientInputPacket& packet) const

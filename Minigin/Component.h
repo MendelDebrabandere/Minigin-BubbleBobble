@@ -1,4 +1,5 @@
 #pragma once
+#include <document.h>
 
 namespace dae
 {
@@ -23,6 +24,9 @@ namespace dae
 
 		GameObject* GetOwner() const;
 		void SetOwner(GameObject* pParent);
+
+		virtual rapidjson::Value Serialize(rapidjson::Document::AllocatorType& /*allocator*/) const { return {}; }
+		virtual void Deserialize(const rapidjson::Value& /*value*/) {}
 
 	protected:
 		GameObject* m_pOwner{};

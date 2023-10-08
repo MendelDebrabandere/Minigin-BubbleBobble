@@ -4,10 +4,15 @@
 #include <iostream>
 #include <WS2tcpip.h>
 #include <tchar.h>
-
+#include <document.h>
+#include <writer.h>
+#include <stringbuffer.h>
 #include "InputManager.h"
 #include "Minigin.h"
 #include "Timer.h"
+#include "Scene.h"
+#include "SceneManager.h"
+#include "error/en.h" // For error parsing
 
 using namespace dae;
 
@@ -121,15 +126,15 @@ void ServerConnector::SetAsServer()
     //Set seed to random
     unsigned int seed = static_cast<unsigned int>(std::chrono::system_clock::now().time_since_epoch().count());
     //sending seed over
-    send(m_Socket, (char*)&seed, sizeof(seed), 0);
-    std::cout << "RANDOM MULTIPLAYER SEED = " << seed << '\n';
-    // add set seed as task to the main thread, (randomseed value is thread-local)
+    SendPacket(PacketTypes::RANDOM_SEED, std::to_string(seed));
     Minigin::AddTask([=]() {Minigin::SetRandomSeed(seed); });
+    // add set seed as task to the main thread, (randomseed value is thread-local)
+    std::cout << "RANDOM MULTIPLAYER SEED = " << seed << '\n';
 
 
 
-    //Launch a thread to listen for inputPackets from the client
-    std::thread inputThread(&ServerConnector::ReceiveInputPackets, this);
+    //Launch a thread to listen for packets from the client
+    std::thread inputThread(&ServerConnector::ReceivePacket, this);
     inputThread.detach();  // Detach the thread so it runs independently and does not need to be joined back.
 
 
@@ -207,82 +212,16 @@ void ServerConnector::SetAsClient()
         std::cout << "Client: connect() is OK.\n";
         std::cout << "Client: Can start sending and receiving data...\n";
     }
-
-
-
-    unsigned int receivedSeed;
-    int bytesReceived = recv(m_Socket, (char*)&receivedSeed, sizeof(receivedSeed), 0);
-    if (bytesReceived == sizeof(receivedSeed))
-    {
-        // Set your RNG with the received seed
-        std::srand(receivedSeed);
-        std::cout << "RANDOM MULTIPLAYER SEED = " << receivedSeed << '\n';
-        // add set seed as task to the main thread, (randomseed value is thread-local)
-        Minigin::AddTask([=]() {Minigin::SetRandomSeed(receivedSeed); });
-    }
-
-
-
-    //Launch a thread to listen for inputPackets from the server
-    std::thread receiveThread(&ServerConnector::ReceiveInputPackets, this);
+    
+    //Launch a thread to listen for packets from the server
+    std::thread receiveThread(&ServerConnector::ReceivePacket, this);
     receiveThread.detach();  // Detach the thread so it runs independently and does not need to be joined back.
 
-
-    //Launch a thread to receive gamestates from the server
-    std::thread gamestateThread(&ServerConnector::ReceiveGameStatePackets, this);
-    gamestateThread.detach();  // Detach the thread so it runs independently and does not need to be joined back.
-
-}
-
-void ServerConnector::SendInputPacket(const std::string& inputPacket) const
-{
-    //only send over inputs if there is a connection
-    if (m_Connection == Connection::None)
-        return;
-
-    int byteCount = send(m_Socket, inputPacket.c_str(), static_cast<int>(inputPacket.size()), 0);
-
-    if (byteCount == 0)
-        std::cout << "Error sending inputPacket.\n";
-    //else
-    //    std::cout << "Successfully sent inputPacket.\n";
-}
-
-void ServerConnector::ReceiveInputPackets()
-{
-    char recvbuf[512]{};  // Can change buffersize if required
-    int bytesReceived;
-    while (true)
-    {
-        //Thread doesn't need to sleep since it just waits here on this line until it gets awoken when it receives something
-        bytesReceived = recv(m_Socket, recvbuf, sizeof(recvbuf), 0);
-        if (bytesReceived > 0)
-        {
-            // Data received
-            // Process the received data here.
-            // Deserialize and handle the input packet.
-            //std::cout << "Received Input: " << std::string(recvbuf) << std::endl;
-            Minigin::LockMutex();
-            InputManager::GetInstance().ReceiveInputMultiplayer (std::string(recvbuf));
-            Minigin::UnlockMutex();
-        }
-        else if (bytesReceived == 0)
-        {
-            std::cout << "Connection closed.\n";
-            m_Connection = Connection::None;
-            break;
-        }
-        else
-        {
-            std::cout << "recv failed: " << WSAGetLastError() << "\n";
-            break;
-        }
-    }
 }
 
 void ServerConnector::SendGameStatePackets()
 {
-    constexpr float gameStateSendingFrequency{ 0.2f }; // send gamestate every 0.2sec
+    constexpr float gameStateSendingFrequency{ 4.f }; // send gamestate every 0.1sec
     float previousTime = Time::GetInstance().GetTotal();
 
     while (true)
@@ -296,7 +235,15 @@ void ServerConnector::SendGameStatePackets()
             previousTime = currTotalTime;
 
 	        //send gamestate
-            //std::cout << "GAMESTATE SENDING " << currTotalTime << "     " << deltaTime << '\n';
+            std::cout << "GAMESTATE SENDING\n";
+
+            rapidjson::Document doc = SceneManager::GetInstance().GetActiveScene()->SerializeScene();
+            rapidjson::StringBuffer buffer;
+            rapidjson::Writer<rapidjson::StringBuffer> writer(buffer);
+            doc.Accept(writer);
+            std::string jsonString = buffer.GetString();
+
+            SendPacket(PacketTypes::GAME_STATE, jsonString);
         }
         else
         {
@@ -306,9 +253,85 @@ void ServerConnector::SendGameStatePackets()
     }
 }
 
-void ServerConnector::ReceiveGameStatePackets()
+void ServerConnector::SendPacket(PacketTypes type, const std::string& payload)
 {
+    PacketHeader header;
+    header.packetType = static_cast<uint16_t>(type);
+    header.packetSize = static_cast<uint32_t>(payload.size());
 
-    //Thread doesn't need to sleep since it just waits here on this line until it gets awoken when it receives something
+    // Send header
+    send(m_Socket, reinterpret_cast<char*>(&header), sizeof(header), 0);
 
+    std::cout << payload << '\n';
+    // Send payload
+    send(m_Socket, payload.c_str(), static_cast<int>(payload.size()), 0);
+}
+
+void ServerConnector::ReceivePacket()
+{
+    while (true)
+    {
+        PacketHeader header;
+
+        // Receive header
+        int receivedBytes = recv(m_Socket, reinterpret_cast<char*>(&header), sizeof(header), 0);
+        if (receivedBytes <= 0)
+        {
+            // Handle disconnect or error
+            return;
+        }
+
+        // Now that we know the size from the header, receive the payload
+        std::vector<char> payloadBuffer(header.packetSize);
+        receivedBytes = recv(m_Socket, payloadBuffer.data(), header.packetSize, 0);
+        if (receivedBytes <= 0)
+        {
+            // Handle disconnect or error
+            return;
+        }
+
+        // Handle packet based on type
+        switch (static_cast<PacketTypes>(header.packetType))
+        {
+        case PacketTypes::GAME_STATE:
+        {
+            // Deserialize and process game state
+            Minigin::LockMutex();
+
+            payloadBuffer.push_back('\0');
+
+            rapidjson::Document doc;
+            doc.Parse(payloadBuffer.data());
+
+            if (doc.HasParseError())
+            {
+                std::cerr << "JSON parse error: " << rapidjson::GetParseError_En(doc.GetParseError())
+                    << " (" << doc.GetErrorOffset() << ")" << std::endl;
+                return;  // or handle error as needed
+            }
+
+            SceneManager::GetInstance().GetActiveScene()->Deserialize(doc);
+
+            Minigin::UnlockMutex();
+            break;
+        }
+        case PacketTypes::PLAYER_INPUT:
+        {
+            // Process player input
+            Minigin::LockMutex();
+            InputManager::GetInstance().ReceiveInputMultiplayer(std::string(payloadBuffer.data()));
+            Minigin::UnlockMutex();
+            break;
+        }
+        case PacketTypes::RANDOM_SEED:
+        {
+            // Set your RNG with the received seed
+            std::srand(payloadBuffer[0]);
+            std::cout << "RANDOM MULTIPLAYER SEED = " << payloadBuffer[0] << '\n';
+            // add set seed as task to the main thread, (randomseed value is thread-local)
+            Minigin::AddTask([=]() {Minigin::SetRandomSeed(payloadBuffer[0]); });
+            break;
+        }
+        }
+    }
 }

@@ -11,9 +11,13 @@
 // under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR 
 // CONDITIONS OF ANY KIND, either express or implied. See the License for the 
 // specific language governing permissions and limitations under the License.
+#pragma warning(disable : 4996)
 
 #ifndef RAPIDJSON_DOCUMENT_H_
 #define RAPIDJSON_DOCUMENT_H_
+
+#undef min
+#undef max
 
 /*! \file document.h */
 
@@ -2573,3 +2577,6 @@ RAPIDJSON_NAMESPACE_END
 RAPIDJSON_DIAG_POP
 
 #endif // RAPIDJSON_DOCUMENT_H_
+
+#pragma warning(default : 4996)
+

@@ -6,8 +6,6 @@ unsigned int Scene::m_idCounter = 0;
 
 Scene::Scene(const std::string& name) : m_name(name) {}
 
-Scene::~Scene() = default;
-
 void Scene::Add(std::unique_ptr<GameObject> object)
 {
 	m_objects.emplace_back(std::move(object));
@@ -67,12 +65,58 @@ void Scene::UpdateCleanup()
 		}), end(m_objects));
 }
 
-const std::string& dae::Scene::GetName() const
+const std::string& Scene::GetName() const
 {
 	return m_name;
 }
 
-void dae::Scene::SetName(const std::string& name)
+void Scene::SetName(const std::string& name)
 {
 	m_name = name;
+}
+
+rapidjson::Document Scene::SerializeScene() const
+{
+	rapidjson::Document doc;
+	doc.SetObject();
+
+	rapidjson::Document::AllocatorType& allocator = doc.GetAllocator();
+
+	// Serialize scene name
+	doc.AddMember("name", rapidjson::Value(m_name.c_str(), allocator), allocator);
+
+	// Serialize game objects
+	rapidjson::Value objects(rapidjson::kArrayType);
+	for (const auto& object : m_objects)
+	{
+		objects.PushBack(object->Serialize(allocator), allocator);
+	}
+	doc.AddMember("objects", objects, allocator);
+
+	return doc;
+}
+
+void Scene::Deserialize(const rapidjson::Document& doc)
+{
+	// Assuming the Scene name is not changed during runtime and does not need deserialization
+
+	// Deserialize all game objects
+	const rapidjson::Value& objects = doc["objects"];
+	assert(objects.IsArray());
+
+
+	auto& allObj = GetAllObjects();
+
+	int it{};
+
+	for (const auto& obj : objects.GetArray())
+	{
+		//GameObject* gameObject = CreateGameObject(); // Creates a new game object in the current scene
+		allObj[it]->Deserialize(obj);  // This is a function you'd need to implement in GameObject
+		++it;
+	}
+
+	// You may need additional logic here, such as:
+	// - Deleting game objects that exist in the current scene but not in the received data
+	// - Matching and updating existing game objects rather than always creating new ones
 }

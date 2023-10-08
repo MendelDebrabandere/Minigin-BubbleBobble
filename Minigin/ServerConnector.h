@@ -6,6 +6,7 @@
 
 namespace dae
 {
+	class Scene;
 	class GameObject;
 
 	enum class Connection
@@ -13,6 +14,19 @@ namespace dae
 		None,
 		Server,
 		Client
+	};
+
+	struct PacketHeader {
+		uint16_t packetType; // Enum value representing the type of packet
+		uint32_t packetSize; // Size of the packet's payload (not including the header)
+	};
+
+	enum class PacketTypes : uint16_t
+	{
+		GAME_STATE,
+		PLAYER_INPUT,
+		RANDOM_SEED
+		//ADD MORE IF NEEDED
 	};
 
 	class ServerConnector final : public Singleton<ServerConnector>
@@ -31,13 +45,13 @@ namespace dae
 		void SetAsServer();
 		void SetAsClient();
 
-		void SendInputPacket(const std::string& inputPacket) const;
-
+		void SendPacket(PacketTypes type, const std::string& payload);
 	private:
-		void ReceiveInputPackets();
-
 		void SendGameStatePackets();
-		void ReceiveGameStatePackets();
+
+		void ReceivePacket();
+
+
 
 		Connection m_Connection{};
 
