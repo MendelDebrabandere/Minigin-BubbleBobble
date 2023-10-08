@@ -2,12 +2,14 @@
 
 #include <SDL_keycode.h>
 
+#include "ClientCommand.h"
 #include "FPSCounter.h"
 #include "HighScoreLoader.h"
 #include "InputManager.h"
 #include "ResourceManager.h"
 #include "SceneManager.h"
 #include "Scene.h"
+#include "ServerCommand.h"
 #include "ServiceLocator.h"
 #include "SoundSystem.h"
 #include "StartCoopCommand.h"
@@ -46,6 +48,9 @@ void MainMenuScene::Create()
 	InputManager::GetInstance().AddKeyboardCommand('1', InputManager::InputType::OnDown, std::make_unique<StartSinglePlayerCommand>());
 	InputManager::GetInstance().AddKeyboardCommand('2', InputManager::InputType::OnDown, std::make_unique<StartCoopCommand>());
 	InputManager::GetInstance().AddKeyboardCommand('3', InputManager::InputType::OnDown, std::make_unique<StartVersusCommand>());
+	InputManager::GetInstance().AddKeyboardCommand('9', InputManager::InputType::OnDown, std::make_unique<ServerCommand>());
+	InputManager::GetInstance().AddKeyboardCommand('0', InputManager::InputType::OnDown, std::make_unique<ClientCommand>());
+	InputManager::GetInstance().AddKeyboardCommand(0, InputManager::InputType::OnDown, std::make_unique<ClientCommand>());
 
 	const auto pFont{ ResourceManager::GetInstance().LoadFont("Retro.otf", 30) };
 
@@ -160,4 +165,32 @@ void MainMenuScene::Create()
 	pDPAD->GetComponent<TextComponent>()->SetColor(200, 200, 200);
 	pDPAD->GetComponent<TextComponent>()->Update();
 	pDPAD->GetTransform()->SetWorldPosition(890, 190);
+
+	// Online multiplayer
+	const auto pMultiplayer = pGameScene->CreateGameObject();
+	pMultiplayer->AddComponent<TextureComponent>();
+	pMultiplayer->AddComponent<TextComponent>()->SetFont(pFont);
+	pMultiplayer->GetComponent<TextComponent>()->SetText("For online multiplayer:");
+	pMultiplayer->GetComponent<TextComponent>()->SetColor(200, 200, 200);
+	pMultiplayer->GetComponent<TextComponent>()->Update();
+	pMultiplayer->GetTransform()->SetWorldPosition(10, 610);
+
+	// Server
+	const auto pServer = pGameScene->CreateGameObject();
+	pServer->AddComponent<TextureComponent>();
+	pServer->AddComponent<TextComponent>()->SetFont(pFont);
+	pServer->GetComponent<TextComponent>()->SetText("Press 9 to be the server");
+	pServer->GetComponent<TextComponent>()->SetColor(200, 200, 200);
+	pServer->GetComponent<TextComponent>()->Update();
+	pServer->GetTransform()->SetWorldPosition(10,640);
+
+	// Coop
+	const auto pClient = pGameScene->CreateGameObject();
+	pClient->AddComponent<TextureComponent>();
+	pClient->AddComponent<TextComponent>()->SetFont(pFont);
+	pClient->GetComponent<TextComponent>()->SetText("Press 0 to be the client");
+	pClient->GetComponent<TextComponent>()->SetColor(200, 200, 200);
+	pClient->GetComponent<TextComponent>()->Update();
+	pClient->GetTransform()->SetWorldPosition(10, 670);
+
 }

@@ -166,6 +166,7 @@
     <ClCompile Include="Bubble.cpp" />
     <ClCompile Include="BubbleBobble.cpp" />
     <ClCompile Include="BubbleComponent.cpp" />
+    <ClCompile Include="ClientCommand.cpp" />
     <ClCompile Include="EnemyComponent.cpp" />
     <ClCompile Include="Food.cpp" />
     <ClCompile Include="FoodComponent.cpp" />
@@ -178,6 +179,7 @@
     <ClCompile Include="LeaveHighScoreSceneCommand.cpp" />
     <ClCompile Include="PlayerMaita.cpp" />
     <ClCompile Include="PlayerMaitaComponent.cpp" />
+    <ClCompile Include="ServerCommand.cpp" />
     <ClCompile Include="StartCoopCommand.cpp" />
     <ClCompile Include="StartSinglePlayerCommand.cpp" />
     <ClCompile Include="LevelLoader.cpp" />
@@ -208,6 +210,7 @@
     <ClInclude Include="Bubble.h" />
     <ClInclude Include="BubbleBobble.h" />
     <ClInclude Include="BubbleComponent.h" />
+    <ClInclude Include="ClientCommand.h" />
     <ClInclude Include="EnemyComponent.h" />
     <ClInclude Include="Food.h" />
     <ClInclude Include="FoodComponent.h" />
@@ -220,6 +223,7 @@
     <ClInclude Include="LeaveHighScoreSceneCommand.h" />
     <ClInclude Include="PlayerMaita.h" />
     <ClInclude Include="PlayerMaitaComponent.h" />
+    <ClInclude Include="ServerCommand.h" />
     <ClInclude Include="StartCoopCommand.h" />
     <ClInclude Include="StartSinglePlayerCommand.h" />
     <ClInclude Include="LevelLoader.h" />

@@ -172,6 +172,12 @@
     <ClCompile Include="ToggleSoundSysCommand.cpp">
       <Filter>Command\GameCommands</Filter>
     </ClCompile>
+    <ClCompile Include="ServerCommand.cpp">
+      <Filter>Command\SceneChangingCommands</Filter>
+    </ClCompile>
+    <ClCompile Include="ClientCommand.cpp">
+      <Filter>Command\SceneChangingCommands</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BubbleBobble.h">
@@ -290,6 +296,12 @@
     </ClInclude>
     <ClInclude Include="ToggleSoundSysCommand.h">
       <Filter>Command\GameCommands</Filter>
+    </ClInclude>
+    <ClInclude Include="ServerCommand.h">
+      <Filter>Command\SceneChangingCommands</Filter>
+    </ClInclude>
+    <ClInclude Include="ClientCommand.h">
+      <Filter>Command\SceneChangingCommands</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

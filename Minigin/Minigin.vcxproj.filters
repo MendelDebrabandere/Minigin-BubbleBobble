@@ -40,6 +40,9 @@
     <Filter Include="Events">
       <UniqueIdentifier>{0e049217-7433-43fe-999e-8b81b6f705e0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ServerConnector">
+      <UniqueIdentifier>{226f4f80-fad4-4d7b-aa14-99d8074afa73}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Command.h">
@@ -132,6 +135,9 @@
     <ClInclude Include="SpriteDataPreset.h">
       <Filter>Component</Filter>
     </ClInclude>
+    <ClInclude Include="ServerConnector.h">
+      <Filter>ServerConnector</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="InputManager.cpp">
@@ -199,6 +205,9 @@
     </ClCompile>
     <ClCompile Include="EventListener.cpp">
       <Filter>Events</Filter>
+    </ClCompile>
+    <ClCompile Include="ServerConnector.cpp">
+      <Filter>ServerConnector</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
