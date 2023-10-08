@@ -7,8 +7,18 @@
 
 #include "InputManager.h"
 #include "Minigin.h"
+#include "Timer.h"
 
 using namespace dae;
+
+ServerConnector::~ServerConnector()
+{
+    if (m_Connection != Connection::None)
+    {
+        std::cout << "\n=== Closing Socket ===\n";
+        WSACleanup();
+    }
+}
 
 void ServerConnector::Init()
 {
@@ -106,6 +116,8 @@ void ServerConnector::SetAsServer()
     }
     std::cout << "Accepted connection\n";
 
+
+
     //Set seed to random
     unsigned int seed = static_cast<unsigned int>(std::chrono::system_clock::now().time_since_epoch().count());
     //sending seed over
@@ -114,9 +126,17 @@ void ServerConnector::SetAsServer()
     // add set seed as task to the main thread, (randomseed value is thread-local)
     Minigin::AddTask([=]() {Minigin::SetRandomSeed(seed); });
 
+
+
     //Launch a thread to listen for inputPackets from the client
-    std::thread receiveThread(&ServerConnector::ReceiveInputPackets, this);
-    receiveThread.detach();  // Detach the thread so it runs independently and does not need to be joined back.
+    std::thread inputThread(&ServerConnector::ReceiveInputPackets, this);
+    inputThread.detach();  // Detach the thread so it runs independently and does not need to be joined back.
+
+
+    //Launch a thread to send gamestate to the client 
+    std::thread gamestateThread(&ServerConnector::SendGameStatePackets, this);
+    gamestateThread.detach();  // Detach the thread so it runs independently and does not need to be joined back.
+
 
 }
 
@@ -188,6 +208,8 @@ void ServerConnector::SetAsClient()
         std::cout << "Client: Can start sending and receiving data...\n";
     }
 
+
+
     unsigned int receivedSeed;
     int bytesReceived = recv(m_Socket, (char*)&receivedSeed, sizeof(receivedSeed), 0);
     if (bytesReceived == sizeof(receivedSeed))
@@ -199,9 +221,16 @@ void ServerConnector::SetAsClient()
         Minigin::AddTask([=]() {Minigin::SetRandomSeed(receivedSeed); });
     }
 
+
+
     //Launch a thread to listen for inputPackets from the server
     std::thread receiveThread(&ServerConnector::ReceiveInputPackets, this);
     receiveThread.detach();  // Detach the thread so it runs independently and does not need to be joined back.
+
+
+    //Launch a thread to receive gamestates from the server
+    std::thread gamestateThread(&ServerConnector::ReceiveGameStatePackets, this);
+    gamestateThread.detach();  // Detach the thread so it runs independently and does not need to be joined back.
 
 }
 
@@ -225,6 +254,7 @@ void ServerConnector::ReceiveInputPackets()
     int bytesReceived;
     while (true)
     {
+        //Thread doesn't need to sleep since it just waits here on this line until it gets awoken when it receives something
         bytesReceived = recv(m_Socket, recvbuf, sizeof(recvbuf), 0);
         if (bytesReceived > 0)
         {
@@ -248,4 +278,37 @@ void ServerConnector::ReceiveInputPackets()
             break;
         }
     }
+}
+
+void ServerConnector::SendGameStatePackets()
+{
+    constexpr float gameStateSendingFrequency{ 0.2f }; // send gamestate every 0.2sec
+    float previousTime = Time::GetInstance().GetTotal();
+
+    while (true)
+    {
+        float currTotalTime = Time::GetInstance().GetTotal();
+        float deltaTime = currTotalTime - previousTime;
+
+        if (deltaTime >= gameStateSendingFrequency)
+        {
+            //Update previousTime
+            previousTime = currTotalTime;
+
+	        //send gamestate
+            //std::cout << "GAMESTATE SENDING " << currTotalTime << "     " << deltaTime << '\n';
+        }
+        else
+        {
+            float sleepDuration{ gameStateSendingFrequency - deltaTime};
+            std::this_thread::sleep_for(std::chrono::duration<float>(sleepDuration));
+        }
+    }
+}
+
+void ServerConnector::ReceiveGameStatePackets()
+{
+
+    //Thread doesn't need to sleep since it just waits here on this line until it gets awoken when it receives something
+
 }
