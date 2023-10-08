@@ -111,7 +111,8 @@ void ServerConnector::SetAsServer()
     //sending seed over
     send(m_Socket, (char*)&seed, sizeof(seed), 0);
     std::cout << "RANDOM MULTIPLAYER SEED = " << seed << '\n';
-    Minigin::SetRandomSeed(seed);
+    // add set seed as task to the main thread, (randomseed value is thread-local)
+    Minigin::AddTask([=]() {Minigin::SetRandomSeed(seed); });
 
     //Launch a thread to listen for inputPackets from the client
     std::thread receiveThread(&ServerConnector::ReceiveInputPackets, this);
@@ -194,7 +195,8 @@ void ServerConnector::SetAsClient()
         // Set your RNG with the received seed
         std::srand(receivedSeed);
         std::cout << "RANDOM MULTIPLAYER SEED = " << receivedSeed << '\n';
-        Minigin::SetRandomSeed(receivedSeed);
+        // add set seed as task to the main thread, (randomseed value is thread-local)
+        Minigin::AddTask([=]() {Minigin::SetRandomSeed(receivedSeed); });
     }
 
     //Launch a thread to listen for inputPackets from the server
