@@ -23,8 +23,6 @@ namespace dae
 		void SetAsServer();
 		void SetAsClient();
 
-		Connection GetConnection() const;
-
 		void SendInputPacket(const std::string& inputPacket) const;
 	private:
 		void ReceiveInputPackets();

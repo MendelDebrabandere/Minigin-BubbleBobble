@@ -27,11 +27,14 @@ namespace dae
 		static void UnlockMutex() { s_Mutex.unlock(); }
 
 		static void AddTask(const std::function<void()> func) { s_Tasks.push(func); }
+
+		static void SetRandomSeed(unsigned int seed){ std::srand(seed); }
 	private:
 		SceneManager* mpSceneManager;
 
-
 		inline static std::mutex s_Mutex{};
 		inline static std::queue<std::function<void()>> s_Tasks{};
+
+		unsigned int m_RandomSeed{};
 	};
 }

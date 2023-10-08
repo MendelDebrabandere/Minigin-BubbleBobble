@@ -106,6 +106,12 @@ void ServerConnector::SetAsServer()
     }
     std::cout << "Accepted connection\n";
 
+    //Set seed to random
+    unsigned int seed = static_cast<unsigned int>(std::chrono::system_clock::now().time_since_epoch().count());
+    //sending seed over
+    send(m_Socket, (char*)&seed, sizeof(seed), 0);
+    std::cout << "RANDOM MULTIPLAYER SEED = " << seed << '\n';
+    Minigin::SetRandomSeed(seed);
 
     //Launch a thread to listen for inputPackets from the client
     std::thread receiveThread(&ServerConnector::ReceiveInputPackets, this);
@@ -181,15 +187,20 @@ void ServerConnector::SetAsClient()
         std::cout << "Client: Can start sending and receiving data...\n";
     }
 
+    unsigned int receivedSeed;
+    int bytesReceived = recv(m_Socket, (char*)&receivedSeed, sizeof(receivedSeed), 0);
+    if (bytesReceived == sizeof(receivedSeed))
+    {
+        // Set your RNG with the received seed
+        std::srand(receivedSeed);
+        std::cout << "RANDOM MULTIPLAYER SEED = " << receivedSeed << '\n';
+        Minigin::SetRandomSeed(receivedSeed);
+    }
+
     //Launch a thread to listen for inputPackets from the server
     std::thread receiveThread(&ServerConnector::ReceiveInputPackets, this);
     receiveThread.detach();  // Detach the thread so it runs independently and does not need to be joined back.
 
-}
-
-Connection ServerConnector::GetConnection() const
-{
-    return m_Connection;
 }
 
 void ServerConnector::SendInputPacket(const std::string& inputPacket) const

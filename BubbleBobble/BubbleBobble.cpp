@@ -9,9 +9,6 @@ using namespace dae;
 
 void BubbleBobble::Create()
 {
-	// Seed rand() with current time
-	std::srand(static_cast<unsigned int>(std::time(nullptr)));
-
 	//ServiceLocator::RegisterSoundSystem(new NullSoundSystem());
 
 	SceneSwapper::GetInstance().Init();
