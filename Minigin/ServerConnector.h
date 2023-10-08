@@ -1,8 +1,13 @@
 #pragma once
+#include <string>
+#include <winsock2.h>
+
 #include "Singleton.h"
 
 namespace dae
 {
+	class GameObject;
+
 	enum class Connection
 	{
 		None,
@@ -21,8 +26,14 @@ namespace dae
 		void CloseConnection();
 
 		Connection GetConnection() const;
+
+		void SendInputPacket(const std::string& inputPacket) const;
 	private:
+		void ReceiveInputPackets();
+
 		Connection m_Connection{};
+
+		SOCKET m_Socket{};
 	};
 }
 

@@ -1,8 +1,13 @@
 #include "ServerConnector.h"
+
+#include <chrono>
 #include <iostream>
-#include <winsock2.h>
 #include <WS2tcpip.h>
 #include <tchar.h>
+
+#include "InputManager.h"
+#include "Scene.h"
+#include "SceneManager.h"
 
 using namespace dae;
 
@@ -26,7 +31,7 @@ void ServerConnector::SetAsServer()
     //************* STEP 1 SET UP DLL *************
     std::cout << "\n=== Step 1 - Set up DLL ===\n";
 
-    SOCKET serverSocket, acceptSocket;
+    SOCKET serverSocket;
     WSADATA wsaData;
     WORD wVersionRequested = MAKEWORD(2, 2);
 
@@ -92,8 +97,8 @@ void ServerConnector::SetAsServer()
     //************* STEP 5 ACCEPT CONNECTION *************
     std::cout << "\n=== Step 5 - Accept Connection ===\n";
 
-    acceptSocket = accept(serverSocket, NULL, NULL);
-    if (acceptSocket == INVALID_SOCKET)
+    m_Socket = accept(serverSocket, NULL, NULL);
+    if (m_Socket == INVALID_SOCKET)
     {
         std::cout << "accept failed: " << WSAGetLastError() << std::endl;
         WSACleanup();
@@ -103,44 +108,10 @@ void ServerConnector::SetAsServer()
     std::cout << "Accepted connection\n";
 
 
-    ////************* STEP 6 CHAT TO THE CLIENT *************
-    //std::cout << "\n=== Step 6 - Chat to the client ===\n";
+    //Launch a thread to listen for inputPackets from the client
+    std::thread receiveThread(&ServerConnector::ReceiveInputPackets, this);
+    receiveThread.detach();  // Detach the thread so it runs independently and does not need to be joined back.
 
-    //constexpr int buffLen{ 200 };
-    //char buffer[buffLen];
-
-    //std::string message;
-
-    //while (true)
-    //{
-    //    //Check if it receives messages from the client
-    //    int byteCount = recv(acceptSocket, buffer, buffLen, 0);
-
-    //    if (byteCount > 0)
-    //    {
-    //        std::cout << "Message received: " << buffer << std::endl;
-
-    //        if (strcmp(buffer, "SHUTDOWN") == 0)
-    //        {
-    //            std::cout << "SHUTDOWN command received. Closing the connection.\n";
-    //            break;
-    //        }
-    //    }
-    //    else
-    //    {
-    //        std::cout << "Error: No message has been received.\n";
-    //        WSACleanup();
-    //        break;
-    //    }
-    //}
-
-
-    ////************* STEP 7 CLOSE SOCKET *************
-    //std::cout << "\n=== Step 7 - Close Socket ===\n";
-
-    //system("pause");
-    //WSACleanup();
-    
 }
 
 void ServerConnector::SetAsClient()
@@ -150,12 +121,11 @@ void ServerConnector::SetAsClient()
 
     std::cout << "======= Sockets =======\n";
     std::cout << "======= CLIENT =======\n";
-
+    m_Connection = Connection::Client;
 
     //************* STEP 1 SET UP DLL *************
     std::cout << "\n=== Step 1 - Set up DLL ===\n";
 
-    SOCKET clientSocket;
     WSADATA wsaData;
     WORD wVersionRequested = MAKEWORD(2, 2);
 
@@ -177,9 +147,9 @@ void ServerConnector::SetAsClient()
     //************* STEP 2 SET UP CLIENT SOCKET *************
     std::cout << "\n=== Step 2 - Set up Client Socket ===\n";
 
-    clientSocket = INVALID_SOCKET;
-    clientSocket = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
-    if (clientSocket == INVALID_SOCKET)
+    m_Socket = INVALID_SOCKET;
+    m_Socket = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
+    if (m_Socket == INVALID_SOCKET)
     {
         std::cout << "Error at socket(): " << WSAGetLastError() << std::endl;
         WSACleanup();
@@ -199,7 +169,7 @@ void ServerConnector::SetAsClient()
     clientService.sin_family = AF_INET;
     InetPton(AF_INET, _T("127.0.0.1"), &clientService.sin_addr.s_addr);
 
-    if (connect(clientSocket, (SOCKADDR*)&clientService, sizeof(clientService)) == SOCKET_ERROR)
+    if (connect(m_Socket, (SOCKADDR*)&clientService, sizeof(clientService)) == SOCKET_ERROR)
     {
         std::cout << "Client: connect() - Failed to connect." << std::endl;
         WSACleanup();
@@ -211,47 +181,6 @@ void ServerConnector::SetAsClient()
         std::cout << "Client: connect() is OK.\n";
         std::cout << "Client: Can start sending and receiving data...\n";
     }
-
-
-    ////************* STEP 4 CHAT TO THE SERVER *************
-    //std::cout << "\n=== Step 4 - Chat to the Server ===\n";
-    //std::cout << "Type \"SHUTDOWN\" to end the chat.\n";
-    //std::cout << "Please enter your messages to send to the Server: \n";
-
-    //constexpr int buffLen{ 200 };
-    //char buffer[buffLen];
-
-    //while (true)
-    //{
-    //    std::cin.getline(buffer, buffLen);
-
-    //    int byteCount = send(clientSocket, buffer, buffLen, 0);
-
-    //    if (byteCount > 0)
-    //    {
-    //        //std::cout << "Message sent: " << buffer << std::endl;
-
-    //        if (strcmp(buffer, "SHUTDOWN") == 0)
-    //        {
-    //            std::cout << "SHUTDOWN command received. Closing the connection.\n";
-    //            break;
-    //        }
-    //    }
-    //    else
-    //    {
-    //        std::cout << "Error: No message has been sent.\n";
-    //        WSACleanup();
-    //        break;
-    //    }
-    //}
-
-
-
-    ////************* STEP 5 CLOSE SOCKET *************
-    //std::cout << "\n=== Step 5 - Close Socket ===\n";
-
-    //system("pause");
-    //WSACleanup();
 }
 
 void ServerConnector::CloseConnection()
@@ -261,4 +190,47 @@ void ServerConnector::CloseConnection()
 Connection ServerConnector::GetConnection() const
 {
     return m_Connection;
+}
+
+void ServerConnector::SendInputPacket(const std::string& inputPacket) const
+{
+    //only send over inputs when you are the client
+    if (m_Connection != Connection::Client)
+        return;
+
+    int byteCount = send(m_Socket, inputPacket.c_str(), static_cast<int>(inputPacket.size()), 0);
+
+    if (byteCount == 0)
+        std::cout << "Error sending inputPacket.\n";
+    else
+        std::cout << "Successfully sent inputPacket.\n";
+}
+
+void ServerConnector::ReceiveInputPackets()
+{
+    char recvbuf[512]{};  // Can change buffersize if required
+    int bytesReceived;
+    while (true)
+    {
+        bytesReceived = recv(m_Socket, recvbuf, sizeof(recvbuf), 0);
+        if (bytesReceived > 0)
+        {
+            // Data received
+            // Process the received data here.
+            // Deserialize and handle the input packet.
+            std::cout << "Received Input: " << std::string(recvbuf) << std::endl;
+            InputManager::GetInstance().ReceiveInputFromClient(std::string(recvbuf));
+        }
+        else if (bytesReceived == 0)
+        {
+            std::cout << "Connection closed.\n";
+            m_Connection = Connection::None;
+            break;
+        }
+        else
+        {
+            std::cout << "recv failed: " << WSAGetLastError() << "\n";
+            break;
+        }
+    }
 }
