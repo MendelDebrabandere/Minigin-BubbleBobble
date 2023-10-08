@@ -169,7 +169,7 @@ void InputManager::RemoveAllInputs()
 	m_ControllerActionMap.clear();
 }
 
-void InputManager::ReceiveInputFromClient(const std::string& inputPacket)
+void InputManager::ReceiveInputMultiplayer(const std::string& inputPacket)
 {
 	ClientInputPacket receivedPacket = DeserializePacket(inputPacket);
 	ProcessReceivedPacket(receivedPacket);

@@ -7,8 +7,6 @@
 
 #include "InputManager.h"
 #include "Minigin.h"
-#include "Scene.h"
-#include "SceneManager.h"
 
 using namespace dae;
 
@@ -182,6 +180,11 @@ void ServerConnector::SetAsClient()
         std::cout << "Client: connect() is OK.\n";
         std::cout << "Client: Can start sending and receiving data...\n";
     }
+
+    //Launch a thread to listen for inputPackets from the server
+    std::thread receiveThread(&ServerConnector::ReceiveInputPackets, this);
+    receiveThread.detach();  // Detach the thread so it runs independently and does not need to be joined back.
+
 }
 
 Connection ServerConnector::GetConnection() const
@@ -191,8 +194,8 @@ Connection ServerConnector::GetConnection() const
 
 void ServerConnector::SendInputPacket(const std::string& inputPacket) const
 {
-    //only send over inputs when you are the client
-    if (m_Connection != Connection::Client)
+    //only send over inputs if there is a connection
+    if (m_Connection == Connection::None)
         return;
 
     int byteCount = send(m_Socket, inputPacket.c_str(), static_cast<int>(inputPacket.size()), 0);
@@ -217,7 +220,7 @@ void ServerConnector::ReceiveInputPackets()
             // Deserialize and handle the input packet.
             //std::cout << "Received Input: " << std::string(recvbuf) << std::endl;
             Minigin::LockMutex();
-            InputManager::GetInstance().ReceiveInputFromClient(std::string(recvbuf));
+            InputManager::GetInstance().ReceiveInputMultiplayer (std::string(recvbuf));
             Minigin::UnlockMutex();
         }
         else if (bytesReceived == 0)

@@ -32,7 +32,7 @@ namespace dae
 
 		void RemoveAllInputs();
 
-		void ReceiveInputFromClient(const std::string& inputPacket);
+		void ReceiveInputMultiplayer(const std::string& inputPacket);
 
 	private:
 		struct InputDataController
