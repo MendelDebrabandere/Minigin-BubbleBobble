@@ -30,6 +30,9 @@ namespace dae
 		CollisionState GetCollisionState() const { return m_CollisionState; }
 		void SetGrounded(bool val); // used for artificially enabling jump (jumping on bubbles)
 
+		virtual rapidjson::Value Serialize(rapidjson::Document::AllocatorType&) const override;
+		virtual void Deserialize(const rapidjson::Value&) override;
+
 	private:
 
 		void DoCollisionLogic();
@@ -42,8 +45,8 @@ namespace dae
 		CollisionState m_CollisionState{};
 
 		float m_VerticalSpeed{};
-		float m_GravityAccel{ 500 };
-		float m_MaxFallSpeed{ 1000 };
+		const float m_GravityAccel{ 500 };
+		const float m_MaxFallSpeed{ 1000 };
 
 		bool m_Platform{ false };
 	};

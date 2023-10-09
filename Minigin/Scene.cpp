@@ -107,18 +107,52 @@ void Scene::Deserialize(const rapidjson::Document& doc)
 
 	auto& allObj = GetAllObjects();
 
+	std::vector<int> objIds{};
+
 	for (const auto& jsonObj : objects.GetArray())
 	{
+		if ((jsonObj.HasMember("id") && jsonObj["id"].IsInt()) == false)
+			continue;
+
+		objIds.push_back(jsonObj["id"].GetInt());
+
+		bool foundObj{ false };
 		for (const auto& gameObj : allObj)
 		{
-			if (gameObj->GetId() == jsonObj["id"])
+			if (gameObj->GetId() == jsonObj["id"].GetInt() && gameObj->IsMarkedAsDead() == false)
 			{
+				foundObj = true;
 				gameObj->Deserialize(jsonObj);
+				break;
 			}
 		}
+
+		if (foundObj == false)
+		{
+			//TODO: MAKE THE OBJ
+		}
+
 	}
 
-	//TODO: 2 things
+	
 	// - Deleting game objects that exist in the current scene but not in the received data
-	// - Spawning game objects that exist in the received data but not in the current scene
+	for (const auto& gameObj : allObj)
+	{
+		bool foundObj{ false };
+		for (const auto& jsonObj : objects.GetArray())
+		{
+			if ((jsonObj.HasMember("id") && jsonObj["id"].IsInt()) == false)
+				continue;
+
+			if (gameObj->GetId() == jsonObj["id"].GetInt())
+			{
+				foundObj = true;
+				break;
+			}
+		}
+		if (foundObj == false)
+		{
+			gameObj->Destroy();
+		}
+	}
 }

@@ -7,6 +7,7 @@
 #include "MoveLeftCommand.h"
 #include "MoveRightCommand.h"
 #include "PhysicsComponent.h"
+#include "ServerConnector.h"
 #include "ShootBubbleCommand.h"
 #include "SpriteComponent.h"
 

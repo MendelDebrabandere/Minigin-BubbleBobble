@@ -46,12 +46,14 @@ namespace dae
 		void SetAsClient();
 
 		void SendPacket(PacketTypes type, const std::string& payload);
+
+		Connection GetConnection() const { return m_Connection; }
 	private:
 		void SendGameStatePackets();
 
 		void ReceivePacket();
 
-
+		const float m_GameStateSendingFrequency{ 0.1f };
 
 		Connection m_Connection{};
 

@@ -112,6 +112,50 @@ void AvatarComponent::PickedUpFood(FoodComponent::FoodType type)
 	m_FoodPickup.Notify(type);
 }
 
+rapidjson::Value AvatarComponent::Serialize(rapidjson::Document::AllocatorType& allocator) const
+{
+	rapidjson::Value obj(rapidjson::kObjectType);
+
+	// Serialize basic types
+	obj.AddMember("CurrentState", rapidjson::Value(static_cast<int>(m_CurrentState)), allocator);
+	obj.AddMember("LastPos", rapidjson::Value(rapidjson::kArrayType).PushBack(m_LastPos.x, allocator).PushBack(m_LastPos.y, allocator), allocator);
+	obj.AddMember("Timer", m_Timer, allocator);
+	obj.AddMember("MaxRespawmTimer", m_MaxRespawmTimer, allocator);
+	obj.AddMember("Invulnerable", m_Invulnerable, allocator);
+	obj.AddMember("MaxInvulnerableTime", m_MaxInvulnerableTime, allocator);
+	obj.AddMember("MyColor", rapidjson::Value(static_cast<int>(m_MyColor)), allocator);
+
+	return obj;
+}
+
+
+void AvatarComponent::Deserialize(const rapidjson::Value& obj)
+{
+	if (obj.HasMember("CurrentState"))
+		m_CurrentState = static_cast<AvatarState>(obj["CurrentState"].GetInt());
+
+	if (obj.HasMember("LastPos") && obj["LastPos"].IsArray())
+	{
+		m_LastPos.x = obj["LastPos"][0].GetFloat();
+		m_LastPos.y = obj["LastPos"][1].GetFloat();
+	}
+
+	if (obj.HasMember("Timer"))
+		m_Timer = obj["Timer"].GetFloat();
+
+	if (obj.HasMember("MaxRespawmTimer"))
+		m_MaxRespawmTimer = obj["MaxRespawmTimer"].GetFloat();
+
+	if (obj.HasMember("Invulnerable"))
+		m_Invulnerable = obj["Invulnerable"].GetBool();
+
+	if (obj.HasMember("MaxInvulnerableTime"))
+		m_MaxInvulnerableTime = obj["MaxInvulnerableTime"].GetFloat();
+
+	if (obj.HasMember("MyColor"))
+		m_MyColor = static_cast<AvatarColor>(obj["MyColor"].GetInt());
+}
+
 void AvatarComponent::UpdateAnimVariablesMoving()
 {
 	dae::SpriteComponent* spriteComp = m_pOwner->GetComponent<dae::SpriteComponent>();

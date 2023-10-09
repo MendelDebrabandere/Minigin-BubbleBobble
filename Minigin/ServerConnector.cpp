@@ -221,7 +221,6 @@ void ServerConnector::SetAsClient()
 
 void ServerConnector::SendGameStatePackets()
 {
-    constexpr float gameStateSendingFrequency{ 0.1f }; // send gamestate every 0.1sec
     float previousTime = Time::GetInstance().GetTotal();
 
     while (true)
@@ -229,7 +228,7 @@ void ServerConnector::SendGameStatePackets()
         float currTotalTime = Time::GetInstance().GetTotal();
         float deltaTime = currTotalTime - previousTime;
 
-        if (deltaTime >= gameStateSendingFrequency)
+        if (deltaTime >= m_GameStateSendingFrequency)
         {
             //Update previousTime
             previousTime = currTotalTime;
@@ -243,11 +242,13 @@ void ServerConnector::SendGameStatePackets()
             doc.Accept(writer);
             std::string jsonString = buffer.GetString();
 
+            Minigin::LockMutex();
             SendPacket(PacketTypes::GAME_STATE, jsonString);
+            Minigin::UnlockMutex();
         }
         else
         {
-            float sleepDuration{ gameStateSendingFrequency - deltaTime};
+            float sleepDuration{ m_GameStateSendingFrequency - deltaTime};
             std::this_thread::sleep_for(std::chrono::duration<float>(sleepDuration));
         }
     }
@@ -262,7 +263,7 @@ void ServerConnector::SendPacket(PacketTypes type, const std::string& payload)
     // Send header
     send(m_Socket, reinterpret_cast<char*>(&header), sizeof(header), 0);
 
-    //std::cout << payload << '\n';
+    std::cout << payload << '\n';
     // Send payload
     send(m_Socket, payload.c_str(), static_cast<int>(payload.size()), 0);
 }
@@ -305,6 +306,14 @@ void ServerConnector::ReceivePacket()
 
             if (doc.HasParseError())
             {
+                rapidjson::StringBuffer buffer;
+                rapidjson::Writer<rapidjson::StringBuffer> writer(buffer);
+                doc.Accept(writer);
+
+                std::cout << buffer.GetString() << '\n';
+
+
+
                 std::cerr << "JSON parse error: " << rapidjson::GetParseError_En(doc.GetParseError())
                     << " (" << doc.GetErrorOffset() << ")" << std::endl;
                 return;  // or handle error as needed

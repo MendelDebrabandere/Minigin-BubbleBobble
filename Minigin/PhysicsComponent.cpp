@@ -33,6 +33,38 @@ void PhysicsComponent::SetGrounded(bool val)
 	m_CollisionState.BottomCollision = val;
 }
 
+rapidjson::Value PhysicsComponent::Serialize(rapidjson::Document::AllocatorType& allocator) const
+{
+	rapidjson::Value obj(rapidjson::kObjectType);
+
+	// Serialize basic types
+	obj.AddMember("Gravity", m_Gravity, allocator);
+	obj.AddMember("Collision", m_Collision, allocator);
+	obj.AddMember("Static", m_Static, allocator);
+	obj.AddMember("VerticalSpeed", m_VerticalSpeed, allocator);
+	obj.AddMember("Platform", m_Platform, allocator);
+
+	return obj;
+}
+
+void PhysicsComponent::Deserialize(const rapidjson::Value& obj)
+{
+	if (obj.HasMember("Gravity"))
+		m_Gravity = obj["Gravity"].GetBool();
+
+	if (obj.HasMember("Collision"))
+		m_Collision = obj["Collision"].GetBool();
+
+	if (obj.HasMember("Static"))
+		m_Static = obj["Static"].GetBool();
+
+	if (obj.HasMember("VerticalSpeed"))
+		m_VerticalSpeed = obj["VerticalSpeed"].GetFloat();
+
+	if (obj.HasMember("Platform"))
+		m_Platform = obj["Platform"].GetBool();
+}
+
 //Collision is going to happen if one of the objects has m_Collision to true,
 //They will only overlap if both have m_Collision to false
 void PhysicsComponent::DoCollisionLogic()
