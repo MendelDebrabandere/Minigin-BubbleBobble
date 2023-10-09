@@ -68,3 +68,42 @@ bool RockComponent::CanDamage() const
 {
 	return m_CurrState == RockState::Rolling;
 }
+
+rapidjson::Value RockComponent::Serialize(rapidjson::Document::AllocatorType& allocator) const
+{
+	rapidjson::Value objectValue(rapidjson::kObjectType);
+
+	// Serialize RockState as a string.
+	switch (m_CurrState) {
+	case RockState::Rolling:
+		objectValue.AddMember("rockState", "Rolling", allocator);
+		break;
+	case RockState::Crashing:
+		objectValue.AddMember("rockState", "Crashing", allocator);
+		break;
+	}
+
+	// Serialize other members.
+	objectValue.AddMember("horMoveSpeed", m_HorMoveSpeed, allocator);
+	objectValue.AddMember("moveRight", m_MoveRight, allocator);
+	objectValue.AddMember("crashingTimer", m_CrashingTimer, allocator);
+
+	return objectValue;
+}
+
+
+void RockComponent::Deserialize(const rapidjson::Value& value)
+{
+	// Deserialize RockState.
+	if (value.HasMember("rockState")) {
+		std::string stateStr = value["rockState"].GetString();
+		if (stateStr == "Rolling") m_CurrState = RockState::Rolling;
+		else if (stateStr == "Crashing") m_CurrState = RockState::Crashing;
+	}
+
+	// Deserialize other members.
+	if (value.HasMember("horMoveSpeed")) m_HorMoveSpeed = value["horMoveSpeed"].GetFloat();
+	if (value.HasMember("moveRight")) m_MoveRight = value["moveRight"].GetBool();
+	if (value.HasMember("crashingTimer")) m_CrashingTimer = value["crashingTimer"].GetFloat();
+}
+

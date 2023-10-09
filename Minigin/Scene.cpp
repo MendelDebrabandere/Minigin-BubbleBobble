@@ -89,7 +89,8 @@ rapidjson::Document Scene::SerializeScene() const
 	rapidjson::Value objects(rapidjson::kArrayType);
 	for (const auto& object : m_objects)
 	{
-		objects.PushBack(object->Serialize(allocator), allocator);
+		if (object->IsMarkedAsDead() == false)
+			objects.PushBack(object->Serialize(allocator), allocator);
 	}
 	doc.AddMember("objects", objects, allocator);
 

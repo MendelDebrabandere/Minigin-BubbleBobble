@@ -99,3 +99,55 @@ void FoodComponent::SetFoodType(FoodType type)
 {
 	m_MyType = type;
 }
+
+rapidjson::Value FoodComponent::Serialize(rapidjson::Document::AllocatorType& allocator) const
+{
+	rapidjson::Value objectValue(rapidjson::kObjectType);
+
+	// Serialize FoodType as a string.
+	switch (m_MyType) {
+	case FoodType::Melon:
+		objectValue.AddMember("foodType", "Melon", allocator);
+		break;
+	case FoodType::Fries:
+		objectValue.AddMember("foodType", "Fries", allocator);
+		break;
+	}
+
+	// Serialize State as a string.
+	switch (m_CurrState) {
+	case State::Food:
+		objectValue.AddMember("state", "Food", allocator);
+		break;
+	case State::Points:
+		objectValue.AddMember("state", "Points", allocator);
+		break;
+	}
+
+	// Serialize other members.
+	objectValue.AddMember("timer", m_Timer, allocator);
+
+	return objectValue;
+}
+
+
+void FoodComponent::Deserialize(const rapidjson::Value& value)
+{
+	// Deserialize FoodType.
+	if (value.HasMember("foodType")) {
+		std::string typeStr = value["foodType"].GetString();
+		if (typeStr == "Melon") m_MyType = FoodType::Melon;
+		else if (typeStr == "Fries") m_MyType = FoodType::Fries;
+	}
+
+	// Deserialize State.
+	if (value.HasMember("state")) {
+		std::string stateStr = value["state"].GetString();
+		if (stateStr == "Food") m_CurrState = State::Food;
+		else if (stateStr == "Points") m_CurrState = State::Points;
+	}
+
+	// Deserialize other members.
+	if (value.HasMember("timer")) m_Timer = value["timer"].GetFloat();
+}
+

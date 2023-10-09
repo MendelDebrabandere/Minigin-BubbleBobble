@@ -128,6 +128,55 @@ PlayerMaitaComponent::PlayerMaitaState PlayerMaitaComponent::GetCurrState() cons
 	return m_CurrentState;
 }
 
+rapidjson::Value PlayerMaitaComponent::Serialize(rapidjson::Document::AllocatorType& allocator) const
+{
+	rapidjson::Value objectValue(rapidjson::kObjectType);
+
+	// Serialize PlayerMaitaState as a string.
+	switch (m_CurrentState) {
+	case PlayerMaitaState::Moving:
+		objectValue.AddMember("playerMaitaState", "Moving", allocator);
+		break;
+	case PlayerMaitaState::Hit:
+		objectValue.AddMember("playerMaitaState", "Hit", allocator);
+		break;
+	}
+
+	// Serialize other members.
+	objectValue.AddMember("lastPosX", m_LastPos.x, allocator);
+	objectValue.AddMember("lastPosY", m_LastPos.y, allocator);
+	objectValue.AddMember("timer", m_Timer, allocator);
+	objectValue.AddMember("maxRespawnTimer", m_MaxRespawmTimer, allocator);
+	objectValue.AddMember("invulnerable", m_Invulnerable, allocator);
+	objectValue.AddMember("maxInvulnerableTime", m_MaxInvulnerableTime, allocator);
+	objectValue.AddMember("throwing", m_Throwing, allocator);
+	objectValue.AddMember("rockThrowingTimer", m_RockThrowingTimer, allocator);
+
+	return objectValue;
+}
+
+
+void PlayerMaitaComponent::Deserialize(const rapidjson::Value& value)
+{
+	// Deserialize PlayerMaitaState.
+	if (value.HasMember("playerMaitaState")) {
+		std::string stateStr = value["playerMaitaState"].GetString();
+		if (stateStr == "Moving") m_CurrentState = PlayerMaitaState::Moving;
+		else if (stateStr == "Hit") m_CurrentState = PlayerMaitaState::Hit;
+	}
+
+	// Deserialize other members.
+	if (value.HasMember("lastPosX")) m_LastPos.x = value["lastPosX"].GetFloat();
+	if (value.HasMember("lastPosY")) m_LastPos.y = value["lastPosY"].GetFloat();
+	if (value.HasMember("timer")) m_Timer = value["timer"].GetFloat();
+	if (value.HasMember("maxRespawnTimer")) m_MaxRespawmTimer = value["maxRespawnTimer"].GetFloat();
+	if (value.HasMember("invulnerable")) m_Invulnerable = value["invulnerable"].GetBool();
+	if (value.HasMember("maxInvulnerableTime")) m_MaxInvulnerableTime = value["maxInvulnerableTime"].GetFloat();
+	if (value.HasMember("throwing")) m_Throwing = value["throwing"].GetBool();
+	if (value.HasMember("rockThrowingTimer")) m_RockThrowingTimer = value["rockThrowingTimer"].GetFloat();
+}
+
+
 
 void PlayerMaitaComponent::UpdateAnimVariablesMoving()
 {

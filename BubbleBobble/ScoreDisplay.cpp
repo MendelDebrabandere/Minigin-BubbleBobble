@@ -24,6 +24,25 @@ int ScoreDisplay::GetScore() const
 	return m_score;
 }
 
+rapidjson::Value ScoreDisplay::Serialize(rapidjson::Document::AllocatorType& allocator) const
+{
+	rapidjson::Value objectValue(rapidjson::kObjectType);
+
+	// Serialize the score.
+	objectValue.AddMember("score", m_score, allocator);
+
+	return objectValue;
+}
+
+
+void ScoreDisplay::Deserialize(const rapidjson::Value& value)
+{
+	// Deserialize the score.
+	if (value.HasMember("score"))
+		m_score = value["score"].GetInt();
+}
+
+
 void ScoreDisplay::HandleEvent(FoodComponent::FoodType type)
 {
 	switch (type)

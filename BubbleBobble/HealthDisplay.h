@@ -25,6 +25,9 @@ public:
 
 	int GetHP() const;
 
+	virtual rapidjson::Value Serialize(rapidjson::Document::AllocatorType&) const override;
+	virtual void Deserialize(const rapidjson::Value&) override;
+
 private:
 
 	void HandleEvent(int healthDelta) override;

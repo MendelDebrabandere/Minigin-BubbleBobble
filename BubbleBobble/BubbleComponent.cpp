@@ -262,3 +262,61 @@ void BubbleComponent::SetBlue(bool value)
 {
 	m_Blue = value;
 }
+
+rapidjson::Value BubbleComponent::Serialize(rapidjson::Document::AllocatorType& allocator) const
+{
+	rapidjson::Value objectValue(rapidjson::kObjectType);
+
+	// Serialize BubbleState as a string.
+	switch (m_CurrentState) {
+	case BubbleState::Shooting:
+		objectValue.AddMember("state", "Shooting", allocator);
+		break;
+	case BubbleState::Hovering:
+		objectValue.AddMember("state", "Hovering", allocator);
+		break;
+	case BubbleState::ReachedTop:
+		objectValue.AddMember("state", "ReachedTop", allocator);
+		break;
+	case BubbleState::Popping:
+		objectValue.AddMember("state", "Popping", allocator);
+		break;
+	case BubbleState::EnemyDying:
+		objectValue.AddMember("state", "EnemyDying", allocator);
+		break;
+	}
+
+	// Serialize other members.
+	objectValue.AddMember("directionRight", m_DirectionRight, allocator);
+	objectValue.AddMember("hasEnemyInside", m_HasEnemyInside, allocator);
+	objectValue.AddMember("zenChan", m_ZenChan, allocator);
+	objectValue.AddMember("randomGoToPosX", m_RandomGoToPos.x, allocator);
+	objectValue.AddMember("randomGoToPosY", m_RandomGoToPos.y, allocator);
+	objectValue.AddMember("blue", m_Blue, allocator);
+
+	return objectValue;
+}
+
+
+void BubbleComponent::Deserialize(const rapidjson::Value& value)
+{
+	// Deserialize BubbleState.
+	std::string stateStr = value["state"].GetString();
+	if (stateStr == "Shooting") m_CurrentState = BubbleState::Shooting;
+	else if (stateStr == "Hovering") m_CurrentState = BubbleState::Hovering;
+	else if (stateStr == "ReachedTop") m_CurrentState = BubbleState::ReachedTop;
+	else if (stateStr == "Popping") m_CurrentState = BubbleState::Popping;
+	else if (stateStr == "EnemyDying") m_CurrentState = BubbleState::EnemyDying;
+
+	// Deserialize other members.
+	if (value.HasMember("directionRight")) m_DirectionRight = value["directionRight"].GetBool();
+	if (value.HasMember("hasEnemyInside")) m_HasEnemyInside = value["hasEnemyInside"].GetBool();
+	if (value.HasMember("zenChan")) m_ZenChan = value["zenChan"].GetBool();
+	if (value.HasMember("randomGoToPosX") && value.HasMember("randomGoToPosY")) {
+		m_RandomGoToPos.x = value["randomGoToPosX"].GetFloat();
+		m_RandomGoToPos.y = value["randomGoToPosY"].GetFloat();
+	}
+	if (value.HasMember("blue")) m_Blue = value["blue"].GetBool();
+
+}
+

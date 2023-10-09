@@ -263,7 +263,7 @@ void ServerConnector::SendPacket(PacketTypes type, const std::string& payload)
     // Send header
     send(m_Socket, reinterpret_cast<char*>(&header), sizeof(header), 0);
 
-    std::cout << payload << '\n';
+    //std::cout << payload << '\n';
     // Send payload
     send(m_Socket, payload.c_str(), static_cast<int>(payload.size()), 0);
 }
@@ -285,10 +285,11 @@ void ServerConnector::ReceivePacket()
         // Now that we know the size from the header, receive the payload
         std::vector<char> payloadBuffer(header.packetSize);
         receivedBytes = recv(m_Socket, payloadBuffer.data(), header.packetSize, 0);
-        if (receivedBytes <= 0)
+
+        if (receivedBytes != static_cast<int>(header.packetSize))
         {
-            // Handle disconnect or error
-            return;
+            std::cerr << "Incomplete packet received. Expected " << header.packetSize << " bytes but got " << receivedBytes << " bytes." << std::endl;
+            continue;  // I had a lot of errors due to this, best option is to continue and go to next loop
         }
 
         // Handle packet based on type
@@ -306,13 +307,7 @@ void ServerConnector::ReceivePacket()
 
             if (doc.HasParseError())
             {
-                rapidjson::StringBuffer buffer;
-                rapidjson::Writer<rapidjson::StringBuffer> writer(buffer);
-                doc.Accept(writer);
-
-                std::cout << buffer.GetString() << '\n';
-
-
+                std::cerr << "Malformed JSON: " << payloadBuffer.data() << std::endl;
 
                 std::cerr << "JSON parse error: " << rapidjson::GetParseError_En(doc.GetParseError())
                     << " (" << doc.GetErrorOffset() << ")" << std::endl;

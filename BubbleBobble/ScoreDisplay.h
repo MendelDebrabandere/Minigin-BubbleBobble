@@ -25,6 +25,9 @@ public:
 
 	int GetScore() const;
 
+	virtual rapidjson::Value Serialize(rapidjson::Document::AllocatorType&) const override;
+	virtual void Deserialize(const rapidjson::Value&) override;
+
 private:
 
 	void HandleEvent(FoodComponent::FoodType type) override;

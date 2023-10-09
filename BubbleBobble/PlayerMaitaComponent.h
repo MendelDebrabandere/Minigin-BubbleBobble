@@ -30,6 +30,10 @@ public:
 	PlayerMaitaState GetCurrState() const;
 
 	dae::Subject<int> m_HealthChange;
+
+	virtual rapidjson::Value Serialize(rapidjson::Document::AllocatorType&) const override;
+	virtual void Deserialize(const rapidjson::Value&) override;
+
 private:
 	void UpdateAnimVariablesMoving();
 	void DoRespawnLogic();

@@ -27,6 +27,24 @@ int HealthDisplay::GetHP() const
 	return m_HP;
 }
 
+rapidjson::Value HealthDisplay::Serialize(rapidjson::Document::AllocatorType& allocator) const
+{
+	rapidjson::Value objectValue(rapidjson::kObjectType);
+
+	// Serialize the health points (HP).
+	objectValue.AddMember("HP", m_HP, allocator);
+
+	return objectValue;
+}
+
+void HealthDisplay::Deserialize(const rapidjson::Value& value)
+{
+	// Deserialize the health points (HP).
+	if (value.HasMember("HP")) 
+		m_HP = value["HP"].GetInt();
+}
+
+
 void HealthDisplay::HandleEvent(int healthDelta)
 {
 	m_HP += healthDelta;

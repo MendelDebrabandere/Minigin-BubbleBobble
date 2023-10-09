@@ -108,8 +108,6 @@ rapidjson::Value Transform::Serialize(rapidjson::Document::AllocatorType& alloca
 	// Serialize FacingRight
 	object.AddMember("facingRight", rapidjson::Value(m_FacingRight), allocator);
 
-	// (Optional) Serialize any other properties as needed
-
 	return object;
 }
 
