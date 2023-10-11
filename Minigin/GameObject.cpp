@@ -145,14 +145,16 @@ rapidjson::Value GameObject::Serialize(rapidjson::Document::AllocatorType& alloc
 
 	// Serialize Components
 	rapidjson::Value components(rapidjson::kArrayType);
-	for (const auto& component : m_Components) {
+	for (const auto& component : m_Components)
+	{
 		components.PushBack(component->Serialize(allocator), allocator);
 	}
 	object.AddMember("components", components, allocator);
 
 	// Serialize children
 	rapidjson::Value children(rapidjson::kArrayType);
-	for (const auto& child : m_pChildren) {
+	for (const auto& child : m_pChildren)
+	{
 		children.PushBack(child->Serialize(allocator), allocator);
 	}
 	object.AddMember("children", children, allocator);
@@ -169,7 +171,8 @@ void GameObject::Deserialize(const rapidjson::Value& value)
 	}
 
 	// Deserialize Components (this assumes you have a way of creating components by type)
-	if (value.HasMember("components")) {
+	if (value.HasMember("components"))
+	{
 		const rapidjson::Value& components = value["components"];
 		assert(components.IsArray());
 
@@ -183,11 +186,13 @@ void GameObject::Deserialize(const rapidjson::Value& value)
 	}
 
 	// Deserialize Children
-	if (value.HasMember("children")) {
+	if (value.HasMember("children"))
+	{
 		const rapidjson::Value& children = value["children"];
 		assert(children.IsArray());
 
-		for (const auto& child : children.GetArray()) {
+		for (const auto& child : children.GetArray())
+		{
 			GameObject* childObject = CreateGameObject();
 			childObject->SetParent(this);
 			childObject->Deserialize(child);
