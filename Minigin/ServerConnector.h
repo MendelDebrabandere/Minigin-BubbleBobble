@@ -1,4 +1,5 @@
 #pragma once
+#include <mutex>
 #include <string>
 #include <winsock2.h>
 
@@ -58,6 +59,8 @@ namespace dae
 		Connection m_Connection{};
 
 		SOCKET m_Socket{};
+
+		std::mutex m_SendingMutex{};
 	};
 }
 

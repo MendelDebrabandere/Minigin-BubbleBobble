@@ -260,12 +260,17 @@ void ServerConnector::SendPacket(PacketTypes type, const std::string& payload)
     header.packetType = static_cast<uint16_t>(type);
     header.packetSize = static_cast<uint32_t>(payload.size());
 
+    //Lock mutex so that packages don't accidentally get sent at exactly the same time.
+    m_SendingMutex.lock();
+
     // Send header
     send(m_Socket, reinterpret_cast<char*>(&header), sizeof(header), 0);
 
     //std::cout << payload << '\n';
     // Send payload
     send(m_Socket, payload.c_str(), static_cast<int>(payload.size()), 0);
+
+    m_SendingMutex.unlock();
 }
 
 void ServerConnector::ReceivePacket()
@@ -329,10 +334,14 @@ void ServerConnector::ReceivePacket()
         }
         case PacketTypes::RANDOM_SEED:
         {
+            payloadBuffer.push_back('\0');
+            std::string payload{ payloadBuffer.data() };
+
             // Set your RNG with the received seed
-            std::cout << "RANDOM MULTIPLAYER SEED = " << payloadBuffer[0] << '\n';
+            std::cout << "RANDOM MULTIPLAYER SEED = " << payload << '\n';
             // add set seed as task to the main thread, (randomseed value is thread-local)
-            Minigin::AddTask([=]() {Minigin::SetRandomSeed(payloadBuffer[0]); });
+            int seedNumber{ std::stoi(payload) };
+            Minigin::AddTask([=]() {Minigin::SetRandomSeed(static_cast<unsigned int>(seedNumber)); });
             break;
         }
         }

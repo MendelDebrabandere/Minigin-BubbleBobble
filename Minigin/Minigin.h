@@ -23,8 +23,8 @@ namespace dae
 
 		void Run();
 
-		static void LockMutex() { s_Mutex.lock(); }
-		static void UnlockMutex() { s_Mutex.unlock(); }
+		static void LockMutex() { s_LoopMutex.lock(); }
+		static void UnlockMutex() { s_LoopMutex.unlock(); }
 
 		static void AddTask(const std::function<void()> func) { s_Tasks.push(func); }
 
@@ -32,7 +32,7 @@ namespace dae
 	private:
 		SceneManager* mpSceneManager;
 
-		inline static std::mutex s_Mutex{};
+		inline static std::mutex s_LoopMutex{};
 		inline static std::queue<std::function<void()>> s_Tasks{};
 
 		unsigned int m_RandomSeed{};
