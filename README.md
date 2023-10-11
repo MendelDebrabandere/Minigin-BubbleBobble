@@ -29,3 +29,8 @@ Here is a list of the patterns the game engine contains:
 This is the game I made on the engine. It is a partial remake of the original Bubble Bobble by Taito Corporation.
 This is made as test/proof that the features of the engine actually work, for what is a game engine if no games are made using it.
 The game can be played singleplayer, co-op multiplayer or versus multiplayer. In all 3 cases it supports controller input.
+
+## Networking in Minigin
+One of my teachers in DAE, that used to work at Larian studios told me that, when he worked at Larian, the test for programming interns was to make Tetris with online networking .\
+After hearing this I wanted to add networking to this project, so I started coding this in, but this is my first time ever trying to use networking or sending packets. \
+I am far from finished with this, but I have a good start and can send game state packages and inputs, meaning that it already kind of works. But there is still a lot of work to do and it isn't uncommon to have runtime errors while running online multiplayer in the current state of the project.
